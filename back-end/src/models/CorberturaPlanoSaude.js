@@ -10,8 +10,8 @@ class PlanoDeSaude extends Model {
     };
 
     static associate(models) {
-        this.hasMany(models.Cobertura, { foreignKey: "coberturaId" });
-        this.hasMany(models.PlanoDeSaude, { foreignKey: "planoDeSaudeId" });
+        this.hasMany(models.Cobertura, { foreignKey: "idCobertura" });
+        this.hasMany(models.PlanoDeSaude, { foreignKey: "idPlanoDeSaude" });
     }
 }
 
