@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("tblTelefoneCentral", {
-      idTelefoneCentral: {
-        type: Sequelize.INTEGER,
+    return queryInterface.createTable("tblTelefoneProfissional", {
+      idTelefoneProfissional: {
+        type: Sequelize.INTERGER,
         primaryKey: true,
         autoIncrement: true,
       },
@@ -12,27 +12,20 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      centralId: {
+      createdProfissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
-          model: "tblCentral",
-          key: "idCentral",
+          model: "tblProfissionalDaSaude",
+          key: "idProfissionalDaSaude",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
-      },
-      created_at: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
-      updated_at: {
-        type: Sequelize.DATE,
       },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblTelefoneCentral");
-  },
+    return queryInterface.dropTable("tblTelefoneProfissional");
+  }
 };

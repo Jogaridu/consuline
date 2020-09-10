@@ -12,11 +12,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdEstadoId: {
+      EstadoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
-          model: "estado",
+          model: "tblEstado",
           key: "idEstado",
         },
         onDelete: "CASCADE",
