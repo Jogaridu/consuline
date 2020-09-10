@@ -60,7 +60,22 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: true,
       },
-
+      planoDeSaudeId:{
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        refences:{
+          model:"tblPlanoDeSaude",
+          key:"idPlanoDeSaude"
+        }
+      },
+      enderecoPacienteId:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        refences:{
+          model:"tblEnderecoPaciente",
+          key:"idEnderecoPacienete,"
+        }
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

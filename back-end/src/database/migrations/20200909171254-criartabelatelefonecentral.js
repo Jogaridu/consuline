@@ -12,11 +12,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdCentralId: {
+      centralId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
-          model: "central",
+          model: "tblCentral",
           key: "idCentral",
         },
         onDelete: "CASCADE",
