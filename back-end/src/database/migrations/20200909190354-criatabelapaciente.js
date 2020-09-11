@@ -60,22 +60,30 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: true,
       },
-      planoDeSaudeId:{
+
+      emailValidado: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
+
+      planoDeSaudeId: {
         type: Sequelize.INTEGER,
-        allowNull:false,
-        refences:{
-          model:"tblPlanoDeSaude",
-          key:"idPlanoDeSaude"
+        allowNull: false,
+        refences: {
+          model: "tblPlanoDeSaude",
+          key: "idPlanoDeSaude"
         }
       },
-      enderecoPacienteId:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        refences:{
-          model:"tblEnderecoPaciente",
-          key:"idEnderecoPacienete,"
+
+      enderecoPacienteId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        refences: {
+          model: "tblEnderecoPaciente",
+          key: "idEnderecoPacienete,"
         }
       },
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

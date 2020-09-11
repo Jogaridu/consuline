@@ -13,6 +13,7 @@ class Paciente extends Model {
         rg: DataTypes.STRING,
         cpf: DataTypes.STRING,
         foto: DataTypes.STRING,
+        emailValidado: DataTypes.BOOLEAN,
       },
       {
         sequelize,
