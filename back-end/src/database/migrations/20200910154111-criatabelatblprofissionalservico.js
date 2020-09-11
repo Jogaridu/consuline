@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      createdProfissionalDaSaudeId: {
+      profissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
@@ -18,7 +18,7 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      createdServicoId: {
+      servicoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
