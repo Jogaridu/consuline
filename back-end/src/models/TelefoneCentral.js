@@ -7,9 +7,7 @@ class TelefoneCentral extends Model {
     });
   }
   static associate(models) {
-    this.belongsTo(models.Central, {
-      foreignKey: "centralId",
-    });
+    this.belongsTo(models.Central);
   }
 }
 
