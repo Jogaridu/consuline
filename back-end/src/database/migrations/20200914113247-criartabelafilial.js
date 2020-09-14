@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.TIME,
         allowNull: false,
       },
-      enderecoFilialId: {
+      idEnderecoFilial: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

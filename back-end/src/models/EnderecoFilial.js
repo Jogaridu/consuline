@@ -18,13 +18,9 @@ class EnderecoFilial extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.EnderecoFilial);
-    this.belongsTo(models.Estado, {
-      foreignKey: "cidadeId",
-    });
-    this.belongsTo(models.Cidade, {
-      foreignKey: "estadoId",
-    });
+    this.hasMany(models.Filial);
+    this.belongsTo(models.Cidade);
+    this.belongsTo(models.Estado);
   }
 }
 

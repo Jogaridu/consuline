@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      estadoId: {
+      idEstado: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -38,7 +38,7 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      cidadeId: {
+      idCidade: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
