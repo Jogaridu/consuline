@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -28,12 +28,20 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdCidadeId: {
+      idCidade: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblCidade",
           key: "idCidade",
+        },
+        idEstado: {
+          type: Sequelize.STRING,
+          allowNull: false,
+          refences: {
+            model: "tblEstado",
+            key: "idEstado",
+          },
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -60,5 +68,5 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable("tblEnderecoProfissional");
-  }
+  },
 };

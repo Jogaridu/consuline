@@ -41,16 +41,8 @@ module.exports = {
         allowNull: false,
       },
 
-    }).success(() => {
-      const queryInsertCentral = `insert into tblCentral 
-      (email, login, senha, nome, created_at, updated_at) values 
-      ('centralConsuline@gmail.com', 'admin', 'admin', 'Central Admistradora', NOW(), NOW());`;
-
-      migration.migrator.sequelize.query(queryInsertCentral);
-
-      done();
-    })
-  },
+  })
+},
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable("tblCentral");
