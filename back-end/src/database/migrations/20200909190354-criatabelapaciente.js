@@ -5,7 +5,7 @@ module.exports = {
 
     return queryInterface.createTable("tblPaciente", {
 
-      idPaciente: {
+      pacienteId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -71,7 +71,7 @@ module.exports = {
         allowNull: false,
         refences: {
           model: "tblPlanoDeSaude",
-          key: "idPlanoDeSaude"
+          key: "planoDeSaudeId"
         }
       },
 
@@ -80,7 +80,7 @@ module.exports = {
         allowNull: false,
         refences: {
           model: "tblEnderecoPaciente",
-          key: "idEnderecoPacienete,"
+          key: "enderecoPacienteId,"
         }
       },
 

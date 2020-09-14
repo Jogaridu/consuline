@@ -12,12 +12,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdProfissionalDaSaudeId: {
+      profissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblProfissionalDaSaude",
-          key: "idProfissionalDaSaude",
+          key: "profissionalDaSaudeId",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",

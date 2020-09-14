@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
 
     return queryInterface.createTable("tblServico", {
-      idServico: {
+      servicoId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,

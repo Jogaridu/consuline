@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("tblCentral", {
-      idCentral: {
+      centralId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
