@@ -4,10 +4,13 @@ class TelefoneCentral extends Model {
   static init(sequelize) {
     super.init({
       numero: DataTypes.STRING,
-    });
+
+    }, { sequelize, });
+
   }
+
   static associate(models) {
-    this.belongsTo(models.Central);
+    this.hasMany(models.Central);
   }
 }
 

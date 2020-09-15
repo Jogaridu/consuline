@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -23,6 +23,7 @@ module.exports = {
       login: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       senha: {
         type: Sequelize.STRING,
@@ -30,13 +31,13 @@ module.exports = {
       },
       foto: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       avaliacao: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      enderecoProfissonalId: {
+      enderecoProfissionalId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
@@ -58,5 +59,5 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable("tblProfissionalDaSaude");
-  }
+  },
 };

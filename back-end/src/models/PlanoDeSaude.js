@@ -15,7 +15,6 @@ class PlanoDeSaude extends Model {
     static associate(models) {
         this.belongsToMany(models.Cobertura, {
             through: "tblCoberturaPlanoSaude",
-            as: "planoDeSaude",
         });
     }
 }

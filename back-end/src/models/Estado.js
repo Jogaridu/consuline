@@ -14,10 +14,10 @@ class Estado extends Model {
   }
 
   static associate(models) {
-    this.BelongsToMany(models.Cidade);
-    this.hasMany(models.EnderecoProfissionalDaSaude);
-    this.hasMany(models.EnderecoPaciente);
-    this.hasMany(models.EnderecoFilial);
+    this.belongsTo(models.Cidade);
+    this.belongsTo(models.EnderecoProfissionalDaSaude);
+    this.belongsTo(models.EnderecoPaciente);
+    this.belongsTo(models.EnderecoFilial);
   }
 }
 

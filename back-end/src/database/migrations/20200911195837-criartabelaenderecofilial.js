@@ -2,8 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("tblEnderecoProfissional", {
-      enderecoProfissionalId: {
+    return queryInterface.createTable("tblEnderecoFilial", {
+      enderecoFilialId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -22,43 +22,47 @@ module.exports = {
       },
       complemento: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       cep: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cidadeId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        refences: {
-          model: "tblCidade",
-          key: "cidadeId",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      },
+
       estadoId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        refences: {
+        allownull: false,
+        references: {
           model: "tblEstado",
-          key: "estadoId",
+          key: "idEstado"
         },
-        onDelete: "CASCADE",
         onUpdate: "CASCADE",
+        onDelete: "CASCADE"
       },
+
+      cidadeId: {
+        type: Sequelize.INTEGER,
+        allownull: false,
+        references: {
+          model: "tblCidade",
+          key: "cidadeId"
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+      },
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
       updated_at: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblEnderecoProfissional");
+    return queryInterface.dropTable("tblEnderecoFilial");
   },
 };

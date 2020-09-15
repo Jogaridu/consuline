@@ -10,7 +10,6 @@ class Central extends Model {
     },
       {
         sequelize,
-        tableName="tblCentral"
       });
   }
 

@@ -1,10 +1,10 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 
-class EnderecoPaciente extends Model {
+class EnderecoProfissionalDaSaude extends Model {
   static init(sequelize) {
     super.init(
       {
-        rua: DataTypes.STRING,
+        rua: DataTypes.TEXT,
         bairro: DataTypes.STRING,
         numero: DataTypes.STRING,
         complemento: DataTypes.STRING,
@@ -12,16 +12,16 @@ class EnderecoPaciente extends Model {
       },
       {
         sequelize,
-        tableName: "tblEnderecoPaciente",
+        tableName: "tblEnderecoProfissional",
       }
     );
   }
 
   static associate(models) {
-    this.hasMany(models.Cidade);
-    this.hasMany(models.Estado);
-    // this.belongsTo(models.Pacienete);
+    this.belongsTo(models.Estado);
+    this.belongsTo(models.Cidade);
+    this.hasMany(models.ProfissionalDaSaude);
   }
 }
 
-module.exports = EnderecoPaciente;
+module.exports = EnderecoProfissionalDaSaude;
