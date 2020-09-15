@@ -34,7 +34,7 @@ module.exports = {
         allownull: false,
         references: {
           model: "tblEstado",
-          key: "idEstado"
+          key: "estadoId"
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
@@ -51,11 +51,11 @@ module.exports = {
         onDelete: "CASCADE"
       },
 
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
