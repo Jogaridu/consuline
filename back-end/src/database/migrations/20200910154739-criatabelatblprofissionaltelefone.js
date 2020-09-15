@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      idProfissionalDaSaude: {
+      ProfissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {

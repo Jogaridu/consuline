@@ -1,3 +1,4 @@
+
 const { Sequelize, DataTypes, Model } = require("sequelize");
 
 class ProfissionalDaSaude extends Model {
@@ -21,9 +22,9 @@ class ProfissionalDaSaude extends Model {
 
   static associate(models) {
     this.belongsTo(models.EnderecoProfissionalDaSaude, {
-      foreignKey: "idEnderecoProfissionalDaSaude",
+      foreignKey: "EnderecoProfissionalDaSaudeId",
     });
-    // this.hasMany(models.TelefoneProfissional);
+    this.hasMany(models.TelefoneProfissional);
     // this.belongsToMany(models.Servico, {
     //   through: "tblProfissionalServico",
     // });

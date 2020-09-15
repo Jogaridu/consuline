@@ -14,7 +14,7 @@ class Cidade extends Model {
   }
   static associate(models) {
     this.belongsTo(models.Estado, {
-      foreignKey: "idEstado",
+      foreignKey: "EstadoId",
     });
     this.hasMany(models.EnderecoProfissionalDaSaude);
     this.hasMany(models.EnderecoPaciente);

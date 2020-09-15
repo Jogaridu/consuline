@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      idEnderecoProfissional: {
+      EnderecoProfissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {

@@ -1,7 +1,6 @@
 const { Op } = require("sequelize");
 const Estado = require("../models/Estado");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+
 
 module.exports = {
   async store(req, res) {
@@ -19,11 +18,6 @@ module.exports = {
 
     estado = await Estado.create({ nome, sigla });
 
-    res.status(201).send({
-      estado: {
-        nome: estado.nome,
-        sigla: estado.sigla,
-      },
-    });
+    res.status(201).send(estado);
   },
 };

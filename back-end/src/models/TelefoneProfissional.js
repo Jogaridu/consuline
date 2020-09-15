@@ -8,14 +8,14 @@ class TelefoneProfissional extends Model {
       },
       {
         sequelize,
-        tableName: "tblProfissionalServico",
+        tableName: "tblTelefoneProfissional",
       }
     );
   }
 
   static associate(models) {
     this.belongsTo(models.ProfissionalDaSaude, {
-      foreignKey: "idProfissionalDaSaude",
+      foreignKey: "ProfissionalDaSaudeId",
     });
   }
 }
