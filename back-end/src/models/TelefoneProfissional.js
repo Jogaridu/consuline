@@ -14,7 +14,9 @@ class TelefoneProfissional extends Model {
   }
 
   static associate(models) {
-    this.belongs(models.ProfissionalDaSaude);
+    this.belongsTo(models.ProfissionalDaSaude, {
+      foreignKey: "idProfissionalDaSaude",
+    });
   }
 }
 

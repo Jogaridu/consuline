@@ -18,8 +18,8 @@ class EnderecoPaciente extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Cidade);
-    this.hasMany(models.Estado);
+    this.hasMany(models.Cidade, { foreignKey: "idCidade" });
+    this.hasMany(models.Estado, { foreignKey: "idEstado" });
     // this.belongsTo(models.Pacienete);
   }
 }

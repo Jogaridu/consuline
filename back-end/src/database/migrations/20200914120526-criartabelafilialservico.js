@@ -8,31 +8,31 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      filialId: {
+      idFilial: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "tblFilial",
-          key: "filialId",
+          key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      servicoId: {
+      idServico: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "tblServico",
-          key: "servicoId",
+          key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
       },
     });

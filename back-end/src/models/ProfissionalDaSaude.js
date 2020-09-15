@@ -20,7 +20,9 @@ class ProfissionalDaSaude extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.EnderecoProfissionalDaSaude);
+    this.hasMany(models.EnderecoProfissionalDaSaude, {
+      foreignKey: "idEnderecoProfissionalDaSaude",
+    });
     // this.hasMany(models.TelefoneProfissional);
     // this.belongsToMany(models.Servico, {
     //   through: "tblProfissionalServico",

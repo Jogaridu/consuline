@@ -5,6 +5,7 @@ class Estado extends Model {
     super.init(
       {
         nome: DataTypes.STRING,
+        sigla: DataTypes.STRING,
       },
       {
         sequelize,
@@ -16,8 +17,8 @@ class Estado extends Model {
   static associate(models) {
     this.belongsTo(models.Cidade);
     this.belongsTo(models.EnderecoProfissionalDaSaude);
-    this.belongsTo(models.EnderecoPaciente);
-    this.belongsTo(models.EnderecoFilial);
+    // this.belongsTo(models.EnderecoPaciente);
+    // this.belongsTo(models.EnderecoFilial);
   }
 }
 
