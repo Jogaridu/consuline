@@ -11,7 +11,7 @@ class TelefoneCentral extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Central, { foreignKey: "idCentral" });
+    this.belongsTo(models.Central, { foreignKey: "idCentral" });
   }
 }
 

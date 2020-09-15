@@ -14,11 +14,11 @@ class Filial extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.EnderecoFilial);
+    this.belongsTo(models.EnderecoFilial, { foreignKey: "idEnderecoFilial" });
     this.hasMany(models.TelefoneFilial);
     this.belongsToMany(models.Servico, {
-      through: "tblFilialServico"
-    })
+      through: "tblFilialServico",
+    });
   }
 }
 module.exports = Filial;
