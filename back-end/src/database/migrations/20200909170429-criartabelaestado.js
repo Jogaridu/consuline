@@ -12,13 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-<<<<<<< HEAD
-=======
       sigla: {
         type: Sequelize.STRING,
         allowNull: false,
       },
->>>>>>> 7cf6fa4bf16ef56df5834ec50c6fe094e5e37676
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

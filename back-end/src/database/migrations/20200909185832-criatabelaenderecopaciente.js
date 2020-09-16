@@ -39,11 +39,7 @@ module.exports = {
         allownull: false,
         references: {
           model: "tblEstado",
-<<<<<<< HEAD
-          key: "estadoId"
-=======
           key: "id"
->>>>>>> 7cf6fa4bf16ef56df5834ec50c6fe094e5e37676
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
