@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
+const cadastroEnderecoProfissionalDaSaude = require("./enderecoProfissionalDaSaude");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -14,29 +15,41 @@ module.exports = {
       senha,
       foto,
       avaliacao,
-      idEndereco,
+      endereco,
+      telefone,
     } = req.body;
 
     try {
-      let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
+      const idEndereco = await cadastroEnderecoProfissionalDaSaude.store(
+        endereco
+      );
+
+      if (idEndereco === 404) {
+        return res
+          .status(404)
+          .send({
+            error:
+              "Não foi possivel cadastrar este endereço, tente novamene !!!",
+          });
+      }
+
+      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
         idEndereco
       );
 
-      if (!enderecoProfissionalDaSaude) {
-        return res.status(400).send({ error: "Endreço não encontrado" });
-      }
-
       let profissionalDaSaude = await ProfissionalDaSaude.findOne({
         where: {
-          [Op.or]: [{ login: login }],
+          [Op.or]: [{ login: login }, { crm: crm }, { cpf: cpf }],
         },
       });
       if (profissionalDaSaude) {
-        return res.status(400).send({ error: "Login já cadastrado!!" });
+        return res
+          .status(400)
+          .send({ error: "Login ou crm ou cpf, já cadastrado!!" });
       }
 
       const senhaCripto = await bcrypt.hash(senha, 10);
-     
+
       profissionalDaSaude = await enderecoProfissionalDaSaude.createProfissionalDaSaude(
         {
           cpf,
@@ -56,4 +69,16 @@ module.exports = {
       });
     }
   },
+
+  async index(req,res){
+    let profissionais = await ProfissionalDaSaude.findAll({
+      include:{
+      association:"EnderecoProfissionalDaSaude",
+      attributes:["nome"]
+      }
+    })
+  }
+
+
+
 };

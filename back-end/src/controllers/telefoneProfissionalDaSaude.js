@@ -7,7 +7,6 @@ module.exports = {
     const { numero, idProfissionalDaSaude } = req.body;
 
     try {
-
       let profissionalDaSaude = await ProfissionalDaSaude.findByPk(
         idProfissionalDaSaude
       );
@@ -18,10 +17,9 @@ module.exports = {
           .send({ error: "Profissional da saúde não encontrado(a)!!" });
       }
 
-      let telefoneProfissionalDaSaude = await TelefoneProfissionalDaSaude.createTelefoneProfissionalDaSaude(
+      let telefoneProfissionalDaSaude = await profissionalDaSaude.createTelefoneProfissionalDaSaude(
         {
           numero,
-
         }
       );
 
