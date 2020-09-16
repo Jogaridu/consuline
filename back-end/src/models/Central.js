@@ -7,11 +7,10 @@ class Central extends Model {
       login: DataTypes.STRING,
       senha: DataTypes.TEXT,
       nome: DataTypes.STRING,
-    }, 
-    {
-      sequelize,
-      tableName="tblCentral"
-    });
+    },
+      {
+        sequelize,
+      });
   }
 
   static associate(models) {

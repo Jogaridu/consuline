@@ -16,7 +16,6 @@ class Cidade extends Model {
     this.belongsTo(models.Estado, {
       foreignKey: "EstadoId",
     });
-
     this.hasMany(models.EnderecoProfissionalDaSaude);
     this.hasMany(models.EnderecoPaciente);
     this.hasMany(models.EnderecoFilial);

@@ -23,12 +23,10 @@ class Paciente extends Model {
   }
 
   static associate(models) {
-    this.hasOne(models.EnderecoPaciente, {
-      foreignKey: "enderecoPacienteId",
+    this.belongsTo(models.EnderecoPaciente, {
+      foreignKey: "EnderecoPacienteId",
     });
-    this.hasOne(models.PlanoDeSaude, {
-      foreignKey: "planoDeSaudeId",
-    });
+    this.belongsTo(models.PlanoDeSaude, { foreignKey: "PlanoDeSaudeId" });
   }
 }
 

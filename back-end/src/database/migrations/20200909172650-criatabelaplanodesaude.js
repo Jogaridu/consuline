@@ -5,7 +5,7 @@ module.exports = {
 
     return queryInterface.createTable("tblPlanoDeSaude", {
 
-      idPlanoDeSaude: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -32,12 +32,12 @@ module.exports = {
         allownull: false
       },
 
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
 
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
 

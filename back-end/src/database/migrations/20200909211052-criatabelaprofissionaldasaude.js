@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("tblProfissionalDaSaude", {
-      idProfissionalDaSaude: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -23,6 +23,7 @@ module.exports = {
       login: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       senha: {
         type: Sequelize.STRING,
@@ -30,27 +31,27 @@ module.exports = {
       },
       foto: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       avaliacao: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      createdEnderecoProfissonalId: {
+      EnderecoProfissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblEnderecoProfissional",
-          key: "idEnderecoProfissional",
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
       },
     });
@@ -58,5 +59,5 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable("tblProfissionalDaSaude");
-  }
+  },
 };

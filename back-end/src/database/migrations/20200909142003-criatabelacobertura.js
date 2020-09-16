@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
 
     return queryInterface.createTable("tblCobertura", {
-      idCobertura: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -15,12 +15,12 @@ module.exports = {
         allownull: false
       },
 
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
 
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
 

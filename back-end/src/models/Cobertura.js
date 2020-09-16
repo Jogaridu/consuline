@@ -10,8 +10,10 @@ class Cobertura extends Model {
     };
 
     static associate(models) {
-        this.belongsTo(models.CoberturaPlanoSaude)
-
+        this.belongsToMany(models.PlanoDeSaude, {
+            through: "tblCoberturaPlanoSaude",
+            as: "cobertura",
+        });
     }
 
 }

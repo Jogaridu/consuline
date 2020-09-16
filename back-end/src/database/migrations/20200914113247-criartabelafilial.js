@@ -2,23 +2,26 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("tblEstado", {
+    return queryInterface.createTable("tblFilial", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      nome: {
-        type: Sequelize.STRING,
+      horarioFuncionamento: {
+        type: Sequelize.TIME,
         allowNull: false,
       },
-<<<<<<< HEAD
-=======
-      sigla: {
-        type: Sequelize.STRING,
+      idEnderecoFilial: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "tblEnderecoFilial",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
->>>>>>> 7cf6fa4bf16ef56df5834ec50c6fe094e5e37676
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -31,6 +34,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblEstado");
+    return queryInterface.dropTable("tblFilial");
   },
 };

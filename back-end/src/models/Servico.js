@@ -13,8 +13,13 @@ class Servico extends Model {
     };
 
     static associate(models) {
-        this.belongsTo(models.FilialServico);
-        this.belongsTo(models.ProfissionalServico);
+        this.belongsToMany(models.Filial, {
+            through: "tblFilialServico"
+        });
+
+        this.belongsToMany(models.ProfissionalDaSaude, {
+            through: "tblProfissionalServico"
+        });
     }
 }
 
