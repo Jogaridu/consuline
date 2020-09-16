@@ -1,0 +1,27 @@
+:root{
+    --principal: #403E66;
+    --secundaria: #312F66;
+    --fundo: #EDEDED;
+    --container: #FFF;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.d-block w-100{
+    background-color: blue;
+}
+
+a:link, a:link:hover, a:visited:hover, a:visited
+{ 
+ text-decoration:none; 
+ color: #000;
+} 
