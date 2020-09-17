@@ -80,7 +80,7 @@ module.exports = {
         bairro,
         numero,
         complemento,
-        cep,
+        cep, 
         EstadoId: idEstado,
         CidadeId: idCidade,
       },
