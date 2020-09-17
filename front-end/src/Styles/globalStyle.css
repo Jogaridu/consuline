@@ -1,0 +1,66 @@
+:root {
+  --principal: #403e66;
+  --secundaria: #312f66;
+  --fundo: #ededed;
+  --container: #fff;
+}
+
+@media screen and(min-device-width: 1300px) {
+  h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+  }
+}
+
+@media screen and(max-device-width: 780px) {
+  h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.d-block w-100 {
+  background-color: blue;
+}
+
+a:link,
+a:link:hover,
+a:visited:hover,
+a:visited {
+  text-decoration: none;
+  color: #000;
+}
+
+.botao {
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  font-weight: bold;
+  border: none;
+  color: white;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 400ms ease;
+  background-color: var(--principal);
+  outline: none;
+}
+
+.botao:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--principal);
+  box-shadow: inset 0 0 0 0.9px var(--principal);
+}
+
+.botao:focus {
+  outline: thin dotted;
+  outline: 0px auto -webkit-focus-ring-color;
+  outline-offset: 0px;
+}
