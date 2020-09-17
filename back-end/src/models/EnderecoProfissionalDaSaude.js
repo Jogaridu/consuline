@@ -20,7 +20,7 @@ class EnderecoProfissionalDaSaude extends Model {
   static associate(models) {
     this.belongsTo(models.Estado, { foreignKey: "EstadoId" });
     this.belongsTo(models.Cidade, { foreignKey: "CidadeId" });
-    this.hasMany(models.ProfissionalDaSaude);
+    this.hasOne(models.ProfissionalDaSaude);
   }
 }
 
