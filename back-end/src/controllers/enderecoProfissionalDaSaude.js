@@ -42,10 +42,16 @@ module.exports = {
 
   async index(req, res) {
     let enderecos = await EnderecoProfissionalDaSaude.findAll({
-      include: {
-        association: "Cidade",
-        attributes: ["nome"],
-      },
+      include: [
+        {
+          association: "Cidade",
+          attributes: ["nome"],
+        },
+        {
+          association: "Estado",
+          attributes: ["nome", "sigla"],
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
 
@@ -74,21 +80,25 @@ module.exports = {
       return 404;
     }
 
-    let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.update(
-      {
-        rua,
-        bairro,
-        numero,
-        complemento,
-        cep, 
-        EstadoId: idEstado,
-        CidadeId: idCidade,
-      },
-      {
-        where: { id: id },
-      }
-    );
+    try {
+      let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.update(
+        {
+          rua,
+          bairro,
+          numero,
+          complemento,
+          cep,
+          EstadoId: idEstado,
+          CidadeId: idCidade,
+        },
+        {
+          where: { id: id },
+        }
+      );
 
-    return 200;
+      return 200;
+    } catch (error) {
+      return 404;
+    }
   },
 };

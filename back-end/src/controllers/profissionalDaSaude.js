@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 const enderecoProfissionalDaSaudeController = require("./enderecoProfissionalDaSaude");
+const telefoneProfissionalDaSaudeController = require("./telefoneProfissionalDaSaude");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -59,8 +60,20 @@ module.exports = {
         }
       );
 
-      res.status(201).send(profissionalDaSaude);
+      const telefones = await telefoneProfissionalDaSaudeController.store(
+        telefone,
+        profissionalDaSaude.id
+      );
+
+      if (telefones === 404) {
+        return res
+          .status(404)
+          .send({ error: "Não foi possivel cadastrar telefone !!" });
+      }
+      
+      res.status(201).send({ profissionalDaSaude, telefones });
     } catch (error) {
+
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente ",
       });
@@ -69,20 +82,23 @@ module.exports = {
 
   async index(req, res) {
     let profissionais = await ProfissionalDaSaude.findAll({
-      include: {
-        association: "EnderecoProfissionalDaSaude",
-        attributes: [
-          "rua",
-          "bairro",
-          "numero",
-          "complemento",
-          "cep",
-          "EstadoId",
-          "CidadeId",
-        ],
-      },
+      include: [
+        {
+          association: "EnderecoProfissionalDaSaude",
+          attributes: [
+            "rua",
+            "bairro",
+            "numero",
+            "complemento",
+            "cep",
+            "EstadoId",
+            "CidadeId",
+          ],
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
+
     res.status(200).send(profissionais);
   },
 
@@ -124,6 +140,14 @@ module.exports = {
       return res.status(404).send({ error: "Profisional não encontrado!!" });
     }
 
+    let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
+      profissionalDaSaude.EnderecoProfissionalDaSaudeId
+    );
+
+    if (!enderecoProfissionalDaSaude) {
+      return res.status(404).send({ error: "Endereço não encontrado!!" });
+    }
+
     const statusUpdateEndereco = await enderecoProfissionalDaSaudeController.update(
       endereco,
       profissionalDaSaude.EnderecoProfissionalDaSaudeId
@@ -134,8 +158,32 @@ module.exports = {
         .status(404)
         .send({ error: "Não foi possivel atualizar o endereço" });
     }
-    return res.status(200);
+
     try {
-    } catch (error) {} 
+      const senhaCripto = await bcrypt.hash(senha, 10);
+
+      let profissionalDaSaudeUpdate = await ProfissionalDaSaude.update(
+        {
+          cpf,
+          nome,
+          crm,
+          login,
+          senha: senhaCripto,
+          foto,
+          avaliacao,
+          telefone,
+        },
+        {
+          where: { id: id },
+        }
+      );
+
+      res.status(200).send(profissionalDaSaudeUpdate);
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não foi possivel atualizar profissional, verifique se os dados cpf, crm ou login não estão cadastrados em outro usuario",
+      });
+    }
   },
 };
