@@ -9,7 +9,7 @@
     "criaTabelas": "npx sequelize db:migrate",
     "criaDados": "npx sequelize db:seed:all",
     "apagaTabelas": "npx sequelize db:migrate:undo:all",
-    "apRaagaDados": "npx sequelize db:seed:undo:all"
+    "apagaDados": "npx sequelize db:seed:undo:all"
   },
   "author": "Bruno, Daniel, Jorge, Nicolas e Vinicius",
   "license": "ISC",
