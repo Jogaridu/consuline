@@ -3,10 +3,15 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("tblFilial", {
-      filialId: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      nome: {
+        type: Sequelize.STRING,
+        allowNull: false,
+
       },
       horarioFuncionamento: {
         type: Sequelize.TIME,
@@ -17,7 +22,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: "tblEnderecoFilial",
-          key: "enderecoFilialId",
+          key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",

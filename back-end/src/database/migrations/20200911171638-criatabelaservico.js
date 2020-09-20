@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
 
     return queryInterface.createTable("tblServico", {
-      servicoId: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -16,14 +16,24 @@ module.exports = {
       },
 
       descricao: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allownull: false
       },
 
       imagem: {
         type: Sequelize.STRING,
         allownull: false
-      }
+      },
+
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
 
     })
   },

@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: "tblFilial",
-          key: "filialId",
+          key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: "tblServico",
-          key: "servicoId",
+          key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",

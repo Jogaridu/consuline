@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("tblEnderecoProfissional", {
-      enderecoProfissionalId: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -28,22 +28,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      cidadeId: {
+      CidadeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblCidade",
-          key: "cidadeId",
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      estadoId: {
+      EstadoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblEstado",
-          key: "estadoId",
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",

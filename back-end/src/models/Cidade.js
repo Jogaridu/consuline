@@ -13,11 +13,10 @@ class Cidade extends Model {
     );
   }
   static associate(models) {
-    this.hasMany(models.Estado);
-
-    this.hasMany(models.EnderecoProfissionalDaSaude);
-    this.belongsTo(models.EnderecoPaciente);
-    this.hasMany(models.EnderecoFilial);
+    this.belongsTo(models.Estado);
+    // this.belongsTo(models.EnderecoProfissionalDaSaude);
+    // this.belongsTo(models.EnderecoPaciente);
+    // this.hasMany(models.EnderecoFilial);
   }
 }
 

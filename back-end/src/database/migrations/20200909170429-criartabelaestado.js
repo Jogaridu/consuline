@@ -3,12 +3,16 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("tblEstado", {
-      estadoId: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
       nome: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      sigla: {
         type: Sequelize.STRING,
         allowNull: false,
       },
