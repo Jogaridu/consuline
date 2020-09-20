@@ -192,11 +192,13 @@ module.exports = {
 
                     filialBuscado.update(dados);
 
+                    filialBuscado.setServicos(servicos);
+
                     res.status(200).send("Filial atualizada");
 
                 }
 
-                res.status(200).send("Filial deu nao");
+                res.status(200).send("Endereco inválido, ajuste o ID");
 
             }
 
@@ -205,7 +207,7 @@ module.exports = {
 
 
         } catch (error) {
-
+            res.status(404).send({ erro: "Filial não encontrada" });
         }
     }
 }
