@@ -395,7 +395,8 @@
   #oferecimento {
     width: 100%;
     height: 450px;
-    background-color: var(--fundo);
+    /* background-color: var(--fundo); */
+    background-color: red;
     box-sizing: border-box;
   }
 
