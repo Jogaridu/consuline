@@ -8,11 +8,16 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      nome: {
+        type: Sequelize.STRING,
+        allowNull: false,
+
+      },
       horarioFuncionamento: {
         type: Sequelize.TIME,
         allowNull: false,
       },
-      idEnderecoFilial: {
+      enderecoFilialId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {

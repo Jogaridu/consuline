@@ -14,7 +14,7 @@ class TelefoneFilial extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Filial, { foreignKey: "idFilial" });
+    this.belongsTo(models.Filial);
   }
 }
 
