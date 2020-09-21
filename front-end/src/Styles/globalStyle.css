@@ -6,6 +6,10 @@
     --estbtn: #999
 }
 
+body {
+  user-select: none;
+}
+
 @media screen and(min-device-width: 1300px) {
   h1 {
     font-family: "Roboto", sans-serif;

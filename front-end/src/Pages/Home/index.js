@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import Slider from "react-slick";
@@ -35,22 +35,28 @@ import iconeTelefone from "../../Assets/phone.png";
 import iconeTelefoneMobile from "../../Assets/phone (1).png";
 import menuMobile from "../../Assets/open-menu (1).png";
 import slider3 from "../../Assets/slider3.jpg";
+import api from "../../Services/api";
 
 function Home() {
-  const [size, setSize] = useState(2);
+  const [size, setSize] = useState(null);
   const [display, setDisplay] = useState("none");
+  const [filiais, setFiliais] = useState([]);
+  const [servicosFilial, setServicosFilial] = useState([]);
 
   const tamanhoTela = () => {
-    var width = window.innerWidth;
+    const width = window.innerWidth;
 
-    if (width.value > 850) {
+    if (width > 720) {
       setSize(3);
     } else {
       setSize(1);
     }
   };
-  
-  console.log(size);
+
+  useEffect(() => {
+    tamanhoTela();
+    carregarFiliais();
+  }, []);
 
   const settings = {
     dots: true,
@@ -79,6 +85,35 @@ function Home() {
       menu.style.display = `${display}`;
     }
   };
+
+  const carregarFiliais = async () => {
+
+    try {
+      const filiais = await api.get("/filiais");
+
+      setFiliais(filiais.data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const buscarServicos = async () => {
+
+    const select = document.getElementById("selectServico");
+
+    const filialIdSelecionada = select.options[select.selectedIndex].getAttribute("values");
+
+    try {
+
+      const filial = await api.get(`/filial/${filialIdSelecionada}`);
+
+      setServicosFilial(filial.data.Servicos);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -322,85 +357,27 @@ function Home() {
             <h1>Nossos Serviços</h1>
             <label>Filiais</label>
             <Form>
-              <Form.Group controlId="exampleForm.SelectCustom">
-                <Form.Control as="select" custom>
-                  <option>Osasco</option>
-                  <option>Carapicuiba</option>
-                  <option>Jandira</option>
-                  <option>Barueri</option>
-                  <option>Itapevi</option>
+              <Form.Group controlId="exampleForm.SelectCustom" onChange={() => buscarServicos()}>
+                <Form.Control as="select" custom id="selectServico">
+                  {filiais.map(filial => (<option values={filial.id}>{filial.nome}</option>))}
                 </Form.Control>
               </Form.Group>
             </Form>
+
           </div>
           <div id="carrossel">
             <Slider {...settings}>
-              <div className="cardCarousel">
-                <div className="card">
-                  <h1>Cliníco Geral</h1>
-                  <img src={imgClinico} alt="Imagem Card" />
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Odio maxime quos eaque totam, quod harum neque.quod harum
-                    neque
-                  </p>
+              {servicosFilial.map(servico => (
+                <div className="cardCarousel">
+                  <div className="card">
+                    <h1>{servico.nome}</h1>
+                    <img src={imgClinico} alt="Imagem Card" />
+                    <p>
+                      {servico.descricao}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="cardCarousel">
-                <div className="card">
-                  <h1>Fisioterapia</h1>
-                  <img src={imgFisioterapia} alt="Imagem Card" />
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Odio maxime quos eaque totam, quod harum neque.quod harum
-                    neque
-                  </p>
-                </div>
-              </div>
-              <div className="cardCarousel">
-                <div className="card">
-                  <h1>Cardiologia</h1>
-                  <img src={imgCardiologia} alt="Imagem Card" />
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Odio maxime quos eaque totam, quod harum neque.quod harum
-                    neque
-                  </p>
-                </div>
-              </div>
-              <div className="cardCarousel">
-                <div className="card">
-                  <h1>Cliníco Geral</h1>
-                  <img src={imgCardiologia} alt="Imagem Card" />
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Odio maxime quos eaque totam, quod harum neque.quod harum
-                    neque
-                  </p>
-                </div>
-              </div>
-              <div className="cardCarousel">
-                <div className="card">
-                  <h1>Cliníco Geral</h1>
-                  <img src={imgCardiologia} alt="Imagem Card" />
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Odio maxime quos eaque totam, quod harum neque.quod harum
-                    neque
-                  </p>
-                </div>
-              </div>
-              <div className="cardCarousel">
-                <div className="card">
-                  <h1>Cliníco Geral</h1>
-                  <img src={imgCardiologia} alt="Imagem Card" />
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Odio maxime quos eaque totam, quod harum neque.quod harum
-                    neque
-                  </p>
-                </div>
-              </div>
+              ))}
             </Slider>
           </div>
         </section>
@@ -611,15 +588,15 @@ function Home() {
             </div>
           </div>
         </footer>
-      </body>
+      </body >
     </>
   );
 }
 
 
-window.addEventListener("scroll", function () {
-  var nav = document.querySelector("header nav");
-  nav.classList.toggle("sticky", window.scrollY > 0);
-});
+// window.addEventListener("scroll", function () {
+//   var nav = document.querySelector("header nav");
+//   nav.classList.toggle("sticky", window.scrollY > 0);
+// });
 
 export default Home;

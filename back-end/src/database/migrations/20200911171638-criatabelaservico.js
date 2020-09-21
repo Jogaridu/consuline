@@ -16,14 +16,24 @@ module.exports = {
       },
 
       descricao: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allownull: false
       },
 
       imagem: {
         type: Sequelize.STRING,
         allownull: false
-      }
+      },
+
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
 
     })
   },
