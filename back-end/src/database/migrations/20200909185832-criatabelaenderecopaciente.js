@@ -26,7 +26,7 @@ module.exports = {
 
       complemento: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       cep: {
@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
       },
 
-      idEstado: {
+      estadoId: {
         type: Sequelize.INTEGER,
         allownull: false,
         references: {
@@ -45,7 +45,7 @@ module.exports = {
         onDelete: "CASCADE"
       },
 
-      idCidade: {
+      cidadeId: {
         type: Sequelize.INTEGER,
         allownull: false,
         references: {
