@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 const enderecoProfissionalDaSaudeController = require("./enderecoProfissionalDaSaude");
-const telefoneProfissionalDaSaudeController = require("./telefoneProfissionalDaSaude");
+const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -60,7 +60,7 @@ module.exports = {
         }
       );
 
-      const telefones = await telefoneProfissionalDaSaudeController.store(
+      const telefones = await telefoneProfissionalController.store(
         telefone,
         profissionalDaSaude.id
       );
@@ -70,10 +70,9 @@ module.exports = {
           .status(404)
           .send({ error: "Não foi possivel cadastrar telefone !!" });
       }
-      
+
       res.status(201).send({ profissionalDaSaude, telefones });
     } catch (error) {
-
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente ",
       });
@@ -81,29 +80,46 @@ module.exports = {
   },
 
   async index(req, res) {
-    let profissionais = await ProfissionalDaSaude.findAll({
-      include: [
-        {
-          association: "EnderecoProfissionalDaSaude",
-          attributes: [
-            "rua",
-            "bairro",
-            "numero",
-            "complemento",
-            "cep",
-            "EstadoId",
-            "CidadeId",
-          ],
-        },
-      ],
-      order: [["createdAt", "DESC"]],
-    });
+    try {
+      let profissionais = await ProfissionalDaSaude.findAll({
+        include: [
+          {
+            association: "EnderecoProfissionalDaSaude",
+            attributes: [
+              "rua",
+              "bairro",
+              "numero",
+              "complemento",
+              "cep",
+              "EstadoId",
+              "CidadeId",
+            ],
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+      });
 
-    res.status(200).send(profissionais);
+      let arrayProfissionais = new Array();
+
+      for (let i = 0; i < profissionais.length; i++) {
+        let dadosProfissional = profissionais[i];
+        const telefones = await telefoneProfissionalController.buscarIdProfissional(
+          profissionais[i].id
+        );
+        let profissional = { dadosProfissional, telefones };
+        arrayProfissionais[i] = { profissional };
+      }
+      res.status(200).send(arrayProfissionais);
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não foi possivel listar todo(a)s os profissionais, tente noamene ",
+      });
+    }
   },
 
   async delete(req, res) {
-    const { id } = req.body;
+    const { id } = req.params;
 
     // const token = req.headers.authorization;
 
@@ -113,7 +129,28 @@ module.exports = {
     if (!profissionalDaSaude) {
       return res
         .status(404)
-        .send({ erro: "Profissiona da saúde não encontrado." });
+        .send({ erro: "Profissional da saúde não encontrado(a)." });
+    }
+
+    const statusDeleteEndereco = await enderecoProfissionalDaSaudeController.delete(
+      profissionalDaSaude.EnderecoProfissionalDaSaudeId
+    );
+
+    if (statusDeleteEndereco === 404) {
+      return res.status(404).send({
+        error:
+          "Não foi possivel deletar o enderço desse profissional, tente novamente",
+      });
+    }
+
+    const statusDeleteTelefone = await telefoneProfissionalController.deleteAll(
+      profissionalDaSaude.id
+    );
+
+    if (statusDeleteTelefone === 404) {
+      return res.status(404).send({
+        error: "Não foi possivel excluir os telefones deste profissional",
+      });
     }
 
     await profissionalDaSaude.destroy();
@@ -137,7 +174,7 @@ module.exports = {
     const profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
 
     if (!profissionalDaSaude) {
-      return res.status(404).send({ error: "Profisional não encontrado!!" });
+      return res.status(404).send({ error: "Profisional não encontrado(a)!!" });
     }
 
     let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
@@ -154,9 +191,22 @@ module.exports = {
     );
 
     if (statusUpdateEndereco === 404) {
-      return res
+      return res.status(404).send({
+        error: "Não foi possivel atualizar o endereço, tente novamente",
+      });
+    }
+
+    const statusUpdateTelefone = await telefoneProfissionalController.update(
+      telefone,
+      id
+    );
+
+    if (statusUpdateTelefone === 404) {
+      res
         .status(404)
-        .send({ error: "Não foi possivel atualizar o endereço" });
+        .send({
+          error: "Não foi possivel atualizar os telefones, tente novamente",
+        });
     }
 
     try {
@@ -171,7 +221,6 @@ module.exports = {
           senha: senhaCripto,
           foto,
           avaliacao,
-          telefone,
         },
         {
           where: { id: id },
@@ -182,8 +231,44 @@ module.exports = {
     } catch (error) {
       return res.status(500).send({
         error:
-          "Não foi possivel atualizar profissional, verifique se os dados cpf, crm ou login não estão cadastrados em outro usuario",
+          "Não foi possivel atualizar profissional, verifique se os dados cpf, crm ou login não estão cadastrados em outro usuario(a)",
       });
     }
+  },
+
+  async buscarId(req, res) {
+    const { id } = req.params;
+    let dados = await ProfissionalDaSaude.findByPk(id, {
+      include: [
+        {
+          association: "EnderecoProfissionalDaSaude",
+          attributes: [
+            "rua",
+            "bairro",
+            "numero",
+            "complemento",
+            "cep",
+            "EstadoId",
+            "CidadeId",
+          ],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+
+    const telefones = await telefoneProfissionalController.buscarIdProfissional(
+      dados.id
+    );
+
+    if (telefones === 404) {
+      return res.status(404).send({
+        error:
+          "Erro ao listar telefones desse(a) profissional, tente novamente",
+      });
+    }
+
+    const profissional = { dados, telefones };
+
+    res.status(200).send({ profissional });
   },
 };

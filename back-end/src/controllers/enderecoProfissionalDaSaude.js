@@ -101,4 +101,16 @@ module.exports = {
       return 404;
     }
   },
+
+  async delete(id) {
+    
+    let endereco = await EnderecoProfissionalDaSaude.findByPk(id);
+    if (!endereco) {
+      return 404;
+    }
+
+    await endereco.destroy();
+
+    return 204;
+  },
 };
