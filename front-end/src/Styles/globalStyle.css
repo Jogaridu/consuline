@@ -69,4 +69,7 @@ a:visited {
   outline: thin dotted;
   outline: 0px auto -webkit-focus-ring-color;
   outline-offset: 0px;
+  border: 0px
 }
+
+

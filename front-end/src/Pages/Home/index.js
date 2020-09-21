@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { Carousel, Button, Form, Card } from "react-bootstrap";
 import "./styles.css";
 import "./responsive.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import slider1 from "../../Assets/slider1.jpg";
 import slider2 from "../../Assets/slider2.jpg";
@@ -38,7 +40,7 @@ import slider3 from "../../Assets/slider3.jpg";
 import api from "../../Services/api";
 
 function Home() {
-  const [size, setSize] = useState(null);
+  const [size, setSize] = useState();
   const [display, setDisplay] = useState("none");
   const [filiais, setFiliais] = useState([]);
   const [servicosFilial, setServicosFilial] = useState([]);
@@ -56,6 +58,7 @@ function Home() {
   useEffect(() => {
     tamanhoTela();
     carregarFiliais();
+    scrollNav();
   }, []);
 
   const settings = {
@@ -63,7 +66,7 @@ function Home() {
     infinite: true,
     speed: 500,
     slidesToShow: size,
-    slidesToScroll: 3,
+    slidesToScroll: size,
   };
 
   const go = (elem) => {
@@ -74,11 +77,25 @@ function Home() {
     });
   };
 
-  const menuItensMobile = () => {
+  const scrollNav = () => {
+    window.addEventListener("scroll", function () {
+      var nav = document.querySelector("#container-menu");
+
+      if(nav != null) {
+        nav.classList.toggle("sticky", window.scrollY > 0);
+      }
+      
+    });
+  };
+
+  const menuItensMobile = (d) => {
     var menu = document.getElementById("menu-itens-mobile");
 
     if (display === "none") {
       setDisplay("block");
+      menu.style.display = `${display}`;
+    } else if (d == "none") {
+      setDisplay("none");
       menu.style.display = `${display}`;
     } else {
       setDisplay("none");
@@ -87,33 +104,30 @@ function Home() {
   };
 
   const carregarFiliais = async () => {
-
     try {
       const filiais = await api.get("/filiais");
 
       setFiliais(filiais.data);
-
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const buscarServicos = async () => {
-
     const select = document.getElementById("selectServico");
 
-    const filialIdSelecionada = select.options[select.selectedIndex].getAttribute("values");
+    const filialIdSelecionada = select.options[
+      select.selectedIndex
+    ].getAttribute("values");
 
     try {
-
       const filial = await api.get(`/filial/${filialIdSelecionada}`);
 
       setServicosFilial(filial.data.Servicos);
-
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -123,29 +137,53 @@ function Home() {
         </div>
         <div id="menu-itens-mobile">
           <ul>
-            <li>
-              <a href="#container-oferecimento">O que oferecemos?</a>
+            <li
+              onClick={() => {
+                go("#container-oferecimento");
+                menuItensMobile(setDisplay("none"));
+              }}
+            >
+              O que oferecemos?
             </li>
-            <li>
-              <a href="#container-oferecimento">
-                Como se previnir do covid-19?
-              </a>
+            <li
+              onClick={() => {
+                go("#covid");
+                menuItensMobile(setDisplay("none"));
+              }}
+            >
+              Como se previnir do covid-19?
             </li>
-            <li>
-              <a href="#servicos">Nossos Serviços</a>
+            <li
+              onClick={() => {
+                go("#servicos");
+                menuItensMobile(setDisplay("none"));
+              }}
+            >
+              Nossos Serviços
             </li>
-            <li>
-              <a href="#hospitais">Nossos Hospitais</a>
+            <li
+              onClick={() => {
+                go("#hospitais");
+                menuItensMobile(setDisplay("none"));
+              }}
+            >
+              Nossos Hospitais
             </li>
-            <li>
-              <a href="#app">Conheça nosso App</a>
+            <li
+              onClick={() => {
+                go("#app");
+                menuItensMobile(setDisplay("none"));
+              }}
+            >
+              Conheça nosso App
             </li>
-            <li>
-              <a href="#sobre">Sobre Nós</a>
-            </li>
-
-            <li>
-              <Link to="/login"> Admin </Link>
+            <li
+              onClick={() => {
+                go("#sobre");
+                menuItensMobile(setDisplay("none"));
+              }}
+            >
+              Sobre Nós
             </li>
           </ul>
         </div>
@@ -236,7 +274,11 @@ function Home() {
                 aplicativo
               </h2>
               <div className="containerBotao">
-                <button type="button" className="botao">
+                <button
+                  onClick={() => go("#app")}
+                  type="button"
+                  className="botao"
+                >
                   {" "}
                   Saiba Mais
                 </button>
@@ -259,13 +301,23 @@ function Home() {
           <h1>O que oferecemos?</h1>
           <div id="oferecimento">
             <div id="container-card-oferecimento">
-              <div className="card-oferecimento">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+                className="card-oferecimento"
+              >
                 <div className="img-card-oferecimento">
                   <img src={iconeAgendamento} alt="Icone Especialidade" />
                 </div>
                 <h1>Agendamento Online</h1>
               </div>
-              <div className="card-oferecimento">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1300"
+                data-aos-offset="250"
+                className="card-oferecimento"
+              >
                 <div className="img-card-oferecimento">
                   <img src={iconeMedico} alt="Icone Especialidade" />
                 </div>
@@ -273,7 +325,12 @@ function Home() {
                   Consultas <br /> online/presencial
                 </h1>
               </div>
-              <div className="card-oferecimento">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1600"
+                data-aos-offset="300"
+                className="card-oferecimento"
+              >
                 <div className="img-card-oferecimento">
                   <img src={iconeCovid} alt="Icone Especialidade" />
                 </div>
@@ -287,10 +344,29 @@ function Home() {
 
         <section id="covid">
           <div id="container-covid">
-            <h1 id="tituloMobile">Como se previnir do Covid-19?</h1>
+            <h1
+              id="tituloMobile"
+              data-aos="fade-up"
+              data-aos-delay="80"
+              data-aos-duration="900"
+            >
+              Como se previnir do Covid-19?
+            </h1>
             <div id="img-covid">
-              <h1>Como se previnir do Covid-19?</h1>
-              <img src={fundoCovid} alt="Médicos" />
+              <h1
+                data-aos="fade-right"
+                data-aos-delay="80"
+                data-aos-duration="900"
+              >
+                Como se previnir do Covid-19?
+              </h1>
+              <img
+                data-aos="fade-right"
+                data-aos-delay="80"
+                data-aos-duration="1900"
+                src={fundoCovid}
+                alt="Médicos"
+              />
             </div>
             <div id="dicas-covid">
               <div id="container-card-dicas">
@@ -355,26 +431,30 @@ function Home() {
         <section id="servicos">
           <div id="tituloSection">
             <h1>Nossos Serviços</h1>
-            <label>Filiais</label>
-            <Form>
-              <Form.Group controlId="exampleForm.SelectCustom" onChange={() => buscarServicos()}>
-                <Form.Control as="select" custom id="selectServico">
-                  {filiais.map(filial => (<option values={filial.id}>{filial.nome}</option>))}
-                </Form.Control>
-              </Form.Group>
-            </Form>
-
+            <div id="selectFiliais">
+              <label>Filiais</label>
+              <Form>
+                <Form.Group
+                  controlId="exampleForm.SelectCustom"
+                  onChange={() => buscarServicos()}
+                >
+                  <Form.Control as="select" custom id="selectServico">
+                    {filiais.map((filial) => (
+                      <option values={filial.id}>{filial.nome}</option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+              </Form>
+            </div>
           </div>
           <div id="carrossel">
             <Slider {...settings}>
-              {servicosFilial.map(servico => (
+              {servicosFilial.map((servico) => (
                 <div className="cardCarousel">
                   <div className="card">
                     <h1>{servico.nome}</h1>
                     <img src={imgClinico} alt="Imagem Card" />
-                    <p>
-                      {servico.descricao}
-                    </p>
+                    <p>{servico.descricao}</p>
                   </div>
                 </div>
               ))}
@@ -386,7 +466,12 @@ function Home() {
           <div id="listaEndereco">
             <h1>Nossos Hospitais</h1>
 
-            <div id="containerEnderecos">
+            <div
+              data-aos="fade-right"
+              data-aos-delay="80"
+              data-aos-duration="900"
+              id="containerEnderecos"
+            >
               <div className="enderecos">
                 <span> Rua Teste Alvez da Silva </span>
                 <img id="seta" src={seta} alt="seta" />
@@ -499,9 +584,30 @@ function Home() {
           <div id="container-app">
             <div id="titulo">
               <div id="container-titulo-app">
-                <span> CONHEÇA NOSSO APP </span>
-                <span> CONHEÇA NOSSO APP </span>
-                <h1> CONHEÇA NOSSO APP </h1>
+                <span
+                  data-aos="fade-right"
+                  data-aos-delay="50"
+                  data-aos-duration="1000"
+                >
+                  {" "}
+                  CONHEÇA NOSSO APP{" "}
+                </span>
+                <span
+                  data-aos="fade-right"
+                  data-aos-delay="50"
+                  data-aos-duration="1600"
+                >
+                  {" "}
+                  CONHEÇA NOSSO APP{" "}
+                </span>
+                <h1
+                  data-aos="fade-right"
+                  data-aos-delay="50"
+                  data-aos-duration="2100"
+                >
+                  {" "}
+                  CONHEÇA NOSSO APP{" "}
+                </h1>
               </div>
               <img src={iconePlataformas} alt="icone plataformas" />
             </div>
@@ -510,16 +616,36 @@ function Home() {
             </div>
             <div id="container-vantagens">
               <h2> VANTAGENS DE TER NOSSO APP: </h2>
-              <div id="vantagens">
+              <div
+                data-aos="fade-left"
+                data-aos-delay="50"
+                data-aos-duration="1600"
+                id="vantagens"
+              >
                 <h3>Consultas Online</h3>
               </div>
-              <div id="vantagens">
+              <div
+                data-aos="fade-left"
+                data-aos-delay="60"
+                data-aos-duration="2100"
+                id="vantagens"
+              >
                 <h3>Agendamentos Online</h3>
               </div>
-              <div id="vantagens">
+              <div
+                data-aos="fade-left"
+                data-aos-delay="70"
+                data-aos-duration="2600"
+                id="vantagens"
+              >
                 <h3>Resultado de Exames</h3>
               </div>
-              <div id="vantagens">
+              <div
+                data-aos="fade-left"
+                data-aos-delay="80"
+                data-aos-duration="3100"
+                id="vantagens"
+              >
                 <h3>Atendimento Rápido</h3>
               </div>
             </div>
@@ -527,10 +653,28 @@ function Home() {
         </section>
 
         <section id="sobre">
-          <div id="img-fundo-sobre"></div>
+          <div
+            data-aos="fade-right"
+            data-aos-delay="50"
+            data-aos-duration="1000"
+            data-aos-offset="200"
+            id="img-fundo-sobre"
+          ></div>
           <div id="infrm-sobre">
-            <h1>Sobre Nós</h1>
-            <p>
+            <h1
+              data-aos="fade-right"
+              data-aos-delay="50"
+              data-aos-duration="1000"
+              data-aos-offset="200"
+            >
+              Sobre Nós
+            </h1>
+            <p
+              data-aos="fade-down"
+              data-aos-delay="50"
+              data-aos-duration="1000"
+              data-aos-offset="100"
+            >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
               enim eveniet, harum labore quia quibusdam saepe aut laborum
               asperiores dicta aliquam tempora eaque ut voluptatibus ex velit
@@ -543,7 +687,13 @@ function Home() {
               aut molestiae exercitationem perspiciatis nulla sit! In similique
               omnis repudiandae magni nulla! Commodi.
             </p>
-            <div id="container-card-sobre">
+            <div
+              data-aos="fade-down"
+              data-aos-delay="50"
+              data-aos-duration="1000"
+              data-aos-offset="200"
+              id="container-card-sobre"
+            >
               <div className="card-sobre">
                 <img src={iconeMissao} alt="Icone Sobre" />
                 <h1>Missão</h1>
@@ -588,15 +738,11 @@ function Home() {
             </div>
           </div>
         </footer>
-      </body >
+      </body>
     </>
   );
 }
 
-
-// window.addEventListener("scroll", function () {
-//   var nav = document.querySelector("header nav");
-//   nav.classList.toggle("sticky", window.scrollY > 0);
-// });
+AOS.init();
 
 export default Home;

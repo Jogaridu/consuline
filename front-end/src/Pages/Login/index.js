@@ -30,8 +30,8 @@ const Login = () => {
                 </div>
 
                 <div className="conteiner-botoes">
-                <Link to="/"><button type="button"> Voltar</button></Link>
-                  <button type="button"> 
+                <Link to="/"><button className="botao" type="button"> Voltar</button></Link>
+                  <button className="botao" type="button"> 
                     Iniciar sessão
                   </button>
                 </div>
