@@ -3,7 +3,7 @@ const Estado = require("../models/Estado");
 
 
 module.exports = {
-  async store(req, res) {
+  async cadastrar(req, res) {
     const { nome, sigla } = req.body;
 
     let estado = await Estado.findOne({

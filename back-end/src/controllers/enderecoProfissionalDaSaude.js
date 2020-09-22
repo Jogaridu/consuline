@@ -4,7 +4,7 @@ const Cidade = require("../models/Cidade");
 const Estado = require("../models/Estado");
 
 module.exports = {
-  async store(endereco) {
+  async cadastrar(endereco) {
     const {
       rua,
       bairro,
@@ -40,7 +40,7 @@ module.exports = {
     return enderecoProfissionalDaSaude.id;
   },
 
-  async index(req, res) {
+  async listar(req, res) {
     let enderecos = await EnderecoProfissionalDaSaude.findAll({
       include: [
         {
@@ -58,7 +58,7 @@ module.exports = {
     res.status(200).send(enderecos);
   },
 
-  async update(endereco, id) {
+  async atualizar(endereco, id) {
     const {
       rua,
       bairro,
@@ -81,7 +81,7 @@ module.exports = {
     }
 
     try {
-      let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.update(
+      await EnderecoProfissionalDaSaude.update(
         {
           rua,
           bairro,
@@ -102,8 +102,7 @@ module.exports = {
     }
   },
 
-  async delete(id) {
-    
+  async apagar(id) {
     let endereco = await EnderecoProfissionalDaSaude.findByPk(id);
     if (!endereco) {
       return 404;

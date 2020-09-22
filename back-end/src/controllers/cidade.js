@@ -4,7 +4,7 @@ const Estado = require("../models/Estado");
 const { response } = require("express");
 
 module.exports = {
-  async store(req, res) {
+  async cadastrar(req, res) {
     const { nome, idEstado } = req.body;
 
     try {

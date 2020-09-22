@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  async store(req, res) {
+  async cadastrar(req, res) {
     const {
       cpf,
       nome,
@@ -21,7 +21,7 @@ module.exports = {
     } = req.body;
 
     try {
-      const idEndereco = await enderecoProfissionalDaSaudeController.store(
+      const idEndereco = await enderecoProfissionalDaSaudeController.cadastrar(
         endereco
       );
 
@@ -35,12 +35,12 @@ module.exports = {
         idEndereco
       );
 
-      let profissionalDaSaude = await ProfissionalDaSaude.findOne({
+      let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
           [Op.or]: [{ login: login }, { crm: crm }, { cpf: cpf }],
         },
       });
-      if (profissionalDaSaude) {
+      if (dadosProfissional) {
         return res
           .status(400)
           .send({ error: "Login ou crm ou cpf, já cadastrado!!" });
@@ -48,7 +48,7 @@ module.exports = {
 
       const senhaCripto = await bcrypt.hash(senha, 10);
 
-      profissionalDaSaude = await enderecoProfissionalDaSaude.createProfissionalDaSaude(
+      dadosProfissional = await enderecoProfissionalDaSaude.createProfissionalDaSaude(
         {
           cpf,
           nome,
@@ -60,9 +60,9 @@ module.exports = {
         }
       );
 
-      const telefones = await telefoneProfissionalController.store(
+      const telefones = await telefoneProfissionalController.cadastrar(
         telefone,
-        profissionalDaSaude.id
+        dadosProfissional.id
       );
 
       if (telefones === 404) {
@@ -71,15 +71,18 @@ module.exports = {
           .send({ error: "Não foi possivel cadastrar telefone !!" });
       }
 
-      res.status(201).send({ profissionalDaSaude, telefones });
+      const profissional = { dadosProfissional, telefones };
+
+      res.status(201).send({ profissional });
     } catch (error) {
+      console.log(error);
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente ",
       });
     }
   },
 
-  async index(req, res) {
+  async listar(req, res) {
     try {
       let profissionais = await ProfissionalDaSaude.findAll({
         include: [
@@ -113,12 +116,12 @@ module.exports = {
     } catch (error) {
       return res.status(500).send({
         error:
-          "Não foi possivel listar todo(a)s os profissionais, tente noamene ",
+          "Não foi possivel listar todo(a)s o(a)s profissionais, tente noamene ",
       });
     }
   },
 
-  async delete(req, res) {
+  async apagar(req, res) {
     const { id } = req.params;
 
     // const token = req.headers.authorization;
@@ -132,7 +135,7 @@ module.exports = {
         .send({ erro: "Profissional da saúde não encontrado(a)." });
     }
 
-    const statusDeleteEndereco = await enderecoProfissionalDaSaudeController.delete(
+    const statusDeleteEndereco = await enderecoProfissionalDaSaudeController.apagar(
       profissionalDaSaude.EnderecoProfissionalDaSaudeId
     );
 
@@ -143,7 +146,7 @@ module.exports = {
       });
     }
 
-    const statusDeleteTelefone = await telefoneProfissionalController.deleteAll(
+    const statusDeleteTelefone = await telefoneProfissionalController.apagar(
       profissionalDaSaude.id
     );
 
@@ -157,7 +160,7 @@ module.exports = {
     res.status(204).send();
   },
 
-  async update(req, res) {
+  async atualizar(req, res) {
     const {
       id,
       cpf,
@@ -185,7 +188,7 @@ module.exports = {
       return res.status(404).send({ error: "Endereço não encontrado!!" });
     }
 
-    const statusUpdateEndereco = await enderecoProfissionalDaSaudeController.update(
+    const statusUpdateEndereco = await enderecoProfissionalDaSaudeController.atualizar(
       endereco,
       profissionalDaSaude.EnderecoProfissionalDaSaudeId
     );
@@ -196,17 +199,15 @@ module.exports = {
       });
     }
 
-    const statusUpdateTelefone = await telefoneProfissionalController.update(
+    const statusUpdateTelefone = await telefoneProfissionalController.atualizar(
       telefone,
       id
     );
 
     if (statusUpdateTelefone === 404) {
-      res
-        .status(404)
-        .send({
-          error: "Não foi possivel atualizar os telefones, tente novamente",
-        });
+      res.status(404).send({
+        error: "Não foi possivel atualizar os telefones, tente novamente",
+      });
     }
 
     try {
@@ -227,7 +228,7 @@ module.exports = {
         }
       );
 
-      res.status(200).send(profissionalDaSaudeUpdate);
+      res.status(200).send();
     } catch (error) {
       return res.status(500).send({
         error:

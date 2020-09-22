@@ -2,7 +2,7 @@
 const loginProfissionalDaSaudeController = require("../controllers/loginProfissionalDaSaude")
 
 module.exports = {
-  async store(req, res) {
+  async cadastrar(req, res) {
     const { login, senha } = req.body;
 
     try {

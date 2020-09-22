@@ -12,44 +12,34 @@ const Multer = multer({
 const sessaoControllers = require("./controllers/sessao");
 const estadoControllers = require("./controllers/estado");
 const cidadeControllers = require("./controllers/cidade");
-const enederecosProfissionalDaSadeController = require("./controllers/enderecoProfissionalDaSaude");
+const enderecosProfissionalDaSadeController = require("./controllers/enderecoProfissionalDaSaude");
 const profissionalDaSaudeController = require("./controllers/profissionalDaSaude");
 const telefoneProfissionalDaSaudeController = require("./controllers/telefoneProfissionalDaSaude");
 
-routes.post("/login", sessaoControllers.store);
+routes.post("/login", sessaoControllers.cadastrar);
 
-routes.post("/estado", estadoControllers.store);
+routes.post("/estado", estadoControllers.cadastrar);
 
-routes.post("/cidade", cidadeControllers.store);
+routes.post("/cidade", cidadeControllers.cadastrar);
 
-routes.post("/profissional", profissionalDaSaudeController.store);
-routes.get("/profissional", profissionalDaSaudeController.index);
-routes.delete("/profissional/:id", profissionalDaSaudeController.delete);
-routes.put("/profissional", profissionalDaSaudeController.update);
+routes.post("/profissional", profissionalDaSaudeController.cadastrar);
+routes.get("/profissional", profissionalDaSaudeController.listar);
+routes.delete("/profissional/:id", profissionalDaSaudeController.apagar);
+routes.put("/profissional", profissionalDaSaudeController.atualizar);
 routes.get("/profissional/:id", profissionalDaSaudeController.buscarId);
 
 routes.get(
-  "/enedereco-profissional",
-  enederecosProfissionalDaSadeController.index
-);
-
-routes.get(
-  "/telefone-profissional/:idProfissional",
-  telefoneProfissionalDaSaudeController.index
+  "/endereco-profissional",
+  enderecosProfissionalDaSadeController.listar
 );
 
 routes.delete(
   "/telefone-profissional/:id",
-  telefoneProfissionalDaSaudeController.deleteId
+  telefoneProfissionalDaSaudeController.apagarId
 );
-
-routes.delete(
-  "/telefone-profissional-all/:id",
-  telefoneProfissionalDaSaudeController.deleteAll
-);
-routes.put(
-  "/telefone-profissional/:id",
-  telefoneProfissionalDaSaudeController.update
+routes.post(
+  "/telefone-profissional/:idProfissionalDaSaude",
+  telefoneProfissionalDaSaudeController.adicionar
 );
 
 module.exports = routes;

@@ -3,16 +3,14 @@ const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const TelefoneProfissional = require("../models/TelefoneProfissional");
 
 module.exports = {
-  async store(telefone, idProfissionalDaSaude) {
+  async cadastrar(telefone, idProfissionalDaSaude) {
     try {
       let profissionalDaSaude = await ProfissionalDaSaude.findByPk(
         idProfissionalDaSaude
       );
 
       if (!profissionalDaSaude) {
-        return res
-          .status(404)
-          .send({ error: "Profissional não encontrado(a) " });
+        return 404;
       }
 
       var arrayTelefone = new Array();
@@ -30,7 +28,34 @@ module.exports = {
       return 404;
     }
   },
-  async index(req, res) {
+  async adicionar(req, res) {
+    const { idProfissionalDaSaude } = req.params;
+    let { numero } = req.body;
+    try {
+      let profissionalDaSaude = await ProfissionalDaSaude.findByPk(
+        idProfissionalDaSaude
+      );
+
+      if (!profissionalDaSaude) {
+        return res
+          .status(404)
+          .send({ error: "Profissional não encontrado(a) " });
+      }
+
+      const telefone = await profissionalDaSaude.createTelefoneProfissional({
+        numero,
+      });
+
+      res.status(200).send(telefone);
+    } catch (error) {
+      return res
+        .status(500)
+        .send({
+          error: "Não foi possivel adicionar este numero, tente novamente",
+        });
+    }
+  },
+  async listar(req, res) {
     const { idProfissional } = req.params;
     try {
       let telefones = await TelefoneProfissional.findAll({
@@ -57,7 +82,7 @@ module.exports = {
       return 404;
     }
   },
-  async deleteId(req, res) {
+  async apagarId(req, res) {
     const { id } = req.params;
 
     let telefone = await TelefoneProfissional.findByPk(id);
@@ -69,7 +94,7 @@ module.exports = {
     await telefone.destroy();
     res.status(200).send();
   },
-  async deleteAll(id) {
+  async apagar(id) {
     let profissional = await ProfissionalDaSaude.findByPk(id);
     if (!profissional) {
       return 404;
@@ -81,7 +106,6 @@ module.exports = {
     });
 
     let arrayTelefone = new Array();
-    (98)[lgfq];
     arrayTelefone = telefones;
 
     for (let i = 0; i < telefones.length; i++) {
@@ -89,7 +113,7 @@ module.exports = {
     }
     return 200;
   },
-  async update(telefone, id) {
+  async atualizar(editTelefone, id) {
     let profissional = await ProfissionalDaSaude.findByPk(id);
     if (!profissional) {
       return 404;
@@ -101,12 +125,13 @@ module.exports = {
         },
       });
 
-      let numeros = new Array();
-
+     
       for (let i = 0; i < telefones.length; i++) {
+
+  
         await TelefoneProfissional.update(
           {
-            numero: telefone[i],
+            numero: editTelefone[i],
           },
           {
             where: { id: telefones[i].id },
@@ -120,4 +145,3 @@ module.exports = {
     }
   },
 };
-
