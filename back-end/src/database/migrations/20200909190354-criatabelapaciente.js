@@ -61,10 +61,15 @@ module.exports = {
         allowNull: true,
       },
 
-      emailValidado: {
+      verificado: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
+      },
+
+      codigoVerificacao: {
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
 
       planoDeSaudeId: {
