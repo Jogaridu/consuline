@@ -7,9 +7,12 @@ const { enviarSMS } = require("../services/sms");
 
 module.exports = {
     async cadastrar(req, res) {
+
+        console.log(req.body);
+
         const { endereco, ...dados } = req.body;
 
-        if (endereco && dados) {
+        if (endereco && dados && req.file) {
             try {
                 let pacienteCriado = await Paciente.findOne({
                     where: {

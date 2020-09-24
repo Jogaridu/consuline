@@ -4,7 +4,10 @@ const routes = express.Router();
 
 const controller = require("../../controllers/paciente");
 
-routes.post("/paciente", controller.cadastrar);
+const Multer = require("../../fixtures/manipulacaoForm");
+const enviarImagem = require("../../services/firebase");
+
+routes.post("/paciente", Multer.single("foto"), enviarImagem, controller.cadastrar);
 routes.post("/paciente/:id/validacao-sms", controller.verificarSms);
 
 routes.delete("/paciente/:id", controller.deletar);
