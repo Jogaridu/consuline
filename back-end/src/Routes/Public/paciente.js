@@ -4,6 +4,9 @@ const routes = express.Router();
 
 const controller = require("../../controllers/paciente");
 
-routes.post("/pacientes", controller.cadastrar);
+routes.post("/paciente", controller.cadastrar);
+routes.post("/paciente/:id/validacao-sms", controller.verificarSms);
+
+routes.delete("/paciente/:id", controller.deletar);
 
 module.exports = routes;
