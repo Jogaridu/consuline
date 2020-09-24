@@ -3,14 +3,17 @@ import colors from '../../../Styles/colors';
 
 
 export const ContainerSeta = styled.View`
-    flex: 1;
+    flex: 0.7;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
 `;
 
 export const ImgLeft = styled.Image`
-    width: 50px;
-    height: 50px;
-    margin-left: -280px;
-    margin-top: -30px;
+    width: 15%;
+    height: 0;
+    padding-bottom: 15%;
+    margin-left: 10px;
 `;
 
 export const ContainerImgCadastro = styled.View`

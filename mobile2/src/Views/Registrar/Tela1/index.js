@@ -22,8 +22,8 @@ const Tela1 = () => {
 
   return (
     <Container>
-      <ContainerSeta>
-        {/* <ImgLeft source={require("../../../Assets/left-arrow.png")} /> */}
+      <ContainerSeta style={{width: width}}>
+        <ImgLeft source={require("../../../Assets/left-arrow.png")} />
       </ContainerSeta>
       <ContainerImgCadastro style={{width: width * 0.15 + "%"}}>
         <ImgInfmPessoais source={require("../../../Assets/user.png")} />
