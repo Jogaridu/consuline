@@ -4,7 +4,10 @@ const routes = express.Router();
 
 const controllerServico = require("../../controllers/servicos");
 
-routes.post("/servicos", controllerServico.cadastrar);
+const Multer = require("../../fixtures/manipulacaoForm");
+const enviarImagem = require("../../services/firebase");
+
+routes.post("/servicos", Multer("foto"), enviarImagem, controllerServico.cadastrar);
 
 routes.get("/servico/:id", controllerServico.buscarPorId);
 
