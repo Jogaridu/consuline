@@ -18,18 +18,18 @@ import {
 
 const Tela1 = () => {
 
-  const { height, width} = Dimensions.get('window');
+  const { height, width } = Dimensions.get('window');
 
   return (
     <Container>
-      <ContainerSeta style={{width: width}}>
+      <ContainerSeta style={{ width: width }}>
         <ImgLeft source={require("../../../Assets/left-arrow.png")} />
       </ContainerSeta>
-      <ContainerImgCadastro style={{width: width * 0.15 + "%"}}>
+      <ContainerImgCadastro style={{ width: width * 0.15 + "%" }}>
         <ImgInfmPessoais source={require("../../../Assets/user.png")} />
       </ContainerImgCadastro>
       <ContainerTituloCadastro>
-        <Titulo title="Informações Pessoais" />
+        <Titulo title="" />
       </ContainerTituloCadastro>
 
       <ContainerFormulario>
