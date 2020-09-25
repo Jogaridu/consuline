@@ -47,6 +47,7 @@ module.exports = {
 
         return res.status(201).send(pacienteCriado);
       } catch (error) {
+        console.log(error);
         return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
       }
     }
@@ -90,8 +91,32 @@ module.exports = {
     res.status(404).send({ erro: "Código inválido ou já validado" });
   },
 
-  async buscarPorId(req, res) {},
-  async listar(req, res) {},
+  async buscarPorId(req, res) {
+    const { id } = req.params;
+    try {
+      let paciente = await Paciente.findByPk(id);
+      if (!paciente) {
+        return res.status(400).send({ error: "Paciente não cadastrado" });
+      }
+      res.status(200).send(paciente);
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não foi possivel listar estee paciente, por favor tente novamente",
+      });
+    }
+  },
+  async listar(req, res) {
+    try {
+      let pacientes = await Paciente.findAll();
+      res.status(200).send(pacientes);
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não foi possivel listar os pacientes, por favor tente novamente",
+      });
+    }
+  },
   async deletar(req, res) {
     const { id } = req.params;
 
