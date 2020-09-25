@@ -25,7 +25,7 @@ routes.post("/cidade", cidadeControllers.cadastrar);
 routes.post("/profissional", profissionalDaSaudeController.cadastrar);
 routes.get("/profissional", profissionalDaSaudeController.listar);
 routes.delete("/profissional/:id", profissionalDaSaudeController.apagar);
-routes.put("/profissional", profissionalDaSaudeController.atualizar);
+routes.put("/profissional/:id", profissionalDaSaudeController.atualizar);
 routes.get("/profissional/:id", profissionalDaSaudeController.buscarId);
 
 routes.get(

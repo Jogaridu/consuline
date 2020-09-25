@@ -13,7 +13,7 @@ module.exports = {
     });
 
     if (estado) {
-      return res.status(404).send({ error: "Estado já cadastrado!!" });
+      return res.status(400).send({ error: "Estado já cadastrado!!" });
     }
 
     estado = await Estado.create({ nome, sigla });

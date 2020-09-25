@@ -25,8 +25,8 @@ module.exports = {
         endereco
       );
 
-      if (idEndereco === 404) {
-        return res.status(404).send({
+      if (idEndereco === 400) {
+        return res.status(400).send({
           error: "Não foi possivel cadastrar este endereço, tente novamene !!!",
         });
       }
@@ -65,9 +65,9 @@ module.exports = {
         dadosProfissional.id
       );
 
-      if (telefones === 404) {
+      if (telefones === 400) {
         return res
-          .status(404)
+          .status(400)
           .send({ error: "Não foi possivel cadastrar telefone !!" });
       }
 
@@ -131,7 +131,7 @@ module.exports = {
     let profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
     if (!profissionalDaSaude) {
       return res
-        .status(404)
+        .status(400)
         .send({ erro: "Profissional da saúde não encontrado(a)." });
     }
 
@@ -139,8 +139,8 @@ module.exports = {
       profissionalDaSaude.EnderecoProfissionalDaSaudeId
     );
 
-    if (statusDeleteEndereco === 404) {
-      return res.status(404).send({
+    if (statusDeleteEndereco === 400) {
+      return res.status(400).send({
         error:
           "Não foi possivel deletar o enderço desse profissional, tente novamente",
       });
@@ -150,8 +150,8 @@ module.exports = {
       profissionalDaSaude.id
     );
 
-    if (statusDeleteTelefone === 404) {
-      return res.status(404).send({
+    if (statusDeleteTelefone === 400) {
+      return res.status(400).send({
         error: "Não foi possivel excluir os telefones deste profissional",
       });
     }
@@ -161,8 +161,8 @@ module.exports = {
   },
 
   async atualizar(req, res) {
+    const { id } = req.params;
     const {
-      id,
       cpf,
       nome,
       crm,
@@ -177,7 +177,7 @@ module.exports = {
     const profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
 
     if (!profissionalDaSaude) {
-      return res.status(404).send({ error: "Profisional não encontrado(a)!!" });
+      return res.status(400).send({ error: "Profisional não encontrado(a)!!" });
     }
 
     let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
@@ -185,7 +185,7 @@ module.exports = {
     );
 
     if (!enderecoProfissionalDaSaude) {
-      return res.status(404).send({ error: "Endereço não encontrado!!" });
+      return res.status(400).send({ error: "Endereço não encontrado!!" });
     }
 
     const statusUpdateEndereco = await enderecoProfissionalDaSaudeController.atualizar(
@@ -193,8 +193,8 @@ module.exports = {
       profissionalDaSaude.EnderecoProfissionalDaSaudeId
     );
 
-    if (statusUpdateEndereco === 404) {
-      return res.status(404).send({
+    if (statusUpdateEndereco === 400) {
+      return res.status(400).send({
         error: "Não foi possivel atualizar o endereço, tente novamente",
       });
     }
@@ -204,8 +204,8 @@ module.exports = {
       id
     );
 
-    if (statusUpdateTelefone === 404) {
-      res.status(404).send({
+    if (statusUpdateTelefone === 400) {
+      res.status(400).send({
         error: "Não foi possivel atualizar os telefones, tente novamente",
       });
     }
@@ -228,7 +228,7 @@ module.exports = {
         }
       );
 
-      res.status(200).send();
+      res.status(200).send({ sucesso: "Profissional atualizado com sucesso" });
     } catch (error) {
       return res.status(500).send({
         error:
@@ -257,12 +257,18 @@ module.exports = {
       order: [["createdAt", "DESC"]],
     });
 
+    if (!dados) {
+      return res
+        .status(400)
+        .send({ error: "Profissional não encontrado(a), tente novamente" });
+    }
+
     const telefones = await telefoneProfissionalController.buscarIdProfissional(
       dados.id
     );
 
-    if (telefones === 404) {
-      return res.status(404).send({
+    if (telefones === 400) {
+      return res.status(400).send({
         error:
           "Erro ao listar telefones desse(a) profissional, tente novamente",
       });

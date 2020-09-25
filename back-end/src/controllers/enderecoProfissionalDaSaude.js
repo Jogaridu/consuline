@@ -18,12 +18,12 @@ module.exports = {
     const estado = await Estado.findByPk(idEstado);
 
     if (!estado) {
-      return 404;
+      return 400;
     }
     const cidade = await Cidade.findByPk(idCidade);
 
     if (!cidade) {
-      return 404;
+      return 400;
     }
 
     let enderecoProfissionalDaSaude = await cidade.createEnderecoProfissionalDaSaude(
@@ -72,12 +72,12 @@ module.exports = {
     const estado = await Estado.findByPk(idEstado);
 
     if (!estado) {
-      return 404;
+      return 400;
     }
     const cidade = await Cidade.findByPk(idCidade);
 
     if (!cidade) {
-      return 404;
+      return 400;
     }
 
     try {
@@ -98,14 +98,14 @@ module.exports = {
 
       return 200;
     } catch (error) {
-      return 404;
+      return 400;
     }
   },
 
   async apagar(id) {
     let endereco = await EnderecoProfissionalDaSaude.findByPk(id);
     if (!endereco) {
-      return 404;
+      return 400;
     }
 
     await endereco.destroy();

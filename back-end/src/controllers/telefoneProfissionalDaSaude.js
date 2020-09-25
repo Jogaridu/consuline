@@ -10,7 +10,7 @@ module.exports = {
       );
 
       if (!profissionalDaSaude) {
-        return 404;
+        return 400;
       }
 
       var arrayTelefone = new Array();
@@ -25,7 +25,7 @@ module.exports = {
 
       return arrayTelefone;
     } catch (error) {
-      return 404;
+      return 400;
     }
   },
   async adicionar(req, res) {
@@ -38,7 +38,7 @@ module.exports = {
 
       if (!profissionalDaSaude) {
         return res
-          .status(404)
+          .status(400)
           .send({ error: "Profissional não encontrado(a) " });
       }
 
@@ -79,7 +79,7 @@ module.exports = {
       });
       return telefones;
     } catch (error) {
-      return 404;
+      return 400;
     }
   },
   async apagarId(req, res) {
@@ -88,7 +88,7 @@ module.exports = {
     let telefone = await TelefoneProfissional.findByPk(id);
 
     if (!telefone) {
-      return res.status(404).send({ error: "Telefone não encontrado!!!" });
+      return res.status(400).send({ error: "Telefone não encontrado!!!" });
     }
 
     await telefone.destroy();
@@ -97,7 +97,7 @@ module.exports = {
   async apagar(id) {
     let profissional = await ProfissionalDaSaude.findByPk(id);
     if (!profissional) {
-      return 404;
+      return 400;
     }
     let telefones = await TelefoneProfissional.findAll({
       where: {
@@ -116,7 +116,7 @@ module.exports = {
   async atualizar(editTelefone, id) {
     let profissional = await ProfissionalDaSaude.findByPk(id);
     if (!profissional) {
-      return 404;
+      return 400;
     }
     try {
       let telefones = await TelefoneProfissional.findAll({
@@ -141,7 +141,7 @@ module.exports = {
 
       return 200;
     } catch (error) {
-      return 404;
+      return 400;
     }
   },
 };
