@@ -7,8 +7,8 @@ const Botao2 = (props) => {
   return (
     <Botao
       style={{
-        width: !props.width ? 288 : props.width,
-        left: props.width ? 100 : "",
+        width: props.width || 288 ,
+        
       }}
     >
       <TextoBotao> {props.title} </TextoBotao>

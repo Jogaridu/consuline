@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TextInput } from "react-native";
 
-import Botao1 from "../../Components/Botao1";
+import {Botao1} from "../../Components/Botao1";
 import Botao2 from "../../Components/Botao2";
 import Input from "../../Components/Input";
 import Container from "../../Components/Container";
@@ -17,7 +17,7 @@ const Login = () => {
       <Input plch="Login" />
       <Input marginBottom={74} plch="Senha" />
       <Botao1 title="Enviar" marginBottom={26} />
-      <Botao2 title="Registrar-se" />
+      {/* <Botao2 title="Registrar-se" /> */}
     </Container>
   );
 };

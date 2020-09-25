@@ -1,12 +1,10 @@
 import styled from 'styled-components/native';
 import colors from '../../../Styles/colors';
 
-
 export const ContainerSeta = styled.View`
     flex: 0.7;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 `;
 
 export const ImgLeft = styled.Image`
@@ -21,7 +19,6 @@ export const ContainerImgCadastro = styled.View`
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding: 10px; */
 `;
 
 export const ImgInfmPessoais = styled.Image`
@@ -45,4 +42,6 @@ export const ContainerFormulario = styled.View`
 
 export const ContainerBotao = styled.View`
     flex: 1;
+    align-self: flex-end;
+    padding: 0 20px;
 `;

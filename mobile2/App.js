@@ -3,13 +3,16 @@ import React from "react";
 import { View, Text } from "react-native";
 
 import Login from "./src/Views/Login";
-import Tela1 from "./src/Views/Registrar/Tela1";
+import InformacaoPessoal from "./src/Views/Registrar/InformacaoPessoal";
+import Localizacao from "./src/Views/Registrar/Localizacao";
+import Sucesso from "./src/Views/Registrar/Sucesso";
 
 export default function App() {
   return (
     <>
-      <Tela1 />
+      {/* <InformacaoPessoal /> */}
       {/* <Login /> */}
+      <Sucesso />
     </>
   );
 }
