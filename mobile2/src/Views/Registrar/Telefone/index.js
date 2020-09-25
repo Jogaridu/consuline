@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 
 import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
@@ -33,7 +33,7 @@ const Telefone = () => {
 
             <ContainerTituloTelefone>
                 <Titulo title="Celular" />
-                <Subtitulo />
+                <Text style={{ fontSize: 20, textAlign: "center" }}>Insira seu número de celular para verificar sua conta</Text>
             </ContainerTituloTelefone>
 
             <ContainerFormularioTelefone>

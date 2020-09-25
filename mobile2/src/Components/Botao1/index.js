@@ -11,4 +11,4 @@ const Botao1 = ( props ) => {
   );
 };
 
-export default Botao1;
+export {Botao1};

@@ -16,20 +16,20 @@ import {
   ContainerBotao,
 } from "./styles";
 
-const Tela1 = () => {
+const InformacaoPessoal = () => {
 
   const { height, width } = Dimensions.get('window');
 
   return (
     <Container>
-      <ContainerSeta style={{ width: width }}>
+      <ContainerSeta style={{ width }}>
         <ImgLeft source={require("../../../Assets/left-arrow.png")} />
       </ContainerSeta>
       <ContainerImgCadastro style={{ width: width * 0.15 + "%" }}>
         <ImgInfmPessoais source={require("../../../Assets/user.png")} />
       </ContainerImgCadastro>
       <ContainerTituloCadastro>
-        <Titulo title="" />
+        <Titulo title="Informações pessoais" />
       </ContainerTituloCadastro>
 
       <ContainerFormulario>
@@ -46,4 +46,4 @@ const Tela1 = () => {
   );
 };
 
-export default Tela1;
+export default InformacaoPessoal;
