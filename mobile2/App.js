@@ -9,19 +9,20 @@ import InformacaoPessoal from "./src/Views/Registrar/InformacaoPessoal";
 import Codigo from "./src/Views/Registrar/Codigo";
 import LoginSenha from "./src/Views/Registrar/LoginSenha";
 import Foto from "./src/Views/Registrar/Foto";
-// import Localizacao from "./src/Views/Registrar/Localizacao";
+import Localizacao from "./src/Views/Registrar/Localizacao";
 // import Sucesso from "./src/Views/Registrar/Sucesso";
 
 export default function App() {
   return (
     <>
-      <Foto />
+      {/* <Foto /> */}
       {/* <LoginSenha /> */}
       {/* <Codigo /> */}
       {/* <Telefone /> */}
       {/* <InformacaoPessoal /> */}
       {/* <Login /> */}
       {/* <Sucesso /> */}
+      <Localizacao />
     </>
   );
 }
