@@ -17,7 +17,7 @@ export default function App() {
     <>
       {/* <Foto /> */}
       {/* <LoginSenha /> */}
-      <Codigo />
+      {/* <Codigo /> */}
       {/* <Telefone /> */}
       {/* <InformacaoPessoal /> */}
       {/* <Login /> */}

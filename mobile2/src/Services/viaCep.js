@@ -1,5 +1,7 @@
-import axios from "axios";
+export default encontrarCep = async (cep) => {
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    const pegarEndereco = await fetch(url);
+    const endereco = await pegarEndereco.json();
 
-export default axios.create({
-    baseURL: "viacep.com.br/ws/01001000/json/?callback=callback_name",
-});
+    return endereco;
+};

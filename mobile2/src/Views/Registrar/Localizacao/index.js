@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions } from "react-native";
 
-// import viaCep from "../../../Services/viaCep";
+import encontrarCep from "../../../Services/viaCep";
 
 import {
   ContainerSeta,
@@ -14,21 +14,38 @@ import {
 } from "./styles";
 
 import Titulo from "../../../Components/TituloCadastro";
-import TextInput from "../../../Components/Input";
+import { Input } from "./styles";
 import Botao from "../../../Components/Botao2";
 
 const Localizacao = () => {
   const { height, width } = Dimensions.get("window");
 
-  const verificarCep = () => document.getElementById("cep");
+  const [localizacao, setLocalizacao] = useState({
+    cep: "",
+    bairro: "",
+    rua: "",
+    numero: "",
+    complemento: "",
+    cidade: "",
+    estado: "",
+  });
 
-  const encontrarCep = async ( cep ) => {
-    if( verificarCep() ) {
-      const url = `viacep.com.br/ws/${cep}/json/`;
-      const pegarEndereco = await fetch(url);
-      const endereco = await pegarEndereco.json();
-    }
-  }
+  const preencherFormulario = (endereco) => {
+    
+    setLocalizacao({
+      ...localizacao,
+      bairro: endereco.bairro,
+      rua: endereco.logradouro,
+      numero: endereco.numero,
+      complemento: endereco.complemento,
+      cidade: endereco.localidade,
+      estado: endereco.uf,
+    });
+  };
+
+  const handlerInput = (string) => {
+    setLocalizacao({ cep: string });
+  };
 
   return (
     <Container>
@@ -41,14 +58,52 @@ const Localizacao = () => {
       <ContainerTituloCadastro>
         <Titulo title="Localização" />
       </ContainerTituloCadastro>
-      
+
       <ContainerFormulario>
-        <TextInput id="cep" plch="CEP" width={140} />
-        <TextInput id="bairro" plch="Bairro" width={140} marginLeft={8} />
-        <TextInput id="rua" plch="Rua" width={205} />
-        <TextInput id="numero" plch="N°" marginLeft={15} width={70} />
-        <TextInput id="complemento" plch="Complemento" width={140} />
-        <TextInput id="estado" plch="Estado" width={140} marginLeft={8} />
+        <Input
+          style={{ width: 140 }}
+          value={localizacao.cep}
+          placeholder="CEP"
+          placeholderTextColor="#403e66"
+          onChangeText={handlerInput}
+          onBlur={async () => preencherFormulario(await encontrarCep(localizacao.cep))}
+        />
+        <Input
+          style={{ width: 140, marginLeft: 8 }}
+          value={localizacao.bairro}
+          placeholder="Bairro"
+          placeholderTextColor="#403e66"
+        />
+        <Input
+          style={{ width: 205 }}
+          value={localizacao.rua}
+          placeholder="Rua"
+          placeholderTextColor="#403e66"
+        />
+        <Input
+          style={{ width: 70, marginLeft: 15 }}
+          value={localizacao.numero}
+          placeholder="N°"
+          placeholderTextColor="#403e66"
+        />
+        <Input
+          value={localizacao.complemento}
+          placeholder="Complemento"
+          placeholderTextColor="#403e66"
+          style={{ width: 140 }}
+        />
+        <Input
+          style={{ width: 140, marginLeft: 8 }}
+          value={localizacao.cidade}
+          placeholder="Estado"
+          placeholderTextColor="#403e66"
+        />
+        <Input
+          style={{ marginLeft: 8 }}
+          value={localizacao.estado}
+          placeholder="Estado"
+          placeholderTextColor="#403e66"
+        />
       </ContainerFormulario>
       <ContainerBotao>
         <Botao title="Próximo" width={130} />

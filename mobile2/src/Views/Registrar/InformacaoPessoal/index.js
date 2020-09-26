@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 
 import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
-import TextInput from "../../../Components/Input";
+import { Input } from "./styles";
 import Botao from "../../../Components/Botao2";
 
 import {
@@ -17,8 +17,7 @@ import {
 } from "./styles";
 
 const InformacaoPessoal = () => {
-
-  const { height, width } = Dimensions.get('window');
+  const { height, width } = Dimensions.get("window");
 
   return (
     <Container>
@@ -33,11 +32,19 @@ const InformacaoPessoal = () => {
       </ContainerTituloCadastro>
 
       <ContainerFormulario>
-        <TextInput plch="Nome Completo" />
-        <TextInput plch="Data de Nascimento" />
-        <TextInput plch="RG" width={115} />
-        <TextInput plch="CPF" marginLeft={15} width={150} />
-        <TextInput plch="Email" />
+        <Input placeholder="Nome Completo" placeholderTextColor="#403e66" />
+        <Input placeholder="Data de Nascimento" placeholderTextColor="#403e66" />
+        <Input
+          placeholder="RG"
+          placeholderTextColor="#403e66"
+          style={{ width: 136 }}
+        />
+        <Input
+          placeholder="CPF"
+          placeholderTextColor="#403e66"
+          style={{ width: 136, marginLeft: 15 }}
+        />
+        <Input placeholder="Email" placeholderTextColor="#403e66" />
       </ContainerFormulario>
       <ContainerBotao>
         <Botao title="Próximo" width={130} />
