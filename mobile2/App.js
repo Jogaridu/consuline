@@ -15,9 +15,9 @@ import Foto from "./src/Views/Registrar/Foto";
 export default function App() {
   return (
     <>
-      <Foto />
+      {/* <Foto /> */}
       {/* <LoginSenha /> */}
-      {/* <Codigo /> */}
+      <Codigo />
       {/* <Telefone /> */}
       {/* <InformacaoPessoal /> */}
       {/* <Login /> */}

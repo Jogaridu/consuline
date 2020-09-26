@@ -36,9 +36,23 @@ export const ContainerTituloCodigo = styled.View`
 export const ContainerFormularioCodigo = styled.View`
     flex: 2.3;
     padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
+
+export const InputCodigo = styled.TextInput`
+    height: 75px;
+    flex: 0.3;
+    background-color: rgb(237,237,237);
+    margin: 0 7px;
+    text-align: center;
+    font-size: 30px;
 `;
 
 export const ContainerBotao = styled.View`
     flex: 0.5;
     padding: 0 20px;
 `;
+
