@@ -7,9 +7,10 @@ const Botao2 = (props) => {
   return (
     <Botao
       style={{
-        width: props.width || 288 ,
-        
+        width: props.width || 288,
+
       }}
+      onPressIn={props.funcExec}
     >
       <TextoBotao> {props.title} </TextoBotao>
     </Botao>

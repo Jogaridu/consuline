@@ -23,6 +23,8 @@ const enviarImagem = (req, res, next) => {
 
     const arquivo = bucket.file(nomeArquivo);
 
+    const file = bucket.file(nomeArquivo);
+
     const stream = arquivo.createWriteStream({
         metadata: {
             contentType: imagem.mimetype
@@ -32,7 +34,7 @@ const enviarImagem = (req, res, next) => {
     stream.on("error", error => console.log(error));
 
     stream.on("finish", async () => {
-
+        console.log(file);
         await file.makePublic();
 
         req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nomeArquivo}`
