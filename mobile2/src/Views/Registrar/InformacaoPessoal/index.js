@@ -9,22 +9,21 @@ import Botao from "../../../Components/Botao2";
 import {
   ImgInfmPessoais,
   ContainerFormulario,
-  ImgLeft,
-  ContainerSeta,
   ContainerImgCadastro,
   ContainerTituloCadastro,
   ContainerBotao,
 } from "./styles";
 
-const InformacaoPessoal = () => {
+const InformacaoPessoal = ({ navigation }) => {
 
   const { height, width } = Dimensions.get('window');
 
+  const navegarLocalizacao = () => {
+    navigation.navigate("RegistrarLocalizacao");
+  }
+
   return (
     <Container>
-      <ContainerSeta style={{ width }}>
-        <ImgLeft source={require("../../../Assets/left-arrow.png")} />
-      </ContainerSeta>
       <ContainerImgCadastro style={{ width: width * 0.15 + "%" }}>
         <ImgInfmPessoais source={require("../../../Assets/user.png")} />
       </ContainerImgCadastro>
@@ -40,7 +39,7 @@ const InformacaoPessoal = () => {
         <TextInput plch="Email" />
       </ContainerFormulario>
       <ContainerBotao>
-        <Botao title="Próximo" width={130} />
+        <Botao title="Próximo" width={130} funcExec={navegarLocalizacao} />
       </ContainerBotao>
     </Container>
   );

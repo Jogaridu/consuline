@@ -9,19 +9,14 @@ import InformacaoPessoal from "./src/Views/Registrar/InformacaoPessoal";
 import Codigo from "./src/Views/Registrar/Codigo";
 import LoginSenha from "./src/Views/Registrar/LoginSenha";
 import Foto from "./src/Views/Registrar/Foto";
+import Routes from "./src/Navigation/routes";
 // import Localizacao from "./src/Views/Registrar/Localizacao";
 // import Sucesso from "./src/Views/Registrar/Sucesso";
 
 export default function App() {
   return (
     <>
-      {/* <Foto /> */}
-      {/* <LoginSenha /> */}
-      <Codigo />
-      {/* <Telefone /> */}
-      {/* <InformacaoPessoal /> */}
-      {/* <Login /> */}
-      {/* <Sucesso /> */}
+      <Routes />
     </>
   );
 }

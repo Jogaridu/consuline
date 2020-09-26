@@ -1,19 +1,6 @@
 import styled from 'styled-components/native';
 import colors from '../../../Styles/colors';
 
-export const ContainerSeta = styled.View`
-    flex: 0.7;
-    display: flex;
-    justify-content: center;
-`;
-
-export const ImgLeft = styled.Image`
-    width: 15%;
-    height: 0;
-    padding-bottom: 15%;
-    margin-left: 10px;
-`;
-
 export const ContainerImgCodigo = styled.View`
     flex: 1;
     display: flex;

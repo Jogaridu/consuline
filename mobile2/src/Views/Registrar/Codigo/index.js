@@ -7,8 +7,6 @@ import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
 
 import {
-    ContainerSeta,
-    ImgLeft,
     ContainerImgCodigo,
     ContainerTituloCodigo,
     ImgCodigo,
@@ -18,14 +16,18 @@ import {
 
 } from './styles';
 
-const Codigo = () => {
+const Codigo = ({ navigation }) => {
     const { height, width } = Dimensions.get('window');
     const [codigo, setCodigo] = useState("1234");
+    const [codigoLength, setCodigoLength] = useState([]);
+
     const input2 = useRef();
     const input3 = useRef();
     const input4 = useRef();
 
     const handlerInput = (string, numInput, proxInput = null) => {
+
+        const tamanho = codigoLength;
 
         if (string !== "") {
 
@@ -35,21 +37,29 @@ const Codigo = () => {
 
             setCodigo(arrCodigo.join(""));
 
+            tamanho.push(true);
+
             if (proxInput != null) {
                 proxInput.current.focus();
 
             }
+        } else {
+            tamanho.pop();
+
         }
+
+        setCodigoLength(tamanho);
+
     }
 
-    const mostrarCodigo = () => console.warn(codigo);
+    const mostrarCodigo = () => console.warn(codigoLength);
+
+    const navegarFoto = () => {
+        navigation.navigate("RegistrarFoto");
+    }
 
     return (
         <Container>
-            <ContainerSeta style={{ width }}>
-                <ImgLeft source={require("../../../Assets/left-arrow.png")} />
-            </ContainerSeta>
-
             <ContainerImgCodigo style={{ width: width * 0.16 + "%" }}>
                 <ImgCodigo source={require("../../../Assets/codigoVerificado.png")} />
             </ContainerImgCodigo>
@@ -67,7 +77,16 @@ const Codigo = () => {
             </ContainerFormularioCodigo>
 
             <ContainerBotao>
-                <Botao title="Verificar" funcExec={mostrarCodigo} />
+                <Botao
+                    title="Verificar"
+                    funcExec={() => {
+                        // mostrarCodigo()
+                        if (codigoLength.length === 4) {
+                            navegarFoto()
+                        } else {
+                            console.warn("Digite os 4 dígitos");
+                        }
+                    }} />
             </ContainerBotao>
         </Container>
     );

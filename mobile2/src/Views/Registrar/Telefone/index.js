@@ -7,8 +7,6 @@ import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
 
 import {
-    ContainerSeta,
-    ImgLeft,
     ContainerImgTelefone,
     ImgTelefone,
     ContainerTituloTelefone,
@@ -17,15 +15,16 @@ import {
 
 } from './styles';
 
-const Telefone = () => {
+const Telefone = ({ navigation }) => {
 
     const { height, width } = Dimensions.get('window');
 
+    const navegarCodigo = () => {
+        navigation.navigate("RegistrarCodigo");
+    }
+
     return (
         <Container>
-            <ContainerSeta style={{ width: width }}>
-                <ImgLeft source={require("../../../Assets/left-arrow.png")} />
-            </ContainerSeta>
 
             <ContainerImgTelefone style={{ width: width * 0.15 + "%" }}>
                 <ImgTelefone source={require("../../../Assets/vetorCelular.jpg")} />
@@ -41,7 +40,7 @@ const Telefone = () => {
             </ContainerFormularioTelefone>
 
             <ContainerBotao>
-                <Botao title="Próximo" width={130} />
+                <Botao title="Próximo" width={130} funcExec={navegarCodigo} />
             </ContainerBotao>
         </Container>
     );

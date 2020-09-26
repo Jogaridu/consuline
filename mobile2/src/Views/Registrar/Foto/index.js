@@ -12,9 +12,13 @@ import {
 
 } from "./styles";
 
-const Foto = () => {
+const Foto = ({ navigation }) => {
 
   const { height, width } = Dimensions.get('window');
+
+  const navegarSucesso = () => {
+    navigation.navigate("RegistrarSucesso");
+  }
 
   return (
     <Container>
@@ -27,7 +31,7 @@ const Foto = () => {
       </ContainerTextos>
 
       <ContainerBotao>
-        <Botao title="Pular" width={130} />
+        <Botao title="Pular" width={130} funcExec={navegarSucesso} />
       </ContainerBotao>
     </Container>
   );
