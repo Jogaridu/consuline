@@ -1,34 +1,35 @@
-import styled from 'styled-components/native';
-import colors from '../../../Styles/colors';
+import styled from "styled-components/native";
+import colors from "../../../Styles/colors";
 
 export const ContainerImgCadastro = styled.View`
-    flex: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ImgInfmPessoais = styled.Image`
-    width: 70%;
-    height: 0;
-    padding-bottom: 70%;
+  width: 70%;
+  height: 0;
+  padding-bottom: 70%;
 `;
 
 export const ContainerTituloCadastro = styled.View`
-    flex: 0.5;
-    margin-bottom: 10px;
+  flex: 0.5;
+  margin-bottom: 10px;
 `;
 
 export const ContainerFormulario = styled.View`
-    flex: 4;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  flex: 4;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const ContainerBotao = styled.View`
-    flex: 1;
-    align-self: flex-end;
-    padding: 0 20px;
+  flex: 1;
+  align-self: flex-end;
+  padding: 0 20px;
 `;
+

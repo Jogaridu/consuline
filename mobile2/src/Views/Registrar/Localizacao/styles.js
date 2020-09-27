@@ -32,3 +32,12 @@ export const ContainerBotao = styled.View`
     align-self: flex-end;
     padding: 0 20px;
 `;
+
+export const Input = styled.TextInput`
+  height: 45px;
+  border: 1px solid ${colors.principal};
+  padding: 10px;
+  border-radius: 5px;
+  background: ${colors.fundo};
+  margin-bottom: 15px;
+`;
