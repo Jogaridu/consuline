@@ -8,7 +8,12 @@ import Container from "../../Components/Container";
 
 import { ImgLogoLogin } from "./styles";
 
-const Login = () => {
+const Login = ({ navigation }) => {
+
+  const navegarCadastro = () => {
+    navigation.navigate("RegistrarInformacaoPessoal");
+  }
+
   return (
     <Container>
       <ImgLogoLogin
@@ -18,15 +23,18 @@ const Login = () => {
       <Input
         style={{marginBottom: 15}}
         placeholder="Login"
+        maxLength={20}
         placeholderTextColor="#403e66"
       />
       <Input
+        secureTextEntry={true}
         style={{marginBottom: 74}}
         placeholder="Senha"
+        maxLength={20}
         placeholderTextColor="#403e66"
       />
-      <Botao1 title="Enviar" marginBottom={26} />
-      {/* <Botao2 title="Registrar-se" /> */}
+      <Botao1 title="Enviar" style={{marginBottom: 26}} />
+      <Botao2 title="Registrar-se" funcExec={navegarCadastro} />
     </Container>
   );
 };

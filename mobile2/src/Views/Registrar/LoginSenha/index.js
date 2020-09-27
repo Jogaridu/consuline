@@ -2,8 +2,6 @@ import React from "react";
 import { Dimensions } from "react-native";
 
 import {
-  ContainerSeta,
-  ImgLeft,
   ContainerImgLoginSenha,
   ImgLoginSenha,
   ContainerTituloLoginSenha,
@@ -20,9 +18,6 @@ const LoginSenha = () => {
 
   return (
     <Container>
-      <ContainerSeta style={{ width }}>
-        <ImgLeft source={require("../../../Assets/left-arrow.png")} />
-      </ContainerSeta>
       <ContainerImgLoginSenha style={{ width: width * 0.25 + "%" }}>
         <ImgLoginSenha source={require("../../../Assets/cadeado.jpg")} />
       </ContainerImgLoginSenha>

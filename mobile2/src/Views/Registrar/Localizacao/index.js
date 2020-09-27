@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 import encontrarCep from "../../../Services/viaCep";
 
+import { TextInputMask } from "react-native-masked-text";
+
 import {
-  ContainerSeta,
-  ImgLeft,
   ContainerImgCadastro,
   ImgLocalizacao,
   ContainerTituloCadastro,
@@ -17,7 +17,10 @@ import Titulo from "../../../Components/TituloCadastro";
 import { Input } from "./styles";
 import Botao from "../../../Components/Botao2";
 
-const Localizacao = () => {
+import colors from "../../../Styles/colors";
+
+const Localizacao = ({ navigation }) => {
+
   const { height, width } = Dimensions.get("window");
 
   const [localizacao, setLocalizacao] = useState({
@@ -36,8 +39,6 @@ const Localizacao = () => {
       ...localizacao,
       bairro: endereco.bairro,
       rua: endereco.logradouro,
-      numero: endereco.numero,
-      complemento: endereco.complemento,
       cidade: endereco.localidade,
       estado: endereco.uf,
     });
@@ -46,12 +47,13 @@ const Localizacao = () => {
   const handlerInput = (string) => {
     setLocalizacao({ cep: string });
   };
+  
+  const navegarTelefone = () => {
+    navigation.navigate("RegistrarTelefone");
+  }
 
   return (
     <Container>
-      <ContainerSeta style={{ width }}>
-        <ImgLeft source={require("../../../Assets/left-arrow.png")} />
-      </ContainerSeta>
       <ContainerImgCadastro style={{ width: width * 0.15 + "%" }}>
         <ImgLocalizacao source={require("../../../Assets/localizacao.jpg")} />
       </ContainerImgCadastro>
@@ -60,9 +62,11 @@ const Localizacao = () => {
       </ContainerTituloCadastro>
 
       <ContainerFormulario>
-        <Input
-          style={{ width: 140 }}
+        <TextInputMask
+          style={styles.input}
           value={localizacao.cep}
+          type={"only-numbers"}
+          maxLength={9}
           placeholder="CEP"
           placeholderTextColor="#403e66"
           onChangeText={handlerInput}
@@ -80,9 +84,11 @@ const Localizacao = () => {
           placeholder="Rua"
           placeholderTextColor="#403e66"
         />
-        <Input
-          style={{ width: 70, marginLeft: 15 }}
+        <TextInputMask
+          style={styles.numero}
           value={localizacao.numero}
+          onChangeText={(e) => setLocalizacao({...localizacao, numero: e})}
+          type={"only-numbers"}
           placeholder="N°"
           placeholderTextColor="#403e66"
         />
@@ -95,7 +101,7 @@ const Localizacao = () => {
         <Input
           style={{ width: 140, marginLeft: 8 }}
           value={localizacao.cidade}
-          placeholder="Estado"
+          placeholder="Cidade"
           placeholderTextColor="#403e66"
         />
         <Input
@@ -106,10 +112,35 @@ const Localizacao = () => {
         />
       </ContainerFormulario>
       <ContainerBotao>
-        <Botao title="Próximo" width={130} />
+        <Botao title="Próximo" width={130} funcExec={navegarTelefone} />
       </ContainerBotao>
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    width: 140,
+    height: 45,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: [colors.principal],
+    backgroundColor: [colors.fundo],
+    marginBottom: 15,
+  },
+
+  numero: {
+    width: 70,
+    height: 45,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: [colors.principal],
+    backgroundColor: [colors.fundo],
+    marginBottom: 15,
+    marginLeft: 15,
+  },
+});
 
 export default Localizacao;
