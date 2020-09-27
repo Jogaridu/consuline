@@ -34,7 +34,7 @@ const enviarImagem = (req, res, next) => {
     stream.on("error", error => console.log(error));
 
     stream.on("finish", async () => {
-        console.log(file);
+
         await file.makePublic();
 
         req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nomeArquivo}`

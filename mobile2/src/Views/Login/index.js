@@ -1,27 +1,50 @@
-import React from "react";
-import { Text, TextInput } from "react-native";
-
+import React, { useState } from "react";
+import { TextInput } from "react-native";
 import { Botao1 } from "../../Components/Botao1";
 import Botao2 from "../../Components/Botao2";
 import Input from "../../Components/Input";
 import Container from "../../Components/Container";
 
-import {
-  ImgLogoLogin,
-} from "./styles";
+import { ImgLogoLogin } from "./styles";
+
+import api from "../../Services/api";
 
 const Login = ({ navigation }) => {
+
+  const [pacienteLogin, setPacienteLogin] = useState({
+    login: "",
+    senha: ""
+  })
 
   const navegarCadastro = () => {
     navigation.navigate("RegistrarInformacaoPessoal");
   }
 
+  const handlerInputLogin = (string) => setPacienteLogin({ ...pacienteLogin, login: string });
+  const handlerInputSenha = (string) => setPacienteLogin({ ...pacienteLogin, senha: string });
+
+  const autenticarPaciente = async () => {
+    try {
+      const retorno = await api.post("/paciente/sessao", pacienteLogin);
+      console.log(retorno);
+      if (retorno) {
+        console.log(retorno.data);
+
+      }
+
+    } catch (error) {
+      console.warn("Usuário ou senha estão errados...");
+    }
+
+
+  }
+
   return (
     <Container>
       <ImgLogoLogin style={{ marginBottom: 30 }} source={require("../../Assets/logo.png")} />
-      <Input plch="Login" />
-      <Input marginBottom={74} plch="Senha" />
-      <Botao1 title="Enviar" marginBottom={26} />
+      <Input plch="Login" handler={handlerInputLogin} />
+      <Input marginBottom={74} plch="Senha" handler={handlerInputSenha} />
+      <Botao1 title="Enviar" margin={26} funcExec={autenticarPaciente} />
       <Botao2 title="Registrar-se" funcExec={navegarCadastro} />
     </Container>
   );

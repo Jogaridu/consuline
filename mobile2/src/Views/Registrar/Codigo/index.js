@@ -82,7 +82,7 @@ const Codigo = ({ navigation }) => {
                     funcExec={() => {
                         // mostrarCodigo()
                         if (codigoLength.length === 4) {
-                            navegarFoto()
+                            navegarFoto();
                         } else {
                             console.warn("Digite os 4 dígitos");
                         }

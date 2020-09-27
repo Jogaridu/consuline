@@ -7,9 +7,10 @@ const { enviarSMS } = require("../services/sms");
 
 module.exports = {
   async cadastrar(req, res) {
-    console.log(req.body);
 
-    const { endereco, ...dados } = req.body;
+    let { endereco, ...dados } = req.body;
+
+    endereco = JSON.parse(endereco);
 
     if (endereco && dados && req.file) {
       try {
@@ -171,4 +172,31 @@ module.exports = {
       });
     }
   },
+
+  async autenticar(req, res) {
+    const { login, senha } = req.body;
+
+    if (login && senha) {
+
+      const pacienteBuscado = await Paciente.findOne({
+        where: {
+          login,
+        }
+      })
+
+      if (!pacienteBuscado || !bcrypt.compareSync(senha, pacienteBuscado.senha)) {
+        return res.status(403).send({ error: "Usuário e/ou senha inválidos" })
+      }
+
+      res.status(201).send({
+        paciente: {
+
+          pacienteId: pacienteBuscado.id,
+
+          nome: pacienteBuscado.nome,
+
+        },
+      });
+    }
+  }
 };
