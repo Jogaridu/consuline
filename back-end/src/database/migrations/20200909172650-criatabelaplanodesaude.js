@@ -5,7 +5,7 @@ module.exports = {
 
     return queryInterface.createTable("tblPlanoDeSaude", {
 
-      planoDeSaudeId: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true

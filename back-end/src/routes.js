@@ -10,7 +10,15 @@ const Multer = multer({
 });
 
 const estadoControllers = require("./controllers/estado");
+const cidadeControllers = require("./controllers/cidade");
+const profissionalDaSaudeController = require("./controllers/profissionalDaSaude");
+const telefoneprofissionalDaSaudeController = require("./controllers/telefoneProfissionalDaSaude");
 
-routes.post("/estado", estadoControllers.store);
+routes.post("/profissionalDaSaude", profissionalDaSaudeController.store);
+
+routes.post(
+  "/telefoneprofissionalDaSaude",
+  telefoneprofissionalDaSaudeController.store
+);
 
 module.exports = routes;
