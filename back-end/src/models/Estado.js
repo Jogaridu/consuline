@@ -16,9 +16,9 @@ class Estado extends Model {
 
   static associate(models) {
     this.hasMany(models.Cidade);
-    // this.belongsTo(models.EnderecoProfissionalDaSaude);
-    // this.belongsTo(models.EnderecoPaciente);
-    // this.belongsTo(models.EnderecoFilial);
+    this.hasMany(models.EnderecoProfissionalDaSaude);
+    this.hasMany(models.EnderecoPaciente);
+    this.hasMany(models.EnderecoFilial);
   }
 }
 

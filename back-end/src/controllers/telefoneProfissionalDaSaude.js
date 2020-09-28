@@ -9,7 +9,7 @@ module.exports = {
     const profissionalDaSaude = ProfissionalDaSaude.findByPk(idProfissionalDaSaude);
 
     if (!profissionalDaSaude) {
-      return res.send("Profissional não encontrado");
+      return res.status(404).send({ erro: "Profissional não encontrado" });
     }
 
     try {
@@ -23,8 +23,6 @@ module.exports = {
       res.status(201).send(telefoneProfissionalDaSaude);
 
     } catch (error) {
-
-      console.log(error);
 
       return res.status(500).send({
         error: "Não foi possivel cadastrar este telefone, tente novamente",

@@ -15,7 +15,11 @@ class Filial extends Model {
   }
 
   static associate(models) {
+<<<<<<< HEAD
     this.belongsTo(models.EnderecoFilial);
+=======
+    this.belongsTo(models.EnderecoFilial, { foreignKey: "idEnderecoFilial" });
+>>>>>>> origin/develop
     this.hasMany(models.TelefoneFilial);
     this.belongsToMany(models.Servico, {
       through: "tblFilialServico",

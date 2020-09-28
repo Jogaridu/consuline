@@ -1,4 +1,5 @@
 const express = require("express");
+const rotas = require("./routes");
 const cors = require("cors");
 require("./database");
 
@@ -11,7 +12,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(rotasServicos);
-app.use(rotasFiliais);
+app.use(rotas)
 
 module.exports = app;
