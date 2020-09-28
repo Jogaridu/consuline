@@ -4,6 +4,7 @@ class Filial extends Model {
   static init(sequelize) {
     super.init(
       {
+        nome: DataTypes.STRING,
         horarioFuncionamento: DataTypes.TIME,
       },
       {
@@ -14,7 +15,7 @@ class Filial extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.EnderecoFilial, { foreignKey: "idEnderecoFilial" });
+    this.belongsTo(models.EnderecoFilial);
     this.hasMany(models.TelefoneFilial);
     this.belongsToMany(models.Servico, {
       through: "tblFilialServico",

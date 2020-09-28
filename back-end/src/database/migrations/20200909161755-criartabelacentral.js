@@ -41,8 +41,8 @@ module.exports = {
         allowNull: false,
       },
 
-  })
-},
+    })
+  },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable("tblCentral");

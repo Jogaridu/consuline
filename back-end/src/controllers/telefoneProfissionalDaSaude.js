@@ -65,9 +65,11 @@ module.exports = {
       });
       return res.status(200).send(telefones);
     } catch (error) {
+
       return res.status(500).send({
         error: "Não foi possivel listar os telefones, tente novamente",
       });
+
     }
   },
   async buscarIdProfissional(idProfissional) {
@@ -125,10 +127,10 @@ module.exports = {
         },
       });
 
-     
+
       for (let i = 0; i < telefones.length; i++) {
 
-  
+
         await TelefoneProfissional.update(
           {
             numero: editTelefone[i],

@@ -29,9 +29,9 @@ module.exports = {
         allowNull: false,
       },
 
-      idEstado: {
+      estadoId: {
         type: Sequelize.INTEGER,
-        allownull: false,
+        allowNull: false,
         references: {
           model: "tblEstado",
           key: "id"
@@ -40,9 +40,9 @@ module.exports = {
         onDelete: "CASCADE"
       },
 
-      idCidade: {
+      cidadeId: {
         type: Sequelize.INTEGER,
-        allownull: false,
+        allowNull: false,
         references: {
           model: "tblCidade",
           key: "id"

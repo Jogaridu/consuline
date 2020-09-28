@@ -9,6 +9,8 @@ class EnderecoFilial extends Model {
         numero: DataTypes.STRING,
         complemento: DataTypes.STRING,
         cep: DataTypes.STRING,
+        cidadeId: DataTypes.INTEGER,
+        estadoId: DataTypes.INTEGER,
       },
       {
         sequelize,
@@ -18,9 +20,9 @@ class EnderecoFilial extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Filial);
-    this.belongsTo(models.Cidade, { foreignKey: "idCidade" });
-    this.belongsTo(models.Estado, { foreignKey: "idEstado" });
+    this.belongsTo(models.Cidade);
+    this.belongsTo(models.Estado);
+    this.hasOne(models.Filial);
   }
 }
 
