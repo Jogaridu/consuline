@@ -3,7 +3,7 @@ const Estado = require("../models/Estado");
 
 
 module.exports = {
-  async store(req, res) {
+  async cadastrar(req, res) {
     const { nome, sigla } = req.body;
 
     let estado = await Estado.findOne({
@@ -13,7 +13,7 @@ module.exports = {
     });
 
     if (estado) {
-      return res.status(404).send({ error: "Estado já cadastrado!!" });
+      return res.status(400).send({ error: "Estado já cadastrado!!" });
     }
 
     estado = await Estado.create({ nome, sigla });

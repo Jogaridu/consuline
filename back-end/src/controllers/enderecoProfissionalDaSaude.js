@@ -4,8 +4,7 @@ const Cidade = require("../models/Cidade");
 const Estado = require("../models/Estado");
 
 module.exports = {
-  
-  async store(endereco) {
+  async cadastrar(endereco) {
     const {
       rua,
       bairro,
@@ -19,12 +18,12 @@ module.exports = {
     const estado = await Estado.findByPk(idEstado);
 
     if (!estado) {
-      return 404;
+      return 400;
     }
     const cidade = await Cidade.findByPk(idCidade);
 
     if (!cidade) {
-     return 404
+      return 400;
     }
 
     let enderecoProfissionalDaSaude = await cidade.createEnderecoProfissionalDaSaude(
@@ -39,5 +38,78 @@ module.exports = {
     );
 
     return enderecoProfissionalDaSaude.id;
+  },
+
+  async listar(req, res) {
+    let enderecos = await EnderecoProfissionalDaSaude.findAll({
+      include: [
+        {
+          association: "Cidade",
+          attributes: ["nome"],
+        },
+        {
+          association: "Estado",
+          attributes: ["nome", "sigla"],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+
+    res.status(200).send(enderecos);
+  },
+
+  async atualizar(endereco, id) {
+    const {
+      rua,
+      bairro,
+      numero,
+      complemento,
+      cep,
+      idCidade,
+      idEstado,
+    } = endereco;
+
+    const estado = await Estado.findByPk(idEstado);
+
+    if (!estado) {
+      return 400;
+    }
+    const cidade = await Cidade.findByPk(idCidade);
+
+    if (!cidade) {
+      return 400;
+    }
+
+    try {
+      await EnderecoProfissionalDaSaude.update(
+        {
+          rua,
+          bairro,
+          numero,
+          complemento,
+          cep,
+          EstadoId: idEstado,
+          CidadeId: idCidade,
+        },
+        {
+          where: { id: id },
+        }
+      );
+
+      return 200;
+    } catch (error) {
+      return 400;
+    }
+  },
+
+  async apagar(id) {
+    let endereco = await EnderecoProfissionalDaSaude.findByPk(id);
+    if (!endereco) {
+      return 400;
+    }
+
+    await endereco.destroy();
+
+    return 204;
   },
 };

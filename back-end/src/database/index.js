@@ -14,7 +14,7 @@ const Cobertura = require("../models/Cobertura");
 // Profissional da saúde
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
-const TelefoneProfissionalDaSaude = require("../models/TelefoneProfissional");
+const TelefoneProfissional = require("../models/TelefoneProfissional");
 
 // Filial
 const Filial = require("../models/Filial");
@@ -43,7 +43,7 @@ Cobertura.init(conexao);
 // Profissional da saúde
 ProfissionalDaSaude.init(conexao);
 EnderecoProfissionalDaSaude.init(conexao);
-TelefoneProfissionalDaSaude.init(conexao);
+TelefoneProfissional.init(conexao);
 // Filial
 Filial.init(conexao);
 EnderecoFilial.init(conexao);

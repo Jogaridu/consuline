@@ -4,14 +4,14 @@ const Estado = require("../models/Estado");
 const { response } = require("express");
 
 module.exports = {
-  async store(req, res) {
+  async cadastrar(req, res) {
     const { nome, idEstado } = req.body;
 
     try {
       const estado = await Estado.findByPk(idEstado);
 
       if (!estado) {
-        res.status(404).send({ error: "Estado não encontrado" });
+        res.status(400).send({ error: "Estado não encontrado" });
       }
 
       let cidade = await Cidade.findOne({
@@ -21,7 +21,7 @@ module.exports = {
       });
 
       if (cidade) {
-        return res.status(404).send({ error: "Cidade já cadastrada!!" });
+        return res.status(400).send({ error: "Cidade já cadastrada!!" });
       }
 
       cidade = await estado.createCidade({
