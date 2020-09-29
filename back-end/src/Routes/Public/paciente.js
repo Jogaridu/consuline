@@ -14,8 +14,11 @@ routes.post(
   controller.cadastrar
 );
 routes.post("/paciente/:id/validacao-sms", controller.verificarSms);
+routes.get("/paciente/:id", controller.buscarPorId);
 routes.get("/paciente", controller.listar);
 routes.delete("/paciente/:id", controller.deletar);
 routes.post("/paciente/sessao", controller.autenticar);
+routes.put("/paciente/:id", controller.atualizar);
+
 
 module.exports = routes;

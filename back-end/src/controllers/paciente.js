@@ -1,5 +1,6 @@
 const Paciente = require("../models/Paciente");
 const EnderecoPaciente = require("../models/EnderecoPaciente");
+const enderecoPacienteController = require("../controllers/enderecoPaciente");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 const gerarCodigoVerificacao = require("../fixtures/gerarCodigo");
@@ -7,66 +8,80 @@ const { enviarSMS } = require("../services/sms");
 
 module.exports = {
   async cadastrar(req, res) {
+    let {
+      nome,
+      celular,
+      login,
+      senha,
+      dataNascimento,
+      email,
+      rg,
+      cpf,
+      endereco,
+    } = req.body;
 
-    let { endereco, ...dados } = req.body;
 
+    const verificado = false;
+
+    const { firebaseUrl } = req.file ? req.file : "";
     endereco = JSON.parse(endereco);
 
-    if (endereco && dados && req.file) {
-      try {
-        let pacienteCriado = await Paciente.findOne({
-          where: {
-            [Op.or]: [
-              { cpf: dados.cpf },
-              { rg: dados.rg },
-              { login: dados.login },
-              { email: dados.email },
-            ],
-          },
+    try {
+      let pacienteCriado = await Paciente.findOne({
+        where: {
+          [Op.or]: [
+            { cpf: cpf },
+            { rg: rg },
+            { login: login },
+            { email: email },
+            { celular: celular },
+          ],
+        },
+      });
+
+      if (pacienteCriado) {
+        return res.status(400).send({
+          error:
+            "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email",
         });
-
-        if (pacienteCriado) {
-          return res
-            .status(400)
-            .send(
-              "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email"
-            );
-        }
-
-        const enderecoPacienteCriado = await EnderecoPaciente.create(endereco);
-
-        dados["codigoVerificacao"] = gerarCodigoVerificacao();
-
-        dados["senha"] = bcrypt.hashSync(dados.senha, 10);
-
-        pacienteCriado = await enderecoPacienteCriado.createPaciente(dados);
-
-        // await enviarSMS({
-        //     "numero_destino": `55${pacienteCriado.celular}`,
-        //     "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
-        // });
-
-        return res.status(201).send(pacienteCriado);
-      } catch (error) {
-        console.log(error);
-        return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
       }
-    }
 
-    res.status(400).send({
-      erro: `Todos os campos devem ser preenchidos (
-                nome, 
-                celular, 
-                login,
-                senha,
-                data de nascimento, 
-                email,
-                rg,
-                cpf,
-                foto e 
-                endereco
-            ).`,
-    });
+      const enderecoPaciente = await EnderecoPaciente.create(endereco);
+
+      if (enderecoPaciente === 400) {
+        return res.status(400).send({
+          error:
+            "Não foi possível cadastrar o endereço, por favor tente novamente.",
+        });
+      }
+
+      const codigoVerificacao = gerarCodigoVerificacao();
+
+      const senhaCripto = bcrypt.hashSync(senha, 10);
+
+      paciente = await enderecoPaciente.createPaciente({
+        nome,
+        celular,
+        login,
+        senha: senhaCripto,
+        dataNascimento,
+        email,
+        rg,
+        cpf,
+        foto: firebaseUrl,
+        verificado,
+        codigoVerificacao,
+      });
+
+      // await enviarSMS({
+      //     "numero_destino": `55${pacienteCriado.celular}`,
+      //     "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
+      // });
+
+      return res.status(201).send(paciente);
+    } catch (error) {
+      return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
+    }
   },
 
   async verificarSms(req, res) {
@@ -95,7 +110,21 @@ module.exports = {
   async buscarPorId(req, res) {
     const { id } = req.params;
     try {
-      let paciente = await Paciente.findByPk(id);
+      let paciente = await Paciente.findByPk(id, {
+        include: {
+          association: "EnderecoPaciente",
+          attributes: [
+            "rua",
+            "bairro",
+            "numero",
+            "complemento",
+            "cep",
+            "EstadoId",
+            "CidadeId",
+          ],
+        },
+        order: [["createdAt", "DESC"]],
+      });
       if (!paciente) {
         return res.status(400).send({ error: "Paciente não cadastrado" });
       }
@@ -109,7 +138,21 @@ module.exports = {
   },
   async listar(req, res) {
     try {
-      let pacientes = await Paciente.findAll();
+      let pacientes = await Paciente.findAll({
+        include: {
+          association: "EnderecoPaciente",
+          attributes: [
+            "rua",
+            "bairro",
+            "numero",
+            "complemento",
+            "cep",
+            "EstadoId",
+            "CidadeId",
+          ],
+        },
+        order: [["createdAt", "DESC"]],
+      });
       res.status(200).send(pacientes);
     } catch (error) {
       return res.status(500).send({
@@ -121,54 +164,90 @@ module.exports = {
   async deletar(req, res) {
     const { id } = req.params;
 
-    const pacienteBuscado = await Paciente.findByPk(id);
+    try {
+      const paciente = await Paciente.findByPk(id);
 
-    if (pacienteBuscado) {
-      pacienteBuscado.destroy();
+      if (!paciente) {
+        return res.status(404).send({ error: "Paciente não encontrado" });
+      }
 
-      return res.status(200).send();
+      const statusDeleteEndereco = await enderecoPacienteController.apagar(
+        paciente.EnderecoPacienteId
+      );
+
+      if (statusDeleteEndereco === 400) {
+        return res.status(400).send({
+          error: "Não foi possivel deletar o endereço desse paciente!!!",
+        });
+      }
+
+      await paciente.destroy();
+
+      res.status(204).send();
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não foi possivel excluir este paciente, por favor tente novamente",
+      });
     }
-
-    return res.status(404).send("Paciente não encontrado");
   },
+
   async atualizar(req, res) {
     const { id } = req.params;
-    const { endereco, ...dados } = req.body;
-    if (endereco && dados && req.file) {
-      try {
-        let paciente = await Paciente.findByPk(id);
-        if (!paciente) {
-          return res
-            .status(400)
-            .send({ error: "Paciente não encontrado no sistema" });
-        }
 
-        await EnderecoPaciente.update(endereco, {
-          where: { id: paciente.EnderecoPacienteId },
-        });
+    let {
+      nome,
+      celular,
+      login,
+      senha,
+      dataNascimento,
+      email,
+      rg,
+      cpf,
+      endereco,
+    } = req.body;
 
-        await Paciente.update(...dados, { where: { id: id } });
-
-        res.status(204).send();
-      } catch (error) {
+    try {
+      let paciente = await Paciente.findByPk(id);
+      if (!paciente) {
         return res
-          .status(500)
-          .send({ error: "Não foi possivel atualzar, tente novamente" });
+          .status(400)
+          .send({ error: "Paciente não encontrado no sistema" });
       }
-    } else {
-      res.status(400).send({
-        erro: `Todos os campos devem ser preenchidos (
-                    nome, 
-                    celular, 
-                    login,
-                    senha,
-                    data de nascimento, 
-                    email,
-                    rg,
-                    cpf,
-                    foto e 
-                    endereco
-                ).`,
+
+      const statusUpdateEndereco = await enderecoPacienteController.atualizar(
+        endereco,
+        paciente.EnderecoId
+      );
+
+      if (statusUpdateEndereco === 400) {
+        return res.status(400).send({
+          error:
+            "Não foi possivel atualizar este endereço, por favor tente novamente",
+        });
+      }
+
+      await Paciente.update(
+        {
+          nome,
+          celular,
+          login,
+          senha,
+          dataNascimento,
+          email,
+          rg,
+          cpf,
+        },
+        {
+          where: { id: id },
+        }
+      );
+
+      res.status(204).send();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        error: "Não foi possivel atualzar, tente novamente por favor",
       });
     }
   },
@@ -177,26 +256,26 @@ module.exports = {
     const { login, senha } = req.body;
 
     if (login && senha) {
-
       const pacienteBuscado = await Paciente.findOne({
         where: {
           login,
-        }
-      })
+        },
+      });
 
-      if (!pacienteBuscado || !bcrypt.compareSync(senha, pacienteBuscado.senha)) {
-        return res.status(403).send({ error: "Usuário e/ou senha inválidos" })
+      if (
+        !pacienteBuscado ||
+        !bcrypt.compareSync(senha, pacienteBuscado.senha)
+      ) {
+        return res.status(403).send({ error: "Usuário e/ou senha inválidos" });
       }
 
       res.status(201).send({
         paciente: {
-
           pacienteId: pacienteBuscado.id,
 
           nome: pacienteBuscado.nome,
-
         },
       });
     }
-  }
+  },
 };
