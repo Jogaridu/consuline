@@ -10,18 +10,37 @@ import { ImgLogoLogin } from "./styles";
 import api from "../../Services/api";
 
 const Login = ({ navigation }) => {
-
   const [pacienteLogin, setPacienteLogin] = useState({
     login: "",
-    senha: ""
-  })
+    senha: "",
+  });
+
+  // const [registrar, setRegistrar] = useState({
+  //   nome: "",
+  //   dataNascimento: "",
+  //   rg: "",
+  //   cpf: "",
+  //   email: "",
+  //   endereco: {
+  //     cep: "",
+  //     bairro: "",
+  //     rua: "",
+  //     numero: "",
+  //     complemento: "",
+  //     cidade: "",
+  //     estado: "",
+  //   },
+  //   celular: "",
+  // });
 
   const navegarCadastro = () => {
     navigation.navigate("RegistrarInformacaoPessoal");
-  }
+  };
 
-  const handlerInputLogin = (string) => setPacienteLogin({ ...pacienteLogin, login: string });
-  const handlerInputSenha = (string) => setPacienteLogin({ ...pacienteLogin, senha: string });
+  const handlerInputLogin = (string) =>
+    setPacienteLogin({ ...pacienteLogin, login: string });
+  const handlerInputSenha = (string) =>
+    setPacienteLogin({ ...pacienteLogin, senha: string });
 
   const autenticarPaciente = async () => {
     try {
@@ -29,22 +48,14 @@ const Login = ({ navigation }) => {
       console.log(retorno);
       if (retorno) {
         console.log(retorno.data);
-
       }
-
     } catch (error) {
       console.warn("Usuário ou senha estão errados...");
     }
-
-
-  }
+  };
 
   return (
     <Container>
-      <ImgLogoLogin style={{ marginBottom: 30 }} source={require("../../Assets/logo.png")} />
-      <Input plch="Login" handler={handlerInputLogin} />
-      <Input marginBottom={74} plch="Senha" handler={handlerInputSenha} />
-      <Botao1 title="Enviar" margin={26} funcExec={autenticarPaciente} />
       <ImgLogoLogin
         style={{ marginBottom: 30 }}
         source={require("../../Assets/logo.png")}
@@ -55,7 +66,8 @@ const Login = ({ navigation }) => {
         maxLength={20}
         placeholderTextColor="#403e66"
         onChangeText={handlerInputLogin}
-      />
+      > 
+      </Input>
       <Input
         secureTextEntry={true}
         style={{ marginBottom: 74 }}
@@ -64,7 +76,7 @@ const Login = ({ navigation }) => {
         placeholderTextColor="#403e66"
         onChangeText={handlerInputSenha}
       />
-      <Botao1 title="Enviar" style={{ marginBottom: 26 }} />
+      <Botao1 title="Enviar" bottom={16} />
       <Botao2 title="Registrar-se" funcExec={navegarCadastro} />
     </Container>
   );

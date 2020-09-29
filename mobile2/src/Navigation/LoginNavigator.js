@@ -12,6 +12,7 @@ import Telefone from "../Views/Registrar/Telefone";
 import Codigo from "../Views/Registrar/Codigo";
 import Foto from "../Views/Registrar/Foto";
 import Sucesso from "../Views/Registrar/Sucesso";
+import CadastroLoginSenha from "../Views/Registrar/LoginSenha";
 
 import colors from "../Styles/colors";
 
@@ -37,6 +38,11 @@ const LoginNavigator = () => {
             }} />
 
             <Stack.Screen name="RegistrarLocalizacao" component={Localizacao} options={{
+                ...optionsHeader,
+                animationEnabled: false,
+            }} />
+
+            <Stack.Screen name="RegistrarLoginSenha" component={CadastroLoginSenha} options={{
                 ...optionsHeader,
                 animationEnabled: false,
             }} />

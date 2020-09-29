@@ -9,9 +9,9 @@ export const ContainerImgCadastro = styled.View`
 `;
 
 export const ImgInfmPessoais = styled.Image`
-  width: 70%;
+  width: 40%;
   height: 0;
-  padding-bottom: 70%;
+  padding-bottom: 40%;
 `;
 
 export const ContainerTituloCadastro = styled.View`

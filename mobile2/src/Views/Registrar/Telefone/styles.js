@@ -9,9 +9,9 @@ export const ContainerImgTelefone = styled.View`
 `;
 
 export const ImgTelefone = styled.Image`
-    width: 80%;
+    width: 40%;
     height: 0;
-    padding-bottom: 80%;
+    padding-bottom: 40%;
 `;
 
 export const ContainerTituloTelefone = styled.View`
@@ -22,7 +22,9 @@ export const ContainerTituloTelefone = styled.View`
 
 export const ContainerFormularioTelefone = styled.View`
     flex: 3;
-    padding-top: 20px
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
 `;
 
 export const ContainerBotao = styled.View`

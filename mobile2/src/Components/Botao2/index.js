@@ -8,7 +8,6 @@ const Botao2 = (props) => {
     <Botao
       style={{
         width: props.width || 288,
-
       }}
       onPressIn={props.funcExec}
     >

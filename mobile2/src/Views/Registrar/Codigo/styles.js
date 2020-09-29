@@ -9,9 +9,9 @@ export const ContainerImgCodigo = styled.View`
 `;
 
 export const ImgCodigo = styled.Image`
-    width: 80%;
+    width: 40%;
     height: 0;
-    padding-bottom: 80%;
+    padding-bottom: 40%;
 `;
 
 export const ContainerTituloCodigo = styled.View`
@@ -27,6 +27,7 @@ export const ContainerFormularioCodigo = styled.View`
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0 20px;
 `;
 
 export const InputCodigo = styled.TextInput`
@@ -40,6 +41,7 @@ export const InputCodigo = styled.TextInput`
 
 export const ContainerBotao = styled.View`
     flex: 0.5;
-    padding: 0 20px;
+    margin: 0 auto;
+    margin-top: 30px
 `;
 
