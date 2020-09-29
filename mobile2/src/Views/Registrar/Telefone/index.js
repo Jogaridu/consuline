@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Dimensions, Text, StyleSheet } from "react-native";
+import {
+  Dimensions,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 
 import { TextInputMask as Input } from "react-native-masked-text";
 
@@ -10,6 +16,8 @@ import Botao from "../../../Components/Botao2";
 
 import colors from "../../../Styles/colors";
 
+import api from "../../../Services/api";
+
 import {
   ContainerImgTelefone,
   ImgTelefone,
@@ -18,47 +26,67 @@ import {
   ContainerBotao,
 } from "./styles";
 
-const Telefone = ({ navigation }) => {
-  const [celular, setCelular] = useState("");
+const Telefone = ({ navigation, route }) => {
+  const [registrar, setRegistrar] = useState(route.params.registrar);
 
   const { height, width } = Dimensions.get("window");
 
-  const navegarCodigo = () => {
-    navigation.navigate("RegistrarCodigo");
-  };
+  const registrarPaciente = async() => {
+    console.log(registrar);
+  
+    try {
+
+      const retorno = await api.post("/paciente", registrar);
+
+      if(retorno.status === 201) {
+        navigation.navigate("RegistrarCodigo", {registrar, setRegistrar});
+        return console.log("Paciente Cadastrado")
+      }
+    } catch (error) {
+      if(error.response) {
+        return console.log(error.response.data.erro);
+      }
+
+      console.log("deu merda");
+    }
+  }
 
   return (
     <Container>
-      <ContainerImgTelefone style={{ width: width * 0.15 + "%" }}>
-        <ImgTelefone source={require("../../../Assets/vetorCelular.jpg")} />
-      </ContainerImgTelefone>
+      <KeyboardAvoidingView behavior="height" enabled>
+        <ScrollView>
+          <ContainerImgTelefone>
+            <ImgTelefone source={require("../../../Assets/vetorCelular.jpg")} />
+          </ContainerImgTelefone>
 
-      <ContainerTituloTelefone>
-        <Titulo title="Celular" />
-        <Text style={{ fontSize: 20, textAlign: "center" }}>
-          Insira seu número de celular para verificar sua conta
-        </Text>
-      </ContainerTituloTelefone>
+          <ContainerTituloTelefone>
+            <Titulo title="Celular" />
+            <Text style={{ fontSize: 20, textAlign: "center" }}>
+              Insira seu número de celular para verificar sua conta
+            </Text>
+          </ContainerTituloTelefone>
 
-      <ContainerFormularioTelefone>
-        <Input
-          style={styles.input}
-          type={"cel-phone"}
-          options={{
-            maskType: 'BRL',
-            withDDD: true,
-            dddMask: '(99) '
-          }}
-          value={celular}
-          onChangeText={(e) => setCelular(e)}
-          placeholder="Número"
-          placeholderTextColor="#403e66"
-        />
-      </ContainerFormularioTelefone>
+          <ContainerFormularioTelefone>
+            <Input
+              style={styles.input}
+              type={"cel-phone"}
+              options={{
+                maskType: "BRL",
+                withDDD: true,
+                dddMask: "(99) ",
+              }}
+              value={registrar.celular}
+              onChangeText={(e) => setRegistrar({...registrar, celular: e})}
+              placeholder="Número"
+              placeholderTextColor="#403e66"
+            />
+          </ContainerFormularioTelefone>
 
-      <ContainerBotao>
-        <Botao title="Próximo" width={130} funcExec={navegarCodigo} />
-      </ContainerBotao>
+          <ContainerBotao>
+            <Botao title="Próximo" width={130} funcExec={registrarPaciente} />
+          </ContainerBotao>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Container>
   );
 };

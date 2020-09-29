@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions } from "react-native";
 
 import {
@@ -6,15 +6,25 @@ import {
   ImgLoginSenha,
   ContainerTituloLoginSenha,
   ContainerFormulario,
-  ContainerBotao
+  ContainerBotao,
 } from "./styles";
 
 import Titulo from "../../../Components/TituloCadastro";
 import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
 
-const LoginSenha = () => {
+const LoginSenha = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
+
+  const novoPaciente = route.params;
+
+  // const [registrar, setRegistrar] = useState(route.params.registrar);
+
+  console.log(novoPaciente);
+
+  const navegarTelefone = () => {
+    navigation.navigate("RegistrarTelefone", { registrar, setRegistrar });
+  };
 
   return (
     <Container>
@@ -30,7 +40,7 @@ const LoginSenha = () => {
         <TextInput plch="Confirmar senha" />
       </ContainerFormulario>
       <ContainerBotao>
-        <Botao title="Próximo" width={130} />
+        <Botao title="Próximo" width={130} funcExec={navegarTelefone} />
       </ContainerBotao>
     </Container>
   );

@@ -1,5 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { Dimensions, Text } from 'react-native';
+import React, { useState, useRef } from "react";
+import {
+  Dimensions,
+  Text,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 
 import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
@@ -7,89 +12,113 @@ import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
 
 import {
-    ContainerImgCodigo,
-    ContainerTituloCodigo,
-    ImgCodigo,
-    ContainerFormularioCodigo,
-    ContainerBotao,
-    InputCodigo
+  ContainerImgCodigo,
+  ContainerTituloCodigo,
+  ImgCodigo,
+  ContainerFormularioCodigo,
+  ContainerBotao,
+  InputCodigo,
+} from "./styles";
 
-} from './styles';
+const Codigo = ({ navigation, route }) => {
+  const { height, width } = Dimensions.get("window");
+  const [codigo, setCodigo] = useState("1234");
+  const [codigoLength, setCodigoLength] = useState([]);
 
-const Codigo = ({ navigation }) => {
-    const { height, width } = Dimensions.get('window');
-    const [codigo, setCodigo] = useState("1234");
-    const [codigoLength, setCodigoLength] = useState([]);
+  console.log(route.params.registrar);
 
-    const input2 = useRef();
-    const input3 = useRef();
-    const input4 = useRef();
+  const input2 = useRef();
+  const input3 = useRef();
+  const input4 = useRef();
 
-    const handlerInput = (string, numInput, proxInput = null) => {
+  const handlerInput = (string, numInput, proxInput = null) => {
+    const tamanho = codigoLength;
 
-        const tamanho = codigoLength;
+    if (string !== "") {
+      let arrCodigo = codigo.split("");
 
-        if (string !== "") {
+      arrCodigo[numInput - 1] = string;
 
-            let arrCodigo = codigo.split("");
+      setCodigo(arrCodigo.join(""));
 
-            arrCodigo[numInput - 1] = string;
+      tamanho.push(true);
 
-            setCodigo(arrCodigo.join(""));
-
-            tamanho.push(true);
-
-            if (proxInput != null) {
-                proxInput.current.focus();
-
-            }
-        } else {
-            tamanho.pop();
-
-        }
-
-        setCodigoLength(tamanho);
-
+      if (proxInput != null) {
+        proxInput.current.focus();
+      }
+    } else {
+      tamanho.pop();
     }
 
-    const mostrarCodigo = () => console.warn(codigoLength);
+    setCodigoLength(tamanho);
+  };
 
-    const navegarFoto = () => {
-        navigation.navigate("RegistrarFoto");
-    }
+  const mostrarCodigo = () => console.warn(codigoLength);
 
-    return (
-        <Container>
-            <ContainerImgCodigo style={{ width: width * 0.16 + "%" }}>
-                <ImgCodigo source={require("../../../Assets/codigoVerificado.png")} />
-            </ContainerImgCodigo>
+  const navegarFoto = () => {
+    navigation.navigate("RegistrarFoto");
+  };
 
-            <ContainerTituloCodigo>
-                <Titulo title="Insira o código enviado" />
-            </ContainerTituloCodigo>
+  return (
+    <Container>
+      <KeyboardAvoidingView behavior="height" enabled>
+        <ScrollView>
+          <ContainerImgCodigo>
+            <ImgCodigo
+              source={require("../../../Assets/codigoVerificado.png")}
+            />
+          </ContainerImgCodigo>
 
-            <ContainerFormularioCodigo style={{ width: width * 0.23 + "%" }}>
-                <InputCodigo keyboardType="numeric" maxLength={1} onChangeText={(string) => handlerInput(string, 1, input2)} />
-                <InputCodigo ref={input2} keyboardType="numeric" maxLength={1} onChangeText={(string) => handlerInput(string, 2, input3)} />
-                <InputCodigo ref={input3} keyboardType="numeric" maxLength={1} onChangeText={(string) => handlerInput(string, 3, input4)} />
-                <InputCodigo ref={input4} keyboardType="numeric" maxLength={1} onChangeText={(string) => handlerInput(string, 4)} />
-                <Text style={{ fontSize: 15, textAlign: "center", marginTop: 20 }}>Não recebi o código no número (11)96368-8640</Text>
-            </ContainerFormularioCodigo>
+          <ContainerTituloCodigo>
+            <Titulo title="Insira o código enviado" />
+          </ContainerTituloCodigo>
 
-            <ContainerBotao>
-                <Botao
-                    title="Verificar"
-                    funcExec={() => {
-                        // mostrarCodigo()
-                        if (codigoLength.length === 4) {
-                            navegarFoto();
-                        } else {
-                            console.warn("Digite os 4 dígitos");
-                        }
-                    }} />
-            </ContainerBotao>
-        </Container>
-    );
-}
+          <ContainerFormularioCodigo>
+            <InputCodigo
+              keyboardType="numeric"
+              maxLength={1}
+              onChangeText={(string) => handlerInput(string, 1, input2)}
+            />
+            <InputCodigo
+              ref={input2}
+              keyboardType="numeric"
+              maxLength={1}
+              onChangeText={(string) => handlerInput(string, 2, input3)}
+            />
+            <InputCodigo
+              ref={input3}
+              keyboardType="numeric"
+              maxLength={1}
+              onChangeText={(string) => handlerInput(string, 3, input4)}
+            />
+            <InputCodigo
+              ref={input4}
+              keyboardType="numeric"
+              maxLength={1}
+              onChangeText={(string) => handlerInput(string, 4)}
+            />
+            <Text style={{ fontSize: 15, textAlign: "center", marginTop: 30 }}>
+              Não recebi o código no número (11)96368-8640
+            </Text>
+          </ContainerFormularioCodigo>
+
+          <ContainerBotao>
+            <Botao
+              title="Verificar"
+              funcExec={() => {
+                // mostrarCodigo()
+                if (codigoLength.length === 4) {
+                  navegarFoto();
+                } else {
+                  console.warn("Digite os 4 dígitos");
+                }
+              }}
+            />
+          </ContainerBotao>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </Container>
+  );
+};
 
 export default Codigo;
