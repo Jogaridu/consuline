@@ -1,5 +1,4 @@
 const EnderecoFilial = require("../models/EnderecoFilial");
-const { atualizar } = require("./filiais");
 
 module.exports = {
     async cadastrar(endereco) {
