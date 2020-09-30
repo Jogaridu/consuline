@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -13,6 +13,8 @@ import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
 
+import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+
 import {
   ImgInfmPessoais,
   ContainerFormulario,
@@ -24,6 +26,7 @@ import {
 import colors from "../../../Styles/colors";
 
 const InformacaoPessoal = ({ navigation, route }) => {
+
   const [novoPaciente, setNovoPaciente] = useState({
     nome: "",
     dataNascimento: "",
@@ -34,8 +37,37 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
   const { height, width } = Dimensions.get("window");
 
+  const inputNome = useRef(null);
+  const inputData = useRef(null);
+  const inputRg = useRef(null);
+  const inputCpf = useRef(null);
+  const inputEmail = useRef(null);
+
   const navegarLocalizacao = () => {
-    navigation.navigate("RegistrarLocalizacao", novoPaciente);
+
+    const arrayInputsVazias = validarCamposVazios(novoPaciente);
+    console.log(arrayInputsVazias);
+
+    if (arrayInputsVazias.length) {
+
+      console.warn("Existem campos vazios");
+
+      if (arrayInputsVazias.find(campo => campo === "nome")) {
+        inputNome.current.style = { height: "100px" };
+      }
+
+      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+
+    } else {
+      // arrayInputsVazias
+      navigation.navigate("RegistrarLocalizacao", novoPaciente);
+
+
+    }
+
   };
 
   return (
@@ -59,6 +91,8 @@ const InformacaoPessoal = ({ navigation, route }) => {
               }
               placeholder="Nome Completo"
               placeholderTextColor="#403e66"
+              ref={inputNome}
+              underlineColor="#ff0000"
             />
             <Input
               style={styles.input}
@@ -73,6 +107,8 @@ const InformacaoPessoal = ({ navigation, route }) => {
               }
               placeholder="Data de Nascimento"
               placeholderTextColor="#403e66"
+              ref={inputData}
+
             />
             <Input
               style={styles.rg}
@@ -85,6 +121,8 @@ const InformacaoPessoal = ({ navigation, route }) => {
               onChangeText={(e) => setNovoPaciente({ ...novoPaciente, rg: e })}
               placeholder="RG"
               placeholderTextColor="#403e66"
+              ref={inputRg}
+
             />
             <Input
               style={styles.cpf}
@@ -94,6 +132,8 @@ const InformacaoPessoal = ({ navigation, route }) => {
               onChangeText={(e) => setNovoPaciente({ ...novoPaciente, cpf: e })}
               placeholder="CPF"
               placeholderTextColor="#403e66"
+              ref={inputCpf}
+
             />
             <TextInput
               style={styles.input}
@@ -104,6 +144,8 @@ const InformacaoPessoal = ({ navigation, route }) => {
               }
               placeholder="Email"
               placeholderTextColor="#403e66"
+              ref={inputEmail}
+
             />
           </ContainerFormulario>
           <ContainerBotao>
@@ -116,6 +158,18 @@ const InformacaoPessoal = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  erroInput: {
+    width: 288,
+    height: 45,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    backgroundColor: [colors.fundo],
+    marginBottom: 15,
+    borderColor: "#FF0000",
+    color: "#FF0000"
+  },
+
   input: {
     width: 288,
     height: 45,
