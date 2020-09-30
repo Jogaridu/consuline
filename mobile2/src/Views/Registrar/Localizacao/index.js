@@ -56,8 +56,6 @@ const Localizacao = ({ navigation, route }) => {
   };
 
   const navegarLoginSenha = () => {
-    // console.log(endereco);
-    // console.log(novoPaciente);
     novoPaciente = {...novoPaciente, endereco}
     navigation.navigate("RegistrarLoginSenha", novoPaciente);
   };

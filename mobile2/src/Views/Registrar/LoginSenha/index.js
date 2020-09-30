@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
 
 import {
   ContainerImgLoginSenha,
@@ -7,41 +7,73 @@ import {
   ContainerTituloLoginSenha,
   ContainerFormulario,
   ContainerBotao,
+  Input,
 } from "./styles";
 
 import Titulo from "../../../Components/TituloCadastro";
-import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
 
 const LoginSenha = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
-  const novoPaciente = route.params;
+  var novoPaciente = route.params;
 
-  // const [registrar, setRegistrar] = useState(route.params.registrar);
-
-  console.log(novoPaciente);
+  const [cadastroLoginSenha, setLoginSenha] = useState({
+    login: "",
+    senha: "",
+    confirmarSenha: "",
+  });
 
   const navegarTelefone = () => {
-    navigation.navigate("RegistrarTelefone", { registrar, setRegistrar });
+    novoPaciente = {
+      ...novoPaciente,
+      login: cadastroLoginSenha.login,
+      senha: cadastroLoginSenha.senha,
+    };
+    navigation.navigate("RegistrarTelefone", novoPaciente);
   };
 
   return (
     <Container>
-      <ContainerImgLoginSenha style={{ width: width * 0.25 + "%" }}>
-        <ImgLoginSenha source={require("../../../Assets/cadeado.jpg")} />
-      </ContainerImgLoginSenha>
-      <ContainerTituloLoginSenha style={{ width: width * 0.25 + "%" }}>
-        <Titulo title="Crie um login e uma senha" />
-      </ContainerTituloLoginSenha>
-      <ContainerFormulario>
-        <TextInput plch="Login" />
-        <TextInput plch="Senha" />
-        <TextInput plch="Confirmar senha" />
-      </ContainerFormulario>
-      <ContainerBotao>
-        <Botao title="Próximo" width={130} funcExec={navegarTelefone} />
-      </ContainerBotao>
+      <KeyboardAvoidingView behavior="height" enabled>
+        <ScrollView>
+          <ContainerImgLoginSenha>
+            <ImgLoginSenha source={require("../../../Assets/cadeado.jpg")} />
+          </ContainerImgLoginSenha>
+          <ContainerTituloLoginSenha>
+            <Titulo title="Crie um Login e uma Senha" />
+          </ContainerTituloLoginSenha>
+          <ContainerFormulario>
+            <Input
+              value={cadastroLoginSenha.login}
+              onChangeText={(e) =>
+                setLoginSenha({ ...cadastroLoginSenha, login: e })
+              }
+              placeholder="Login"
+              placeholderTextColor="#403e66"
+            />
+            <Input
+              value={cadastroLoginSenha.senha}
+              onChangeText={(e) =>
+                setLoginSenha({ ...cadastroLoginSenha, senha: e })
+              }
+              placeholder="Senha"
+              placeholderTextColor="#403e66"
+            />
+            <Input
+              value={cadastroLoginSenha.confirmarSenha}
+              onChangeText={(e) =>
+                setLoginSenha({ ...cadastroLoginSenha, confirmarSenha: e })
+              }
+              placeholder="Confirmar senha"
+              placeholderTextColor="#403e66"
+            />
+          </ContainerFormulario>
+          <ContainerBotao>
+            <Botao title="Próximo" width={130} funcExec={navegarTelefone} />
+          </ContainerBotao>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Container>
   );
 };

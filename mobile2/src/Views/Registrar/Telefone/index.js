@@ -27,28 +27,33 @@ import {
 } from "./styles";
 
 const Telefone = ({ navigation, route }) => {
-  const [registrar, setRegistrar] = useState(route.params.registrar);
+  
+  var novoPaciente = route.params;
+
+  const [celular, setCelular] = useState("");
 
   const { height, width } = Dimensions.get("window");
 
-  const registrarPaciente = async() => {
-    console.log(registrar);
-  
-    try {
+  const registrarPaciente = async() => {  
+    novoPaciente = {...novoPaciente, celular};
 
-      const retorno = await api.post("/paciente", registrar);
+    console.log(novoPaciente);
 
-      if(retorno.status === 201) {
-        navigation.navigate("RegistrarCodigo", {registrar, setRegistrar});
-        return console.log("Paciente Cadastrado")
-      }
-    } catch (error) {
-      if(error.response) {
-        return console.log(error.response.data.erro);
-      }
+    // try {
 
-      console.log("deu merda");
-    }
+    //   const retorno = await api.post("/paciente", registrar);
+
+    //   if(retorno.status === 201) {
+    //     navigation.navigate("RegistrarCodigo");
+    //     return console.log("Paciente Cadastrado")
+    //   }
+    // } catch (error) {
+    //   if(error.response) {
+    //     return console.log(error.response.data.erro);
+    //   }
+
+    //   console.log("deu merda");
+    // }
   }
 
   return (
@@ -75,8 +80,8 @@ const Telefone = ({ navigation, route }) => {
                 withDDD: true,
                 dddMask: "(99) ",
               }}
-              value={registrar.celular}
-              onChangeText={(e) => setRegistrar({...registrar, celular: e})}
+              value={celular}
+              onChangeText={(e) => setCelular(e)}
               placeholder="Número"
               placeholderTextColor="#403e66"
             />

@@ -14,7 +14,7 @@ const Sucesso = () => {
     <Container>
       <ContainerImgSucesso>
         <ImgSucesso source={require("../../../Assets/check.png")} /> 
-        {/* <LottieView resizeMode="contain" autoSize source={sucess} autoPlay /> */}
+        {/* <LottieView resizeMode="contain" autoSize source="https://assets3.lottiefiles.com/private_files/lf30_yo2zavgg.json" autoPlay /> */}
       </ContainerImgSucesso>
       <ContainerTextos>
         <Text style={{ fontSize: 50, textAlign: "center" }}> Sucesso!!! </Text>

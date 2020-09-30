@@ -3,11 +3,12 @@ import colors from "../../../Styles/colors";
 
 export const ContainerTextos = styled.View`
   flex: 1;
+  background: green;
 `;
 
 export const ContainerImgSucesso = styled.View`
   width: 100%;
-  flex: 2;
+  flex: 4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,4 +23,5 @@ export const ImgSucesso = styled.Image`
 export const ContainerBotao = styled.View`
   flex: 1;
   padding: 0 20px;
+  background: pink;
 `;
