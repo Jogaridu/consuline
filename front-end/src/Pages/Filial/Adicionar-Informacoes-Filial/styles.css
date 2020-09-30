@@ -213,9 +213,6 @@ main {
 #nomeFantasia {
   width: 70%;
 }
-#telefone {
-  margin-bottom: 20px;
-}
 input {
   padding-left: 10px;
   box-sizing: border-box;
@@ -228,9 +225,12 @@ input {
 .proximo {
   border-radius: 10px;
   height: 60px;
-  width: 60px;
+  max-width: 60px;
   margin-left: 80%;
-  margin-top: -75px;
+  margin-top: -60px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
 }
 .proximo > figure {
   background-color: var(--secundaria);
