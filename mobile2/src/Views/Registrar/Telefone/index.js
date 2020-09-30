@@ -27,33 +27,55 @@ import {
 } from "./styles";
 
 const Telefone = ({ navigation, route }) => {
-  
+
   var novoPaciente = route.params;
 
   const [celular, setCelular] = useState("");
 
   const { height, width } = Dimensions.get("window");
 
-  const registrarPaciente = async() => {  
-    novoPaciente = {...novoPaciente, celular};
+  const registrarPaciente = async () => {
 
-    console.log(novoPaciente);
+    const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
 
-    // try {
+    console.log(arrayInputsVazias);
 
-    //   const retorno = await api.post("/paciente", registrar);
+    if (arrayInputsVazias.length) {
 
-    //   if(retorno.status === 201) {
-    //     navigation.navigate("RegistrarCodigo");
-    //     return console.log("Paciente Cadastrado")
-    //   }
-    // } catch (error) {
-    //   if(error.response) {
-    //     return console.log(error.response.data.erro);
-    //   }
+      console.warn("Existem campos vazios");
 
-    //   console.log("deu merda");
-    // }
+      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+
+    } else {
+
+      novoPaciente = { ...novoPaciente, celular };
+
+      console.log(novoPaciente);
+
+      // try {
+
+      //   const retorno = await api.post("/paciente", registrar);
+
+      //   if(retorno.status === 201) {
+      //     api.post("/paciente", novoPaciente);
+      //     navigation.navigate("RegistrarCodigo");
+
+      //   }
+      // } catch (error) {
+      //   if(error.response) {
+      //     return console.log(error.response.data.erro);
+      //   }
+
+      //   console.log("deu merda");
+      // }
+
+
+
+
+    }
   }
 
   return (

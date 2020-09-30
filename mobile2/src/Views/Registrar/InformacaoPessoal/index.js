@@ -53,7 +53,9 @@ const InformacaoPessoal = ({ navigation, route }) => {
       console.warn("Existem campos vazios");
 
       if (arrayInputsVazias.find(campo => campo === "nome")) {
-        inputNome.current.style = { height: "100px" };
+        inputNome.current.style.push({ borderColor: "#FF0000" });
+
+        // styles.input.borderColor = "#FF0000";
       }
 
       // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
@@ -83,7 +85,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
           <ContainerFormulario>
             <TextInput
-              style={styles.input}
+              style={[styles.input]}
               value={novoPaciente.nome}
               id="nome"
               onChangeText={(e) =>
@@ -157,7 +159,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
   );
 };
 
-const styles = StyleSheet.create({
+let styles = StyleSheet.create({
   erroInput: {
     width: 288,
     height: 45,

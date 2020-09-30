@@ -25,12 +25,29 @@ const LoginSenha = ({ navigation, route }) => {
   });
 
   const navegarTelefone = () => {
-    novoPaciente = {
-      ...novoPaciente,
-      login: cadastroLoginSenha.login,
-      senha: cadastroLoginSenha.senha,
-    };
-    navigation.navigate("RegistrarTelefone", novoPaciente);
+    const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
+    console.log(arrayInputsVazias);
+    if (arrayInputsVazias.length) {
+
+      console.warn("Existem campos vazios");
+
+      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+
+    } else {
+      novoPaciente = {
+        ...novoPaciente,
+        login: cadastroLoginSenha.login,
+        senha: cadastroLoginSenha.senha,
+      };
+      navigation.navigate("RegistrarTelefone", novoPaciente);
+
+
+
+    }
+
   };
 
   return (
