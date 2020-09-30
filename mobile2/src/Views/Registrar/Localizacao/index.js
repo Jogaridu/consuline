@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   StyleSheet,
@@ -9,6 +9,8 @@ import {
 import encontrarCep from "../../../Services/viaCep";
 
 import { TextInputMask } from "react-native-masked-text";
+
+import validarCamposVazios from "../../../Fixtures/validarInputVazia";
 
 import {
   ContainerImgCadastro,
@@ -28,8 +30,6 @@ const Localizacao = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
   var novoPaciente = route.params;
-
-  console.log(novoPaciente);
 
   const [endereco, setEndereco] = useState({
     cep: "",
@@ -56,8 +56,25 @@ const Localizacao = ({ navigation, route }) => {
   };
 
   const navegarLoginSenha = () => {
-    novoPaciente = {...novoPaciente, endereco}
-    navigation.navigate("RegistrarLoginSenha", novoPaciente);
+    const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
+    console.log(arrayInputsVazias);
+    if (arrayInputsVazias.length) {
+
+      console.warn("Existem campos vazios");
+
+      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
+      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+
+    } else {
+      novoPaciente = { ...novoPaciente, endereco }
+      // arrayInputsVazias
+      navigation.navigate("RegistrarLoginSenha", novoPaciente);
+
+
+
+    }
   };
 
   return (
