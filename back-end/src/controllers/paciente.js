@@ -26,6 +26,7 @@ module.exports = {
     endereco = JSON.parse(endereco);
 
     try {
+
       let pacienteCriado = await Paciente.findOne({
         where: {
           [Op.or]: [
@@ -78,8 +79,11 @@ module.exports = {
       // });
 
       return res.status(201).send(paciente);
+
     } catch (error) {
+
       return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
+
     }
   },
 
