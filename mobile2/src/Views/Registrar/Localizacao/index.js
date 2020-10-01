@@ -31,6 +31,8 @@ const Localizacao = ({ navigation, route }) => {
 
   var novoPaciente = route.params;
 
+  console.log(novoPaciente);
+
   const [endereco, setEndereco] = useState({
     cep: "",
     bairro: "",

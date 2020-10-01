@@ -35,9 +35,15 @@ const Telefone = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
   const registrarPaciente = async() => {  
-    novoPaciente = {...novoPaciente, celular};
+    var dadoCelular = celular;
+
+    const celularParse = dadoCelular.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
+
+    novoPaciente = {...novoPaciente, celular: celularParse};
 
     console.log(novoPaciente);
+
+    // console.log(novoPaciente);
 
     // try {
 

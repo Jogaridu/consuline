@@ -6,7 +6,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-
+import { validate } from 'validate.js';
 import { TextInputMask as Input } from "react-native-masked-text";
 
 import Container from "../../../Components/Container";
@@ -27,7 +27,7 @@ import colors from "../../../Styles/colors";
 
 const InformacaoPessoal = ({ navigation, route }) => {
 
-  const [novoPaciente, setNovoPaciente] = useState({
+  var [novoPaciente, setNovoPaciente] = useState({
     nome: "",
     dataNascimento: "",
     rg: "",
@@ -43,31 +43,56 @@ const InformacaoPessoal = ({ navigation, route }) => {
   const inputCpf = useRef(null);
   const inputEmail = useRef(null);
 
+  const tratamentoDados = () => {
+    var dataNascimento = novoPaciente.dataNascimento;
+    var separador = "-";
+    var arrayData = dataNascimento.split(separador);
+
+    var ano = arrayData[2];
+    var mes = arrayData[1];
+    var dia = arrayData[0];
+
+    const dataNova = ano + "-" + mes + "-" + dia;
+
+    var rg = novoPaciente.rg;
+    var cpf = novoPaciente.cpf;
+
+    const rgParse = rg.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
+    const cpfParse = cpf.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
+
+    novoPaciente = {
+      ...novoPaciente,
+      dataNascimento: dataNova,
+      rg: rgParse,
+      cpf: cpfParse,
+    };
+  };
+
+  const mascaraNome = (e) => {
+    var nome = e;
+    nome = nome.replace(/([\u0300-\u036f]|[0-9])/g, '');
+
+    setNovoPaciente({...novoPaciente, nome});
+  }
+
   const navegarLocalizacao = () => {
-
-    const arrayInputsVazias = validarCamposVazios(novoPaciente);
-    console.log(arrayInputsVazias);
-
-    if (arrayInputsVazias.length) {
-
-      console.warn("Existem campos vazios");
-
-      if (arrayInputsVazias.find(campo => campo === "nome")) {
-        inputNome.current.style = { height: "100px" };
-      }
-
-      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
-
-    } else {
-      // arrayInputsVazias
-      navigation.navigate("RegistrarLocalizacao", novoPaciente);
-
-
-    }
-
+    tratamentoDados();
+    // console.log(rgParse, cpfParse);
+    // const arrayInputsVazias = validarCamposVazios(novoPaciente);
+    // console.log(arrayInputsVazias);
+    // if (arrayInputsVazias.length) {
+    //   console.warn("Existem campos vazios");
+    //   if (arrayInputsVazias.find(campo => campo === "nome")) {
+    //     inputNome.current.style = { height: "100px" };
+    //   }
+    //   // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
+    //   // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
+    //   // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
+    //   // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+    // } else {
+    //   // arrayInputsVazias
+    navigation.navigate("RegistrarLocalizacao", novoPaciente);
+    // }
   };
 
   return (
@@ -86,9 +111,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               style={styles.input}
               value={novoPaciente.nome}
               id="nome"
-              onChangeText={(e) =>
-                setNovoPaciente({ ...novoPaciente, nome: e })
-              }
+              onChangeText={mascaraNome}
               placeholder="Nome Completo"
               placeholderTextColor="#403e66"
               ref={inputNome}
@@ -98,7 +121,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               style={styles.input}
               type={"datetime"}
               options={{
-                format: "DD/MM/YYYY",
+                format: "99-99-9999",
               }}
               value={novoPaciente.dataNascimento}
               id="dataNasc"
@@ -108,7 +131,6 @@ const InformacaoPessoal = ({ navigation, route }) => {
               placeholder="Data de Nascimento"
               placeholderTextColor="#403e66"
               ref={inputData}
-
             />
             <Input
               style={styles.rg}
@@ -118,11 +140,11 @@ const InformacaoPessoal = ({ navigation, route }) => {
               }}
               value={novoPaciente.rg}
               id="rg"
+              keyboardType="numeric"
               onChangeText={(e) => setNovoPaciente({ ...novoPaciente, rg: e })}
               placeholder="RG"
               placeholderTextColor="#403e66"
               ref={inputRg}
-
             />
             <Input
               style={styles.cpf}
@@ -133,7 +155,6 @@ const InformacaoPessoal = ({ navigation, route }) => {
               placeholder="CPF"
               placeholderTextColor="#403e66"
               ref={inputCpf}
-
             />
             <TextInput
               style={styles.input}
@@ -145,7 +166,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               placeholder="Email"
               placeholderTextColor="#403e66"
               ref={inputEmail}
-
+              autoCompleteType="email"
             />
           </ContainerFormulario>
           <ContainerBotao>
@@ -167,7 +188,7 @@ const styles = StyleSheet.create({
     backgroundColor: [colors.fundo],
     marginBottom: 15,
     borderColor: "#FF0000",
-    color: "#FF0000"
+    color: "#FF0000",
   },
 
   input: {

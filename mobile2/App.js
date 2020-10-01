@@ -16,7 +16,7 @@ import Sucesso from "./src/Views/Registrar/Sucesso";
 export default function App() {
   return (
     <>
-      <Sucesso />
+      <Routes />
     </>
   );
 }
