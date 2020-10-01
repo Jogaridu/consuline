@@ -52,21 +52,26 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
       console.warn("Existem campos vazios");
 
-      if (arrayInputsVazias.find(campo => campo === "nome")) {
-        inputNome.current.style.push({ borderColor: "#FF0000" });
+      const inputErroStyle = { style: { borderColor: "red" } };
 
-        // styles.input.borderColor = "#FF0000";
-      }
+      arrayInputsVazias.find(campo => campo === "nome") ?
+        inputNome.current.setNativeProps(inputErroStyle) : "";
 
-      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+        inputData.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "rg") ?
+        inputRg.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "cpf") ?
+        inputCpf.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "email") ?
+        inputEmail.current.setNativeProps(inputErroStyle) : "";
 
     } else {
-      // arrayInputsVazias
-      navigation.navigate("RegistrarLocalizacao", novoPaciente);
 
+      navigation.navigate("RegistrarLocalizacao", novoPaciente);
 
     }
 
@@ -94,7 +99,6 @@ const InformacaoPessoal = ({ navigation, route }) => {
               placeholder="Nome Completo"
               placeholderTextColor="#403e66"
               ref={inputNome}
-              underlineColor="#ff0000"
             />
             <Input
               style={styles.input}

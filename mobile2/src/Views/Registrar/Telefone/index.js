@@ -18,6 +18,8 @@ import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
 
+import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+
 import {
   ContainerImgTelefone,
   ImgTelefone,
@@ -34,20 +36,20 @@ const Telefone = ({ navigation, route }) => {
 
   const { height, width } = Dimensions.get("window");
 
+  const inputNumero = useRef(null);
+
   const registrarPaciente = async () => {
 
     const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
-
-    console.log(arrayInputsVazias);
 
     if (arrayInputsVazias.length) {
 
       console.warn("Existem campos vazios");
 
-      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+      const inputErroStyle = { style: { borderColor: "red" } };
+
+      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+        inputNumero.current.setNativeProps(inputErroStyle) : "";
 
     } else {
 
@@ -71,10 +73,6 @@ const Telefone = ({ navigation, route }) => {
 
       //   console.log("deu merda");
       // }
-
-
-
-
     }
   }
 

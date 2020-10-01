@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
 
 import {
@@ -13,10 +13,16 @@ import {
 import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
 
+import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+
 const LoginSenha = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
   var novoPaciente = route.params;
+
+  const inputLogin = useRef(null);
+  const inputSenha = useRef(null);
+  const inputConfirmarSenha = useRef(null);
 
   const [cadastroLoginSenha, setLoginSenha] = useState({
     login: "",
@@ -25,25 +31,39 @@ const LoginSenha = ({ navigation, route }) => {
   });
 
   const navegarTelefone = () => {
-    const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
+    const arrayInputsVazias = validarCamposVazios(cadastroLoginSenha, "complemento");
     console.log(arrayInputsVazias);
     if (arrayInputsVazias.length) {
 
       console.warn("Existem campos vazios");
 
-      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+      const inputErroStyle = { style: { borderColor: "red" } };
+
+      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+        inputLogin.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+        inputSenha.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+        inputConfirmarSenha.current.setNativeProps(inputErroStyle) : "";
+
 
     } else {
-      novoPaciente = {
-        ...novoPaciente,
-        login: cadastroLoginSenha.login,
-        senha: cadastroLoginSenha.senha,
-      };
-      navigation.navigate("RegistrarTelefone", novoPaciente);
 
+      if (cadastroLoginSenha.senha === cadastroLoginSenha.confirmarSenha) {
+        novoPaciente = {
+          ...novoPaciente,
+          login: cadastroLoginSenha.login,
+          senha: cadastroLoginSenha.senha,
+        };
+
+        navigation.navigate("RegistrarTelefone", novoPaciente);
+
+      } else {
+        console.warn("Senhas diferentes");
+
+      }
 
 
     }
@@ -68,6 +88,7 @@ const LoginSenha = ({ navigation, route }) => {
               }
               placeholder="Login"
               placeholderTextColor="#403e66"
+              ref={inputLogin}
             />
             <Input
               value={cadastroLoginSenha.senha}
@@ -76,6 +97,7 @@ const LoginSenha = ({ navigation, route }) => {
               }
               placeholder="Senha"
               placeholderTextColor="#403e66"
+              ref={inputSenha}
             />
             <Input
               value={cadastroLoginSenha.confirmarSenha}
@@ -84,6 +106,7 @@ const LoginSenha = ({ navigation, route }) => {
               }
               placeholder="Confirmar senha"
               placeholderTextColor="#403e66"
+              ref={inputConfirmarSenha}
             />
           </ContainerFormulario>
           <ContainerBotao>
