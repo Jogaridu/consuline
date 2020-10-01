@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Dimensions,
   Text,
@@ -17,8 +17,6 @@ import Botao from "../../../Components/Botao2";
 import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
-
-import validarCamposVazios from "../../../Fixtures/validarInputVazia";
 
 import {
   ContainerImgTelefone,
@@ -40,16 +38,13 @@ const Telefone = ({ navigation, route }) => {
 
   const registrarPaciente = async () => {
 
-    const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
-
-    if (arrayInputsVazias.length) {
+    if (celular === "") {
 
       console.warn("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
-      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
-        inputNumero.current.setNativeProps(inputErroStyle) : "";
+      inputNumero.current.getElement().setNativeProps(inputErroStyle);
 
     } else {
 
@@ -57,22 +52,26 @@ const Telefone = ({ navigation, route }) => {
 
       console.log(novoPaciente);
 
-      // try {
+      navigation.navigate("RegistrarCodigo", novoPaciente);
 
-      //   const retorno = await api.post("/paciente", registrar);
+      /*
+      try {
 
-      //   if(retorno.status === 201) {
-      //     api.post("/paciente", novoPaciente);
-      //     navigation.navigate("RegistrarCodigo");
+        const retorno = await api.post("/paciente", novopaciente);
 
-      //   }
-      // } catch (error) {
-      //   if(error.response) {
-      //     return console.log(error.response.data.erro);
-      //   }
+        if (retorno.status === 201) {
+          api.post("/paciente", novoPaciente);
+          navigation.navigate("RegistrarCodigo");
 
-      //   console.log("deu merda");
-      // }
+        }
+      } catch (error) {
+        if (error.response) {
+          return console.log(error.response.data.erro);
+        }
+
+        console.log("deu merda");
+      }
+      */
     }
   }
 
@@ -104,6 +103,7 @@ const Telefone = ({ navigation, route }) => {
               onChangeText={(e) => setCelular(e)}
               placeholder="Número"
               placeholderTextColor="#403e66"
+              ref={inputNumero}
             />
           </ContainerFormularioTelefone>
 

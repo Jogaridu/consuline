@@ -32,20 +32,20 @@ const LoginSenha = ({ navigation, route }) => {
 
   const navegarTelefone = () => {
     const arrayInputsVazias = validarCamposVazios(cadastroLoginSenha, "complemento");
-    console.log(arrayInputsVazias);
+
     if (arrayInputsVazias.length) {
 
       console.warn("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
-      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+      arrayInputsVazias.find(campo => campo === "login") ?
         inputLogin.current.setNativeProps(inputErroStyle) : "";
 
-      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+      arrayInputsVazias.find(campo => campo === "senha") ?
         inputSenha.current.setNativeProps(inputErroStyle) : "";
 
-      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+      arrayInputsVazias.find(campo => campo === "confirmarSenha") ?
         inputConfirmarSenha.current.setNativeProps(inputErroStyle) : "";
 
 

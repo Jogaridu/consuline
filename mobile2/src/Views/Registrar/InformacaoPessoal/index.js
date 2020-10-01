@@ -54,17 +54,17 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
-      arrayInputsVazias.find(campo => campo === "nome") ?
-        inputNome.current.setNativeProps(inputErroStyle) : "";
+      // arrayInputsVazias.find(campo => campo === "nome") ?
+      //   inputNome.current.setNativeProps(inputErroStyle) : "";
 
       arrayInputsVazias.find(campo => campo === "dataNascimento") ?
-        inputData.current.setNativeProps(inputErroStyle) : "";
+        inputData.current.getElement().setNativeProps({ style: { borderColor: "red" } }) : "";
 
       arrayInputsVazias.find(campo => campo === "rg") ?
-        inputRg.current.setNativeProps(inputErroStyle) : "";
+        inputRg.current.getElement().setNativeProps(inputErroStyle) : "";
 
       arrayInputsVazias.find(campo => campo === "cpf") ?
-        inputCpf.current.setNativeProps(inputErroStyle) : "";
+        inputCpf.current.getElement().setNativeProps(inputErroStyle) : "";
 
       arrayInputsVazias.find(campo => campo === "email") ?
         inputEmail.current.setNativeProps(inputErroStyle) : "";
@@ -163,7 +163,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
   );
 };
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   erroInput: {
     width: 288,
     height: 45,

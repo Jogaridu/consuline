@@ -20,12 +20,14 @@ import {
   InputCodigo,
 } from "./styles";
 
+import api from "../../../Services/api";
+
 const Codigo = ({ navigation, route }) => {
+
   const { height, width } = Dimensions.get("window");
+
   const [codigo, setCodigo] = useState("1234");
   const [codigoLength, setCodigoLength] = useState([]);
-
-  console.log(route.params.registrar);
 
   const input2 = useRef();
   const input3 = useRef();
@@ -53,10 +55,32 @@ const Codigo = ({ navigation, route }) => {
     setCodigoLength(tamanho);
   };
 
-  const mostrarCodigo = () => console.warn(codigoLength);
+  const verificarCodigo = async () => {
+    try {
+      const retorno = await api.post("/paciente/5/validacao-sms", { codigo });
+      console.log(retorno);
+      if (retorno) {
+        return true;
 
-  const navegarFoto = () => {
-    navigation.navigate("RegistrarFoto");
+      }
+
+    } catch (error) {
+      if (error.response) {
+        console.warn("Deu ruim");
+      }
+    }
+  }
+
+  const navegarFoto = async () => {
+
+    if (await verificarCodigo() == true) {
+      navigation.navigate("RegistrarFoto");
+
+    } else {
+      console.warn("Código inválido");
+    }
+
+
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Dimensions,
   StyleSheet,
@@ -73,7 +73,7 @@ const Localizacao = ({ navigation, route }) => {
       const inputErroStyle = { style: { borderColor: "red" } };
 
       arrayInputsVazias.find(campo => campo === "cep") ?
-        inputCep.current.setNativeProps(inputErroStyle) : "";
+        inputCep.current.getElement().setNativeProps(inputErroStyle) : "";
 
       arrayInputsVazias.find(campo => campo === "bairro") ?
         inputBairro.current.setNativeProps(inputErroStyle) : "";
@@ -82,7 +82,7 @@ const Localizacao = ({ navigation, route }) => {
         inputRua.current.setNativeProps(inputErroStyle) : "";
 
       arrayInputsVazias.find(campo => campo === "numero") ?
-        inputNumero.current.setNativeProps(inputErroStyle) : "";
+        inputNumero.current.getElement().setNativeProps(inputErroStyle) : "";
 
       arrayInputsVazias.find(campo => campo === "cidade") ?
         inputCidade.current.setNativeProps(inputErroStyle) : "";
