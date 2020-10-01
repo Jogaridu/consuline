@@ -2,8 +2,6 @@ const Filial = require("../models/Filial");
 const EnderecoFilial = require("../models/EnderecoFilial");
 const TelefoneFilial = require("../models/TelefoneFilial");
 const Servico = require("../models/Servico");
-const Cidade = require("../models/Cidade");
-const Estado = require("../models/Estado");
 const enderecoFilial = require("./enderecoFilial");
 
 module.exports = {
@@ -62,17 +60,6 @@ module.exports = {
                     },
                     {
                         model: EnderecoFilial,
-                        include: [
-                            {
-                                model: Cidade,
-                                attributes: ["id", "nome"]
-                            },
-                            {
-                                model: Estado,
-                                attributes: ["id", "nome", "sigla"]
-
-                            }
-                        ],
                         attributes: [
                             "id", "rua", "bairro", "numero",
                             "complemento", "cep"
@@ -111,17 +98,6 @@ module.exports = {
                     },
                     {
                         model: EnderecoFilial,
-                        include: [
-                            {
-                                model: Cidade,
-                                attributes: ["id", "nome"]
-                            },
-                            {
-                                model: Estado,
-                                attributes: ["id", "nome", "sigla"]
-
-                            }
-                        ],
                         attributes: [
                             "id", "rua", "bairro", "numero",
                             "complemento", "cep"

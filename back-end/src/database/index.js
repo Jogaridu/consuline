@@ -2,8 +2,6 @@ const Sequelize = require("sequelize");
 const dbConfig = require("../config/database");
 
 // ----- IMPORTS -----
-const Estado = require("../models/Estado");
-const Cidade = require("../models/Cidade");
 
 // Paciente
 const Paciente = require("../models/Paciente");
@@ -31,8 +29,6 @@ const TelefoneCentral = require("../models/TelefoneCentral");
 const conexao = new Sequelize(dbConfig);
 
 // ----- INICIALIZAÇÃO -----
-Estado.init(conexao);
-Cidade.init(conexao);
 
 //Paciente
 Paciente.init(conexao);
@@ -57,8 +53,6 @@ Central.init(conexao);
 TelefoneCentral.init(conexao);
 
 // ----- ASSOCIAÇÕES -----
-Estado.associate(conexao.models);
-Cidade.associate(conexao.models);
 
 // Paciente
 Paciente.associate(conexao.models);
