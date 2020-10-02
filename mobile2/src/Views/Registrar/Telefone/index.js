@@ -45,29 +45,38 @@ const Telefone = ({ navigation, route }) => {
 
     novoPaciente = { ...novoPaciente, celular: celularParse };
 
-    console.log(novoPaciente);
-
     if (celular === "") {
       console.warn("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
       inputNumero.current.getElement().setNativeProps(inputErroStyle);
+
     } else {
       novoPaciente = { ...novoPaciente, celular: celularParse };
 
-      console.log(novoPaciente);
-
       try {
-        const retorno = await api.post("/paciente", novoPaciente);
+        const teste = {
+          'nome': 'Jorge',
+          'celular': '11963688640',
+          'login': 'jogaridu',
+          'senha': '123',
+          'dataNascimento': '2001-01-30',
+          'email': 'e-jorge2010@hotmail.com',
+          'rg': '385604294',
+          'cpf': '44284537873',
+          'endereco': '{ "rua": "Rua Jorge", "bairro": "Bairro Jorge", "numero": "121212", "complemento": "casa 12", "cep": "12345-123", "cidade": "Jandira", "estado": "SP" }'
+        }
+        const retorno = await api.post("/paciente", { ...novoPaciente, endereco: JSON.stringify(novoPaciente.endereco) });
 
+        console.log(retorno.data);
         if (retorno.status === 201) {
-          api.post("/paciente", novoPaciente);
           navigation.navigate("RegistrarCodigo");
+
         }
       } catch (error) {
         if (error.response) {
-          return console.log(error.response.data.erro);
+          return console.log(error);
         }
 
         console.log(error);

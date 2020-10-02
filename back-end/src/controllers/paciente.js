@@ -187,6 +187,7 @@ module.exports = {
       await paciente.destroy();
 
       res.status(204).send();
+
     } catch (error) {
       console.log(error);
       return res.status(500).send({
