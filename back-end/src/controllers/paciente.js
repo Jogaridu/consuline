@@ -20,13 +20,13 @@ module.exports = {
       endereco,
     } = req.body;
 
-
     const verificado = false;
 
     const { firebaseUrl } = req.file ? req.file : "";
     endereco = JSON.parse(endereco);
 
     try {
+
       let pacienteCriado = await Paciente.findOne({
         where: {
           [Op.or]: [
@@ -42,7 +42,7 @@ module.exports = {
       if (pacienteCriado) {
         return res.status(400).send({
           error:
-            "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email",
+            "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email, Celular",
         });
       }
 
@@ -79,8 +79,11 @@ module.exports = {
       // });
 
       return res.status(201).send(paciente);
+
     } catch (error) {
+
       return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
+
     }
   },
 
@@ -185,6 +188,7 @@ module.exports = {
 
       res.status(204).send();
     } catch (error) {
+      console.log(error);
       return res.status(500).send({
         error:
           "Não foi possivel excluir este paciente, por favor tente novamente",
@@ -207,6 +211,8 @@ module.exports = {
       endereco,
     } = req.body;
 
+    const enderecoJson = JSON.parse(endereco);
+
     try {
       let paciente = await Paciente.findByPk(id);
       if (!paciente) {
@@ -216,8 +222,8 @@ module.exports = {
       }
 
       const statusUpdateEndereco = await enderecoPacienteController.atualizar(
-        endereco,
-        paciente.EnderecoId
+        enderecoJson,
+        paciente.EnderecoPacienteId
       );
 
       if (statusUpdateEndereco === 400) {
@@ -245,7 +251,6 @@ module.exports = {
 
       res.status(204).send();
     } catch (error) {
-      console.log(error);
       return res.status(500).send({
         error: "Não foi possivel atualzar, tente novamente por favor",
       });

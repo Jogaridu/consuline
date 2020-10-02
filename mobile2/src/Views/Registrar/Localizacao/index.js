@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Dimensions,
   StyleSheet,
@@ -31,7 +31,12 @@ const Localizacao = ({ navigation, route }) => {
 
   var novoPaciente = route.params;
 
-  console.log(novoPaciente);
+  const inputCep = useRef(null);
+  const inputBairro = useRef(null);
+  const inputRua = useRef(null);
+  const inputNumero = useRef(null);
+  const inputCidade = useRef(null);
+  const inputEstado = useRef(null);
 
   const [endereco, setEndereco] = useState({
     cep: "",
@@ -54,27 +59,51 @@ const Localizacao = ({ navigation, route }) => {
   };
 
   const handlerInput = (e) => {
-    setEndereco({ ...endereco, cep: e });
+    var cep = e;
+    var separador = "-";
+    var arrayCep = cep.split(separador);
+
+    var cep1 = arrayCep[0];
+    var cep2 = arrayCep[1];
+    var cepNovo = cep1 + cep2
+
+    setEndereco({ ...endereco, cep: cepNovo });
+
   };
 
   const navegarLoginSenha = () => {
+
     const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
-    console.log(arrayInputsVazias);
+
     if (arrayInputsVazias.length) {
 
       console.warn("Existem campos vazios");
 
-      // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
-      // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
+      const inputErroStyle = { style: { borderColor: "red" } };
+
+      arrayInputsVazias.find(campo => campo === "cep") ?
+        inputCep.current.getElement().setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "bairro") ?
+        inputBairro.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "rua") ?
+        inputRua.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "numero") ?
+        inputNumero.current.getElement().setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "cidade") ?
+        inputCidade.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "estado") ?
+        inputEstado.current.setNativeProps(inputErroStyle) : "";
 
     } else {
+
       novoPaciente = { ...novoPaciente, endereco }
-      // arrayInputsVazias
+
       navigation.navigate("RegistrarLoginSenha", novoPaciente);
-
-
 
     }
   };
@@ -96,7 +125,10 @@ const Localizacao = ({ navigation, route }) => {
             <TextInputMask
               style={styles.input}
               value={endereco.cep}
-              type={"only-numbers"}
+              type={"custom"}
+              options={{
+                mask: "99999-999"
+              }}
               maxLength={9}
               placeholder="CEP"
               placeholderTextColor="#403e66"
@@ -104,18 +136,21 @@ const Localizacao = ({ navigation, route }) => {
               onBlur={async () =>
                 preencherFormulario(await encontrarCep(endereco.cep))
               }
+              ref={inputCep}
             />
             <Input
               style={{ width: 140, marginLeft: 8 }}
               value={endereco.bairro}
               placeholder="Bairro"
               placeholderTextColor="#403e66"
+              ref={inputBairro}
             />
             <Input
               style={{ width: 205 }}
               value={endereco.rua}
               placeholder="Rua"
               placeholderTextColor="#403e66"
+              ref={inputRua}
             />
             <TextInputMask
               style={styles.numero}
@@ -124,6 +159,7 @@ const Localizacao = ({ navigation, route }) => {
               type={"only-numbers"}
               placeholder="N°"
               placeholderTextColor="#403e66"
+              ref={inputNumero}
             />
             <Input
               value={endereco.complemento}
@@ -137,12 +173,14 @@ const Localizacao = ({ navigation, route }) => {
               value={endereco.cidade}
               placeholder="Cidade"
               placeholderTextColor="#403e66"
+              ref={inputCidade}
             />
             <Input
               style={{ marginLeft: 8 }}
               value={endereco.estado}
               placeholder="Estado"
               placeholderTextColor="#403e66"
+              ref={inputEstado}
             />
           </ContainerFormulario>
           <ContainerBotao>

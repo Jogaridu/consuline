@@ -13,6 +13,7 @@ class Paciente extends Model {
         rg: DataTypes.STRING,
         cpf: DataTypes.STRING,
         foto: DataTypes.STRING,
+        codigoVerificacao: DataTypes.STRING,
         verificado: DataTypes.BOOLEAN
       },
       {

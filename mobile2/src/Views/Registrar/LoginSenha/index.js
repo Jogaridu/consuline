@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
 
 import {
@@ -13,10 +13,18 @@ import {
 import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
 
+import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+
 const LoginSenha = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
   var novoPaciente = route.params;
+
+  console.log(novoPaciente);
+
+  const inputLogin = useRef(null);
+  const inputSenha = useRef(null);
+  const inputConfirmarSenha = useRef(null);
 
   const [cadastroLoginSenha, setLoginSenha] = useState({
     login: "",
@@ -25,12 +33,43 @@ const LoginSenha = ({ navigation, route }) => {
   });
 
   const navegarTelefone = () => {
-    novoPaciente = {
-      ...novoPaciente,
-      login: cadastroLoginSenha.login,
-      senha: cadastroLoginSenha.senha,
-    };
-    navigation.navigate("RegistrarTelefone", novoPaciente);
+    const arrayInputsVazias = validarCamposVazios(cadastroLoginSenha, "complemento");
+
+    if (arrayInputsVazias.length) {
+
+      console.warn("Existem campos vazios");
+
+      const inputErroStyle = { style: { borderColor: "red" } };
+
+      arrayInputsVazias.find(campo => campo === "login") ?
+        inputLogin.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "senha") ?
+        inputSenha.current.setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "confirmarSenha") ?
+        inputConfirmarSenha.current.setNativeProps(inputErroStyle) : "";
+
+
+    } else {
+
+      if (cadastroLoginSenha.senha === cadastroLoginSenha.confirmarSenha) {
+        novoPaciente = {
+          ...novoPaciente,
+          login: cadastroLoginSenha.login,
+          senha: cadastroLoginSenha.senha,
+        };
+
+        navigation.navigate("RegistrarTelefone", novoPaciente);
+
+      } else {
+        console.warn("Senhas diferentes");
+
+      }
+
+
+    }
+
   };
 
   return (
@@ -51,6 +90,7 @@ const LoginSenha = ({ navigation, route }) => {
               }
               placeholder="Login"
               placeholderTextColor="#403e66"
+              ref={inputLogin}
             />
             <Input
               value={cadastroLoginSenha.senha}
@@ -59,6 +99,7 @@ const LoginSenha = ({ navigation, route }) => {
               }
               placeholder="Senha"
               placeholderTextColor="#403e66"
+              ref={inputSenha}
             />
             <Input
               value={cadastroLoginSenha.confirmarSenha}
@@ -67,6 +108,7 @@ const LoginSenha = ({ navigation, route }) => {
               }
               placeholder="Confirmar senha"
               placeholderTextColor="#403e66"
+              ref={inputConfirmarSenha}
             />
           </ContainerFormulario>
           <ContainerBotao>

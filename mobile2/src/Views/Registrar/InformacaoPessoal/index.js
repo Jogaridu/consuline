@@ -68,31 +68,32 @@ const InformacaoPessoal = ({ navigation, route }) => {
     };
   };
 
-  const mascaraNome = (e) => {
-    var nome = e;
-    nome = nome.replace(/([\u0300-\u036f]|[0-9])/g, '');
-
-    setNovoPaciente({...novoPaciente, nome});
-  }
-
   const navegarLocalizacao = () => {
     tratamentoDados();
-    // console.log(rgParse, cpfParse);
-    // const arrayInputsVazias = validarCamposVazios(novoPaciente);
-    // console.log(arrayInputsVazias);
-    // if (arrayInputsVazias.length) {
-    //   console.warn("Existem campos vazios");
-    //   if (arrayInputsVazias.find(campo => campo === "nome")) {
-    //     inputNome.current.style = { height: "100px" };
-    //   }
-    //   // arrayInputsVazias.find(campo => campo === "dataNascimento") ? inputData.current.focus() : "";
-    //   // arrayInputsVazias.find(campo => campo === "rg") ? inputRg.current.focus() : "";
-    //   // arrayInputsVazias.find(campo => campo === "cpf") ? inputCpf.current.focus() : "";
-    //   // arrayInputsVazias.find(campo => campo === "email") ? inputEmail.current.focus() : "";
-    // } else {
-    //   // arrayInputsVazias
-    navigation.navigate("RegistrarLocalizacao", novoPaciente);
-    // }
+
+    const arrayInputsVazias = validarCamposVazios(novoPaciente);
+
+    if (arrayInputsVazias.length) {
+
+      console.warn("Existem campos vazios");
+
+      const inputErroStyle = { style: { borderColor: "red" } };
+
+      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
+        inputData.current.getElement().setNativeProps({ style: { borderColor: "red" } }) : "";
+
+      arrayInputsVazias.find(campo => campo === "rg") ?
+        inputRg.current.getElement().setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "cpf") ?
+        inputCpf.current.getElement().setNativeProps(inputErroStyle) : "";
+
+      arrayInputsVazias.find(campo => campo === "email") ?
+        inputEmail.current.setNativeProps(inputErroStyle) : "";
+      
+    } else {
+      navigation.navigate("RegistrarLocalizacao", novoPaciente);
+    }
   };
 
   return (
@@ -108,14 +109,13 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
           <ContainerFormulario>
             <TextInput
-              style={styles.input}
+              style={[styles.input]}
               value={novoPaciente.nome}
               id="nome"
-              onChangeText={mascaraNome}
+              onChangeText={e => setNovoPaciente({...novoPaciente, nome: e})}
               placeholder="Nome Completo"
               placeholderTextColor="#403e66"
               ref={inputNome}
-              underlineColor="#ff0000"
             />
             <Input
               style={styles.input}

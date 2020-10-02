@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Dimensions,
   Text,
@@ -27,40 +27,55 @@ import {
 } from "./styles";
 
 const Telefone = ({ navigation, route }) => {
-  
   var novoPaciente = route.params;
 
   const [celular, setCelular] = useState("");
 
+  const inputNumero = useRef(null);
+
   const { height, width } = Dimensions.get("window");
 
-  const registrarPaciente = async() => {  
+  const registrarPaciente = async () => {
     var dadoCelular = celular;
 
-    const celularParse = dadoCelular.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
+    const celularParse = dadoCelular.replace(
+      /([\u0300-\u036f]|[^0-9a-zA-Z])/g,
+      ""
+    );
 
-    novoPaciente = {...novoPaciente, celular: celularParse};
+    novoPaciente = { ...novoPaciente, celular: celularParse };
 
     console.log(novoPaciente);
 
-    // console.log(novoPaciente);
+    if (celular === "") {
+      console.warn("Existem campos vazios");
 
-    // try {
+      const inputErroStyle = { style: { borderColor: "red" } };
 
-    //   const retorno = await api.post("/paciente", registrar);
+      inputNumero.current.getElement().setNativeProps(inputErroStyle);
+    } else {
+      novoPaciente = { ...novoPaciente, celular: celularParse };
 
-    //   if(retorno.status === 201) {
-    //     navigation.navigate("RegistrarCodigo");
-    //     return console.log("Paciente Cadastrado")
-    //   }
-    // } catch (error) {
-    //   if(error.response) {
-    //     return console.log(error.response.data.erro);
-    //   }
+      console.log(novoPaciente);
 
-    //   console.log("deu merda");
-    // }
-  }
+      navigation.navigate("RegistrarCodigo", novoPaciente);
+
+      try {
+        const retorno = await api.post("/paciente", novopaciente);
+
+        if (retorno.status === 201) {
+          api.post("/paciente", novoPaciente);
+          navigation.navigate("RegistrarCodigo");
+        }
+      } catch (error) {
+        if (error.response) {
+          return console.log(error.response.data.erro);
+        }
+
+        console.log("deu merda");
+      }
+    }
+  };
 
   return (
     <Container>
@@ -90,6 +105,7 @@ const Telefone = ({ navigation, route }) => {
               onChangeText={(e) => setCelular(e)}
               placeholder="Número"
               placeholderTextColor="#403e66"
+              ref={inputNumero}
             />
           </ContainerFormularioTelefone>
 
