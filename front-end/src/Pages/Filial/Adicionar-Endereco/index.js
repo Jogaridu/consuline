@@ -9,8 +9,8 @@ import logoprojeto2 from "../../../Assets/logoprojeto2.png";
 import book from "../../../Assets/book.png";
 import add from "../../../Assets/add.png";
 import add3 from "../../../Assets/add3.png";
-import user from "../../../Assets/user.png";
-import seta from "../../../Assets/seta.png";
+import map from "../../../Assets/map.png";
+
 const Menu = () => {
   return (
     <div className="menu">
@@ -80,72 +80,71 @@ const Menu = () => {
 };
 const CardEntradaDados = () => {
   return (
-    <div className="conteiner-entrada-dados">
+    <div className="conteiner-entrada-dados-endereco">
       <div>
         <figure>
-          <img src={user} alt="Imagem ilustrativa " />
+          <img src={map} alt="Imagem ilustrativa " />
         </figure>
-        <h2>Informações de cadastro </h2>
+        <h2>Localização </h2>
       </div>
-
       <form>
-        <div>
+        <div className="form-linha-um">
           <input
             type="text"
-            placeholder="CNPJ"
-            name="txtcnpj"
-            id="cnpj"
+            name="txtcep"
+            id="cep"
+            placeholder="CEP"
+            required
+            maxLength="9"
+          />
+          <input
+            type="text"
+            name="txtendereco"
+            id="endereco"
+            placeholder="ENDEREÇO"
             required
           />
-          <input type="text" placeholder="I.E" name="txtie" id="ie" required />
         </div>
-        <input
-          type="text"
-          placeholder="Razão social"
-          name="txtrazaosocial"
-          id="razaoSocial"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Nome fantasia"
-          name="txtnomefantasia"
-          id="nomeFantasia"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Data abertura"
-          name="txtdataabertura"
-          id="dataAbertura"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          id="email"
-          required
-        />
-        <input
-          type="tel"
-          placeholder="Telefone"
-          name="telefone"
-          id="telefone"
-          required
-        />
-        <button className="proximo">
-          <figure>
-            <img src={seta} alt="Proximo" />
-          </figure>
-        </button>
+        <div className="from-linha-dois">
+          <input
+            type="text"
+            name="txtrua"
+            id="rua"
+            placeholder="RUA"
+            required
+          />
+          <input
+            type="text"
+            name="txtnumero"
+            id="numero"
+            placeholder="Nº"
+            required
+          />
+        </div>
+        <div className="from-linha-tres">
+          <input
+            type="text"
+            name="txtbairro"
+            id="bairro"
+            placeholder="BAIRRO"
+            required
+          />
+          <input
+            type="text"
+            name="txtcomplemento"
+            id="complemento"
+            placeholder="COMPLEMENTO"
+            required
+          />
+        </div>
+        <button id="concluido-endereco">CONCLUIDO</button>
       </form>
     </div>
   );
 };
 const Home = () => {
   return (
-    <div className="conteiner-adicionar-info-pessoais">
+    <div className="conteiner-adicionar-endereco">
       <Menu />
       <main>
         <div className="titulo-principal">
