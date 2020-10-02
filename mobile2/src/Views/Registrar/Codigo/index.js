@@ -24,6 +24,8 @@ import api from "../../../Services/api";
 
 const Codigo = ({ navigation, route }) => {
 
+  const pacienteId = route.params;
+
   const { height, width } = Dimensions.get("window");
 
   const [codigo, setCodigo] = useState("1234");
@@ -57,8 +59,8 @@ const Codigo = ({ navigation, route }) => {
 
   const verificarCodigo = async () => {
     try {
-      const retorno = await api.post("/paciente/5/validacao-sms", { codigo });
-      console.log(retorno);
+      const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, { codigo });
+
       if (retorno) {
         return true;
 

@@ -56,24 +56,13 @@ const Telefone = ({ navigation, route }) => {
       novoPaciente = { ...novoPaciente, celular: celularParse };
 
       try {
-        const teste = {
-          'nome': 'Jorge',
-          'celular': '11963688640',
-          'login': 'jogaridu',
-          'senha': '123',
-          'dataNascimento': '2001-01-30',
-          'email': 'e-jorge2010@hotmail.com',
-          'rg': '385604294',
-          'cpf': '44284537873',
-          'endereco': '{ "rua": "Rua Jorge", "bairro": "Bairro Jorge", "numero": "121212", "complemento": "casa 12", "cep": "12345-123", "cidade": "Jandira", "estado": "SP" }'
-        }
         const retorno = await api.post("/paciente", { ...novoPaciente, endereco: JSON.stringify(novoPaciente.endereco) });
 
-        console.log(retorno.data);
         if (retorno.status === 201) {
-          navigation.navigate("RegistrarCodigo");
+          navigation.navigate("RegistrarCodigo", retorno.data.id);
 
         }
+
       } catch (error) {
         if (error.response) {
           return console.log(error);

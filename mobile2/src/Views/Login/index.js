@@ -15,24 +15,6 @@ const Login = ({ navigation }) => {
     senha: "",
   });
 
-  // const [registrar, setRegistrar] = useState({
-  //   nome: "",
-  //   dataNascimento: "",
-  //   rg: "",
-  //   cpf: "",
-  //   email: "",
-  //   endereco: {
-  //     cep: "",
-  //     bairro: "",
-  //     rua: "",
-  //     numero: "",
-  //     complemento: "",
-  //     cidade: "",
-  //     estado: "",
-  //   },
-  //   celular: "",
-  // });
-
   const navegarCadastro = () => {
     navigation.navigate("RegistrarInformacaoPessoal");
   };
@@ -45,9 +27,10 @@ const Login = ({ navigation }) => {
   const autenticarPaciente = async () => {
     try {
       const retorno = await api.post("/paciente/sessao", pacienteLogin);
-      console.log(retorno);
+
       if (retorno) {
-        console.log(retorno.data);
+        console.warn("Autenticado");
+
       }
     } catch (error) {
       console.warn("Usuário ou senha estão errados...");
@@ -66,7 +49,7 @@ const Login = ({ navigation }) => {
         maxLength={20}
         placeholderTextColor="#403e66"
         onChangeText={handlerInputLogin}
-      > 
+      >
       </Input>
       <Input
         secureTextEntry={true}
@@ -76,7 +59,7 @@ const Login = ({ navigation }) => {
         placeholderTextColor="#403e66"
         onChangeText={handlerInputSenha}
       />
-      <Botao1 title="Enviar" bottom={16} />
+      <Botao1 title="Enviar" bottom={16} funcExec={autenticarPaciente} />
       <Botao2 title="Registrar-se" funcExec={navegarCadastro} />
     </Container>
   );
