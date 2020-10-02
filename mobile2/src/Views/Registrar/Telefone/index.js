@@ -58,10 +58,8 @@ const Telefone = ({ navigation, route }) => {
 
       console.log(novoPaciente);
 
-      navigation.navigate("RegistrarCodigo", novoPaciente);
-
       try {
-        const retorno = await api.post("/paciente", novopaciente);
+        const retorno = await api.post("/paciente", novoPaciente);
 
         if (retorno.status === 201) {
           api.post("/paciente", novoPaciente);
@@ -72,7 +70,7 @@ const Telefone = ({ navigation, route }) => {
           return console.log(error.response.data.erro);
         }
 
-        console.log("deu merda");
+        console.log(error);
       }
     }
   };
