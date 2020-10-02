@@ -1,13 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 import "./styles.css";
 
 import "../../Styles/globalStyle.css";
 
-import logoprojeto2 from "../../Assets/logoprojeto2.png";
 
-const Login = () => {
+import logoprojeto2 from "../../Assets/logoprojeto2.png";
+import api from "../../Services/api";
+import { signin } from "../../Services/security";
+
+const Login = (props) => {
+
+  const history = useHistory();
+
+  const [adminLogin, setAdminLogin] = useState({
+    login: "",
+    senha: ""
+  });
+
+
+  const entrar = async (e) => {
+    e.preventDefault();
+
+    return history.push("/home");
+
+    try {
+      const response = await api.post("/login", adminLogin);
+
+      if (response.status === 201){
+        signin(response.data);
+        
+        return history.push("/home");
+      }
+    } catch (error) {
+      if (error.response) {
+      return window.alert(error.response.data.error);
+      }
+
+      window.alert("Algo deu errado, tente novamente.");
+    }
+    
+  };
+
+  const handlerInput = (e) => {
+    setAdminLogin({...adminLogin, [e.target.id]: e.target.value});
+
+    console.log(adminLogin);
+  }
+  
+
+
+
+
+
+
   return (
     <>
       <body>
@@ -20,12 +67,12 @@ const Login = () => {
 
               <form>
                 <div>
-                  <input type="text" name="" required=""></input>
+                  <input type="text" value={adminLogin.login} id="login" onChange={handlerInput} name="" required=""></input>
                   <label>Login</label>
                 </div>
 
                 <div>
-                  <input type="password" name="" required=""></input>
+                  <input type="password" value={adminLogin.senha} id="senha" onChange={handlerInput} name="" required=""></input>
                   <label>Senha</label>
                 </div>
 
