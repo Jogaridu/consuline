@@ -14,6 +14,7 @@ import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+import { validarInputCorreta } from "../../../Fixtures/validarInputCorreta";
 
 const LoginSenha = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
@@ -91,6 +92,7 @@ const LoginSenha = ({ navigation, route }) => {
               placeholder="Login"
               placeholderTextColor="#403e66"
               ref={inputLogin}
+              onBlur={() => validarInputCorreta(novoPaciente.login, inputLogin)}
             />
             <Input
               value={cadastroLoginSenha.senha}
@@ -100,6 +102,7 @@ const LoginSenha = ({ navigation, route }) => {
               placeholder="Senha"
               placeholderTextColor="#403e66"
               ref={inputSenha}
+              onBlur={() => validarInputCorreta(novoPaciente.senha, inputSenha)}
             />
             <Input
               value={cadastroLoginSenha.confirmarSenha}
@@ -109,6 +112,7 @@ const LoginSenha = ({ navigation, route }) => {
               placeholder="Confirmar senha"
               placeholderTextColor="#403e66"
               ref={inputConfirmarSenha}
+              onBlur={() => validarInputCorreta(novoPaciente.confirmarSenha, inputConfirmarSenha)}
             />
           </ContainerFormulario>
           <ContainerBotao>

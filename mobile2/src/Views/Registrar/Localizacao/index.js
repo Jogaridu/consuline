@@ -11,6 +11,7 @@ import encontrarCep from "../../../Services/viaCep";
 import { TextInputMask } from "react-native-masked-text";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+import { validarInputCorreta, validarInputMaskCorreta } from "../../../Fixtures/validarInputCorreta";
 
 import {
   ContainerImgCadastro,
@@ -37,6 +38,7 @@ const Localizacao = ({ navigation, route }) => {
   const inputNumero = useRef(null);
   const inputCidade = useRef(null);
   const inputEstado = useRef(null);
+  const inputComplemento = useRef(null);
 
   const [endereco, setEndereco] = useState({
     cep: "",
@@ -56,6 +58,12 @@ const Localizacao = ({ navigation, route }) => {
       cidade: enderecocep.localidade,
       estado: enderecocep.uf,
     });
+
+    validarInputCorreta(novoPaciente.bairro, inputBairro);
+    validarInputCorreta(novoPaciente.rua, inputRua);
+    validarInputCorreta(novoPaciente.cidade, inputCidade);
+    validarInputCorreta(novoPaciente.estado, inputEstado);
+
   };
 
   const handlerInput = (e) => {
@@ -101,7 +109,7 @@ const Localizacao = ({ navigation, route }) => {
 
     } else {
 
-      novoPaciente = { ...novoPaciente, endereco }
+      novoPaciente = { ...novoPaciente, endereco };
 
       navigation.navigate("RegistrarLoginSenha", novoPaciente);
 
@@ -133,8 +141,10 @@ const Localizacao = ({ navigation, route }) => {
               placeholder="CEP"
               placeholderTextColor="#403e66"
               onChangeText={handlerInput}
-              onBlur={async () =>
-                preencherFormulario(await encontrarCep(endereco.cep))
+              onBlur={async () => {
+                preencherFormulario(await encontrarCep(endereco.cep));
+                validarInputMaskCorreta(novoPaciente.cep, inputCep);
+              }
               }
               ref={inputCep}
             />
@@ -144,6 +154,7 @@ const Localizacao = ({ navigation, route }) => {
               placeholder="Bairro"
               placeholderTextColor="#403e66"
               ref={inputBairro}
+              onBlur={() => validarInputCorreta(novoPaciente.bairro, inputBairro)}
             />
             <Input
               style={{ width: 205 }}
@@ -151,6 +162,7 @@ const Localizacao = ({ navigation, route }) => {
               placeholder="Rua"
               placeholderTextColor="#403e66"
               ref={inputRua}
+              onBlur={() => validarInputCorreta(novoPaciente.rua, inputRua)}
             />
             <TextInputMask
               style={styles.numero}
@@ -160,6 +172,7 @@ const Localizacao = ({ navigation, route }) => {
               placeholder="N°"
               placeholderTextColor="#403e66"
               ref={inputNumero}
+              onBlur={() => validarInputMaskCorreta(novoPaciente.numero, inputNumero)}
             />
             <Input
               value={endereco.complemento}
@@ -167,6 +180,8 @@ const Localizacao = ({ navigation, route }) => {
               placeholderTextColor="#403e66"
               style={{ width: 140 }}
               onChangeText={(e) => setEndereco({ ...endereco, complemento: e })}
+              ref={inputComplemento}
+              onBlur={() => validarInputCorreta(novoPaciente.complemento, inputComplemento)}
             />
             <Input
               style={{ width: 140, marginLeft: 8 }}
@@ -174,6 +189,7 @@ const Localizacao = ({ navigation, route }) => {
               placeholder="Cidade"
               placeholderTextColor="#403e66"
               ref={inputCidade}
+              onBlur={() => validarInputCorreta(novoPaciente.cidade, inputCidade)}
             />
             <Input
               style={{ marginLeft: 8 }}
@@ -181,6 +197,7 @@ const Localizacao = ({ navigation, route }) => {
               placeholder="Estado"
               placeholderTextColor="#403e66"
               ref={inputEstado}
+              onBlur={() => validarInputCorreta(novoPaciente.estado, inputEstado)}
             />
           </ContainerFormulario>
           <ContainerBotao>

@@ -14,6 +14,8 @@ import Titulo from "../../../Components/TituloCadastro";
 import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
 
+import { validarInputMaskCorreta } from "../../../Fixtures/validarInputCorreta";
+
 import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
@@ -102,6 +104,7 @@ const Telefone = ({ navigation, route }) => {
               placeholder="Número"
               placeholderTextColor="#403e66"
               ref={inputNumero}
+              onBlur={() => validarInputMaskCorreta(novoPaciente.numero, inputNumero)}
             />
           </ContainerFormularioTelefone>
 

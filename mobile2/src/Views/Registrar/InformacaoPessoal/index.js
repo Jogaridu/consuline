@@ -14,6 +14,7 @@ import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+import { validarInputCorreta, validarInputMaskCorreta } from "../../../Fixtures/validarInputCorreta";
 
 import {
   ImgInfmPessoais,
@@ -90,7 +91,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
       arrayInputsVazias.find(campo => campo === "email") ?
         inputEmail.current.setNativeProps(inputErroStyle) : "";
-      
+
     } else {
       navigation.navigate("RegistrarLocalizacao", novoPaciente);
     }
@@ -112,9 +113,10 @@ const InformacaoPessoal = ({ navigation, route }) => {
               style={[styles.input]}
               value={novoPaciente.nome}
               id="nome"
-              onChangeText={e => setNovoPaciente({...novoPaciente, nome: e})}
+              onChangeText={e => setNovoPaciente({ ...novoPaciente, nome: e })}
               placeholder="Nome Completo"
               placeholderTextColor="#403e66"
+              onBlur={() => validarInputCorreta(novoPaciente.nome, inputNome)}
               ref={inputNome}
             />
             <Input
@@ -130,6 +132,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               }
               placeholder="Data de Nascimento"
               placeholderTextColor="#403e66"
+              onBlur={() => validarInputMaskCorreta(novoPaciente.dataNascimento, inputData)}
               ref={inputData}
             />
             <Input
@@ -144,6 +147,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               onChangeText={(e) => setNovoPaciente({ ...novoPaciente, rg: e })}
               placeholder="RG"
               placeholderTextColor="#403e66"
+              onBlur={() => validarInputMaskCorreta(novoPaciente.rg, inputRg)}
               ref={inputRg}
             />
             <Input
@@ -154,6 +158,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               onChangeText={(e) => setNovoPaciente({ ...novoPaciente, cpf: e })}
               placeholder="CPF"
               placeholderTextColor="#403e66"
+              onBlur={() => validarInputMaskCorreta(novoPaciente.cpf, inputCpf)}
               ref={inputCpf}
             />
             <TextInput
@@ -165,6 +170,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
               }
               placeholder="Email"
               placeholderTextColor="#403e66"
+              onBlur={() => validarInputCorreta(novoPaciente.email, inputEmail)}
               ref={inputEmail}
               autoCompleteType="email"
             />
