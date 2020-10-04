@@ -2,10 +2,12 @@ import styled from "styled-components/native";
 import colors from "../../../Styles/colors";
 
 export const ContainerImgCadastro = styled.View`
+  width: 100%;
   flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px; 
 `;
 
 export const ImgInfmPessoais = styled.Image`
@@ -29,7 +31,26 @@ export const ContainerFormulario = styled.View`
 
 export const ContainerBotao = styled.View`
   flex: 1;
+  align-self: center;
+`;
+
+export const ContainerConteudo = styled.View`
+  flex: 5;
   align-self: flex-end;
-  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${colors.fundo};
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+`;
+
+export const ContainerPasso = styled.View`
+  flex: 1;
+  /* background: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 `;
 

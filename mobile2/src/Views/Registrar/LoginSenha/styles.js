@@ -2,17 +2,18 @@ import styled from "styled-components/native";
 import colors from "../../../Styles/colors";
 
 export const ContainerImgLoginSenha = styled.View`
+  width: 100%;
   flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: blue; */
+  margin-bottom: 10px; 
 `;
 
 export const ImgLoginSenha = styled.Image`
-  width: 40%;
+  width: 30%;
   height: 0;
-  padding-bottom: 45%;
+  padding-bottom: 35%;
 `;
 
 export const ContainerTituloLoginSenha = styled.View`
@@ -29,7 +30,7 @@ export const ContainerFormulario = styled.View`
 
 export const ContainerBotao = styled.View`
   flex: 0.8;
-  align-self: flex-end;
+  align-self: center;
   padding: 0 20px;
 `;
 
@@ -42,3 +43,25 @@ export const Input = styled.TextInput`
   background: ${colors.fundo};
   margin-bottom: 15px;
 `;
+
+export const ContainerConteudo = styled.View`
+  flex: 5;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${colors.fundo};
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+`;
+
+export const ContainerPasso = styled.View`
+  flex: 1;
+  /* background: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+

@@ -12,11 +12,13 @@ import Foto from "./src/Views/Registrar/Foto";
 import Routes from "./src/Navigation/routes";
 // import Localizacao from "./src/Views/Registrar/Localizacao";
 import Sucesso from "./src/Views/Registrar/Sucesso";
+import TelaIncial from "./src/Views/TelaInicial";
 
 export default function App() {
   return (
     <>
       <Routes />
+      {/* <Login /> */}
     </>
   );
 }

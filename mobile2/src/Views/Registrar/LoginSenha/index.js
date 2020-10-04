@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
+import { Dimensions, KeyboardAvoidingView, ScrollView, Text } from "react-native";
 
 import {
   ContainerImgLoginSenha,
@@ -8,6 +8,8 @@ import {
   ContainerFormulario,
   ContainerBotao,
   Input,
+  ContainerConteudo,
+  ContainerPasso,
 } from "./styles";
 
 import Titulo from "../../../Components/TituloCadastro";
@@ -33,26 +35,28 @@ const LoginSenha = ({ navigation, route }) => {
   });
 
   const navegarTelefone = () => {
-    const arrayInputsVazias = validarCamposVazios(cadastroLoginSenha, "complemento");
+    const arrayInputsVazias = validarCamposVazios(
+      cadastroLoginSenha,
+      "complemento"
+    );
 
     if (arrayInputsVazias.length) {
-
       console.warn("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
-      arrayInputsVazias.find(campo => campo === "login") ?
-        inputLogin.current.setNativeProps(inputErroStyle) : "";
+      arrayInputsVazias.find((campo) => campo === "login")
+        ? inputLogin.current.setNativeProps(inputErroStyle)
+        : "";
 
-      arrayInputsVazias.find(campo => campo === "senha") ?
-        inputSenha.current.setNativeProps(inputErroStyle) : "";
+      arrayInputsVazias.find((campo) => campo === "senha")
+        ? inputSenha.current.setNativeProps(inputErroStyle)
+        : "";
 
-      arrayInputsVazias.find(campo => campo === "confirmarSenha") ?
-        inputConfirmarSenha.current.setNativeProps(inputErroStyle) : "";
-
-
+      arrayInputsVazias.find((campo) => campo === "confirmarSenha")
+        ? inputConfirmarSenha.current.setNativeProps(inputErroStyle)
+        : "";
     } else {
-
       if (cadastroLoginSenha.senha === cadastroLoginSenha.confirmarSenha) {
         novoPaciente = {
           ...novoPaciente,
@@ -61,61 +65,62 @@ const LoginSenha = ({ navigation, route }) => {
         };
 
         navigation.navigate("RegistrarTelefone", novoPaciente);
-
       } else {
         console.warn("Senhas diferentes");
-
       }
-
-
     }
-
   };
 
   return (
     <Container>
-      <KeyboardAvoidingView behavior="height" enabled>
-        <ScrollView>
-          <ContainerImgLoginSenha>
-            <ImgLoginSenha source={require("../../../Assets/cadeado.jpg")} />
-          </ContainerImgLoginSenha>
-          <ContainerTituloLoginSenha>
-            <Titulo title="Crie um Login e uma Senha" />
-          </ContainerTituloLoginSenha>
-          <ContainerFormulario>
-            <Input
-              value={cadastroLoginSenha.login}
-              onChangeText={(e) =>
-                setLoginSenha({ ...cadastroLoginSenha, login: e })
-              }
-              placeholder="Login"
-              placeholderTextColor="#403e66"
-              ref={inputLogin}
-            />
-            <Input
-              value={cadastroLoginSenha.senha}
-              onChangeText={(e) =>
-                setLoginSenha({ ...cadastroLoginSenha, senha: e })
-              }
-              placeholder="Senha"
-              placeholderTextColor="#403e66"
-              ref={inputSenha}
-            />
-            <Input
-              value={cadastroLoginSenha.confirmarSenha}
-              onChangeText={(e) =>
-                setLoginSenha({ ...cadastroLoginSenha, confirmarSenha: e })
-              }
-              placeholder="Confirmar senha"
-              placeholderTextColor="#403e66"
-              ref={inputConfirmarSenha}
-            />
-          </ContainerFormulario>
-          <ContainerBotao>
-            <Botao title="Próximo" width={130} funcExec={navegarTelefone} />
-          </ContainerBotao>
-        </ScrollView>
-      </KeyboardAvoidingView>
+      <ContainerImgLoginSenha>
+        <ImgLoginSenha source={require("../../../Assets/cadeado.jpg")} />
+      </ContainerImgLoginSenha>
+
+      <ContainerConteudo>
+        <KeyboardAvoidingView behavior="height" enabled>
+          <ScrollView>
+            <ContainerTituloLoginSenha>
+              <Titulo title="Crie um Login e uma Senha" />
+            </ContainerTituloLoginSenha>
+            <ContainerFormulario>
+              <Input
+                value={cadastroLoginSenha.login}
+                onChangeText={(e) =>
+                  setLoginSenha({ ...cadastroLoginSenha, login: e })
+                }
+                placeholder="Login"
+                placeholderTextColor="#403e66"
+                ref={inputLogin}
+              />
+              <Input
+                value={cadastroLoginSenha.senha}
+                onChangeText={(e) =>
+                  setLoginSenha({ ...cadastroLoginSenha, senha: e })
+                }
+                placeholder="Senha"
+                placeholderTextColor="#403e66"
+                ref={inputSenha}
+              />
+              <Input
+                value={cadastroLoginSenha.confirmarSenha}
+                onChangeText={(e) =>
+                  setLoginSenha({ ...cadastroLoginSenha, confirmarSenha: e })
+                }
+                placeholder="Confirmar senha"
+                placeholderTextColor="#403e66"
+                ref={inputConfirmarSenha}
+              />
+            </ContainerFormulario>
+            <ContainerPasso>
+              <Text> Aqui fica os Passos </Text>
+            </ContainerPasso>
+            <ContainerBotao>
+              <Botao title="Próximo" funcExec={navegarTelefone} />
+            </ContainerBotao>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ContainerConteudo>
     </Container>
   );
 };

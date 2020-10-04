@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Text,
 } from "react-native";
-import { validate } from 'validate.js';
 import { TextInputMask as Input } from "react-native-masked-text";
 
 import Container from "../../../Components/Container";
@@ -21,12 +21,13 @@ import {
   ContainerImgCadastro,
   ContainerTituloCadastro,
   ContainerBotao,
+  ContainerConteudo,
+  ContainerPasso,
 } from "./styles";
 
 import colors from "../../../Styles/colors";
 
 const InformacaoPessoal = ({ navigation, route }) => {
-
   var [novoPaciente, setNovoPaciente] = useState({
     nome: "",
     dataNascimento: "",
@@ -42,6 +43,11 @@ const InformacaoPessoal = ({ navigation, route }) => {
   const inputRg = useRef(null);
   const inputCpf = useRef(null);
   const inputEmail = useRef(null);
+
+  const maskNome = (e) => {
+    var nome = e.replace(/[^a-zA-z À-ÿ]/g, "");
+    setNovoPaciente({ ...novoPaciente, nome: nome });
+  };
 
   const tratamentoDados = () => {
     var dataNascimento = novoPaciente.dataNascimento;
@@ -74,23 +80,27 @@ const InformacaoPessoal = ({ navigation, route }) => {
     const arrayInputsVazias = validarCamposVazios(novoPaciente);
 
     if (arrayInputsVazias.length) {
-
       console.warn("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
-      arrayInputsVazias.find(campo => campo === "dataNascimento") ?
-        inputData.current.getElement().setNativeProps({ style: { borderColor: "red" } }) : "";
+      arrayInputsVazias.find((campo) => campo === "dataNascimento")
+        ? inputData.current
+            .getElement()
+            .setNativeProps({ style: { borderColor: "red" } })
+        : "";
 
-      arrayInputsVazias.find(campo => campo === "rg") ?
-        inputRg.current.getElement().setNativeProps(inputErroStyle) : "";
+      arrayInputsVazias.find((campo) => campo === "rg")
+        ? inputRg.current.getElement().setNativeProps(inputErroStyle)
+        : "";
 
-      arrayInputsVazias.find(campo => campo === "cpf") ?
-        inputCpf.current.getElement().setNativeProps(inputErroStyle) : "";
+      arrayInputsVazias.find((campo) => campo === "cpf")
+        ? inputCpf.current.getElement().setNativeProps(inputErroStyle)
+        : "";
 
-      arrayInputsVazias.find(campo => campo === "email") ?
-        inputEmail.current.setNativeProps(inputErroStyle) : "";
-      
+      arrayInputsVazias.find((campo) => campo === "email")
+        ? inputEmail.current.setNativeProps(inputErroStyle)
+        : "";
     } else {
       navigation.navigate("RegistrarLocalizacao", novoPaciente);
     }
@@ -98,82 +108,92 @@ const InformacaoPessoal = ({ navigation, route }) => {
 
   return (
     <Container>
-      <KeyboardAvoidingView behavior="height" enabled>
-        <ScrollView>
-          <ContainerImgCadastro>
-            <ImgInfmPessoais source={require("../../../Assets/user.png")} />
-          </ContainerImgCadastro>
-          <ContainerTituloCadastro>
-            <Titulo title="Informações pessoais" />
-          </ContainerTituloCadastro>
+      <ContainerImgCadastro>
+        <ImgInfmPessoais source={require("../../../Assets/user.png")} />
+      </ContainerImgCadastro>
 
-          <ContainerFormulario>
-            <TextInput
-              style={[styles.input]}
-              value={novoPaciente.nome}
-              id="nome"
-              onChangeText={e => setNovoPaciente({...novoPaciente, nome: e})}
-              placeholder="Nome Completo"
-              placeholderTextColor="#403e66"
-              ref={inputNome}
-            />
-            <Input
-              style={styles.input}
-              type={"datetime"}
-              options={{
-                format: "99-99-9999",
-              }}
-              value={novoPaciente.dataNascimento}
-              id="dataNasc"
-              onChangeText={(e) =>
-                setNovoPaciente({ ...novoPaciente, dataNascimento: e })
-              }
-              placeholder="Data de Nascimento"
-              placeholderTextColor="#403e66"
-              ref={inputData}
-            />
-            <Input
-              style={styles.rg}
-              type={"custom"}
-              options={{
-                mask: "99.999.999-9",
-              }}
-              value={novoPaciente.rg}
-              id="rg"
-              keyboardType="numeric"
-              onChangeText={(e) => setNovoPaciente({ ...novoPaciente, rg: e })}
-              placeholder="RG"
-              placeholderTextColor="#403e66"
-              ref={inputRg}
-            />
-            <Input
-              style={styles.cpf}
-              type={"cpf"}
-              value={novoPaciente.cpf}
-              id="cpf"
-              onChangeText={(e) => setNovoPaciente({ ...novoPaciente, cpf: e })}
-              placeholder="CPF"
-              placeholderTextColor="#403e66"
-              ref={inputCpf}
-            />
-            <TextInput
-              style={styles.input}
-              value={novoPaciente.email}
-              id="email"
-              onChangeText={(e) =>
-                setNovoPaciente({ ...novoPaciente, email: e })
-              }
-              placeholder="Email"
-              placeholderTextColor="#403e66"
-              ref={inputEmail}
-              autoCompleteType="email"
-            />
-          </ContainerFormulario>
-          <ContainerBotao>
-            <Botao title="Próximo" width={130} funcExec={navegarLocalizacao} />
-          </ContainerBotao>
-        </ScrollView>
-      </KeyboardAvoidingView>
+      <ContainerConteudo>
+        <KeyboardAvoidingView behavior="height" enabled>
+          <ScrollView>
+            <ContainerTituloCadastro>
+              <Titulo title="Informações pessoais" />
+            </ContainerTituloCadastro>
+
+            <ContainerFormulario>
+              <TextInput
+                style={[styles.input]}
+                value={novoPaciente.nome}
+                id="nome"
+                onChangeText={maskNome}
+                placeholder="Nome Completo"
+                placeholderTextColor="#403e66"
+                ref={inputNome}
+              />
+              <TextInput
+                style={styles.input}
+                value={novoPaciente.email}
+                id="email"
+                onChangeText={(e) =>
+                  setNovoPaciente({ ...novoPaciente, email: e })
+                }
+                placeholder="Email"
+                placeholderTextColor="#403e66"
+                ref={inputEmail}
+                autoCompleteType="email"
+              />
+              <Input
+                style={styles.input}
+                type={"datetime"}
+                options={{
+                  format: "99-99-9999",
+                }}
+                value={novoPaciente.dataNascimento}
+                id="dataNasc"
+                onChangeText={(e) =>
+                  setNovoPaciente({ ...novoPaciente, dataNascimento: e })
+                }
+                placeholder="Data de Nascimento"
+                placeholderTextColor="#403e66"
+                ref={inputData}
+              />
+              <Input
+                style={styles.rg}
+                type={"custom"}
+                options={{
+                  mask: "99.999.999-9",
+                }}
+                value={novoPaciente.rg}
+                id="rg"
+                keyboardType="numeric"
+                onChangeText={(e) =>
+                  setNovoPaciente({ ...novoPaciente, rg: e })
+                }
+                placeholder="RG"
+                placeholderTextColor="#403e66"
+                ref={inputRg}
+              />
+              <Input
+                style={styles.cpf}
+                type={"cpf"}
+                value={novoPaciente.cpf}
+                id="cpf"
+                onChangeText={(e) =>
+                  setNovoPaciente({ ...novoPaciente, cpf: e })
+                }
+                placeholder="CPF"
+                placeholderTextColor="#403e66"
+                ref={inputCpf}
+              />
+            </ContainerFormulario>
+            <ContainerPasso>
+              <Text> Aqui fica os Passos </Text>
+            </ContainerPasso>
+            <ContainerBotao>
+              <Botao title="Próximo" funcExec={navegarLocalizacao} />
+            </ContainerBotao>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ContainerConteudo>
     </Container>
   );
 };

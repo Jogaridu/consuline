@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import { TextInput } from "react-native";
+import {
+  TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
+  Text,
+  FlatList,
+} from "react-native";
+
 import { Botao1 } from "../../Components/Botao1";
 import Botao2 from "../../Components/Botao2";
 import { Input } from "./styles";
 import Container from "../../Components/Container";
+import Titulo from "../../Components/TituloCadastro";
 
-import { ImgLogoLogin } from "./styles";
+import {
+  ImgLogoLogin,
+  ContainerImgCadastro,
+  ContainerConteudo,
+} from "./styles";
 
 import api from "../../Services/api";
 
@@ -15,26 +27,8 @@ const Login = ({ navigation }) => {
     senha: "",
   });
 
-  // const [registrar, setRegistrar] = useState({
-  //   nome: "",
-  //   dataNascimento: "",
-  //   rg: "",
-  //   cpf: "",
-  //   email: "",
-  //   endereco: {
-  //     cep: "",
-  //     bairro: "",
-  //     rua: "",
-  //     numero: "",
-  //     complemento: "",
-  //     cidade: "",
-  //     estado: "",
-  //   },
-  //   celular: "",
-  // });
-
-  const navegarCadastro = () => {
-    navigation.navigate("RegistrarInformacaoPessoal");
+  const navegarTelaInicial = () => {
+    navigation.navigate("TelaInicial");
   };
 
   const handlerInputLogin = (string) =>
@@ -56,28 +50,43 @@ const Login = ({ navigation }) => {
 
   return (
     <Container>
-      <ImgLogoLogin
-        style={{ marginBottom: 30 }}
-        source={require("../../Assets/logo.png")}
-      />
-      <Input
-        style={{ marginBottom: 15 }}
-        placeholder="Login"
-        maxLength={20}
-        placeholderTextColor="#403e66"
-        onChangeText={handlerInputLogin}
-      > 
-      </Input>
-      <Input
-        secureTextEntry={true}
-        style={{ marginBottom: 74 }}
-        placeholder="Senha"
-        maxLength={20}
-        placeholderTextColor="#403e66"
-        onChangeText={handlerInputSenha}
-      />
-      <Botao1 title="Enviar" bottom={16} />
-      <Botao2 title="Registrar-se" funcExec={navegarCadastro} />
+      <ContainerImgCadastro>
+        <ImgLogoLogin
+          style={{
+            marginBottom: 30,
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+          source={require("../../Assets/logo.png")}
+        />
+      </ContainerImgCadastro>
+
+      <ContainerConteudo>
+        <KeyboardAvoidingView behavior="height" enabled>
+          <ScrollView>
+            <Titulo title="Login" />
+
+            <Input
+              style={{ marginBottom: 15 }}
+              placeholder="Login"
+              maxLength={20}
+              placeholderTextColor="#403e66"
+              onChangeText={handlerInputLogin}
+            ></Input>
+            <Input
+              secureTextEntry={true}
+              style={{ marginBottom: 74 }}
+              placeholder="Senha"
+              maxLength={20}
+              placeholderTextColor="#403e66"
+              onChangeText={handlerInputSenha}
+            />
+
+            <Botao2 bottom={16} title="Entrar" funcExec={autenticarPaciente} />
+            <Botao1 title="Não tenho cadastro" funcExec={navegarTelaInicial} />
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ContainerConteudo>
     </Container>
   );
 };
