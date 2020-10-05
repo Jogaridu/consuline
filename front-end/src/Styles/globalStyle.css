@@ -3,7 +3,8 @@
     --secundaria: #312F66;
     --fundo: #EDEDED;
     --container: #FFF;
-    --estbtn: #999
+    --estbtn: #999;
+    --terceira:#C0C0C0;
 }
 
 body {

@@ -15,7 +15,7 @@ body {
 }
 .menu {
   width: 100%;
-  min-width: 250px ;
+  min-width: 250px;
   height: 100%;
   padding-left: 8px;
   padding-right: 8px;
@@ -29,20 +29,29 @@ body {
   margin-bottom: 40px;
 }
 .menu-pesquisar {
-  display: block;
+  display: grid;
+  grid-template-columns: 20% 75%;
   height: 80px;
   margin-bottom: 35px;
-  background-color: var(--secundaria);
   padding-top: 15px;
   box-sizing: border-box;
   margin-bottom: 50px;
   border-radius: 30px;
 }
+.menu-pesquisar:hover {
+  cursor: pointer;
+}
+.menu-pesquisar img {
+  width: 100%;
+  height: 60px;
+}
 .menu-pesquisar h3 {
-  color: var(--fundo);
+  color: var(--secundaria);
   font-size: 2em;
   font-weight: bold;
-  text-align: center;
+  text-align: justify;
+  margin-top: 7px;
+  margin-left: 13px;
 }
 .menu h5 {
   color: var(--secundaria);
@@ -50,15 +59,20 @@ body {
   text-align: center;
 }
 .menu-itens {
+  height: 65px;
   display: block;
   margin-top: 35px;
   margin-bottom: 35px;
+  border-left: 20px solid var(--secundaria);
+  padding-top: 8px;
+  padding-left: 10px;
+  box-sizing: border-box;
 }
 .menu-itens h3 {
   color: var(--secundaria);
   font-size: 2em;
+  text-align: justify;
   font-weight: bold;
-  text-align: center;
 }
 .direitos {
   width: 100%;
@@ -70,27 +84,24 @@ body {
 }
 
 .subMenu {
-  width: 360px;
-  height: 160px;
-  background-color: var(--secundaria);
+  width: 351px;
+  height: 113px;
   padding-left: 5px;
   padding-right: 15px;
   padding-top: 15px;
   box-sizing: border-box;
   position: absolute;
+  background-color: var(--terceira);
   margin-left: -700px;
-  margin-top: -13px;
   opacity: 0;
   visibility: hidden;
-  border-radius: 10px;
 }
 .subMenu-itens {
   height: 30px;
-  width: 350px;
+  width: 340px;
   display: grid;
   grid-template-columns: 60% 40%;
   background-color: var(--fundo);
-  border-radius: 20px;
   margin-bottom: 15px;
 }
 .subMenu-itens h5 {
@@ -103,129 +114,57 @@ body {
   height: 30px;
   width: 30px;
 }
+.menu-itens:hover {
+  background-color: var(--terceira);
+  cursor: pointer;
+}
 .menu-itens:hover > .subMenu {
   opacity: 1;
   visibility: visible;
-  margin-left: -12px;
+  margin-left: -32px;
   transition: 1s;
 }
 
-main {
+.main {
   height: 100%;
   width: 100%;
   min-width: 900px;
   background-color: var(--fundo);
-  padding-top: 150px;
+  padding-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
   box-sizing: border-box;
-}
-main h1 {
-  color: var(--secundaria);
-  text-align: center;
-  font-style: oblique;
-  font-size: 2.5em;
-  letter-spacing: 1px;
-  margin-bottom: 60px;
+  display: grid;
+  grid-template-columns: 22% 22% 22% 22%;
 }
 .cardInformativo {
-  height: 470px;
-  width: 23%;
-  display: block;
-  background-color: var(--secundaria);
-  border-radius: 20px;
-  float: left;
-  margin-left: 20px;
-  padding-top: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  box-sizing: border-box;
-}
-.cardInformativo > img {
-  height: 30px;
-  width: 30px;
-  margin-left: 80%;
-}
-.cardInformativo-img-ilustrativa-medico,
-.cardInformativo-img-ilustrativa-paciente,
-.cardInformativo-img-ilustrativa-consultas,
-.cardInformativo-img-ilustrativa-filial {
-  width: 80%;
-  height: 160px;
-  background-color: var(--fundo);
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 20px;
-  margin-bottom: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  box-sizing: border-box;
-}
-.cardInformativo-img-ilustrativa-medico figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid red;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-paciente figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid var(--estbtn);
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-consultas figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid green;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-consultas figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid green;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-filial figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid yellow;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-medico figure img,
-.cardInformativo-img-ilustrativa-paciente figure img,
-.cardInformativo-img-ilustrativa-consultas figure img,
-.cardInformativo-img-ilustrativa-filial figure img {
-  height: 80px;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  height: 150px;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  background-color: var(--secundaria);
+  border-radius: 15px;
+  margin-right: 80px;
 }
-.cardInformativo h3 {
-  text-align: center;
-  font-size: 2em;
-  letter-spacing: 1px;
+.cardInformativo img {
+  width: 100%;
+  height: 130px;
+}
+.cardInformativo > div {
+  width: 100%;
+  height: 100%;
+  padding-top: 18px;
+  box-sizing: border-box;
+}
+.cardInformativo > div > h3{
   color: var(--fundo);
-  margin-bottom: 30px;
+  font-size: 2.3em;
+  font-weight: bold;
+  text-align: left;
 }
-.cardInformativo p {
-  text-align: center;
+.cardInformativo > div > p{
+  color: var(--fundo);
   font-size: 1.3em;
-  font-weight: bolder;
-  letter-spacing: 1px;
-  color: var(--fundo);
+  font-weight: bold;
+  text-align: left;
 }
