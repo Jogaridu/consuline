@@ -10,6 +10,7 @@ import book from "../../../Assets/book.png";
 import add from "../../../Assets/add.png";
 import add3 from "../../../Assets/add3.png";
 import map from "../../../Assets/map.png";
+import lupa from "../../../Assets/lupa.png";
 
 const Menu = () => {
   return (
@@ -18,18 +19,19 @@ const Menu = () => {
         <img src={logoprojeto2} alt="Logo Consuline" />
       </figure>
       <div className="menu-pesquisar">
-        <h3>PESQUISAR</h3>
+        <img src={lupa} alt="Lupa" />
+        <h3>BUSCAR</h3>
       </div>
       <div className="menu-itens">
         <h3>CENTRAL</h3>
         <div className="subMenu">
           <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
             <h5>ADICIONAR</h5>
             <img src={add} alt="Logo adicionar" />
+          </div>
+          <div className="subMenu-itens">
+            <h5>LISTAR</h5>
+            <img src={book} alt="Logo adicionar" />
           </div>
         </div>
       </div>
@@ -37,12 +39,12 @@ const Menu = () => {
         <h3>MÉDICOS </h3>
         <div className="subMenu">
           <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
             <h5>ADICIONAR</h5>
             <img src={add} alt="Logo adicionar" />
+          </div>
+          <div className="subMenu-itens">
+            <h5>LISTAR</h5>
+            <img src={book} alt="Logo adicionar" />
           </div>
         </div>
       </div>
@@ -50,12 +52,12 @@ const Menu = () => {
         <h3>FILIAIS</h3>
         <div className="subMenu">
           <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
             <h5>ADICIONAR</h5>
             <img src={add} alt="Logo adicionar" />
+          </div>
+          <div className="subMenu-itens">
+            <h5>LISTAR</h5>
+            <img src={book} alt="Logo adicionar" />
           </div>
         </div>
       </div>
@@ -63,12 +65,12 @@ const Menu = () => {
         <h3>SERVIÇOS</h3>
         <div className="subMenu">
           <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
             <h5>ADICIONAR</h5>
             <img src={add} alt="Logo adicionar" />
+          </div>
+          <div className="subMenu-itens">
+            <h5>LISTAR</h5>
+            <img src={book} alt="Logo adicionar" />
           </div>
         </div>
       </div>
@@ -78,6 +80,7 @@ const Menu = () => {
     </div>
   );
 };
+
 const CardEntradaDados = () => {
   return (
     <div className="conteiner-entrada-dados-endereco">

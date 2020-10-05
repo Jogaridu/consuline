@@ -4,7 +4,8 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home/index";
 import Login from "./Pages/Login/index";
 import HomeCrud from "./Pages/Home-Crud/index";
-import AdicionarDadosPessoaisFilial from "./Pages/Filial/Adicionar-Informacoes-Filial/index"
+import AdicionarDadosPessoaisFilial from "./Pages/Filial/Adicionar-Informacoes-Filial/index";
+import AdicionarEnderecoFilial from "./Pages/Filial/Adicionar-Endereco/index.js";
 
 function Routes() {
   return (
@@ -19,8 +20,11 @@ function Routes() {
         <Route path="/home">
           <HomeCrud />
         </Route>
-        <Route path="/add-info-pessoais">
-          <AdicionarDadosPessoaisFilial/>
+        <Route path="/filial-cadastro">
+          <AdicionarDadosPessoaisFilial />
+        </Route>
+        <Route path="/filial-cadastro-endereco">
+          <AdicionarEnderecoFilial />
         </Route>
       </Switch>
     </BrowserRouter>
