@@ -1,3 +1,4 @@
+import { Animated } from "react-native";
 import styled from "styled-components/native";
 import colors from "../../../Styles/colors";
 
@@ -40,11 +41,11 @@ export const Input = styled.TextInput`
   border: 1px solid ${colors.principal};
   padding: 10px;
   border-radius: 5px;
-  background: ${colors.fundo};
+  background: ${colors.container};
   margin-bottom: 15px;
 `;
 
-export const ContainerConteudo = styled.View`
+export const ContainerConteudo = styled(Animated.View)`
   flex: 5;
   align-self: flex-end;
   display: flex;
@@ -55,13 +56,5 @@ export const ContainerConteudo = styled.View`
   border-top-right-radius: 40px;
 `;
 
-export const ContainerPasso = styled.View`
-  flex: 1;
-  /* background: blue; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-`;
 
 

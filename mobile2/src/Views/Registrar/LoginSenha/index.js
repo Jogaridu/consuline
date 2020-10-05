@@ -1,5 +1,14 @@
-import React, { useState, useRef } from "react";
-import { Dimensions, KeyboardAvoidingView, ScrollView, Text } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Dimensions,
+  KeyboardAvoidingView,
+  ScrollView,
+  Text,
+  Animated,
+  Image,
+  Keyboard,
+  YellowBox,
+} from "react-native";
 
 import {
   ContainerImgLoginSenha,
@@ -9,20 +18,77 @@ import {
   ContainerBotao,
   Input,
   ContainerConteudo,
-  ContainerPasso,
 } from "./styles";
 
 import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
+import Passos from "../../../Components/Passos";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+import { validarInputCorreta } from "../../../Fixtures/validarInputCorreta";
+
+import colors from "../../../Styles/colors";
 
 const LoginSenha = ({ navigation, route }) => {
-  const { height, width } = Dimensions.get("window");
+  YellowBox.ignoreWarnings([
+    "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
+  ]);
+
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
+  const [opacity] = useState(new Animated.Value(0));
+  const [img] = useState(new Animated.ValueXY({ x: 110, y: 120 }));
+
+  useEffect(() => {
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
+
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 2,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 90,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 100,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 110,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 120,
+        duration: 100,
+      }),
+    ]).start();
+  }
 
   var novoPaciente = route.params;
-
-  console.log(novoPaciente);
 
   const inputLogin = useRef(null);
   const inputSenha = useRef(null);
@@ -74,10 +140,24 @@ const LoginSenha = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgLoginSenha>
-        <ImgLoginSenha source={require("../../../Assets/cadeado.jpg")} />
+      <Animated.Image
+          source={require("../../../Assets/cadeado.jpg")}
+          style={{
+            width: img.x,
+            height: 0,
+            paddingBottom: img.y,
+          }}
+        />
       </ContainerImgLoginSenha>
 
-      <ContainerConteudo>
+      <ContainerConteudo
+        style={[
+          {
+            opacity: opacity,
+            transform: [{ translateY: offset.y }],
+          },
+        ]}
+      >
         <KeyboardAvoidingView behavior="height" enabled>
           <ScrollView>
             <ContainerTituloLoginSenha>
@@ -92,6 +172,9 @@ const LoginSenha = ({ navigation, route }) => {
                 placeholder="Login"
                 placeholderTextColor="#403e66"
                 ref={inputLogin}
+                onBlur={() =>
+                  validarInputCorreta(novoPaciente.login, inputLogin)
+                }
               />
               <Input
                 value={cadastroLoginSenha.senha}
@@ -101,6 +184,10 @@ const LoginSenha = ({ navigation, route }) => {
                 placeholder="Senha"
                 placeholderTextColor="#403e66"
                 ref={inputSenha}
+                onBlur={() =>
+                  validarInputCorreta(novoPaciente.senha, inputSenha)
+                }
+                secureTextEntry={true}
               />
               <Input
                 value={cadastroLoginSenha.confirmarSenha}
@@ -110,11 +197,16 @@ const LoginSenha = ({ navigation, route }) => {
                 placeholder="Confirmar senha"
                 placeholderTextColor="#403e66"
                 ref={inputConfirmarSenha}
+                onBlur={() =>
+                  validarInputCorreta(
+                    novoPaciente.confirmarSenha,
+                    inputConfirmarSenha
+                  )
+                }
+                secureTextEntry={true}
               />
             </ContainerFormulario>
-            <ContainerPasso>
-              <Text> Aqui fica os Passos </Text>
-            </ContainerPasso>
+            <Passos cor1={true} cor2={true} cor3={true} />
             <ContainerBotao>
               <Botao title="Próximo" funcExec={navegarTelefone} />
             </ContainerBotao>

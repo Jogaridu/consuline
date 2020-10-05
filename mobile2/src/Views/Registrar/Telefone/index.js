@@ -1,10 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Dimensions,
   Text,
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
+  Animated,
+  Image,
+  Keyboard,
+  YellowBox,
 } from "react-native";
 
 import { TextInputMask as Input } from "react-native-masked-text";
@@ -13,6 +17,9 @@ import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
 import TextInput from "../../../Components/Input";
 import Botao from "../../../Components/Botao2";
+import Passos from "../../../Components/Passos";
+
+import { validarInputMaskCorreta } from "../../../Fixtures/validarInputCorreta";
 
 import colors from "../../../Styles/colors";
 
@@ -25,11 +32,68 @@ import {
   ContainerFormularioTelefone,
   ContainerBotao,
   ContainerConteudo,
-  ContainerPasso,
 } from "./styles";
 
 const Telefone = ({ navigation, route }) => {
-  var novoPaciente = route.params;
+  YellowBox.ignoreWarnings([
+    "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
+  ]);
+
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
+  const [opacity] = useState(new Animated.Value(0));
+  const [img] = useState(new Animated.ValueXY({ x: 140, y: 140 }));
+
+  useEffect(() => {
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
+
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 2,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 100,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 100,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 140,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 140,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  // var novoPaciente = route.params;
 
   const [celular, setCelular] = useState("");
 
@@ -55,28 +119,12 @@ const Telefone = ({ navigation, route }) => {
       inputNumero.current.getElement().setNativeProps(inputErroStyle);
     } else {
       novoPaciente = { ...novoPaciente, celular: celularParse };
-
       try {
-        const teste = {
-          nome: "Jorge",
-          celular: "11963688640",
-          login: "jogaridu",
-          senha: "123",
-          dataNascimento: "2001-01-30",
-          email: "e-jorge2010@hotmail.com",
-          rg: "385604294",
-          cpf: "44284537873",
-          endereco:
-            '{ "rua": "Rua Jorge", "bairro": "Bairro Jorge", "numero": "121212", "complemento": "casa 12", "cep": "12345-123", "cidade": "Jandira", "estado": "SP" }',
-        };
-        const retorno = await api.post("/paciente", {
-          ...novoPaciente,
-          endereco: JSON.stringify(novoPaciente.endereco),
-        });
+        console.log({ ...novoPaciente });
+        const retorno = await api.post("/paciente", { ...novoPaciente });
 
-        console.log(retorno.data);
         if (retorno.status === 201) {
-          navigation.navigate("RegistrarCodigo");
+          navigation.navigate("RegistrarCodigo", retorno.data.id);
         }
       } catch (error) {
         if (error.response) {
@@ -91,10 +139,24 @@ const Telefone = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgTelefone>
-        <ImgTelefone source={require("../../../Assets/vetorCelular.jpg")} />
+      <Animated.Image
+          source={require("../../../Assets/vetorCelular.jpg")}
+          style={{
+            width: img.x,
+            height: 0,
+            paddingBottom: img.y,
+          }}
+        />
       </ContainerImgTelefone>
 
-      <ContainerConteudo>
+      <ContainerConteudo
+        style={[
+          {
+            opacity: opacity,
+            transform: [{ translateY: offset.y }],
+          },
+        ]}
+      >
         <KeyboardAvoidingView behavior="height" enabled>
           <ScrollView>
             <ContainerTituloTelefone>
@@ -118,11 +180,12 @@ const Telefone = ({ navigation, route }) => {
                 placeholder="Número"
                 placeholderTextColor="#403e66"
                 ref={inputNumero}
+                onBlur={() =>
+                  validarInputMaskCorreta(novoPaciente.numero, inputNumero)
+                }
               />
             </ContainerFormularioTelefone>
-            <ContainerPasso>
-              <Text> Aqui fica os Passos </Text>
-            </ContainerPasso>
+            <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
             <ContainerBotao>
               <Botao title="Próximo" funcExec={registrarPaciente} />
             </ContainerBotao>
@@ -141,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: [colors.principal],
-    backgroundColor: [colors.fundo],
+    backgroundColor: [colors.container],
     marginBottom: 15,
   },
 });

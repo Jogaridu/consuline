@@ -3,7 +3,7 @@ import colors from "../../../Styles/colors";
 
 export const ContainerTextos = styled.View`
   flex: 1;
-  background: green;
+  /* background: green; */
 `;
 
 export const ContainerImgSucesso = styled.View`
@@ -23,5 +23,5 @@ export const ImgSucesso = styled.Image`
 export const ContainerBotao = styled.View`
   flex: 1;
   padding: 0 20px;
-  background: pink;
+  /* background: pink; */
 `;

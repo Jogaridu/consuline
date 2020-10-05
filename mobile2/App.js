@@ -10,15 +10,14 @@ import Codigo from "./src/Views/Registrar/Codigo";
 import LoginSenha from "./src/Views/Registrar/LoginSenha";
 import Foto from "./src/Views/Registrar/Foto";
 import Routes from "./src/Navigation/routes";
-// import Localizacao from "./src/Views/Registrar/Localizacao";
 import Sucesso from "./src/Views/Registrar/Sucesso";
 import TelaIncial from "./src/Views/TelaInicial";
+import Localizacao from "./src/Views/Registrar/Localizacao";
 
 export default function App() {
   return (
     <>
       <Routes />
-      {/* <Login /> */}
     </>
   );
 }

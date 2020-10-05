@@ -1,10 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Dimensions,
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
-  Text
+  Text,
+  Animated,
+  Image,
+  Keyboard,
+  YellowBox,
 } from "react-native";
 
 import encontrarCep from "../../../Services/viaCep";
@@ -12,6 +16,10 @@ import encontrarCep from "../../../Services/viaCep";
 import { TextInputMask } from "react-native-masked-text";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+import {
+  validarInputCorreta,
+  validarInputMaskCorreta,
+} from "../../../Fixtures/validarInputCorreta";
 
 import {
   ContainerImgCadastro,
@@ -19,18 +27,74 @@ import {
   ContainerTituloCadastro,
   ContainerFormulario,
   ContainerBotao,
-  ContainerPasso,
   ContainerConteudo,
 } from "./styles";
 
 import Titulo from "../../../Components/TituloCadastro";
 import { Input } from "./styles";
 import Botao from "../../../Components/Botao2";
+import Passos from "../../../Components/Passos";
 
 import colors from "../../../Styles/colors";
 
 const Localizacao = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
+
+  YellowBox.ignoreWarnings(['Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`']);
+
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
+  const [opacity] = useState(new Animated.Value(0));
+  const [img] = useState(new Animated.ValueXY({ x: 154, y: 140 }));
+
+  useEffect(() => {
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
+
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 2,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 100,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 90,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 154,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 140,
+        duration: 100,
+      }),
+    ]).start();
+  }
 
   var novoPaciente = route.params;
 
@@ -40,6 +104,7 @@ const Localizacao = ({ navigation, route }) => {
   const inputNumero = useRef(null);
   const inputCidade = useRef(null);
   const inputEstado = useRef(null);
+  const inputComplemento = useRef(null);
 
   const [endereco, setEndereco] = useState({
     cep: "",
@@ -59,6 +124,11 @@ const Localizacao = ({ navigation, route }) => {
       cidade: enderecocep.localidade,
       estado: enderecocep.uf,
     });
+
+    validarInputCorreta(novoPaciente.bairro, inputBairro);
+    validarInputCorreta(novoPaciente.rua, inputRua);
+    validarInputCorreta(novoPaciente.cidade, inputCidade);
+    validarInputCorreta(novoPaciente.estado, inputEstado);
   };
 
   const handlerInput = (e) => {
@@ -114,10 +184,24 @@ const Localizacao = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgCadastro>
-        <ImgLocalizacao source={require("../../../Assets/localizacao.jpg")} />
+        <Animated.Image
+          source={require("../../../Assets/localizacao.jpg")}
+          style={{
+            width: img.x,
+            height: 0,
+            paddingBottom: img.y,
+          }}
+        />
       </ContainerImgCadastro>
 
-      <ContainerConteudo>
+      <ContainerConteudo
+        style={[
+          {
+            opacity: opacity,
+            transform: [{ translateY: offset.y }],
+          },
+        ]}
+      >
         <KeyboardAvoidingView behavior="height" enabled>
           <ScrollView>
             <ContainerTituloCadastro>
@@ -136,24 +220,34 @@ const Localizacao = ({ navigation, route }) => {
                 placeholder="CEP"
                 placeholderTextColor="#403e66"
                 onChangeText={handlerInput}
-                onBlur={async () =>
-                  preencherFormulario(await encontrarCep(endereco.cep))
-                }
+                onBlur={async () => {
+                  preencherFormulario(await encontrarCep(endereco.cep));
+                  validarInputMaskCorreta(novoPaciente.cep, inputCep);
+                }}
                 ref={inputCep}
+                keyboardType="numeric"
               />
               <Input
-                style={{ width: 140, marginLeft: 8 }}
+                style={{
+                  width: 140,
+                  marginLeft: 8,
+                  backgroundColor: colors.fundo,
+                }}
                 value={endereco.bairro}
                 placeholder="Bairro"
                 placeholderTextColor="#403e66"
                 ref={inputBairro}
+                editable={false}
+                selectTextOnFocus={false}
               />
               <Input
-                style={{ width: 205 }}
+                style={{ width: 205, backgroundColor: colors.fundo }}
                 value={endereco.rua}
                 placeholder="Rua"
                 placeholderTextColor="#403e66"
                 ref={inputRua}
+                editable={false}
+                selectTextOnFocus={false}
               />
               <TextInputMask
                 style={styles.numero}
@@ -163,6 +257,9 @@ const Localizacao = ({ navigation, route }) => {
                 placeholder="N°"
                 placeholderTextColor="#403e66"
                 ref={inputNumero}
+                onBlur={() =>
+                  validarInputMaskCorreta(novoPaciente.numero, inputNumero)
+                }
               />
               <Input
                 value={endereco.complemento}
@@ -172,25 +269,38 @@ const Localizacao = ({ navigation, route }) => {
                 onChangeText={(e) =>
                   setEndereco({ ...endereco, complemento: e })
                 }
+                ref={inputComplemento}
+                onBlur={() =>
+                  validarInputCorreta(
+                    novoPaciente.complemento,
+                    inputComplemento
+                  )
+                }
               />
               <Input
-                style={{ width: 140, marginLeft: 8 }}
+                style={{
+                  width: 140,
+                  marginLeft: 8,
+                  backgroundColor: colors.fundo,
+                }}
                 value={endereco.cidade}
                 placeholder="Cidade"
                 placeholderTextColor="#403e66"
                 ref={inputCidade}
+                editable={false}
+                selectTextOnFocus={false}
               />
               <Input
-                style={{ marginLeft: 8 }}
+                style={{ marginLeft: 8, backgroundColor: colors.fundo }}
                 value={endereco.estado}
                 placeholder="Estado"
                 placeholderTextColor="#403e66"
                 ref={inputEstado}
+                editable={false}
+                selectTextOnFocus={false}
               />
             </ContainerFormulario>
-            <ContainerPasso>
-              <Text> Aqui fica os Passos </Text>
-            </ContainerPasso>
+            <Passos cor1={true} cor2={true} />
             <ContainerBotao>
               <Botao title="Próximo" funcExec={navegarLoginSenha} />
             </ContainerBotao>
@@ -209,7 +319,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: [colors.principal],
-    backgroundColor: [colors.fundo],
+    backgroundColor: [colors.container],
     marginBottom: 15,
   },
 
@@ -220,7 +330,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: [colors.principal],
-    backgroundColor: [colors.fundo],
+    backgroundColor: [colors.container],
     marginBottom: 15,
     marginLeft: 15,
   },

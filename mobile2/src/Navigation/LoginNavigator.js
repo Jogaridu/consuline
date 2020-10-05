@@ -1,7 +1,11 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, Easing } from "react-native";
 
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+  TransitionPresets,
+} from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +22,7 @@ import CadastroLoginSenha from "../Views/Registrar/LoginSenha";
 import colors from "../Styles/colors";
 
 const optionsHeader = {
-  headerBackTitleVisible: false,
+  headerBackTitleVisible: true,
   headerBackTitle: "",
 
   headerStyle: {
@@ -29,9 +33,42 @@ const optionsHeader = {
   title: "",
 };
 
+const config = {
+  animation: "spring",
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
+const closeConfig = {
+  animation: "timing",
+  config: {
+    duration: 400,
+    easing: Easing.linear,
+  },
+};
+
 const LoginNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="TelaInicial">
+    <Stack.Navigator
+      initialRouteName="TelaInicial"
+      screenOptions={{
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        transitionSpec: {
+          open: config,
+          close: closeConfig,
+        },
+      }}
+      headerMode="float"
+      animation="fade"
+    >
       <Stack.Screen
         name="TelaInicial"
         component={TelaInicial}
@@ -41,7 +78,7 @@ const LoginNavigator = () => {
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{ ...optionsHeader, animationEnabled: false }}
+        options={{ ...optionsHeader }}
       />
 
       <Stack.Screen
@@ -57,7 +94,6 @@ const LoginNavigator = () => {
         component={Localizacao}
         options={{
           ...optionsHeader,
-          animationEnabled: false,
         }}
       />
 
@@ -66,7 +102,7 @@ const LoginNavigator = () => {
         component={CadastroLoginSenha}
         options={{
           ...optionsHeader,
-          animationEnabled: false,
+          
         }}
       />
 
@@ -75,7 +111,6 @@ const LoginNavigator = () => {
         component={Telefone}
         options={{
           ...optionsHeader,
-          animationEnabled: false,
         }}
       />
 
@@ -84,7 +119,6 @@ const LoginNavigator = () => {
         component={Codigo}
         options={{
           ...optionsHeader,
-          animationEnabled: false,
         }}
       />
 
@@ -93,7 +127,6 @@ const LoginNavigator = () => {
         component={Foto}
         options={{
           ...optionsHeader,
-          animationEnabled: false,
         }}
       />
 
@@ -102,7 +135,6 @@ const LoginNavigator = () => {
         component={Sucesso}
         options={{
           ...optionsHeader,
-          animationEnabled: false,
         }}
       />
     </Stack.Navigator>

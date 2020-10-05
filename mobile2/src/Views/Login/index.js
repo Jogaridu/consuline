@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
   Text,
   FlatList,
+  Animated,
+  Image,
+  Keyboard,
+  YellowBox,
 } from "react-native";
 
 import { Botao1 } from "../../Components/Botao1";
@@ -22,6 +26,64 @@ import {
 import api from "../../Services/api";
 
 const Login = ({ navigation }) => {
+  YellowBox.ignoreWarnings([
+    "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
+  ]);
+
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
+  const [opacity] = useState(new Animated.Value(0));
+  const [img] = useState(new Animated.ValueXY({ x: 240, y: 240 }));
+
+  useEffect(() => {
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
+
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 2,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 150,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 150,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 240,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 240,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
   const [pacienteLogin, setPacienteLogin] = useState({
     login: "",
     senha: "",
@@ -39,9 +101,9 @@ const Login = ({ navigation }) => {
   const autenticarPaciente = async () => {
     try {
       const retorno = await api.post("/paciente/sessao", pacienteLogin);
-      console.log(retorno);
+
       if (retorno) {
-        console.log(retorno.data);
+        console.warn("Autenticado");
       }
     } catch (error) {
       console.warn("Usuário ou senha estão errados...");
@@ -51,17 +113,26 @@ const Login = ({ navigation }) => {
   return (
     <Container>
       <ContainerImgCadastro>
-        <ImgLogoLogin
-          style={{
-            marginBottom: 30,
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
+          <Animated.Image
           source={require("../../Assets/logo.png")}
+          style={{
+            width: img.x,
+            height: 0,
+            paddingBottom: img.y,
+            marginLeft: "auto",
+            marginRight: "auto"
+          }}
         />
       </ContainerImgCadastro>
 
-      <ContainerConteudo>
+      <ContainerConteudo
+        style={[
+          {
+            opacity: opacity,
+            transform: [{ translateY: offset.y }],
+          },
+        ]}
+      >
         <KeyboardAvoidingView behavior="height" enabled>
           <ScrollView>
             <Titulo title="Login" />

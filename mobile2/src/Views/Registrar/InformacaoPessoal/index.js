@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -6,23 +6,30 @@ import {
   TextInput,
   ScrollView,
   Text,
+  Animated,
+  Image,
+  Keyboard,
+  YellowBox
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
 
 import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
 import Botao from "../../../Components/Botao2";
+import Passos from "../../../Components/Passos";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
+import {
+  validarInputCorreta,
+  validarInputMaskCorreta,
+} from "../../../Fixtures/validarInputCorreta";
 
 import {
-  ImgInfmPessoais,
   ContainerFormulario,
   ContainerImgCadastro,
   ContainerTituloCadastro,
   ContainerBotao,
   ContainerConteudo,
-  ContainerPasso,
 } from "./styles";
 
 import colors from "../../../Styles/colors";
@@ -35,6 +42,62 @@ const InformacaoPessoal = ({ navigation, route }) => {
     cpf: "",
     email: "",
   });
+
+  YellowBox.ignoreWarnings(['Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`']);
+
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
+  const [opacity] = useState(new Animated.Value(0));
+  const [img] = useState(new Animated.ValueXY({ x: 140, y: 140 }));
+
+  useEffect(() => {
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
+
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 2,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 100,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 100,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 140,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 140,
+        duration: 100,
+      }),
+    ]).start();
+  }
 
   const { height, width } = Dimensions.get("window");
 
@@ -109,10 +172,24 @@ const InformacaoPessoal = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgCadastro>
-        <ImgInfmPessoais source={require("../../../Assets/user.png")} />
+        <Animated.Image
+          source={require("../../../Assets/user.png")}
+          style={{
+            width: img.x,
+            height: 0,
+            paddingBottom: img.y,
+          }}
+        />
       </ContainerImgCadastro>
 
-      <ContainerConteudo>
+      <ContainerConteudo
+        style={[
+          {
+            opacity: opacity,
+            transform: [{ translateY: offset.y }],
+          },
+        ]}
+      >
         <KeyboardAvoidingView behavior="height" enabled>
           <ScrollView>
             <ContainerTituloCadastro>
@@ -128,6 +205,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 placeholder="Nome Completo"
                 placeholderTextColor="#403e66"
                 ref={inputNome}
+                onBlur={() => validarInputCorreta(novoPaciente.nome, inputNome)}
               />
               <TextInput
                 style={styles.input}
@@ -139,6 +217,9 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 placeholder="Email"
                 placeholderTextColor="#403e66"
                 ref={inputEmail}
+                onBlur={() =>
+                  validarInputCorreta(novoPaciente.email, inputEmail)
+                }
                 autoCompleteType="email"
               />
               <Input
@@ -155,6 +236,12 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 placeholder="Data de Nascimento"
                 placeholderTextColor="#403e66"
                 ref={inputData}
+                onBlur={() =>
+                  validarInputMaskCorreta(
+                    novoPaciente.dataNascimento,
+                    inputData
+                  )
+                }
               />
               <Input
                 style={styles.rg}
@@ -171,6 +258,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 placeholder="RG"
                 placeholderTextColor="#403e66"
                 ref={inputRg}
+                onBlur={() => validarInputMaskCorreta(novoPaciente.rg, inputRg)}
               />
               <Input
                 style={styles.cpf}
@@ -183,11 +271,12 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 placeholder="CPF"
                 placeholderTextColor="#403e66"
                 ref={inputCpf}
+                onBlur={() =>
+                  validarInputMaskCorreta(novoPaciente.cpf, inputCpf)
+                }
               />
             </ContainerFormulario>
-            <ContainerPasso>
-              <Text> Aqui fica os Passos </Text>
-            </ContainerPasso>
+            <Passos cor1={true} />
             <ContainerBotao>
               <Botao title="Próximo" funcExec={navegarLocalizacao} />
             </ContainerBotao>
@@ -218,7 +307,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: [colors.principal],
-    backgroundColor: [colors.fundo],
+    backgroundColor: [colors.container],
     marginBottom: 15,
   },
   rg: {
@@ -228,7 +317,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: [colors.principal],
-    backgroundColor: [colors.fundo],
+    backgroundColor: [colors.container],
     marginBottom: 15,
   },
   cpf: {
@@ -239,7 +328,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: [colors.principal],
-    backgroundColor: [colors.fundo],
+    backgroundColor: [colors.container],
     marginBottom: 15,
   },
 });

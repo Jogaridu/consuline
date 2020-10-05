@@ -23,7 +23,6 @@ module.exports = {
     const verificado = false;
 
     const { firebaseUrl } = req.file ? req.file : "";
-    endereco = JSON.parse(endereco);
 
     try {
 

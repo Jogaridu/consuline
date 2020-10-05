@@ -1,3 +1,4 @@
+import { Animated } from "react-native";
 import styled from "styled-components/native";
 import colors from "../../Styles/colors";
 
@@ -13,7 +14,7 @@ export const ImgLogoLogin = styled.Image`
   height: 155px;
 `;
 
-export const ContainerConteudo = styled.View`
+export const ContainerConteudo = styled(Animated.View)`
   flex: 4;
   width: 100%;
   display: flex;
@@ -31,6 +32,6 @@ export const Input = styled.TextInput`
   border: 1px solid ${colors.principal};
   padding: 10px;
   border-radius: 5px;
-  background: ${colors.fundo};
+  background: ${colors.container};
 `;
 
