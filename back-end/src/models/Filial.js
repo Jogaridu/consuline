@@ -4,8 +4,12 @@ class Filial extends Model {
   static init(sequelize) {
     super.init(
       {
-        nome: DataTypes.STRING,
-        horarioFuncionamento: DataTypes.TIME,
+        nomeFantasia: DataTypes.STRING,
+        dataAbertura: DataTypes.DATE,
+        cnpj: DataTypes.STRING,
+        email: DataTypes.STRING,
+        telefone: DataTypes.STRING,
+        ie: DataTypes.STRING,
       },
       {
         sequelize,
