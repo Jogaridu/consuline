@@ -1,0 +1,292 @@
+
+body{
+    /* width: 1300px; */
+    height: auto;
+    background-color: green;
+    /* border: 3px solid black; */
+}
+.container-medicos{
+    width: 5000px;
+    height: 655px;
+     background-color: var(--fundo); 
+}
+                        /****************************** CONTAINER MENU ******************************/
+
+.menu{
+    width: 280px;
+    height: 655px;
+    background-color: #fff;
+    float: left;
+    margin: auto;
+
+}
+
+.iconeMenu{
+    width: 150px;
+    height: 150px;
+    /* background-color: red; */
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+#logoprojeto{
+    width: 150px;
+    height: 150px;
+}
+
+.topicosMenu{
+    width: 100%;
+    height: 335px;
+    margin-top: 20px;
+     /* background-color: green;  */
+}
+
+.pesquisar{
+    width: 200px;
+    height: 50px;
+    /* background-color: red; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.desenvolvedor{
+    width: 250px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 35px;
+    border-top: 2px solid var(--principal);
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: oblique;
+    font-size: 20px;
+      /* background-color: red;   */
+}
+
+                        /****************************** CONTAINER DO CADASTRO COMPLETO FORM + TITULO ******************************/
+.cadastro{
+    width: 810px;
+    height: 600px;
+    border: 2px solid black;  
+    float: left;
+    margin-top: 35px;
+    margin-left: 150px;
+    
+}
+
+                        /****************************** CONTAINER TITULO ******************************/
+.container-titulo{
+    width: 700px;
+    height: 60px;
+    /* background-color: green; */
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titulo{
+    width: 600px;
+    height: 60px;
+    text-align: center;
+    /* background-color: #fff; */
+    font-size: 35px;
+    float: left;
+
+}
+
+.icone-titulo{
+    width: 60px;
+    height: 60px;
+    /* background-color: red; */
+    float: right;
+}
+#iconeAdc{
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+                        /****************************** CONTAINER CADASTRO FORMULARIO ******************************/
+.container-form{
+    width: 800px;
+    height: 500px;
+    background-color: var(--container);
+    border-radius: 20px;
+    margin-top: 20px;
+    border-radius: 40px;
+}
+                        /****************************** DIV LADO ESQUERDO ******************************/
+.img-left{
+    width: 400px;
+    height: 500px;
+    /* background-color: pink; */
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfil-form{
+    width: 350px;
+    height: 230px;
+    /* background-color: red; */
+}
+
+.img-usuario{
+    width: 180px;
+    height: 180px;
+    background-color: var(--principal);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    background-position: -15px -15px;
+}
+#usuario{
+    height: 160px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#mapa{
+    height: 130px;
+    width: 130px;
+    display: flex;
+    margin-top: 40px;
+}
+
+.subtitulo-imgUsuario{
+    width: 350px;
+    height: 50px;
+    margin-top: 5px;
+    /* background-color: var(--principal); */
+    text-align: center;
+    font-size: 30px;
+}
+                        /****************************** DIV LADO DIREITO ******************************/
+
+.form-right{
+    width: 400px;
+    height: 500px;
+     /* background-color:aquamarine;  */
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formulario{
+    width: 350px;
+    height: 450px;
+    border: 2px solid black;
+    /* background-color: blue;   */
+}
+
+.CadastroEntradaDados, .CadastroEntradaDados3, .CadastroEntradaDados4{
+    width: 100%;
+    /* background-color: chartreuse; */
+    box-sizing: border-box;
+    margin-bottom: 15px ;
+}
+.CadastroEntradaDados3, .CadastroEntradaDados4{
+    width: 45%;
+    float: left;
+}
+.CadastroEntradaDados4{   
+    float: right;
+}
+
+input{
+    height: 50px;
+    width: 100%;  
+    outline: none;
+    border: 1px solid var(--principal);
+    background-color: var(--fundo);
+    border-radius: 5px;    
+}
+
+::-webkit-input-placeholder{
+    color: var(--principal);
+  }
+
+
+.next{
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    float: right;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    background-color: var(--principal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: var(--container);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+.hvr-sweep-to-right {
+    width: 250px;
+    height: 45px;
+    background-color: var(--fundo);
+    margin-top: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    cursor: pointer;
+  }
+  .hvr-sweep-to-right:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--principal);
+    -webkit-transform: scaleX(0.1);
+    transform: scaleX(0.1);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    border-radius: 0px 20px 20px 0px;
+
+  }
+  .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
+    color: white;
+  }
+  .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+  

@@ -4,12 +4,13 @@ import "./Styles/globalStyle.css";
 
 // import "slick-carousel";
 
-import Routes from "./routes";
+// import Routes from "./routes";
+import Medico from "./Pages/CadastroPessoalMedico/index";
 
 function App() {
   return (
     <>
-      <Routes />
+      <Medico />
     </>
   );
 }
