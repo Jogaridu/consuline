@@ -5,11 +5,10 @@ class Filial extends Model {
     super.init(
       {
         nomeFantasia: DataTypes.STRING,
-        dataAbertura: DataTypes.DATE,
+        dataAbertura: DataTypes.DATEONLY,
         cnpj: DataTypes.STRING,
-        email: DataTypes.STRING,
-        telefone: DataTypes.STRING,
         ie: DataTypes.STRING,
+        email: DataTypes.STRING,
       },
       {
         sequelize,

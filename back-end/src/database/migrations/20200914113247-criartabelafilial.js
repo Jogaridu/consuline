@@ -8,27 +8,24 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      ie: {
+      nomeFantasia: {
         type: Sequelize.STRING,
+        allowNull: false,
+
+      },
+      dataAbertura: {
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
       cnpj: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      nomeFantasia: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      dataAbertura: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      telefone: {
+      ie: {
         type: Sequelize.STRING,
         allowNull: false,
       },

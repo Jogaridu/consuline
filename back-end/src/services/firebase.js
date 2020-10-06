@@ -1,44 +1,48 @@
-var admin = require("firebase-admin");
+const admin = require("firebase-admin");
 
-var serviceAccount = require("../config/firebase-key.json");
+const contaServico = require("../config/firebase-key.json");
 
 const BUCKET = "consuline.appspot.com";
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: BUCKET,
+    credential: admin.credential.cert(contaServico),
+    storageBucket: BUCKET
 });
 
 const bucket = admin.storage().bucket();
 
-const uploadImage = (request, response, next) => {
-  if (!request.file) return next();
+const enviarImagem = (req, res, next) => {
 
-  const imagem = request.file;
- 
-  const nomeArquivo = Date.now() + "." + imagem.originalname.split(".").pop();
+    if (!req.file) {
+        return next();
+    }
 
-  const file = bucket.file(nomeArquivo);
+    const imagem = req.file;
 
-  const stream = file.createWriteStream({
-    metadata: {
-      contentType: imagem.mimetype,
-    },
-  });
+    const nomeArquivo = `${Date.now()}.${imagem.originalname.split(".").pop()}`;
 
-  stream.on("error", (e) => {
-    console.error(e);
-  });
+    const arquivo = bucket.file(nomeArquivo);
 
-  stream.on("finish", async () => {
-    await file.makePublic();
-    request.file.firebaseUrl =
-      `https://storage.googleapis.com/${BUCKET}/${nomeArquivo}`;
-  
-    next();
-  });
+    const file = bucket.file(nomeArquivo);
 
-  stream.end(imagem.buffer);
-};
+    const stream = arquivo.createWriteStream({
+        metadata: {
+            contentType: imagem.mimetype
+        }
+    });
 
-module.exports = uploadImage;
+    stream.on("error", error => console.log(error));
+
+    stream.on("finish", async () => {
+
+        await file.makePublic();
+
+        req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nomeArquivo}`
+
+        return next();
+    });
+
+    stream.end(imagem.buffer);
+}
+
+module.exports = enviarImagem;
