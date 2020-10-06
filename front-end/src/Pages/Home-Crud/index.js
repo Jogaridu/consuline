@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./styles.css";
 
@@ -13,6 +13,9 @@ import lupa from "../../Assets/lupa.png";
 import { Card } from "react-bootstrap";
 
 const Menu = () => {
+
+  const history = useHistory();
+
   return (
     <div className="menu">
       <figure>
@@ -53,7 +56,7 @@ const Menu = () => {
         <div className="subMenu">
           <div className="subMenu-itens">
             <h5>ADICIONAR</h5>
-            <img src={add} alt="Logo adicionar" />
+            <img src={add} alt="Logo adicionar" onClick={() => history.push("filial-cadastro")} />
           </div>
           <div className="subMenu-itens">
             <h5>LISTAR</h5>
@@ -131,9 +134,9 @@ const DadosInformativos = () => {
   return (
     <div className="main">
       <CardMedico />
-      <CardPaciente/>
-      <CardConsultas/>
-      <CardFilial/>
+      <CardPaciente />
+      <CardConsultas />
+      <CardFilial />
     </div>
   );
 };
