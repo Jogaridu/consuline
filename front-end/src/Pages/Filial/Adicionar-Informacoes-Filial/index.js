@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./styles.css";
@@ -12,6 +12,7 @@ import add3 from "../../../Assets/add3.png";
 import user from "../../../Assets/user.png";
 import seta from "../../../Assets/seta.png";
 import lupa from "../../../Assets/lupa.png";
+import map from "../../../Assets/map.png";
 
 const Menu = () => {
   return (
@@ -82,72 +83,192 @@ const Menu = () => {
   );
 };
 
-const CardEntradaDados = () => {
-  return (
-    <div className="conteiner-entrada-dados">
-      <div>
-        <figure>
-          <img src={user} alt="Imagem ilustrativa " />
-        </figure>
-        <h2>Informações de cadastro </h2>
-      </div>
 
-      <form>
+
+const Home = () => {
+
+  const [novaFilial, setNovaFilial] = useState({
+    cnpj: "",
+    ie: "",
+    razaoSocial: "",
+    nomeFantasia: "",
+    dataAbertura: "",
+    email: "",
+    telefone: "",
+    cep: "",
+    rua: "",
+    numero: "",
+    bairro: "",
+    complemento: ""
+  });
+
+  const handlerInput = (e) => {
+    setNovaFilial({ ...novaFilial, [e.target.id]: e.target.value })
+  }
+
+  const [abrirPaginaCadastroEndereco, setAbrirPaginaCadastroEndereco] = useState(false)
+
+
+  const CardEntradaDados = () => {
+    return (
+      <div className="conteiner-entrada-dados">
         <div>
+          <figure>
+            <img src={user} alt="Imagem ilustrativa " />
+          </figure>
+          <h2>Informações de cadastro </h2>
+        </div>
+
+        <form>
+          <div>
+            <input
+              type="text"
+              placeholder="CNPJ"
+              name="txtcnpj"
+              id="cnpj"
+              value={novaFilial.cnpj}
+              onChange={handlerInput}
+              required
+            />
+            <input type="text" placeholder="I.E" name="txtie" id="ie" required />
+
+          </div>
           <input
             type="text"
-            placeholder="CNPJ"
-            name="txtcnpj"
-            id="cnpj"
+            placeholder="Razão social"
+            name="txtrazaosocial"
+            id="razaoSocial"
+            value={novaFilial.razaoSocial}
+            onChange={handlerInput}
             required
           />
-          <input type="text" placeholder="I.E" name="txtie" id="ie" required />
-        </div>
-        <input
-          type="text"
-          placeholder="Razão social"
-          name="txtrazaosocial"
-          id="razaoSocial"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Nome fantasia"
-          name="txtnomefantasia"
-          id="nomeFantasia"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Data abertura"
-          name="txtdataabertura"
-          id="dataAbertura"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          id="email"
-          required
-        />
-        <input
-          type="tel"
-          placeholder="Telefone"
-          name="telefone"
-          id="telefone"
-          required
-        />
-        <button className="proximo">
+          <input
+            type="text"
+            placeholder="Nome fantasia"
+            name="txtnomefantasia"
+            id="nomeFantasia"
+            value={novaFilial.nomeFantasia}
+            onChange={handlerInput}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Data abertura"
+            name="txtdataabertura"
+            id="dataAbertura"
+            value={novaFilial.dataAbertura}
+            onChange={handlerInput}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            id="email"
+            value={novaFilial.email}
+            onChange={handlerInput}
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Telefone"
+            name="telefone"
+            id="telefone"
+            value={novaFilial.telefone}
+            onChange={handlerInput}
+            required
+          />
+          <button className="proximo" onClick={() => {
+            setAbrirPaginaCadastroEndereco(true)
+          }}>
+            <figure>
+              <img src={seta} alt="Proximo" />
+            </figure>
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+
+
+  const CardEntradaDadosEndereco = () => {
+    return (
+      <div className="conteiner-entrada-dados-endereco">
+        <div>
           <figure>
-            <img src={seta} alt="Proximo" />
+            <img src={map} alt="Imagem ilustrativa " />
           </figure>
-        </button>
-      </form>
-    </div>
-  );
-};
-const Home = () => {
+          <h2>Localização </h2>
+        </div>
+        <form>
+          <div className="form-linha-um">
+            <input
+              type="text"
+              name="txtcep"
+              id="cep"
+              value={novaFilial.cep}
+              onChange={handlerInput}
+              placeholder="CEP"
+              required
+              maxLength="9"
+            />
+            <input
+              type="text"
+              name="txtendereco"
+              id="endereco"
+              value={novaFilial.endereco}
+              onChange={handlerInput}
+              placeholder="ENDEREÇO"
+              required
+            />
+          </div>
+          <div className="from-linha-dois">
+            <input
+              type="text"
+              name="txtrua"
+              id="rua"
+              value={novaFilial.rua}
+              onChange={handlerInput}
+              placeholder="RUA"
+              required
+            />
+            <input
+              type="text"
+              name="txtnumero"
+              id="numero"
+              value={novaFilial.numero}
+              onChange={handlerInput}
+              placeholder="Nº"
+              required
+            />
+          </div>
+          <div className="from-linha-tres">
+            <input
+              type="text"
+              name="txtbairro"
+              id="bairro"
+              value={novaFilial.bairro}
+              onChange={handlerInput}
+              placeholder="BAIRRO"
+              required
+            />
+            <input
+              type="text"
+              name="txtcomplemento"
+              id="complemento"
+              value={novaFilial.complemento}
+              onChange={handlerInput}
+              placeholder="COMPLEMENTO"
+              required
+            />
+          </div>
+          <button type="submit" id="concluido-endereco">CONCLUIDO</button>
+        </form>
+      </div>
+    );
+  };
+
   return (
     <div className="conteiner-adicionar-info-pessoais">
       <Menu />
@@ -158,7 +279,8 @@ const Home = () => {
             <img src={add3} alt="Imagem ilustrativa " />
           </figure>
         </div>
-        <CardEntradaDados />
+        {!abrirPaginaCadastroEndereco && <CardEntradaDados />}
+        {abrirPaginaCadastroEndereco && <CardEntradaDadosEndereco />}
       </main>
     </div>
   );
