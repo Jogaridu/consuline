@@ -173,19 +173,22 @@ body{
 .form-right{
     width: 400px;
     height: 500px;
-     /* background-color:aquamarine;  */
-    float: left;
+    background-color:aquamarine;  
+    /* float: left; */
     display: flex;
-    align-items: center;
+     align-items: center; 
     justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .formulario{
+    flex: 10;
     width: 350px;
     height: auto;
     /* border: 2px solid black; */
-     /* background-color: blue;  */
-     display: flex;
+     background-color: blue;  
+     display: flex ;
     align-items: center;
     justify-content: center;  
 }
@@ -303,7 +306,7 @@ form, .form-div{
     height: auto;
     margin-left: auto;
     margin-right: auto;
-     /* background-color: red;  */
+      background-color: red;  
 }
 
 
@@ -363,4 +366,12 @@ form, .form-div{
     margin-left: 40px;
     margin-top: 20px;
     /* background-color: red; */
+}
+
+
+
+.div-btn{
+    width: 100%;
+    flex: 1.5;
+    background-color: yellow;
 }

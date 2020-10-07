@@ -102,6 +102,9 @@ const Medico = () => {
                              </form>
                              
                             </div>
+                            <div className="div-btn">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,6 +141,8 @@ const Medico = () => {
                         </div>
 
                         <div className="form-right">
+
+
                             <div className="formulario">
                                 <form className="form-div">
                                     <div className="div-campos">
@@ -167,6 +172,10 @@ const Medico = () => {
                                     
                             
                                 </form>
+                            </div>
+
+                            <div className="div-btn">
+
                             </div>
                         </div>
                     </div>
@@ -217,7 +226,9 @@ const Medico = () => {
                              </form>
                              
                             </div>
-                            
+                            <div className="div-btn">
+
+                            </div>
                         </div>
                     </div>
                 </div>
