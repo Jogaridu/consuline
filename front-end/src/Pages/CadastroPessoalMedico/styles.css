@@ -68,7 +68,7 @@ body{
 .cadastro{
     width: 810px;
     height: 600px;
-    border: 2px solid black;  
+    /* border: 2px solid black;   */
     float: left;
     margin-top: 35px;
     margin-left: 150px;
@@ -182,9 +182,12 @@ body{
 
 .formulario{
     width: 350px;
-    height: 450px;
-    border: 2px solid black;
-    /* background-color: blue;   */
+    height: auto;
+    /* border: 2px solid black; */
+     /* background-color: blue;  */
+     display: flex;
+    align-items: center;
+    justify-content: center;  
 }
 
 .CadastroEntradaDados, .CadastroEntradaDados3, .CadastroEntradaDados4{
@@ -215,7 +218,7 @@ input{
   }
 
 
-.next{
+/* .next{
     width: 40px;
     height: 40px;
     font-size: 30px;
@@ -225,13 +228,14 @@ input{
     background-color: var(--principal);
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-right: 10px;
+    justify-content: center; 
+    margin-left: 10px;
+    margin-right: 10px;   
     color: var(--container);
     border-radius: 10px;
     cursor: pointer;
 }
-
+ */
 
 
 
@@ -290,3 +294,73 @@ input{
     transform: scaleX(1);
   }
   
+
+
+/* **************************** LOCALIZAÇÃO **************************** */
+
+form, .form-div{
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+     /* background-color: red;  */
+}
+
+
+.div-campos{
+    width: 340px;
+    height: 50px;
+    /* background-color: green; */
+}
+
+.campo1, .campo2, .campo3, .campo4{
+    width: 100px;
+    height: 50px;
+    /* background-color:  yellow; */
+    float: left;
+
+}
+
+.campo2, .campo3{
+    width: 200px;
+    margin-left: 40px;
+}
+
+.campo3{
+    margin-left: 0px;
+    margin-right: 40px;
+}
+.campo4{
+    width: 70px;
+}
+
+.div-campos2{
+    width: 340px;
+    height: 50px;
+    margin-top: 15px;
+    /* background-color: green;  */
+}
+
+.div-campos3{
+    width: 340px;
+    height: 50px;
+    margin-top: 15px;
+    /* background-color: green;  */
+}
+
+
+.mapa{
+    width: 130px;
+    height: 130px;
+    margin-top: 30px;
+    margin-left: 25px;
+    /* background-color: red; */
+}
+
+.cadeado{
+    width: 100px;
+    height: 130px;
+    margin-left: 40px;
+    margin-top: 20px;
+    /* background-color: red; */
+}
