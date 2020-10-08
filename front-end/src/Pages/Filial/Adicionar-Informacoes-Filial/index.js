@@ -83,10 +83,7 @@ const Menu = () => {
   );
 };
 
-
-
 const Home = () => {
-
   const [novaFilial, setNovaFilial] = useState({
     cnpj: "",
     ie: "",
@@ -99,15 +96,17 @@ const Home = () => {
     rua: "",
     numero: "",
     bairro: "",
-    complemento: ""
+    complemento: "",
   });
 
   const handlerInput = (e) => {
-    setNovaFilial({ ...novaFilial, [e.target.id]: e.target.value })
-  }
+    setNovaFilial({ ...novaFilial, [e.target.id]: e.target.value });
+  };
 
-  const [abrirPaginaCadastroEndereco, setAbrirPaginaCadastroEndereco] = useState(false)
-
+  const [
+    abrirPaginaCadastroEndereco,
+    setAbrirPaginaCadastroEndereco,
+  ] = useState(false);
 
   const CardEntradaDados = () => {
     return (
@@ -129,9 +128,15 @@ const Home = () => {
               value={novaFilial.cnpj}
               onChange={handlerInput}
               required
+              maxLength="12"
             />
-            <input type="text" placeholder="I.E" name="txtie" id="ie" required />
-
+            <input
+              type="text"
+              placeholder="I.E"
+              name="txtie"
+              id="ie"
+              required
+            />
           </div>
           <input
             type="text"
@@ -150,6 +155,7 @@ const Home = () => {
             value={novaFilial.nomeFantasia}
             onChange={handlerInput}
             required
+            maxLength="80"
           />
           <input
             type="text"
@@ -159,6 +165,7 @@ const Home = () => {
             value={novaFilial.dataAbertura}
             onChange={handlerInput}
             required
+            maxLength="9"
           />
           <input
             type="email"
@@ -168,6 +175,7 @@ const Home = () => {
             value={novaFilial.email}
             onChange={handlerInput}
             required
+            maxLength="100"
           />
           <input
             type="tel"
@@ -177,10 +185,15 @@ const Home = () => {
             value={novaFilial.telefone}
             onChange={handlerInput}
             required
+            maxLength="15"
           />
-          <button className="proximo" onClick={() => {
-            setAbrirPaginaCadastroEndereco(true)
-          }}>
+          <button
+            className="proximo"
+            id="proximo-filial"
+            onClick={() => {
+              setAbrirPaginaCadastroEndereco(true);
+            }}
+          >
             <figure>
               <img src={seta} alt="Proximo" />
             </figure>
@@ -188,9 +201,7 @@ const Home = () => {
         </form>
       </div>
     );
-  }
-
-
+  };
 
   const CardEntradaDadosEndereco = () => {
     return (
@@ -232,6 +243,7 @@ const Home = () => {
               onChange={handlerInput}
               placeholder="RUA"
               required
+              maxLength="100"
             />
             <input
               type="text"
@@ -241,6 +253,7 @@ const Home = () => {
               onChange={handlerInput}
               placeholder="Nº"
               required
+              maxLength="5"
             />
           </div>
           <div className="from-linha-tres">
@@ -252,6 +265,7 @@ const Home = () => {
               onChange={handlerInput}
               placeholder="BAIRRO"
               required
+              maxLength="100"
             />
             <input
               type="text"
@@ -261,9 +275,12 @@ const Home = () => {
               onChange={handlerInput}
               placeholder="COMPLEMENTO"
               required
+              maxLength="100"
             />
           </div>
-          <button type="submit" id="concluido-endereco">CONCLUIDO</button>
+          <button type="submit" id="concluido-endereco">
+            CONCLUIDO
+          </button>
         </form>
       </div>
     );
