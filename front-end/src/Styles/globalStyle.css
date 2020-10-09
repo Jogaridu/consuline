@@ -75,4 +75,14 @@ a:visited {
   border: 0px
 }
 
+.container-central {
+  height: 100vh;
+  min-width: 1300px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  background-color: var(--fundo);
+}
+
+
 
