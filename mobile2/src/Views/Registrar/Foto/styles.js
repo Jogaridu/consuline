@@ -13,8 +13,8 @@ export const ContainerImgFoto = styled.View`
 
 export const ContainerBotao = styled.View`
     flex: 0.3;
-    padding: 0 20px;
-    align-self: flex-end;
+    /* align-self: flex-end; */
+    margin: 0 auto;
 `;
 
 export const ImgCodigo = styled.Image`

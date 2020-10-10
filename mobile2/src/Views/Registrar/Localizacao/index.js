@@ -185,7 +185,7 @@ const Localizacao = ({ navigation, route }) => {
     <Container>
       <ContainerImgCadastro>
         <Animated.Image
-          source={require("../../../Assets/localizacao.jpg")}
+          source={require("../../../Assets/localizacao.png")}
           style={{
             width: img.x,
             height: 0,

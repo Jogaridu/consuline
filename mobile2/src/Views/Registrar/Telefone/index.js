@@ -93,7 +93,7 @@ const Telefone = ({ navigation, route }) => {
     ]).start();
   }
 
-  // var novoPaciente = route.params;
+  var novoPaciente = route.params;
 
   const [celular, setCelular] = useState("");
 

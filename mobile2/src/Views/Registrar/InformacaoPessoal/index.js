@@ -207,6 +207,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 ref={inputNome}
                 onBlur={() => validarInputCorreta(novoPaciente.nome, inputNome)}
               />
+              
               <TextInput
                 style={styles.input}
                 value={novoPaciente.email}

@@ -31,7 +31,7 @@ const Foto = ({ navigation }) => {
       </ContainerTextos>
 
       <ContainerBotao>
-        <Botao title="Pular" width={130} funcExec={navegarSucesso} />
+        <Botao title="Pular" funcExec={navegarSucesso} />
       </ContainerBotao>
     </Container>
   );
