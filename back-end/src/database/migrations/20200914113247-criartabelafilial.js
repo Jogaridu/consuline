@@ -29,6 +29,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      razaoSocial: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       enderecoFilialId: {
         type: Sequelize.INTEGER,
         allowNull: false,

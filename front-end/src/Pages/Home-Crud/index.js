@@ -28,10 +28,13 @@ const Menu = () => {
       <div className="menu-itens">
         <h3>CENTRAL</h3>
         <div className="subMenu">
+          <Link to="/filial-cadastro">
           <div className="subMenu-itens">
             <h5>ADICIONAR</h5>
             <img src={add} alt="Logo adicionar" />
           </div>
+          </Link>
+          
           <div className="subMenu-itens">
             <h5>LISTAR</h5>
             <img src={book} alt="Logo adicionar" />

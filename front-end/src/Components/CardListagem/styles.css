@@ -19,8 +19,10 @@
 }
 
 .titulo-card-listagem {
+    width: 90%;
     font-size: 1.7em;
     font-weight: 700;
+    text-align: center;
 }
 
 .local-card-listagem {

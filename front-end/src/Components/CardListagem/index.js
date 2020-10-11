@@ -4,8 +4,17 @@ import teste from "../../Assets/add.png";
 import maisOpcoes from "../../Assets/3pontos.png"
 import './styles.css';
 import { useState } from 'react';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-function CardListagem() {
+function CardListagem(props) {
+
+    const { id, nome, cidade, estado, telefones } = props;
+
+    const telefone = telefones[Math.floor(Math.random() * telefones.length)].numero
+
+    const ddd = telefone.slice(0, 2);
+    const telefoneParte1 = telefone.slice(2, 7);
+    const telefoneParte2 = telefone.slice(7, 11);
 
     const [mostrarSubMenu, setMostrarSubMenu] = useState(false);
 
@@ -20,19 +29,19 @@ function CardListagem() {
     }
 
     return (
-        <div className="card-listagem">
+        <div className="card-listagem" id={id}>
             <figure className="imagem-card-listagem">
                 <img src={teste} alt="" />
             </figure>
-            <div className="titulo-card-listagem">Hosp. Clinicas</div>
-            <div className="local-card-listagem">São Paulo/SP</div>
-            <div className="telefone-card-listagem">(11) 91234-1234</div>
+            <div className="titulo-card-listagem">{nome || "Sem nome"}</div>
+            <div className="local-card-listagem">{`${cidade || "Cidade"}/${estado || "Estado"}`}</div>
+            <div className="telefone-card-listagem">{`(${ddd}) ${telefoneParte1}-${telefoneParte2}` || "Telefone principal"}</div>
             <div
                 className="mais-opcoes"
                 onClick={() => {
                     setMostrarSubMenu(!mostrarSubMenu);
                     setTimeout(() => {
-                        setMostrarSubMenu(false)
+                        setMostrarSubMenu(false);
                     }, 10000);
                 }}>
                 ...

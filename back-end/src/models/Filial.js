@@ -9,6 +9,7 @@ class Filial extends Model {
         cnpj: DataTypes.STRING,
         ie: DataTypes.STRING,
         email: DataTypes.STRING,
+        razaoSocial: DataTypes.STRING
       },
       {
         sequelize,

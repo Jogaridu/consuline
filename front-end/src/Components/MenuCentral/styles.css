@@ -8,17 +8,17 @@
     display: grid;
     justify-content: center;
     align-content: space-around;
-    grid-template-rows: 200px auto 80px;
+    grid-template-rows: 150px auto 80px;
     grid-gap: 10px;
 }
 
 .iconeMenu,
 .iconeMenu img {
     margin: 0 auto;
-    width: 70%;
+    width: 150px;
 }
 
-.iconeMenu img {
+#logoprojeto{
     height: 100%;
     width: 100%;
 }

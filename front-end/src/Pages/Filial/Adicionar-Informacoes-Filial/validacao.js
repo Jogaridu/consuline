@@ -1,4 +1,4 @@
-"use stritc";
+"use strict";
 
 const cnpj = document.getElementById("cnpj").value;
 const ie = document.getElementById("ie").value;
