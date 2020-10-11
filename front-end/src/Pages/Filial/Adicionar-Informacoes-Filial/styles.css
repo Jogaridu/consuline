@@ -3,7 +3,7 @@ body {
   margin: 0px;
   background-color: var(--fundo);
 }
-.conteiner-adicionar-info-pessoais {
+.conteiner-adicionar-info-pessoais,.conteiner-adicionar-endereco {
   height: 100vh;
   width: 100vw;
   min-width: 1300px;
@@ -262,4 +262,95 @@ input {
 .proximo > figure > img {
   width: 50px;
   height: 50px;
+}
+
+
+.conteiner-entrada-dados-endereco {
+  width: 95%;
+  height: 80%;
+  background-color: var(--container);
+  padding-bottom: 50px;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 45% 55%;
+}
+.conteiner-entrada-dados-endereco > div {
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+.conteiner-entrada-dados-endereco > div > figure {
+  height: 250px;
+  width: 250px;
+  background-color: var(--secundaria);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.conteiner-entrada-dados-endereco > div > figure > img {
+  height: 200px;
+  width: 200px;
+}
+.conteiner-entrada-dados-endereco > div > h2 {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bolder;
+  color: var(--secundaria);
+}
+.conteiner-entrada-dados-endereco > form {
+  height: 100%;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+.form-linha-um {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+.from-linha-dois {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+.from-linha-tres {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+#endereco,
+#numero,
+#complemento {
+  margin-left: 10px;
+}
+#complemento {
+  margin-bottom: 110px;
+}
+input {
+  padding-left: 10px;
+  box-sizing: border-box;
+  border: var(--secundaria) 2px solid;
+  border-radius: 6px;
+  color: var(--secundaria);
+  font-size: 1.5em;
+  height: 60px;
+}
+#concluido-endereco {
+  width: 220px;
+  height: 80px;
+  font-size: 1.332em;
+  font-weight: bolder;
+  background-color: var(--secundaria);
+  margin-left: 55%;
+  color: var(--fundo);
 }
