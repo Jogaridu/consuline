@@ -7,6 +7,7 @@ import "../../../../Styles/globalStyle.css";
 import map from "../../../../Assets/map.png";
 
 import api from "../../../../Services/api";
+import { event } from 'jquery';
 
 function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
 
@@ -37,7 +38,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
         <figure>
           <img src={map} alt="Imagem ilustrativa" />
         </figure>
-        <h2>Localização </h2>
+        <h2>Localização</h2>
       </div>
 
       <form>
@@ -112,10 +113,14 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
             maxLength="100"
           />
         <div id="caixaBotoes">
-          <button id="botaoVoltar" onClick={() => setNavegarEndereco(false)}>
+          <button id="botaoVoltar" onClick={(evento) => {
+            
+            
+            setNavegarEndereco(false)}
+          }>
             Voltar
           </button>
-          <button id="botao" type="submit" onClick={(evento) => {
+          <button id="botao" type="button" onClick={(evento) => {
             evento.preventDefault();
             cadastrarFilial();
           }}>

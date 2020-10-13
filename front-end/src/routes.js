@@ -19,7 +19,7 @@ function Routes() {
         <Route path="/home">
           <HomeCrud />
         </Route>
-        <Route path="/filial-cadastro" component={RegistrarFilial}>
+        <Route path="/filial-cadastro">
           <RegistrarFilial />
         </Route>
         <Route path="/home-filial">

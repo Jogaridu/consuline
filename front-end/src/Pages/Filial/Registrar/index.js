@@ -8,6 +8,7 @@ import MenuCentral from '../../../Components/MenuCentral';
 import TituloPrincipal from '../../../Components/TituloPrincipal';
 import user from "../../../Assets/user.png";
 import { useState } from 'react';
+import Servicos from './Servicos';
 
 
 function Registrar(props) {
@@ -30,7 +31,9 @@ function Registrar(props) {
         cep: "12345-123",
         cidade: "Jandira",
         estado: "SP"
-    }    
+    },
+    servicos: []
+
   });
   
   return (
@@ -40,7 +43,7 @@ function Registrar(props) {
         <div className="container-conteudo-central">
           <TituloPrincipal nome="Informações de cadastro" imagem={user} />
 
-          {navegarEndereco && (
+          {/* {navegarEndereco && (
             <Informacoes 
               setNavegarEndereco={setNavegarEndereco}
               novaFilial={novaFilial}
@@ -52,7 +55,10 @@ function Registrar(props) {
               setNavegarEndereco={setNavegarEndereco}
               novaFilial={novaFilial}
               setNovaFilial={setNovaFilial}/>
-          )}
+          )} */}
+          <Servicos 
+          novaFilial={novaFilial}
+          setNovaFilial={setNovaFilial}/>
 
         </div>
     </div>
