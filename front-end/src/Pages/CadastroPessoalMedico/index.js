@@ -24,6 +24,8 @@ const Medico = () => {
   return (
     <>
         <body>
+
+{/* ******************************************** SPA CADASTRO TELA 1 ********************** ********************** */}
             <div className="container-medicos">
                 <div className="menu">
                     <div className="iconeMenu">
@@ -36,11 +38,32 @@ const Medico = () => {
                         <div className="hvr-sweep-to-right">
                             Central
                         </div>
+
+
                         <div className="hvr-sweep-to-right">
                             Medicos
+                            <div className="sub-menu">
+                                <div className="submenu-adicionar">
+                                    Adicionar
+                                </div>
+                                <div className="submenu-listar">
+                                    Listar
+                                </div>
+                            </div>
                         </div>
+                        
+
+
                         <div className="hvr-sweep-to-right">
                             Filiais
+                            <div className="sub-menu">
+                                <div className="submenu-adicionar">
+                                    Adicionar
+                                </div>
+                                <div className="submenu-listar">
+                                    Listar
+                                </div>
+                            </div>
                         </div>
                         <div className="hvr-sweep-to-right">
                             Serviços
@@ -59,8 +82,6 @@ const Medico = () => {
                                 <img id="iconeAdc" src={adc} alt="icone" />
                             </div>
                     </div>
-
-
                     <div className="container-form">
                         <div className="img-left">
                             <div className="perfil-form">
@@ -68,7 +89,7 @@ const Medico = () => {
                                     <img id="usuario" src={usuario} alt="logo projeto" />
                                 </div>
 
-                                <div className="subtitulo-imgUsuario">
+                                <div className="subtitulo-imgCadastro">
                                     Informações Pessoais
                                 </div>                              
                             </div>
@@ -103,17 +124,30 @@ const Medico = () => {
                              
                             </div>
                             <div className="div-btn">
-
+                                <div className="next-left">
+                                
+                                </div>
+                                <div className="qnt-pag">
+                                    <div className="pg1-1"> 
+                                    
+                                    </div>
+                                    <div className="pg2-1"> 
+                                    
+                                    </div>
+                                    <div className="pg3-1"> 
+                                    
+                                    </div>
+                                </div>
+                                <div className="next-right">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* ********************** SPA CADASTRO TELA 2 ********************** */}
-
-
+{/* ******************************************** SPA CADASTRO TELA 2 ********************** ********************** */}
                 <div className="cadastro">
-
                     <div className="container-titulo">
 
                             <div className="titulo">
@@ -126,7 +160,6 @@ const Medico = () => {
 
                     </div>
 
-
                     <div className="container-form">
                         <div className="img-left">
                             <div className="perfil-form">
@@ -134,15 +167,13 @@ const Medico = () => {
                                      <img className="mapa" src={mapa} alt="logo projeto" /> 
                                 </div>
 
-                                <div className="subtitulo-imgUsuario">
+                                <div className="subtitulo-imgCadastro">
                                     Digite a Localização
                                 </div>                              
                             </div>
                         </div>
 
                         <div className="form-right">
-
-
                             <div className="formulario">
                                 <form className="form-div">
                                     <div className="div-campos">
@@ -169,21 +200,33 @@ const Medico = () => {
                                             <input type="text" name="" placeholder="Complemento" required=""></input>
                                         </div>
                                     </div>
-                                    
-                            
                                 </form>
                             </div>
 
                             <div className="div-btn">
+                                <div className="next-left">
 
+                                </div>
+                                <div className="qnt-pag">
+                                    <div className="pg1-2"> 
+                                    
+                                    </div>
+                                    <div className="pg2-2"> 
+                                    
+                                    </div>
+                                    <div className="pg3-2"> 
+                                    
+                                    </div>
+                                </div>
+                                <div className="next-right">
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             
-                {/* ********************** SPA CADASTRO TELA 3 ********************** */}
-
-
+{/* ******************************************** SPA CADASTRO TELA 3 ********************** ********************** */}
                 <div className="cadastro">
                     <div className="container-titulo">
                             <div className="titulo">
@@ -194,7 +237,6 @@ const Medico = () => {
                             </div>
                     </div>
 
-
                     <div className="container-form">
                         <div className="img-left">
                             <div className="perfil-form">
@@ -202,12 +244,11 @@ const Medico = () => {
                                      <img className="cadeado" src={trancado} alt="logo projeto" /> 
                                 </div>
 
-                                <div className="subtitulo-imgUsuario">
+                                <div className="subtitulo-imgCadastro">
                                     Crie um login e uma senha
                                 </div>                              
                             </div>
                         </div>
-
 
                         <div className="form-right">
                         
@@ -217,17 +258,33 @@ const Medico = () => {
                                         <input type="text" name="" placeholder="Login" required=""></input>
                                     </div>
                                     <div className="CadastroEntradaDados"> 
-                                        <input type="text" name="" placeholder="Senha" required=""></input>
+                                        <input type="password" maxLength="20" name="" placeholder="Senha" required=""></input>
                                     </div>   
                                     <div className="CadastroEntradaDados"> 
-                                        <input type="text" name="" placeholder="Confirmar Senha" required=""></input>
+                                        <input type="password" maxLength="20" name="" placeholder="Confirmar Senha" required=""></input>
                                     </div>
                                     
-                             </form>
+                                </form>
                              
                             </div>
                             <div className="div-btn">
+                                <div className="next-left">
 
+                                </div>
+                                <div className="qnt-pag">
+                                    <div className="pg1-3"> 
+                                    
+                                    </div>
+                                    <div className="pg2-3"> 
+                                    
+                                    </div>
+                                    <div className="pg3-3"> 
+                                    
+                                    </div>
+                                </div>
+                                <div className="next-right">
+
+                                </div>
                             </div>
                         </div>
                     </div>
