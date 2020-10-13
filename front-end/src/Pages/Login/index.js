@@ -28,27 +28,27 @@ const Login = (props) => {
     try {
       const response = await api.post("/login", adminLogin);
 
-      if (response.status === 201){
+      if (response.status === 201) {
         signin(response.data);
-        
+
         return history.push("/home");
       }
     } catch (error) {
       if (error.response) {
-      return window.alert(error.response.data.error);
+        return window.alert(error.response.data.error);
       }
 
       window.alert("Algo deu errado, tente novamente.");
     }
-    
+
   };
 
   const handlerInput = (e) => {
-    setAdminLogin({...adminLogin, [e.target.id]: e.target.value});
+    setAdminLogin({ ...adminLogin, [e.target.id]: e.target.value });
 
     console.log(adminLogin);
   }
-  
+
 
 
 
@@ -77,8 +77,8 @@ const Login = (props) => {
                 </div>
 
                 <div className="conteiner-botoes">
-                <Link to="/"><button className="botao" type="button"> Voltar</button></Link>
-                  <button className="botao" type="button"> 
+                  <Link to="/"><button className="botao" type="button"> Voltar</button></Link>
+                  <button className="botao" type="button" onClick={entrar}>
                     Iniciar sessão
                   </button>
                 </div>

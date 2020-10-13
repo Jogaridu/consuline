@@ -1,0 +1,133 @@
+.conteiner-entrada-servicos {
+    width: 95%;
+    height: 80%;
+    background-color: var(--container);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+    padding: 30px;
+}
+
+.card-servico {
+    height: 270px;
+    width: 250px;
+    position: relative;
+    box-shadow: 1px 1px 10px rgb(88, 88, 88);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.card-imagem, 
+.card-imagem img {
+    height: 130px;
+    width: 130px;
+    border-radius: 10px;
+}
+
+.card-servico h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    font-weight: 500;
+    text-align: center;
+}
+
+.card-descricao {
+    width: 100%;
+    height: 80%;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    padding: 10px;
+    transition: 0.5s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}
+
+.card-descricao p {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    pointer-events: all;
+}
+
+.card-descricao p::-webkit-scrollbar {
+    width: 0px;
+}
+
+
+.ver-mais, 
+.btn-descricao {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: 10px;
+    right: 10px;
+    outline: none;
+    z-index: 10;
+}
+
+.ver-mais {
+    opacity: 0;
+}
+
+.ver-mais:checked ~ .btn-descricao {
+    box-shadow: 0 0 0 500px var(--principal);
+    transform: rotate(225deg);
+    
+}
+
+.ver-mais:checked ~ .card-descricao {
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
+.btn-descricao {
+    pointer-events: none;
+    border-radius: 50%;
+    transition: 0.5s;
+    font-size: 2.0em;
+    line-height: 34px;
+    box-shadow: 0 0 0 black;
+    background: var(--principal);
+    color: #fff;
+    font-weight: bold;
+    z-index: 999;
+    text-align: center;
+}
+
+.verificado {
+    /* display: none; */
+    height: 30px;
+    width: 30px;
+}
+
+.chk span {
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    border-radius: 50px;
+    display: inline-block;
+    background-color: red;
+    right: 10px;
+    top: 10px;
+    border: none;
+    outline: none;
+    z-index: 9999;
+}
+
+.chk input:checked + span {
+    background-color: greenyellow;
+}

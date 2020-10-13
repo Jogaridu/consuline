@@ -63,7 +63,7 @@ module.exports = {
 
         try {
             const servicoTodos = await Servico.findAll({
-                attributes: ["nome", "descricao", "imagem"]
+                attributes: ["id", "nome", "descricao", "imagem"]
             });
 
             return res.status(200).send(servicoTodos);

@@ -4,8 +4,8 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home/index";
 import Login from "./Pages/Login/index";
 import HomeCrud from "./Pages/Home-Crud/index";
-import AdicionarDadosPessoaisFilial from "./Pages/Filial/Adicionar-Informacoes-Filial/index"
-
+import RegistrarFilial from "./Pages/Filial/Registrar";
+import HomeFilial from "./Pages/Filial/Home/index";
 function Routes() {
   return (
     <BrowserRouter>
@@ -19,8 +19,11 @@ function Routes() {
         <Route path="/home">
           <HomeCrud />
         </Route>
-        <Route path="/add-info-pessoais">
-          <AdicionarDadosPessoaisFilial/>
+        <Route path="/filial-cadastro">
+          <RegistrarFilial />
+        </Route>
+        <Route path="/home-filial">
+          <HomeFilial />
         </Route>
       </Switch>
     </BrowserRouter>
