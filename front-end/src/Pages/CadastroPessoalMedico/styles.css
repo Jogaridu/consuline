@@ -125,10 +125,11 @@ body{
     background-color: var(--fundo);
     position: absolute;
     visibility: hidden;
-    margin-top: 15px;
+   margin-top: -30px; 
     border-radius: 20px;
     /* margin-left: 250px; */
     z-index: 999;
+    margin-left: 250px;
    
 }
 .submenu-adicionar, .submenu-listar{
