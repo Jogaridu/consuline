@@ -1,231 +1,44 @@
-body {
-  padding: 0px;
-  margin: 0px;
-  background-color: var(--fundo);
-}
-.container-central {
-  height: 100vh;
-  width: 100vw;
-  min-width: 1300px;
-  display: grid;
-  grid-template-columns: 20% 80%;
-  background-color: var(--fundo);
-  margin-left: auto;
-  margin-right: auto;
-}
-.menu {
-  width: 100%;
-  min-width: 250px ;
-  height: 100%;
-  padding-left: 8px;
-  padding-right: 8px;
-  background-color: var(--container);
-}
-.menu img {
-  height: 20%;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
-}
-.menu-pesquisar {
-  display: block;
-  height: 80px;
-  margin-bottom: 35px;
-  background-color: var(--secundaria);
-  padding-top: 15px;
-  box-sizing: border-box;
-  margin-bottom: 50px;
-  border-radius: 30px;
-}
-.menu-pesquisar h3 {
-  color: var(--fundo);
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-}
-.menu h5 {
-  color: var(--secundaria);
-  font-size: 1.2em;
-  text-align: center;
-}
-.menu-itens {
-  display: block;
-  margin-top: 35px;
-  margin-bottom: 35px;
-}
-.menu-itens h3 {
-  color: var(--secundaria);
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-}
-.direitos {
-  width: 100%;
-  border-top: var(--principal) solid 2px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 30px;
-  box-sizing: border-box;
-}
-
-.subMenu {
-  width: 360px;
-  height: 160px;
-  background-color: var(--secundaria);
-  padding-left: 5px;
-  padding-right: 15px;
-  padding-top: 15px;
-  box-sizing: border-box;
-  position: absolute;
-  margin-left: -700px;
-  margin-top: -13px;
-  opacity: 0;
-  visibility: hidden;
-  border-radius: 10px;
-}
-.subMenu-itens {
-  height: 30px;
-  width: 350px;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  background-color: var(--fundo);
-  border-radius: 20px;
-  margin-bottom: 15px;
-}
-.subMenu-itens h5 {
-  color: var(--secundaria);
-  font-size: 1.2em;
-  font-weight: bold;
-  text-align: right;
-}
-.subMenu-itens img {
-  height: 30px;
-  width: 30px;
-}
-.menu-itens:hover > .subMenu {
-  opacity: 1;
-  visibility: visible;
-  margin-left: -12px;
-  transition: 1s;
-}
-
-main {
+.main {
   height: 100%;
   width: 100%;
   min-width: 900px;
   background-color: var(--fundo);
-  padding-top: 150px;
+  padding-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 22% 22% 22% 22%;
+  grid-gap: 40px;
+  justify-content: center;
 }
-main h1 {
-  color: var(--secundaria);
-  text-align: center;
-  font-style: oblique;
-  font-size: 2.5em;
-  letter-spacing: 1px;
-  margin-bottom: 60px;
-}
+
 .cardInformativo {
-  height: 470px;
-  width: 23%;
-  display: block;
+  height: 150px;
+  display: grid;
+  grid-template-columns: 35% 65%;
   background-color: var(--secundaria);
-  border-radius: 20px;
-  float: left;
-  margin-left: 20px;
-  padding-top: 20px;
-  padding-left: 30px;
-  padding-right: 10px;
-  box-sizing: border-box;
+  border-radius: 15px;
 }
-.cardInformativo > img {
-  height: 30px;
-  width: 30px;
-  margin-left: 80%;
-}
-.cardInformativo-img-ilustrativa-medico,
-.cardInformativo-img-ilustrativa-paciente,
-.cardInformativo-img-ilustrativa-consultas,
-.cardInformativo-img-ilustrativa-filial {
-  width: 80%;
-  height: 160px;
-  background-color: var(--fundo);
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 20px;
-  margin-bottom: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  box-sizing: border-box;
-}
-.cardInformativo-img-ilustrativa-medico figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid red;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-paciente figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid var(--estbtn);
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-consultas figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid green;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-consultas figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid green;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-filial figure {
-  height: 130px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 10px solid yellow;
-  border-radius: 50%;
-  padding: 15px;
-}
-.cardInformativo-img-ilustrativa-medico figure img,
-.cardInformativo-img-ilustrativa-paciente figure img,
-.cardInformativo-img-ilustrativa-consultas figure img,
-.cardInformativo-img-ilustrativa-filial figure img {
-  height: 80px;
+.cardInformativo img {
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  height: 130px;
 }
-.cardInformativo h3 {
-  text-align: center;
-  font-size: 2em;
-  letter-spacing: 1px;
+.cardInformativo > div {
+  width: 100%;
+  height: 100%;
+  padding-top: 18px;
+  box-sizing: border-box;
+}
+.cardInformativo > div > h3{
   color: var(--fundo);
-  margin-bottom: 30px;
+  font-size: 2.3em;
+  font-weight: bold;
+  text-align: left;
 }
-.cardInformativo p {
-  text-align: center;
+.cardInformativo > div > p{
+  color: var(--fundo);
   font-size: 1.3em;
-  font-weight: bolder;
-  letter-spacing: 1px;
-  color: var(--fundo);
+  font-weight: bold;
+  text-align: left;
 }

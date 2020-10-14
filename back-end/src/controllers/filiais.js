@@ -2,8 +2,6 @@ const Filial = require("../models/Filial");
 const EnderecoFilial = require("../models/EnderecoFilial");
 const TelefoneFilial = require("../models/TelefoneFilial");
 const Servico = require("../models/Servico");
-const Cidade = require("../models/Cidade");
-const Estado = require("../models/Estado");
 const enderecoFilial = require("./enderecoFilial");
 
 module.exports = {
@@ -18,7 +16,7 @@ module.exports = {
 
                 let filialCriado = await Filial.findOne({
                     where: {
-                        nome: dados.nome
+                        cnpj: dados.cnpj
 
                     }
                 });
@@ -39,7 +37,8 @@ module.exports = {
                 return res.status(201).send(filialCriado);
 
             } catch (error) {
-                return res.status(404).send({ erro: "Falha na criação do serviço" });
+                console.log(error);
+                return res.status(404).send({ erro: "Falha na criação da filial" });
 
             }
         }
@@ -62,17 +61,6 @@ module.exports = {
                     },
                     {
                         model: EnderecoFilial,
-                        include: [
-                            {
-                                model: Cidade,
-                                attributes: ["id", "nome"]
-                            },
-                            {
-                                model: Estado,
-                                attributes: ["id", "nome", "sigla"]
-
-                            }
-                        ],
                         attributes: [
                             "id", "rua", "bairro", "numero",
                             "complemento", "cep"
@@ -111,20 +99,8 @@ module.exports = {
                     },
                     {
                         model: EnderecoFilial,
-                        include: [
-                            {
-                                model: Cidade,
-                                attributes: ["id", "nome"]
-                            },
-                            {
-                                model: Estado,
-                                attributes: ["id", "nome", "sigla"]
-
-                            }
-                        ],
                         attributes: [
-                            "id", "rua", "bairro", "numero",
-                            "complemento", "cep"
+                            "id", "estado", "cidade"
                         ]
 
                     },
@@ -134,12 +110,13 @@ module.exports = {
                     }
                 ],
 
-                attributes: ["id", "nome", "horarioFuncionamento"]
+                attributes: ["id", "nomeFantasia"]
             });
 
             return res.status(200).send(filialTodos);
 
         } catch (error) {
+            console.log(error);
             return res.status(404).send({ erro: "Falha ao buscar todos os serviços" });
 
         }

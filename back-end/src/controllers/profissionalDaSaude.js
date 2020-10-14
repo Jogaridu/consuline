@@ -20,9 +20,13 @@ module.exports = {
       telefone,
     } = req.body;
 
+    const { firebaseUrl } = req.file ? req.file : "";
+    const enderecoJson = JSON.parse(endereco);
+    const telefoneJson = JSON.parse(telefone);
+
     try {
       const idEndereco = await enderecoProfissionalDaSaudeController.cadastrar(
-        endereco
+        enderecoJson
       );
 
       if (idEndereco === 400) {
@@ -57,11 +61,12 @@ module.exports = {
           senha: senhaCripto,
           foto,
           avaliacao,
+          foto: firebaseUrl,
         }
       );
 
       const telefones = await telefoneProfissionalController.cadastrar(
-        telefone,
+        telefoneJson,
         dadosProfissional.id
       );
 
@@ -75,9 +80,8 @@ module.exports = {
 
       res.status(201).send({ profissional });
     } catch (error) {
-      console.log(error);
       return res.status(500).send({
-        error: "Não foi possível cadastar este profissional, tente novamente ",
+        error: "Não foi possível cadastar este profissional, tente novamente  ",
       });
     }
   },
@@ -174,6 +178,10 @@ module.exports = {
       telefone,
     } = req.body;
 
+    const { firebaseUrl } = req.file ? req.file : "";
+    const enderecoJson = JSON.parse(endereco);
+    const telefoneJson = JSON.parse(telefone);
+
     const profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
 
     if (!profissionalDaSaude) {
@@ -189,7 +197,7 @@ module.exports = {
     }
 
     const statusUpdateEndereco = await enderecoProfissionalDaSaudeController.atualizar(
-      endereco,
+      enderecoJson,
       profissionalDaSaude.EnderecoProfissionalDaSaudeId
     );
 
@@ -200,7 +208,7 @@ module.exports = {
     }
 
     const statusUpdateTelefone = await telefoneProfissionalController.atualizar(
-      telefone,
+      telefoneJson,
       id
     );
 
@@ -213,14 +221,14 @@ module.exports = {
     try {
       const senhaCripto = await bcrypt.hash(senha, 10);
 
-      let profissionalDaSaudeUpdate = await ProfissionalDaSaude.update(
+      await ProfissionalDaSaude.update(
         {
           cpf,
           nome,
           crm,
           login,
           senha: senhaCripto,
-          foto,
+          foto: firebaseUrl,
           avaliacao,
         },
         {

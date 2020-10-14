@@ -39,43 +39,49 @@ module.exports = {
       },
 
       email: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
 
       rg: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
 
       cpf: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
 
       foto: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: true,
       },
 
-      emailValidado: {
+      verificado: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
       },
 
-      idPlanoDeSaude: {
+      codigoVerificacao: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true
+      },
+
+      planoDeSaudeId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
         refences: {
           model: "tblPlanoDeSaude",
           key: "id"
         }
       },
 
-      idEnderecoPaciente: {
+      enderecoPacienteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {

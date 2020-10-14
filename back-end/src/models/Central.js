@@ -10,11 +10,12 @@ class Central extends Model {
     },
       {
         sequelize,
+        tableName: "tblCentral"
       });
   }
 
   static associate(models) {
-    this.hasMany(models.TelefoneCentral)
+    this.hasMany(models.TelefoneCentral);
   }
 }
 

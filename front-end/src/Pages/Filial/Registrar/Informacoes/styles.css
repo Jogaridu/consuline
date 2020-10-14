@@ -1,0 +1,80 @@
+.conteiner-entrada-dados {
+    width: 95%;
+    height: 80%;
+    background-color: var(--container);
+    box-sizing: border-box;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+}
+  
+.titulo-card-cadastro {
+    flex: 2.5;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.titulo-card-cadastro figure {
+    height: 200px;
+    width: 200px;
+    background-color: var(--secundaria);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.titulo-card-cadastro figure img {
+    height: 150px;
+    width: 150px;
+}
+
+#cnpjInpt {grid-area: cnpj;}
+#ieInpt {grid-area: ie;}
+#razaoSocialInpt {grid-area: social;}
+#nomeFantasiaInpt {grid-area: nome;}
+#dataAberturaInpt {grid-area: data;}
+#emailInpt {grid-area: email;}
+#botao {
+    width: 100px;
+    height: 60px;
+    /* padding-top: 20px; */
+    font-weight: 500;
+    justify-self: flex-end;
+    font-size: 1.1em;
+    color: white;
+    margin-top: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    grid-area: botao;
+    background-color: var(--secundaria);
+}
+  
+#botao:focus {
+    outline: thin dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+    outline-offset: 0px;
+    border: 0px
+}
+
+.conteiner-entrada-dados form {
+    flex: 3;
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+        "cnpj cnpj cnpj ie ie"
+        "social social social social social"
+        "nome nome nome nome data"
+        "email email email email botao";
+    column-gap: 20px;
+    padding: 50px;
+}
+

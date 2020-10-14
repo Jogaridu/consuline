@@ -9,7 +9,6 @@ class TelefoneProfissional extends Model {
       {
         sequelize,
         tableName: "tblTelefoneProfissional",
-        timestamps: false,
       }
     );
   }

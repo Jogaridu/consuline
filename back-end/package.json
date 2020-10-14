@@ -14,9 +14,11 @@
   "author": "Bruno, Daniel, Jorge, Nicolas e Vinicius",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "firebase-admin": "^9.2.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
