@@ -9,6 +9,8 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert,
+  AsyncStorage,
 } from "react-native";
 
 import { Botao1 } from "../../Components/Botao1";
@@ -30,6 +32,10 @@ const Login = ({ navigation }) => {
     "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
   ]);
 
+  const [pacienteLogin, setPacienteLogin] = useState({
+    login: "",
+    senha: "",
+  });
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
   const [opacity] = useState(new Animated.Value(0));
   const [img] = useState(new Animated.ValueXY({ x: 240, y: 240 }));
@@ -84,11 +90,6 @@ const Login = ({ navigation }) => {
     ]).start();
   }
 
-  const [pacienteLogin, setPacienteLogin] = useState({
-    login: "",
-    senha: "",
-  });
-
   const navegarTelaInicial = () => {
     navigation.navigate("TelaInicial");
   };
@@ -98,29 +99,40 @@ const Login = ({ navigation }) => {
   const handlerInputSenha = (string) =>
     setPacienteLogin({ ...pacienteLogin, senha: string });
 
+
   const autenticarPaciente = async () => {
     try {
-      const retorno = await api.post("/paciente/sessao", pacienteLogin);
+      const resApi = await api.post("/paciente/sessao", pacienteLogin);
+      const dadosResposta = resApi.data;
+      const id = dadosResposta.paciente.pacienteId;
+      
+      const resApiFBPK = await api.get(`/paciente/${id}`);
 
-      if (retorno) {
-        console.warn("Autenticado");
+      if(resApiFBPK.data.verificado) {
+        const dadosPaciente = JSON.stringify(resApiFBPK.data);
+        await AsyncStorage.setItem("@Consuline:paciente", dadosPaciente);
+  
+        return navigation.navigate("Home");
+      } else {
+        Alert.alert("Você precisa inserir o código de verificação para logar!!!");
+        return navigation.navigate("RegistrarCodigo", resApiFBPK.data.id);
       }
     } catch (error) {
-      console.warn("Usuário ou senha estão errados...");
+      Alert.alert("Usuário ou Senha incorreto!!!");
     }
   };
 
   return (
     <Container>
       <ContainerImgCadastro>
-          <Animated.Image
+        <Animated.Image
           source={require("../../Assets/logo.png")}
           style={{
             width: img.x,
             height: 0,
             paddingBottom: img.y,
             marginLeft: "auto",
-            marginRight: "auto"
+            marginRight: "auto",
           }}
         />
       </ContainerImgCadastro>

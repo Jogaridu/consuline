@@ -9,7 +9,8 @@ import {
   Animated,
   Image,
   Keyboard,
-  YellowBox
+  YellowBox,
+  Alert,
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
 
@@ -143,7 +144,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
     const arrayInputsVazias = validarCamposVazios(novoPaciente);
 
     if (arrayInputsVazias.length) {
-      console.warn("Existem campos vazios");
+      Alert.alert("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 

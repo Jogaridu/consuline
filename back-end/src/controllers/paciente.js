@@ -40,7 +40,7 @@ module.exports = {
 
       if (pacienteCriado) {
         return res.status(400).send({
-          error:
+          erro:
             "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email, Celular",
         });
       }
@@ -49,7 +49,7 @@ module.exports = {
 
       if (enderecoPaciente === 400) {
         return res.status(400).send({
-          error:
+          erro:
             "Não foi possível cadastrar o endereço, por favor tente novamente.",
         });
       }
@@ -80,7 +80,7 @@ module.exports = {
       return res.status(201).send(paciente);
 
     } catch (error) {
-
+      console.log(error)
       return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
 
     }
@@ -121,20 +121,23 @@ module.exports = {
             "numero",
             "complemento",
             "cep",
-            "EstadoId",
-            "CidadeId",
+            "estado",
+            "cidade",
           ],
         },
-        order: [["createdAt", "DESC"]],
       });
+
       if (!paciente) {
         return res.status(400).send({ error: "Paciente não cadastrado" });
       }
+
       res.status(200).send(paciente);
+
     } catch (error) {
+      console.log(error);
       return res.status(500).send({
-        error:
-          "Não foi possivel listar estee paciente, por favor tente novamente",
+        erro:
+          "Não foi possivel listar este paciente, por favor tente novamente",
       });
     }
   },
@@ -149,8 +152,8 @@ module.exports = {
             "numero",
             "complemento",
             "cep",
-            "EstadoId",
-            "CidadeId",
+            "estado",
+            "cidade",
           ],
         },
         order: [["createdAt", "DESC"]],
@@ -211,8 +214,6 @@ module.exports = {
       endereco,
     } = req.body;
 
-    const enderecoJson = JSON.parse(endereco);
-
     try {
       let paciente = await Paciente.findByPk(id);
       if (!paciente) {
@@ -222,7 +223,7 @@ module.exports = {
       }
 
       const statusUpdateEndereco = await enderecoPacienteController.atualizar(
-        enderecoJson,
+        endereco,
         paciente.EnderecoPacienteId
       );
 
@@ -250,7 +251,9 @@ module.exports = {
       );
 
       res.status(204).send();
+
     } catch (error) {
+      
       return res.status(500).send({
         error: "Não foi possivel atualzar, tente novamente por favor",
       });

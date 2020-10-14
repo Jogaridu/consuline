@@ -133,9 +133,7 @@ const LoginNavigator = () => {
       <Stack.Screen
         name="RegistrarSucesso"
         component={Sucesso}
-        options={{
-          ...optionsHeader,
-        }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -9,6 +9,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert,
 } from "react-native";
 
 import encontrarCep from "../../../Services/viaCep";
@@ -147,7 +148,7 @@ const Localizacao = ({ navigation, route }) => {
     const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
 
     if (arrayInputsVazias.length) {
-      console.warn("Existem campos vazios");
+      Alert.alert("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 

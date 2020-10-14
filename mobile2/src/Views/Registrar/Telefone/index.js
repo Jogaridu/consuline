@@ -120,10 +120,10 @@ const Telefone = ({ navigation, route }) => {
     } else {
       novoPaciente = { ...novoPaciente, celular: celularParse };
       try {
-        console.log({ ...novoPaciente });
-        const retorno = await api.post("/paciente", { ...novoPaciente });
+        const retorno = await api.post("/paciente", novoPaciente);
 
         if (retorno.status === 201) {
+          console.log(novoPaciente);
           navigation.navigate("RegistrarCodigo", retorno.data.id);
         }
       } catch (error) {

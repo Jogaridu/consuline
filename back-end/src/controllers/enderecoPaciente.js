@@ -44,8 +44,8 @@ module.exports = {
         numero,
         complemento,
         cep,
-        idCidade,
-        idEstado,
+        cidade,
+        estado,
       } = endereco;
 
       await EnderecoPaciente.update(
@@ -55,8 +55,8 @@ module.exports = {
           numero,
           complemento,
           cep,
-          CidadeId: idCidade,
-          EstadoId: idEstado,
+          cidade,
+          estado,
         },
         {
           where: { id: id },
@@ -64,7 +64,9 @@ module.exports = {
       );
       return 200;
     } catch (error) {
+      console.log(error);
       return 400;
+      
     }
   },
 };

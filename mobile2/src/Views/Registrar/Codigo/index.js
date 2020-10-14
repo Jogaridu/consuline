@@ -89,7 +89,7 @@ const Codigo = ({ navigation, route }) => {
     ]).start();
   }
 
-  // const pacienteId = route.params;
+  const pacienteId = route.params;
 
   const { height, width } = Dimensions.get("window");
 
@@ -122,21 +122,22 @@ const Codigo = ({ navigation, route }) => {
     setCodigoLength(tamanho);
   };
 
-  // const verificarCodigo = async () => {
-  //   try {
-  //     const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, {
-  //       codigo,
-  //     });
+  const verificarCodigo = async () => {
+    try {
+      console.log(pacienteId);
+      const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, {
+        codigo,
+      });
 
-  //     if (retorno) {
-  //       return true;
-  //     }
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.warn("Deu ruim");
-  //     }
-  //   }
-  // };
+      if (retorno) {
+        return true;
+      }
+    } catch (error) {
+      if (error.response) {
+        console.warn("Deu ruim");
+      }
+    }
+  };
 
   const navegarFoto = async () => {
     if ((await verificarCodigo()) == true) {

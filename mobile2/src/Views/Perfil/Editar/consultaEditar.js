@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, AsyncStorage } from "react-native";
 
 import Container from "../../../Components/Container";
 
@@ -32,11 +32,32 @@ const ConsultarOpcao = (props) => {
 };
 
 const ConsultaEditar = () => {
+  const [dados, setDados] = useState({
+    nome: "",
+    cidade: "",
+    estado: "",
+  });
+
+  const pegarDados = async () => {
+    const paciente = JSON.parse(
+      await AsyncStorage.getItem("@Consuline:paciente")
+    );
+    setDados({
+      ...dados,
+      cidade: paciente.EnderecoPaciente.cidade,
+      estado: paciente.EnderecoPaciente.estado,
+      nome: paciente.nome,
+    });
+  };
+
+  useEffect(() => {
+    pegarDados();
+  }, []);
   const [telasEditar, setTelasEditar] = useState("editar");
 
   return (
     <Container>
-      <ContainerColor />
+      <ContainerColor style={{ marginTop: -25 }} />
       <ContainerPerfil>
         <FotoPerfil />
 
@@ -50,8 +71,7 @@ const ConsultaEditar = () => {
               textAlign: "center",
             }}
           >
-            {" "}
-            Nicolas Santos{" "}
+            {dados.nome}
           </Text>
           <Text
             style={{
@@ -61,8 +81,7 @@ const ConsultaEditar = () => {
               textAlign: "center",
             }}
           >
-            {" "}
-            Jandira, SP{" "}
+            {dados.cidade + ", " + dados.estado}
           </Text>
 
           {telasEditar === "editar" ? (

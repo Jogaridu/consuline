@@ -8,6 +8,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert
 } from "react-native";
 
 import {
