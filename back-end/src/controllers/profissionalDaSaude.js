@@ -1,10 +1,11 @@
 const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
-const enderecoProfissionalDaSaudeController = require("./enderecoProfissionalDaSaude");
 const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../config/auth.json")
+
 
 module.exports = {
   async cadastrar(req, res) {
@@ -25,19 +26,7 @@ module.exports = {
     const telefoneJson = JSON.parse(telefone);
 
     try {
-      const idEndereco = await enderecoProfissionalDaSaudeController.cadastrar(
-        enderecoJson
-      );
-
-      if (idEndereco === 400) {
-        return res.status(400).send({
-          error: "Não foi possivel cadastrar este endereço, tente novamene !!!",
-        });
-      }
-
-      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
-        idEndereco
-      );
+      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
 
       let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
@@ -76,7 +65,9 @@ module.exports = {
           .send({ error: "Não foi possivel cadastrar telefone !!" });
       }
 
-      const profissional = { dadosProfissional, telefones };
+      const token = jwt.sign({ idProfissional: dadosProfissional.id }, auth.secret);
+
+      const profissional = { dadosProfissional, telefones,token };
 
       res.status(201).send({ profissional });
     } catch (error) {
@@ -98,8 +89,8 @@ module.exports = {
               "numero",
               "complemento",
               "cep",
-              "EstadoId",
-              "CidadeId",
+              "cidade",
+              "estado",
             ],
           },
         ],
@@ -139,16 +130,7 @@ module.exports = {
         .send({ erro: "Profissional da saúde não encontrado(a)." });
     }
 
-    const statusDeleteEndereco = await enderecoProfissionalDaSaudeController.apagar(
-      profissionalDaSaude.EnderecoProfissionalDaSaudeId
-    );
-
-    if (statusDeleteEndereco === 400) {
-      return res.status(400).send({
-        error:
-          "Não foi possivel deletar o enderço desse profissional, tente novamente",
-      });
-    }
+    const endereco = await EnderecoProfissionalDaSaude.findByPk(profissionalDaSaude.EnderecoProfissionalDaSaudeId);
 
     const statusDeleteTelefone = await telefoneProfissionalController.apagar(
       profissionalDaSaude.id
@@ -160,8 +142,9 @@ module.exports = {
       });
     }
 
+    await endereco.destroy();
     await profissionalDaSaude.destroy();
-    res.status(204).send();
+    res.status(200).send({ sucesso: "Profissional apagado com sucesso" });
   },
 
   async atualizar(req, res) {
@@ -178,6 +161,7 @@ module.exports = {
       telefone,
     } = req.body;
 
+
     const { firebaseUrl } = req.file ? req.file : "";
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
@@ -188,24 +172,7 @@ module.exports = {
       return res.status(400).send({ error: "Profisional não encontrado(a)!!" });
     }
 
-    let enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.findByPk(
-      profissionalDaSaude.EnderecoProfissionalDaSaudeId
-    );
-
-    if (!enderecoProfissionalDaSaude) {
-      return res.status(400).send({ error: "Endereço não encontrado!!" });
-    }
-
-    const statusUpdateEndereco = await enderecoProfissionalDaSaudeController.atualizar(
-      enderecoJson,
-      profissionalDaSaude.EnderecoProfissionalDaSaudeId
-    );
-
-    if (statusUpdateEndereco === 400) {
-      return res.status(400).send({
-        error: "Não foi possivel atualizar o endereço, tente novamente",
-      });
-    }
+    await EnderecoProfissionalDaSaude.update(enderecoJson, { where:{ id: profissionalDaSaude.EnderecoProfissionalDaSaudeId }});
 
     const statusUpdateTelefone = await telefoneProfissionalController.atualizar(
       telefoneJson,
@@ -257,8 +224,8 @@ module.exports = {
             "numero",
             "complemento",
             "cep",
-            "EstadoId",
-            "CidadeId",
+            "cidade",
+            "estado",
           ],
         },
       ],
