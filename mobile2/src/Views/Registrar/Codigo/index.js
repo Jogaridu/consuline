@@ -8,6 +8,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert
 } from "react-native";
 
 import Container from "../../../Components/Container";
@@ -143,7 +144,7 @@ const Codigo = ({ navigation, route }) => {
     if ((await verificarCodigo()) == true) {
       navigation.navigate("RegistrarFoto");
     } else {
-      console.warn("Código inválido");
+      Alert.alert("Código inválido");
     }
   };
 
