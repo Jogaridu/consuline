@@ -226,17 +226,7 @@ module.exports = {
           .send({ error: "Paciente não encontrado no sistema" });
       }
 
-      const statusUpdateEndereco = await enderecoPacienteController.atualizar(
-        enderecoJson,
-        paciente.EnderecoPacienteId
-      );
-
-      if (statusUpdateEndereco === 400) {
-        return res.status(400).send({
-          error:
-            "Não foi possivel atualizar este endereço, por favor tente novamente",
-        });
-      }
+      await EnderecoPaciente.update(enderecoJson,{where:{id:paciente.EnderecoPacienteId}});
 
       await Paciente.update(
         {
