@@ -1,6 +1,7 @@
 const express = require("express");
-const rotas = require("./routes");
 const cors = require("cors");
+const router = require("./Routes/routes");
+
 require("./database");
 
 const rotasServicos = require("./Routes/Private/servicos");
@@ -12,6 +13,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(rotas)
+app.use(router);
 
 module.exports = app;

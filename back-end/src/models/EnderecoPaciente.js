@@ -9,6 +9,8 @@ class EnderecoPaciente extends Model {
         numero: DataTypes.STRING,
         complemento: DataTypes.STRING,
         cep: DataTypes.STRING,
+        cidade: DataTypes.INTEGER,
+        estado: DataTypes.INTEGER,
       },
       {
         sequelize,
@@ -18,9 +20,13 @@ class EnderecoPaciente extends Model {
   }
 
   static associate(models) {
+<<<<<<< HEAD
     this.belongsTo(models.Cidade, { foreignKey: "idCidade" });
     this.belongsTo(models.Estado, { foreignKey: "idEstado" });
     // this.belongsTo(models.Pacienete);
+=======
+    this.hasOne(models.Paciente);
+>>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
   }
 }
 

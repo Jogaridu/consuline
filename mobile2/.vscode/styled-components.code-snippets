@@ -1,0 +1,12 @@
+{
+	
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "stc",
+		"body": [
+			"import styled from 'styled-components/native';",
+			"import colors from '../../Styles/colors';"
+		],
+		"description": "Log output to console"
+	}
+}

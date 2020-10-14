@@ -29,6 +29,7 @@ module.exports = {
         allowNull: false,
       },
 
+<<<<<<< HEAD
       estadoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -49,12 +50,23 @@ module.exports = {
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
+=======
+      estado: {
+        type: Sequelize.STRING,
+        allownull: false,
+      },
+
+      cidade: {
+        type: Sequelize.STRING,
+        allownull: false,
+>>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
       },
 
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
