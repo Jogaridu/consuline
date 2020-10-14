@@ -16,7 +16,7 @@ module.exports = {
 
                 let filialCriado = await Filial.findOne({
                     where: {
-                        nome: dados.nome
+                        cnpj: dados.cnpj
 
                     }
                 });
@@ -37,7 +37,8 @@ module.exports = {
                 return res.status(201).send(filialCriado);
 
             } catch (error) {
-                return res.status(404).send({ erro: "Falha na criação do serviço" });
+                console.log(error);
+                return res.status(404).send({ erro: "Falha na criação da filial" });
 
             }
         }
@@ -99,8 +100,7 @@ module.exports = {
                     {
                         model: EnderecoFilial,
                         attributes: [
-                            "id", "rua", "bairro", "numero",
-                            "complemento", "cep"
+                            "id", "estado", "cidade"
                         ]
 
                     },
@@ -110,12 +110,13 @@ module.exports = {
                     }
                 ],
 
-                attributes: ["id", "nome", "horarioFuncionamento"]
+                attributes: ["id", "nomeFantasia"]
             });
 
             return res.status(200).send(filialTodos);
 
         } catch (error) {
+            console.log(error);
             return res.status(404).send({ erro: "Falha ao buscar todos os serviços" });
 
         }
