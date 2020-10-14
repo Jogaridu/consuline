@@ -1,10 +1,10 @@
 const Paciente = require("../models/Paciente");
-const EnderecoPaciente = require("../models/EnderecoPaciente");
-const enderecoPacienteController = require("../controllers/enderecoPaciente");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 const gerarCodigoVerificacao = require("../fixtures/gerarCodigo");
 const { enviarSMS } = require("../services/sms");
+const jwt = require("jsonwebtoken");
+const auth = require("../config/auth.json")
 
 module.exports = {
   async cadastrar(req, res) {
@@ -77,7 +77,9 @@ module.exports = {
       //     "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
-      return res.status(201).send(paciente);
+      const token = jwt.sign({idPaciente: paciente.id},auth.secret);
+
+      return res.status(201).send({paciente,token});
 
     } catch (error) {
       console.log(error)
@@ -222,17 +224,7 @@ module.exports = {
           .send({ error: "Paciente não encontrado no sistema" });
       }
 
-      const statusUpdateEndereco = await enderecoPacienteController.atualizar(
-        endereco,
-        paciente.EnderecoPacienteId
-      );
-
-      if (statusUpdateEndereco === 400) {
-        return res.status(400).send({
-          error:
-            "Não foi possivel atualizar este endereço, por favor tente novamente",
-        });
-      }
+      await EnderecoPaciente.update(enderecoJson,{where:{id:paciente.EnderecoPacienteId}});
 
       await Paciente.update(
         {

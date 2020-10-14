@@ -120,11 +120,12 @@ const Telefone = ({ navigation, route }) => {
       inputNumero.current.getElement().setNativeProps(inputErroStyle);
     } else {
       novoPaciente = { ...novoPaciente, celular: celularParse };
+      console.log(novoPaciente);
       try {
         const retorno = await api.post("/paciente", novoPaciente);
-
+        
         if (retorno.status === 201) {
-          console.log(novoPaciente);
+          
           navigation.navigate("RegistrarCodigo", retorno.data.id);
         }
       } catch (error) {

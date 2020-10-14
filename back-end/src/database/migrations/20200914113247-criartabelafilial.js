@@ -8,13 +8,29 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      nome: {
+      nomeFantasia: {
         type: Sequelize.STRING,
         allowNull: false,
 
       },
-      horarioFuncionamento: {
-        type: Sequelize.TIME,
+      dataAbertura: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      cnpj: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      ie: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      razaoSocial: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       enderecoFilialId: {

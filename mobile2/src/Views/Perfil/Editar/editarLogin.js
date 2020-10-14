@@ -10,6 +10,7 @@ import {
   FecharEditar,
   ContainerFormulario,
   Input,
+  TituloPerfil
 } from "../styles";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
@@ -128,7 +129,7 @@ const EditarLogin = (props) => {
     return (
       <ContainerEditar>
         <FecharEditar onPress={() => props.telaEditar("editar")} />
-        <TituloInformacoes style={{ marginTop: 0 }}>Login</TituloInformacoes>
+        <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>Login</TituloPerfil>
         <ContainerFormulario>
           <Input
             style={{ width: 288 }}
@@ -172,7 +173,7 @@ const EditarLogin = (props) => {
             secureTextEntry={true}
           />
         </ContainerFormulario>
-        <Botao title="Editar" funcExec={validaDados} />
+        <Botao title="Editar" funcExec={validaDados} bottom={20} />
       </ContainerEditar>
     );
   }

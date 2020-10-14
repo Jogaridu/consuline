@@ -14,6 +14,7 @@ import {
   FecharEditar,
   ContainerFormulario,
   Input,
+  TituloPerfil
 } from "../styles";
 
 import encontrarCep from "../../../Services/viaCep";
@@ -186,9 +187,9 @@ const EditarLocalizacao = (props) => {
   return (
     <ContainerEditar>
       <FecharEditar onPress={() => props.telaEditar("editar")} />
-      <TituloInformacoes style={{ marginTop: 0 }}>
+      <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
         Localização
-      </TituloInformacoes>
+      </TituloPerfil>
       <ContainerFormulario>
         <TextInputMask
           style={styles.input}
@@ -274,7 +275,7 @@ const EditarLocalizacao = (props) => {
           selectTextOnFocus={false}
         />
       </ContainerFormulario>
-      <Botao title="Editar" funcExec={validaDados} />
+      <Botao title="Editar" funcExec={validaDados} bottom={20} />
     </ContainerEditar>
   );
 };

@@ -3,7 +3,6 @@ const express = require("express");
 const routes = express.Router();
 
 const controller = require("../../controllers/paciente");
-const sla = require("../../controllers/enderecoPaciente");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 const enviarImagem = require("../../services/firebase");

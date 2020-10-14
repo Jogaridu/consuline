@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Botao from "../../../Components/Botao2";
 
@@ -16,6 +17,7 @@ import {
   ContainerEditar,
   FecharEditar,
   ContainerFormulario,
+  TituloPerfil,
 } from "../styles";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
@@ -161,6 +163,7 @@ const EditarInformacaoPessoal = (props) => {
   };
 
   const editar = async () => {
+    console.log(dados);
     try {
       const retorno = await api.put(`/paciente/${id}`, dados);
 
@@ -168,21 +171,23 @@ const EditarInformacaoPessoal = (props) => {
         Alert.alert("Dados editados com sucesso!!!");
       }
     } catch (error) {
-      if (error.response) {
-        return console.log(error);
-      }
+      return console.log(error);
     }
   };
 
   if (loading) {
-    return <Text> Carregando... </Text>;
+    return (
+      <ContainerEditar>
+        <Text> Carregando... </Text>
+      </ContainerEditar>
+    );
   } else {
     return (
       <ContainerEditar>
         <FecharEditar onPress={() => props.telaEditar("editar")} />
-        <TituloInformacoes style={{ marginTop: 0 }}>
+        <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
           Informações pessoais
-        </TituloInformacoes>
+        </TituloPerfil>
         <ContainerFormulario>
           <TextInput
             style={[styles.input]}
@@ -274,7 +279,7 @@ const EditarInformacaoPessoal = (props) => {
             onBlur={() => validarInputMaskCorreta(dados.cpf, inputCpf)}
           />
         </ContainerFormulario>
-        <Botao title="Editar" funcExec={validaDados} />
+        <Botao title="Editar" funcExec={validaDados} bottom={20} />
       </ContainerEditar>
     );
   }
