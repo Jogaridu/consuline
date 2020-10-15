@@ -16,7 +16,7 @@ module.exports = {
                 });
 
                 if (servicoCriado) {
-                    return res.status(400).send("Esse serviço já está cadastrado");
+                    return res.status(400).send({erro: "Esse serviço já está cadastrado"});
 
                 }
 

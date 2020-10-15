@@ -4,9 +4,17 @@
     background-color: var(--container);
     border-radius: 20px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 10px auto;
     padding: 30px;
+    text-align: center;
+}
+
+.container-card-servicos {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .card-servico {
@@ -109,9 +117,7 @@
 }
 
 .verificado {
-    /* display: none; */
-    height: 30px;
-    width: 30px;
+    display: none;
 }
 
 .chk span {
@@ -121,8 +127,8 @@
     border-radius: 50px;
     display: inline-block;
     background-color: red;
-    right: 10px;
-    top: 10px;
+    left: 10px;
+    bottom: 10px;
     border: none;
     outline: none;
     z-index: 9999;

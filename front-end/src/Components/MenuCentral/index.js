@@ -3,6 +3,7 @@ import React from 'react';
 import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
+import { Link } from 'react-router-dom';
 
 function MenuCentral() {
     return (
@@ -12,18 +13,18 @@ function MenuCentral() {
             </figure>
 
             <div className="topicosMenu">
-                <div className="pesquisar">
-                    <input type="text" name="" placeholder="PESQUISAR" required=""></input>
-                </div>
+
                 <div className="itensMenu">
                     Central
                 </div>
                 <div className="itensMenu">
                     Medicos
                 </div>
-                <div className="itensMenu">
-                    Filiais
-                </div>
+                <Link to="cadastrar-filial">
+                    <div className="itensMenu">
+                        Filiais
+                    </div>
+                </Link>
                 <div className="itensMenu">
                     Serviços
                 </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './styles.css';
 import '../../../Styles/globalStyle.css';
 
 import Informacoes from "./Informacoes";
@@ -9,6 +10,8 @@ import TituloPrincipal from '../../../Components/TituloPrincipal';
 import user from "../../../Assets/user.png";
 import { useState } from 'react';
 import Servicos from './Servicos';
+import {Switch, Route, BrowserRouter as Router, Redirect} from "react-router-dom";
+import api from "../../../Services/api";
 
 
 function Registrar(props) {
@@ -16,13 +19,13 @@ function Registrar(props) {
   const [navegarEndereco, setNavegarEndereco] = useState(true);
 
   const [novaFilial, setNovaFilial] = useState({
-    cnpj: "12321",
-    ie: "00000001",
-    razaoSocial: "Jorge esteve aqui",
-    nomeFantasia: "Hospital de Osasco",
-    dataAbertura: "05-08-2003",
-    email: "j@gmail.com",
-    telefone: "11912341234",
+    cnpj: "",
+    ie: "",
+    razaoSocial: "",
+    nomeFantasia: "",
+    dataAbertura: "",
+    email: "",
+    telefones: [""],
     endereco: {
         rua: "Rua Jorge",
         bairro: "Bairro Jorge",
@@ -35,7 +38,27 @@ function Registrar(props) {
     servicos: []
 
   });
-  
+
+  const cadastrarFilial = async () => {
+
+    try {
+      console.log(novaFilial);
+      const retorno = await api.post("/filial", novaFilial);
+      
+      if (retorno.status === 201) {
+        alert("Cadastro realizado com sucesso");
+
+      }
+
+    } catch (error) {
+      console.error(error);
+
+    }
+    
+  }
+
+  const handlerInput = (evento) => setNovaFilial({...novaFilial, [evento.target.id]: evento.target.value });
+
   return (
     <div className="container-central">
         <MenuCentral />
@@ -43,22 +66,34 @@ function Registrar(props) {
         <div className="container-conteudo-central">
           <TituloPrincipal nome="Informações de cadastro" imagem={user} />
 
-          {/* {navegarEndereco && (
-            <Informacoes 
-              setNavegarEndereco={setNavegarEndereco}
-              novaFilial={novaFilial}
-              setNovaFilial={setNovaFilial}/>
-          )}
+          <Router>
+            <Switch>
+              <Route path={`/cadastrar-filial`}>
+                <Informacoes
+                  setNavegarEndereco={setNavegarEndereco}
+                  novaFilial={novaFilial}
+                  setNovaFilial={setNovaFilial}
+                  handlerInput={handlerInput}/>
+              </Route>
+            
+              <Route path={`/cadastrar-endereco`}>
+                <Endereco 
+                  setNavegarEndereco={setNavegarEndereco}
+                  novaFilial={novaFilial}
+                  setNovaFilial={setNovaFilial}
+                  handlerInput={handlerInput}/>
+              </Route>
 
-          {!navegarEndereco && (
-            <Endereco 
-              setNavegarEndereco={setNavegarEndereco}
-              novaFilial={novaFilial}
-              setNovaFilial={setNovaFilial}/>
-          )} */}
-          <Servicos 
-          novaFilial={novaFilial}
-          setNovaFilial={setNovaFilial}/>
+                <Route path={`/cadastrar-servicos`}>
+                  <Servicos 
+                    setNovaFilial={setNovaFilial}
+                    servicosSel={novaFilial.servicos}
+                    cadastrarFilial={cadastrarFilial}
+                    handlerInput={handlerInput}/>
+                </Route>
+            </Switch>
+          </Router>
+          
 
         </div>
     </div>

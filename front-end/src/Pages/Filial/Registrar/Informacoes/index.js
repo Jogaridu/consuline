@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './styles.css';
 import '../../../../Styles/globalStyle.css';
 
 import user from "../../../../Assets/user.png";
-import seta from "../../../../Assets/seta2.png";
-import { Link, Route, Switch } from 'react-router-dom';
-import Endereco from '../Endereco';
+import { Link } from 'react-router-dom';
+import validarInputVazia from '../../../../Fixtures/Inputs/ValidarInputVazia';
+import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
 
-function Informacoes({novaFilial, setNovaFilial, setNavegarEndereco}) {
-    
-    const handlerInput = (evento) => {
-        setNovaFilial({...novaFilial, [evento.target.id]: evento.target.value });
-    };
+function Informacoes({novaFilial, handlerInput}) {
+
+    const validar = () => {
+      const arrInputs = Array.from(document.querySelectorAll("form input"));
+      console.log(arrInputs);
+
+      const arrayInputsVazias = validarInputVazia(arrInputs);
+
+      console.log(arrayInputsVazias);
+    }
 
     return (
         <div className="conteiner-entrada-dados">
@@ -24,79 +29,93 @@ function Informacoes({novaFilial, setNovaFilial, setNavegarEndereco}) {
           </div>
           <form>
             <input
-            type="text"
-            placeholder="CNPJ"
-            name="txtcnpj"
-            id="cnpjInpt"
-            value={novaFilial.cnpj}
-            onChange={handlerInput}
-            required
-            maxLength="12"
-            />
+              type="text"
+              placeholder="CNPJ"
+              name="txtcnpj"
+              id="cnpj"
+              value={novaFilial.cnpj}
+              onChange={handlerInput}
+              required
+              maxLength="12"
+              onBlur={InputCorreta}/>
+
             <input
-            type="text"
-            placeholder="I.E"
-            name="txtie"
-            id="ieInpt"
-            value={novaFilial.ie}
-            required
-            />
+              type="text"
+              placeholder="I.E"
+              name="txtie"
+              id="ie"
+              value={novaFilial.ie}
+              onChange={handlerInput}
+              required
+              onBlur={InputCorreta}/>
+
             <input
               type="text"
               placeholder="Razão social"
               name="txtrazaosocial"
-              id="razaoSocialInpt"
+              id="razaoSocial"
               value={novaFilial.razaoSocial}
               onChange={handlerInput}
               required
-            />
+              onBlur={InputCorreta}/>
+
             <input
               type="text"
               placeholder="Nome fantasia"
               name="txtnomefantasia"
-              id="nomeFantasiaInpt"
+              id="nomeFantasia"
               value={novaFilial.nomeFantasia}
               onChange={handlerInput}
               required
               maxLength="80"
-            />
+              onBlur={InputCorreta}/>
+
             <input
               type="text"
               placeholder="Data abertura"
               name="txtdataabertura"
-              id="dataAberturaInpt"
+              id="dataAbertura"
               value={novaFilial.dataAbertura}
               onChange={handlerInput}
               required
               maxLength="9"
-            />
+              onBlur={InputCorreta}/>
+
             <input
               type="email"
               placeholder="Email"
               name="email"
-              id="emailInpt"
+              id="email"
               value={novaFilial.email}
               onChange={handlerInput}
               required
               maxLength="100"
-            />
+              onBlur={InputCorreta}/>
             {/* <input
               type="tel"
               placeholder="Telefone"
               name="telefone"
-              id="telefoneInpt"
+              id="telefone"
               value={novaFilial.telefone}
               onChange={handlerInput}
               required
               maxLength="15"
             /> */}
+
+            <div className="caixa-botoes">
+              <button style={{opacity: 0}}>
+                
+              </button>
+              {/* <Link to="/cadastrar-endereco"> */}
+                <button onClick={validar}>
+                  &rarr;
+                </button>
+              {/* </Link> */}
+            </div>
               
-            <button id="botao" onClick={() => setNavegarEndereco(false)}>
-                Próximo
-            </button>
-            
           </form>
         </div>
+
     );
 }
 

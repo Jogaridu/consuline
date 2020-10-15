@@ -12,8 +12,8 @@ import ListarFiliais from "./Pages/Filial/Registrar/index";
 function App() {
   return (
     <>
-      <Medico />
-      {/* <ListarFiliais /> */}
+      {/* <Medico /> */}
+      <Routes />
     </>
   );
 }

@@ -107,7 +107,8 @@ input {
   width: 100%;
   border-radius: 10px;
   padding-left: 15px;
-  box-shadow: 0px 0px 3px var(--principal);
+  box-shadow: 1px 1px 2px var(--principal),
+              1px 1px 2px var(--principal);
   outline: none;
   border: none;
   border: 2px solid var(--principal);

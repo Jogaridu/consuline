@@ -53,7 +53,7 @@ const Medico = () => {
                 <div className="cadastro">
                     <div className="container-titulo">
                             <div className="titulo">
-                            ADICIONAR PROFISSIONAL DA SAÚDE
+                                ADICIONAR PROFISSIONAL DA SAÚDE
                             </div>
                             <div className="icone-titulo">
                                 <img id="iconeAdc" src={adc} alt="icone" />
@@ -133,7 +133,7 @@ const Medico = () => {
 
                                 <div className="subtitulo-imgUsuario">
                                     Digite a Localização
-                                </div>                              
+                                </div>         
                             </div>
                         </div>
 
@@ -205,16 +205,16 @@ const Medico = () => {
                             <div className="formulario">
                                 <form>
                                     <div className="CadastroEntradaDados"> 
-                                        <input type="text" name="" placeholder="Login" required=""></input>
+                                        <input type="text" name="" placeholder="Login" required></input>
                                     </div>
                                     <div className="CadastroEntradaDados"> 
-                                        <input type="text" name="" placeholder="Senha" required=""></input>
-                                    </div>   
-                                    <div className="CadastroEntradaDados"> 
-                                        <input type="text" name="" placeholder="Confirmar Senha" required=""></input>
+                                        <input type="text" name="" placeholder="Senha" required></input>
                                     </div>
-                                    
-                             </form>
+                                    <div className="CadastroEntradaDados"> 
+                                        <input type="text" name="" placeholder="Confirmar Senha" required></input>
+                                    </div>
+
+                                </form>
                              
                             </div>
                             

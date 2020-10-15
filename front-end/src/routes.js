@@ -16,10 +16,10 @@ function Routes() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/home">
+        <Route path="/home-central">
           <HomeCrud />
         </Route>
-        <Route path="/filial-cadastro">
+        <Route path="/cadastrar-filial">
           <RegistrarFilial />
         </Route>
         <Route path="/home-filial">

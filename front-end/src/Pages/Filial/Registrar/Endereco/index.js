@@ -6,30 +6,9 @@ import "../../../../Styles/globalStyle.css";
 
 import map from "../../../../Assets/map.png";
 
-import api from "../../../../Services/api";
-import { event } from 'jquery';
+import { Link } from 'react-router-dom';
 
-function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
-
-  const handlerInput = (evento) => {
-    setNovaFilial({...novaFilial, [evento.target.id]: evento.target.value });
-  
-  };
-
-  const cadastrarFilial = async () => {
-
-    try {
-      
-      const retorno = await api.post("/filiais", novaFilial);
-      alert("cadastro com sucesso");
-      console.log(retorno);
-
-    } catch (error) {
-      console.log(error);
-
-    }
-    
-  }
+function Endereco({novaFilial, handlerInput}) {
 
   return (
     <div className="conteiner-entrada-dados-endereco">
@@ -45,7 +24,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtcep"
-            id="cepInpt"
+            id="cep"
             value={novaFilial.endereco.cep}
             onChange={handlerInput}
             placeholder="CEP"
@@ -55,7 +34,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtrua"
-            id="ruaInpt"
+            id="rua"
             value={novaFilial.endereco.rua}
             onChange={handlerInput}
             placeholder="RUA"
@@ -65,7 +44,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtnumero"
-            id="numeroInpt"
+            id="numero"
             value={novaFilial.endereco.numero}
             onChange={handlerInput}
             placeholder="Nº"
@@ -75,7 +54,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtbairro"
-            id="bairroInpt"
+            id="bairro"
             value={novaFilial.endereco.bairro}
             onChange={handlerInput}
             placeholder="BAIRRO"
@@ -85,7 +64,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtcomplemento"
-            id="complementoInpt"
+            id="complemento"
             value={novaFilial.endereco.complemento}
             onChange={handlerInput}
             placeholder="COMPLEMENTO"
@@ -95,7 +74,7 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtcomplemento"
-            id="cidadeInpt"
+            id="cidade"
             value={novaFilial.endereco.cidade}
             onChange={handlerInput}
             placeholder="CIDADE"
@@ -105,29 +84,22 @@ function Endereco({novaFilial, setNovaFilial, setNavegarEndereco}) {
           <input
             type="text"
             name="txtcomplemento"
-            id="estadoInpt"
+            id="estado"
             value={novaFilial.endereco.estado}
             onChange={handlerInput}
             placeholder="ESTADO"
             required
             maxLength="100"
           />
-        <div id="caixaBotoes">
-          <button id="botaoVoltar" onClick={(evento) => {
-            
-            
-            setNavegarEndereco(false)}
-          }>
-            Voltar
-          </button>
-          <button id="botao" type="button" onClick={(evento) => {
-            evento.preventDefault();
-            cadastrarFilial();
-          }}>
-            Concluído
-          </button>
-        </div>
-        
+        <div className="caixa-botoes">
+            <Link to="/cadastrar-filial" >
+              <button>&larr;</button>
+            </Link>
+
+            <Link to="/cadastrar-servicos">
+              <button>&rarr;</button>
+            </Link>
+          </div>
       </form>
     </div>
   );

@@ -4,7 +4,7 @@ const routes = express.Router();
 
 const controller = require("../../controllers/filiais");
 
-routes.post("/filiais", controller.cadastrar);
+routes.post("/filial", controller.cadastrar);
 
 routes.get("/filial/:id", controller.buscarPorId);
 
