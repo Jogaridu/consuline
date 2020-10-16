@@ -27,7 +27,7 @@ const Medico = () => {
 
 {/* ******************************************** SPA CADASTRO TELA 1 ********************** ********************** */}
             <div className="container-medicos">
-                <div className="menu">
+                <div className="menu-cadastro-medico">
                     <div className="iconeMenu">
                         <img id="logoprojeto" src={logoprojeto2} alt="logo projeto" />
                     </div>
@@ -73,6 +73,9 @@ const Medico = () => {
                         Desenvolvido por <br/> DS3-M | CONSULINE
                     </div>
                 </div>
+
+
+                
                 <div className="cadastro">
                     <div className="container-titulo">
                             <div className="titulo">
