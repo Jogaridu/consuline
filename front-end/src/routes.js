@@ -6,7 +6,6 @@ import Login from "./Pages/Login/index";
 import HomeCrud from "./Pages/Home-Crud/index";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import HomeFilial from "./Pages/Filial/Home/index";
-import infoMedico from "./Pages/Medico/Registrar/info-pessoal"
 
 function Routes() {
   return (
@@ -26,9 +25,6 @@ function Routes() {
         </Route>
         <Route path="/home-filial">
           <HomeFilial />
-        </Route>
-        <Route path="/info-pessoal">
-          <infoMedico />
         </Route>
       </Switch>
     </BrowserRouter>
