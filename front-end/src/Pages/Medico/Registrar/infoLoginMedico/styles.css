@@ -1,160 +1,13 @@
-
-body{
-    /* width: 1300px; */
-    height: auto;
-    background-color: green;
-    /* border: 3px solid black; */
-}
 .container-medicos{
-    width: 5000px;
+    width: auto;
     height: 655px;
      background-color: var(--fundo); 
+     margin-top: -60px;
 }
-                        /****************************** CONTAINER MENU ******************************/
-
-.menu-cadastro-medico{
-    width: 280px;
-    height: 655px;
-    background-color: #fff;
-    float: left;
-    margin: auto;
-
-}
-
-.iconeMenu{
-    width: 150px;
-    height: 150px;
-    /* background-color: red; */
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 20px;
-}
-
-#logoprojeto{
-    width: 150px;
-    height: 150px;
-}
-
-.topicosMenu{
-    width: 100%;
-    height: 335px;
-    margin-top: 20px;
-     /* background-color: green;  */
-}
-
-.pesquisar{
-    width: 200px;
-    height: 50px;
-    /* background-color: red; */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.desenvolvedor{
-    width: 250px;
-    height: 80px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 35px;
-    border-top: 2px solid var(--principal);
-    text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-style: oblique;
-    font-size: 20px;
-      /* background-color: red;   */
-}
-
-                        /****************************** HOVER MENU ******************************/
-
-
-.hvr-sweep-to-right {
-    width: 250px;
-    height: 45px;
-    background-color: var(--fundo);
-    margin-top: 25px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 20px;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-transition-property: color;
-    transition-property: color;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    cursor: pointer;
-    position: relative;
-    z-index: 9;
-  }
-  .hvr-sweep-to-right:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--principal);
-    -webkit-transform: scaleX(0.1);
-    transform: scaleX(0.1);
-    -webkit-transform-origin: 0 50%;
-    transform-origin: 0 50%;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-    border-radius: 0px 20px 20px 0px;
-
-  }
-  .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
-    color: white;
-  }
-  .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-
-.sub-menu{
-    width: 250px;
-    height: 150px;
-    /* background-color: red; */
-    background-color: var(--fundo);
-    position: absolute;
-    visibility: hidden;
-   margin-top: -30px; 
-    border-radius: 20px;
-    /* margin-left: 250px; */
-    z-index: 999;
-    margin-left: 250px;
-   
-}
-.submenu-adicionar, .submenu-listar{
-    width: 200px;
-    height: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 20px;
-    margin-top: 20px;
-    background-color: var(--principal);
-}
-.submenu-listar{
-    width: 200px;
-    height: 50px;
-    /* background-color:yellow; */
-    margin-top: 10px;
-    background-color: var(--principal);
-}
-.hvr-sweep-to-right:hover .sub-menu{
-    visibility: visible;
-    /* background-color: var(--fundo); */
-}
+    
 
                         /****************************** CONTAINER DO CADASTRO COMPLETO FORM + TITULO ******************************/
-.cadastro, .cadastro-pt2, .cadastro-pt3{
+.cadastro{
     width: 810px;
     height: 600px;
     /* border: 2px solid black;   */
@@ -199,193 +52,92 @@ body{
     margin-right: auto;
 }
                         /****************************** CONTAINER CADASTRO FORMULARIO ******************************/
-.container-form{
+#container-card{
     width: 800px;
     height: 500px;
     background-color: var(--container);
     border-radius: 20px;
     margin-top: 20px;
     border-radius: 40px;
+    display: flex;
+    flex-direction: row;
 }
-                                                         /* DIV LADO ESQUERDO */
-.img-left{
+
+.container-left-side{
     width: 400px;
     height: 500px;
-    /* background-color: pink; */
-    float: left;
+    /* background: red; */
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    
 }
+.container-right-side{
+    width: 400px;
+    height: 500px;
+    /* background: yellow; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}                                     
 
-.perfil-form{
-    width: 350px;
-    height: 230px;
-    /* background-color: red; */
-}
+            /* ---------------------------- Container-left-side ---------------------------- */
+
 
 .img-usuario{
     width: 180px;
     height: 180px;
     background-color: var(--principal);
-    margin-left: auto;
-    margin-right: auto;
     border-radius: 50%;
     background-position: -15px -15px;
 }
-#usuario{
-    height: 160px;
-    width: 160px;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-
-.subtitulo-imgCadastro{
-    width: 350px;
+.subtitulo-img{
+    width: 300px;
     height: 50px;
-    margin-top: 5px;
-     /* background-color: var(--principal);  */
+    /* background-color: aqua; */
+    margin-top: 15px;
+    font-family: -apple-system, BlinkMacSystemFont,
+     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
     text-align: center;
-    font-size: 30px;
-}
-                        /****************************** DIV LADO DIREITO ******************************/
-
-.form-right{
-    width: 400px;
-    height: 500px;
-     /* background-color:aquamarine;    */
-    /* float: left; */
-    display: flex;
-     align-items: center; 
-    justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
+    font-size: 30px; 
 }
 
-.formulario{
-    flex: 10;
+            /* ---------------------------- Container-right-side ---------------------------- */
+
+.entrada-de-dados{
     width: 350px;
-    height: auto;
-    /* border: 2px solid black; */
-      /* background-color: blue;    */
-     display: flex ;
-    align-items: center;
-    justify-content: center;  
+    height: 430px;
+    /* background-color: #fff; */
+}
+.entrada-dados2{
+    width: 350px;
+    min-height: 30px;
+    height: auto;   
+    display: flex;
+    flex-direction: row;
+}
+.entrada-dados3{
+    margin-left: 20px;
 }
 
-/****************************** FORM INF PESSOAL E LOGIN E SENHA ******************************/
-
-
-.CadastroEntradaDados, .CadastroEntradaDados3, .CadastroEntradaDados4{
-    width: 100%;
-     /* background-color: chartreuse;  */
-    box-sizing: border-box;
-    margin-bottom: 15px ;
-}
-.CadastroEntradaDados3, .CadastroEntradaDados4{
-    width: 45%;
-    float: left;
-}
-.CadastroEntradaDados4{   
-    float: right;
-}
-
-input{
-    height: 50px;
-    width: 100%;  
-    outline: none;
-    border: 1px solid var(--principal);
-    background-color: var(--fundo);
-    border-radius: 5px;    
-    padding: 10px;
-}
-
-::-webkit-input-placeholder{
-    color: var(--principal);
-  }
-
-  /* **************************** FORM LOCALIZAÇÃO **************************** */
-
-form, .form-div{
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    /* background-color: red;    */
-}
-
-
-.div-campos{
-    width: 340px;
-    height: 50px;
-    /* background-color: green; */
-}
-
-.campo1, .campo2, .campo3, .campo4{
-    width: 100px;
-    height: 50px;
-    /* background-color:  yellow; */
-    float: left;
-
-}
-
-.campo2, .campo3{
-    width: 200px;
-    margin-left: 40px;
-}
-
-.campo3{
-    margin-left: 0px;
-    margin-right: 40px;
-}
-.campo4{
-    width: 70px;
-}
-
-.div-campos2{
-    width: 340px;
-    height: 50px;
-    margin-top: 15px;
-    /* background-color: green;  */
-}
-
-.div-campos3{
-    width: 340px;
-    height: 50px;
-    margin-top: 15px;
-    /* background-color: green;  */
-}
-
-
-.mapa{
-    width: 130px;
-    height: 130px;
-    margin-top: 30px;
-    margin-left: 25px;
-    /* background-color: red; */
-}
-
-.cadeado{
-    width: 100px;
-    height: 130px;
-    margin-left: 40px;
-    margin-top: 20px;
-    /* background-color: red; */
-}
-
-                    /* **************************** BOTOES DE PROXIMA TELA **************************** */
+            /* ---------------------------- Button Next ---------------------------- */
 
 
 .div-btn{
-    width: 100%;
-    flex: 1.5;
-    /* background-color: yellow; */
+    width: 90%;
+    height: 50px;
+     /* background-color: yellow;  */
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: space-between;
 }
 
- .next-left{
+ /* .next-left{
     width: 40px;
     height: 40px;
     font-size: 30px;
@@ -398,7 +150,7 @@ form, .form-div{
     border-radius: 10px;
     cursor: pointer;
     float: left;
-}
+} */
 
 .next-right{
     width: 40px;
@@ -406,25 +158,25 @@ form, .form-div{
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    margin-top: 10px;
-    margin-right: 30px;
+    /* margin-left: 140px; */
     background-color: var(--principal); 
     color: var(--container);
     border-radius: 10px;
     cursor: pointer;
-    float: right;
+    text-align: center;
 }
 
 .qnt-pag{
-    width: 80px;
-    height: 50px;
-     /* background-color: red;  */
-    float: left;
-    margin-left: 85px;
-    margin-top: 8px;
-    display: flex ;
+    width: 60px;
+    height: 10px;
+    /* background-color: red;   */
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
+     margin-left: auto;
+     margin-right: auto;
+ 
 }
 .pg1-1, .pg2-1, .pg3-1, 
 .pg1-2, .pg2-2, .pg3-2,

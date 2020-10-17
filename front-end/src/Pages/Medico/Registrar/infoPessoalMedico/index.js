@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
+import usuario from "../../../../Assets/usuario.png"
 
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
@@ -23,14 +25,13 @@ function MenuCentral2() {
             <div id="container-card">
                 <div className="container-left-side">
                         <div className="img-usuario">
-                            {/* <img id="usuario" src={usuario} alt="logo projeto" /> */}
+                             <img id="usuario" src={usuario} alt="logo projeto" /> 
                         </div>
     
                         <div className="subtitulo-img">
                           Cadastro Pessoal
                         </div>                              
                 </div>
-    
     
                 <div className="container-right-side">
                     <div className="entrada-de-dados">
@@ -47,27 +48,27 @@ function MenuCentral2() {
                       <input placeholder="Email"></input>
                       <input placeholder="Telefone"></input>      
                     </div>
-    
-    
-                     <div className="div-btn">
-                        <div className="next-left">
+  
+                      <div className="div-btn">
                         
-                        </div>
-                        <div className="qnt-pag">
-                            <div className="pg1-1"> 
-                            
-                            </div>
-                            <div className="pg2-1"> 
-                            
-                            </div>
-                            <div className="pg3-1"> 
-                            
-                            </div>
-                        </div>
-                        <div className="next-right">
-                            
-                        </div>
-                    </div>
+                          <div className="qnt-pag">
+                              <div className="pg1-1"> 
+                              
+                              </div>
+                              <div className="pg2-1"> 
+                              
+                              </div>
+                              <div className="pg3-1"> 
+                              
+                              </div>
+                          </div>
+                          
+                            <Link to="/cadastro-localizacao">
+                              <div className="next-right">
+                                ⇨
+                              </div>
+                            </Link>
+                      </div>
                     </div>
                    
                 
