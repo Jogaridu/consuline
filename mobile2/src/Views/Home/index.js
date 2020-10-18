@@ -13,6 +13,7 @@ const Home = () => {
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
+    console.log(paciente);
     setNome(paciente.nome);
     setLoading(false);
   };

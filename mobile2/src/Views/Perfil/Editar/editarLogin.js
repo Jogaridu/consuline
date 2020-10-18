@@ -3,6 +3,7 @@ import { View, StyleSheet, TextInput, Text, AsyncStorage, Alert } from "react-na
 // import bcrypt from "bcryptjs";
 
 import Botao from "../../../Components/Botao2";
+import api from "../../../Services/api";
 
 import {
   TituloInformacoes,
@@ -86,7 +87,7 @@ const EditarLogin = (props) => {
   const inputSenha = useRef(null);
   const inputConfirmarSenha = useRef(null);
 
-  const validaDados = () => {
+  const validaDados = async () => {
     const arrayInputsVazias = validarCamposVazios(
       dados,
       "complemento"
@@ -113,7 +114,21 @@ const EditarLogin = (props) => {
         ? inputConfirmarSenha.current.setNativeProps(inputErroStyle)
         : "";
     } else {
-      
+      try {
+        const retorno = await api.post(`/paciente/${id}/verificar-senha`, dadoSenhaAntiga);
+
+        console.log("Entrou")
+
+        if (retorno.status === 200) {
+          const atualizarPaciete = await api.put(`/paciente/${id}`, {senha: dados.senha});
+
+          console.log("Deu certo")
+        }
+
+
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
 

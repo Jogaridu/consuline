@@ -172,13 +172,16 @@ const EditarLocalizacao = (props) => {
     setDados({ ...dados, endereco: endereco });
     // console.log(dados);
     try {
+      
       const retorno = await api.put(`/paciente/${id}`, dados);
 
-      if (retorno.status === 204) {
+      if (retorno.status === 200) {
         Alert.alert("Dados editados com sucesso!!!");
       }
     } catch (error) {
+      console.log(error);
       if (error.response) {
+
         return console.log(error);
       }
     }

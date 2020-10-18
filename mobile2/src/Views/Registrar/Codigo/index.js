@@ -90,7 +90,7 @@ const Codigo = ({ navigation, route }) => {
     ]).start();
   }
 
-  const pacienteId = route.params;
+  // const pacienteId = route.params;
 
   const { height, width } = Dimensions.get("window");
 
@@ -125,7 +125,6 @@ const Codigo = ({ navigation, route }) => {
 
   const verificarCodigo = async () => {
     try {
-      console.log(pacienteId);
       const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, {
         codigo,
       });
@@ -212,7 +211,7 @@ const Codigo = ({ navigation, route }) => {
                 <Text style={{ color: "#0095C5" }}>(11)96368-8640</Text>
               </Text>
             </ContainerFormularioCodigo>
-            <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+            <Passos cor1={true} cor2={true} cor3={true} cor4={true} cor5={true} />
             <ContainerBotao>
               <Botao
                 title="Verificar"

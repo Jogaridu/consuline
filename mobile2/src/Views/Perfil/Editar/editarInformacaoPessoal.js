@@ -167,7 +167,7 @@ const EditarInformacaoPessoal = (props) => {
     try {
       const retorno = await api.put(`/paciente/${id}`, dados);
 
-      if (retorno.status === 204) {
+      if (retorno.status === 200) {
         Alert.alert("Dados editados com sucesso!!!");
       }
     } catch (error) {

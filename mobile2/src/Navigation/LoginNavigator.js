@@ -23,14 +23,14 @@ import colors from "../Styles/colors";
 
 const optionsHeader = {
   headerBackTitleVisible: true,
-  headerBackTitle: "",
+  headerBackTitle: "Voltar",
 
   headerStyle: {
     backgroundColor: colors.container,
   },
   headerTintColor: colors.secundaria,
 
-  title: "",
+  headerTitle: false,
 };
 
 const config = {
@@ -84,16 +84,14 @@ const LoginNavigator = () => {
       <Stack.Screen
         name="RegistrarInformacaoPessoal"
         component={InformacaoPessoal}
-        options={{
-          ...optionsHeader,
-        }}
+        options={{ ...optionsHeader }}
       />
 
       <Stack.Screen
         name="RegistrarLocalizacao"
         component={Localizacao}
         options={{
-          ...optionsHeader,
+          ...optionsHeader
         }}
       />
 
@@ -101,7 +99,7 @@ const LoginNavigator = () => {
         name="RegistrarLoginSenha"
         component={CadastroLoginSenha}
         options={{
-          ...optionsHeader,
+          ...optionsHeader
           
         }}
       />
@@ -110,7 +108,7 @@ const LoginNavigator = () => {
         name="RegistrarTelefone"
         component={Telefone}
         options={{
-          ...optionsHeader,
+          ...optionsHeader
         }}
       />
 
@@ -118,7 +116,7 @@ const LoginNavigator = () => {
         name="RegistrarCodigo"
         component={Codigo}
         options={{
-          ...optionsHeader,
+          headerShown: false,
         }}
       />
 
@@ -126,7 +124,7 @@ const LoginNavigator = () => {
         name="RegistrarFoto"
         component={Foto}
         options={{
-          ...optionsHeader,
+          headerShown: false,
         }}
       />
 

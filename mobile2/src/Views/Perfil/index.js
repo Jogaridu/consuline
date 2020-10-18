@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, ScrollView, AsyncStorage } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import {
   ContainerColor,
@@ -22,7 +22,7 @@ import api from "../../Services/api";
 
 import colors from "../../Styles/colors";
 
-const Perfil = ({navigation}) => {
+const Perfil = ({ navigation }) => {
   const [dadosPaciente, setDadosPaciente] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -40,43 +40,47 @@ const Perfil = ({navigation}) => {
 
   const navegarConsultaEditar = () => {
     navigation.navigate("PerfilEditar");
-  }
+  };
 
   if (loading) {
-    return <Text> Carregando... </Text>;
+    return (
+      <Container>
+        <Text> Carregando... </Text>
+      </Container>
+    );
   } else {
     return (
       <Container>
         <ContainerColor />
         <ContainerPerfil>
           <FotoPerfil />
-          
+
           <BtnEditar onPress={navegarConsultaEditar} />
           <ScrollView>
-          <Text
-            style={{
-              color: colors.corTitulo,
-              fontSize: 32,
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
-            {" "}
-            {dadosPaciente.nome}{" "}
-          </Text>
-          <Text
-            style={{
-              color: colors.corTituloSecundario,
-              fontSize: 20,
-              fontWeight: "800",
-              textAlign: "center",
-            }}
-          >
-            {dadosPaciente.EnderecoPaciente.cidade +
-              ", " +
-              dadosPaciente.EnderecoPaciente.estado}
-          </Text>
-          
+            <Text
+              style={{
+                color: colors.corTitulo,
+                fontSize: 32,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              {dadosPaciente.nome}{" "}
+            </Text>
+            <Text
+              style={{
+                color: colors.corTituloSecundario,
+                fontSize: 20,
+                fontWeight: "800",
+                textAlign: "center",
+              }}
+            >
+              {dadosPaciente.EnderecoPaciente.cidade +
+                ", " +
+                dadosPaciente.EnderecoPaciente.estado}
+            </Text>
+
             <ContainerConteudoInformacoes>
               <TituloPerfil>Informações</TituloPerfil>
 
@@ -98,7 +102,10 @@ const Perfil = ({navigation}) => {
                     Data de nascimento: {dadosPaciente.dataNascimento}
                   </TextoInformacoes>
                   <TextoInformacoes> RG: {dadosPaciente.rg} </TextoInformacoes>
-                  <TextoInformacoes> CPF: {dadosPaciente.cpf} </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    CPF: {dadosPaciente.cpf}{" "}
+                  </TextoInformacoes>
                   <TextoInformacoes>
                     {" "}
                     Consultas Realizadas: 10{" "}
@@ -114,7 +121,10 @@ const Perfil = ({navigation}) => {
                 </ContainerImageInformacoes>
                 <ContainerTextosInformacoes>
                   <TituloInformacoes> Localização: </TituloInformacoes>
-                  <TextoInformacoes> CEP: {dadosPaciente.EnderecoPaciente.cep} </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    CEP: {dadosPaciente.EnderecoPaciente.cep}{" "}
+                  </TextoInformacoes>
                   <TextoInformacoes>
                     {" "}
                     Bairro: {dadosPaciente.EnderecoPaciente.bairro}
@@ -123,9 +133,18 @@ const Perfil = ({navigation}) => {
                     {" "}
                     Rua: {dadosPaciente.EnderecoPaciente.rua}
                   </TextoInformacoes>
-                  <TextoInformacoes> N°: {dadosPaciente.EnderecoPaciente.numero} </TextoInformacoes>
-                  <TextoInformacoes> Estado: {dadosPaciente.EnderecoPaciente.estado} </TextoInformacoes>
-                  <TextoInformacoes> Cidade: {dadosPaciente.EnderecoPaciente.cidade} </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    N°: {dadosPaciente.EnderecoPaciente.numero}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Estado: {dadosPaciente.EnderecoPaciente.estado}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Cidade: {dadosPaciente.EnderecoPaciente.cidade}{" "}
+                  </TextoInformacoes>
                 </ContainerTextosInformacoes>
               </ContainerInformacoes>
               <ContainerInformacoes style={{ height: 120 }}>
@@ -141,7 +160,10 @@ const Perfil = ({navigation}) => {
                     {" "}
                     Celular: {dadosPaciente.celular}
                   </TextoInformacoes>
-                  <TextoInformacoes> Email: {dadosPaciente.email} </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Email: {dadosPaciente.email}{" "}
+                  </TextoInformacoes>
                 </ContainerTextosInformacoes>
               </ContainerInformacoes>
             </ContainerConteudoInformacoes>
