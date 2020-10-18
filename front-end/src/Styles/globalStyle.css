@@ -102,6 +102,23 @@ a:visited {
   box-sizing: border-box;
 }
 
+.container-conteudo-central form {
+  height: 80%;
+  width: 100%;
+}
+
+.form-grupo-input {
+  position: relative;
+}
+
+.form .mensagem-erro {
+  color: rgb(255, 38, 38);
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 input {
   height: 50px;
   width: 100%;
@@ -112,5 +129,5 @@ input {
   outline: none;
   border: none;
   border: 2px solid var(--principal);
-  color: black;
+  color: black;justify-content: space-evenly;
 }

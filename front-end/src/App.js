@@ -7,7 +7,7 @@ import "./Styles/globalStyle.css";
 // import Routes from "./routes";
 import Medico from "./Pages/CadastroPessoalMedico/index";
 import Routes from "./routes";
-import ListarFiliais from "./Pages/Filial/Registrar/index";
+import ListarFiliais from "./Pages/Filial/Registrar/Servicos/index";
 
 function App() {
   return (

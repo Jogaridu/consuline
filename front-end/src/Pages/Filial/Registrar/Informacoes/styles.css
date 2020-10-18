@@ -1,6 +1,6 @@
 .conteiner-entrada-dados {
     width: 95%;
-    height: 80%;
+    height: 100%;
     background-color: var(--container);
     box-sizing: border-box;
     border-radius: 20px;
@@ -41,7 +41,7 @@
 #dataAbertura {grid-area: data;}
 #email {grid-area: email;}
 
-.conteiner-entrada-dados form {
+.form-informacao {
     flex: 2;
     height: 100%;
     display: grid;
@@ -54,4 +54,6 @@
     column-gap: 20px;
     padding: 30px;
 }
+
+
 

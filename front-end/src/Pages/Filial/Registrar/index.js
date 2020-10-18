@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Formik, Form } from "formik";
 
 import './styles.css';
 import '../../../Styles/globalStyle.css';
@@ -7,44 +9,41 @@ import Informacoes from "./Informacoes";
 import Endereco from './Endereco';
 import MenuCentral from '../../../Components/MenuCentral';
 import TituloPrincipal from '../../../Components/TituloPrincipal';
-import user from "../../../Assets/user.png";
-import { useState } from 'react';
 import Servicos from './Servicos';
-import {Switch, Route, BrowserRouter as Router, Redirect} from "react-router-dom";
+
+import user from "../../../Assets/user.png";
+
 import api from "../../../Services/api";
+import validacaoSchema from "./ValidacaoInputSchema";
 
-
-function Registrar(props) {
-
-  const [navegarEndereco, setNavegarEndereco] = useState(true);
+function Registrar() {
 
   const [novaFilial, setNovaFilial] = useState({
-    cnpj: "",
-    ie: "",
-    razaoSocial: "",
-    nomeFantasia: "",
-    dataAbertura: "",
-    email: "",
-    telefones: [""],
-    endereco: {
-        rua: "Rua Jorge",
-        bairro: "Bairro Jorge",
-        numero: "121212",
-        complemento: "casa 12",
-        cep: "12345-123",
-        cidade: "Jandira",
-        estado: "SP"
-    },
-    servicos: []
-
+    nomeFantasia: "Hospital de saOsasco",
+    dataAbertura: "05-08-2003",
+    cnpj: "12321",
+    ie: "00000000",
+    email: "j@gmail.com",
+    razaoSocial: "jogaridu",
+    rua: "",
+    bairro: "",
+    numero: "",
+    complemento: "",
+    cep: "",
+    cidade: "",
+    estado: "",
+    servicos: [],
+    telefones: ["12315165"],
   });
+
+  const [telaAtual, setTelaAtual] = useState("/filial");
 
   const cadastrarFilial = async () => {
 
     try {
       console.log(novaFilial);
       const retorno = await api.post("/filial", novaFilial);
-      
+
       if (retorno.status === 201) {
         alert("Cadastro realizado com sucesso");
 
@@ -54,48 +53,52 @@ function Registrar(props) {
       console.error(error);
 
     }
-    
+
   }
 
-  const handlerInput = (evento) => setNovaFilial({...novaFilial, [evento.target.id]: evento.target.value });
+  const onSubmit = (values, actions) => {
+    console.log("Submit: " + JSON.stringify(values));
+    console.log(telaAtual);
+  }
 
   return (
     <div className="container-central">
-        <MenuCentral />
+      <MenuCentral />
 
-        <div className="container-conteudo-central">
-          <TituloPrincipal nome="Informações de cadastro" imagem={user} />
+      <div className="container-conteudo-central">
+        <TituloPrincipal nome="Informações de cadastro" imagem={user} />
 
-          <Router>
-            <Switch>
-              <Route path={`/cadastrar-filial`}>
-                <Informacoes
-                  setNavegarEndereco={setNavegarEndereco}
-                  novaFilial={novaFilial}
-                  setNovaFilial={setNovaFilial}
-                  handlerInput={handlerInput}/>
-              </Route>
-            
-              <Route path={`/cadastrar-endereco`}>
-                <Endereco 
-                  setNavegarEndereco={setNavegarEndereco}
-                  novaFilial={novaFilial}
-                  setNovaFilial={setNovaFilial}
-                  handlerInput={handlerInput}/>
-              </Route>
+        <Router>
+          <Formik
+            onSubmit={onSubmit}
+            initialValues={novaFilial}
+            validationSchema={validacaoSchema}>
+            <Form>
 
-                <Route path={`/cadastrar-servicos`}>
-                  <Servicos 
-                    setNovaFilial={setNovaFilial}
-                    servicosSel={novaFilial.servicos}
-                    cadastrarFilial={cadastrarFilial}
-                    handlerInput={handlerInput}/>
+              <Switch>
+
+                <Route path={`/filial`} exact>
+                  {telaAtual === "/filial" ? <Informacoes setTelaAtual={setTelaAtual} /> : <Redirect to={telaAtual} />}
                 </Route>
-            </Switch>
-          </Router>
-          
 
-        </div>
+                <Route path="/filial/endereco" exact>
+                  {telaAtual === "/filial/endereco" ? <Endereco setTelaAtual={setTelaAtual} /> : <Redirect to={telaAtual} />}
+                </Route>
+
+                <Route path="/filial/servicos" exact>
+                  {telaAtual === "/filial/servicos" ?
+                    <Servicos
+                      setNovaFilial={setNovaFilial}
+                      servicosSel={novaFilial.servicos}
+                      cadastrarFilial={cadastrarFilial}
+                      setTelaAtual={setTelaAtual} /> : <Redirect to={telaAtual} />}
+                </Route>
+              </Switch>
+
+            </Form>
+          </Formik>
+        </Router>
+      </div>
     </div>
   );
 }

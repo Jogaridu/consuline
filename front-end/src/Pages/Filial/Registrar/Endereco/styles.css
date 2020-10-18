@@ -1,6 +1,6 @@
 .conteiner-entrada-dados-endereco {
   width: 95%;
-  height: 80%;
+  height: 100%;
   background-color: var(--container);
   border-radius: 20px;
   display: flex;
@@ -36,13 +36,13 @@
 
 #cep {grid-area: cep;}
 #rua {grid-area: rua;}
-#numero {grid-area: numero; max-width: 120px;}
+#numero {grid-area: numero;}
 #complemento {grid-area: compl;}
 #bairro {grid-area: bairro;}
-#estado {grid-area: estado; max-width: 80px;}
+#estado {grid-area: estado;}
 #cidade {grid-area: cidade;}
 
-.conteiner-entrada-dados-endereco form {
+.form-endereco {
   flex: 2;
   height: 100%;
   padding: 50px;

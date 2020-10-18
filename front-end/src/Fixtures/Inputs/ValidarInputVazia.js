@@ -9,10 +9,10 @@ export default (arrInputs) => {
     arrInputs.forEach(input => {
         if (input.value === "") {
             arrayInputVazias.push(input);
-        } 
+        }
     });
 
     InputIncorreta(arrayInputVazias);
 
-    return true;
+    return arrayInputVazias.length === 0 ? false : true;
 }

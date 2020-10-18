@@ -4,94 +4,87 @@ import './styles.css';
 import '../../../../Styles/globalStyle.css';
 
 import user from "../../../../Assets/user.png";
-import { Link } from 'react-router-dom';
 import validarInputVazia from '../../../../Fixtures/Inputs/ValidarInputVazia';
 import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+import { ErrorMessage, Field } from 'formik';
 
-function Informacoes({novaFilial, handlerInput}) {
+function Informacoes({ setTelaAtual }) {
 
-    const validar = () => {
-      const arrInputs = Array.from(document.querySelectorAll("form input"));
-      console.log(arrInputs);
+  const validar = () => {
+    const arrInputs = Array.from(document.querySelectorAll("form input"));
 
-      const arrayInputsVazias = validarInputVazia(arrInputs);
+    const arrayInputsVazias = validarInputVazia(arrInputs);
 
-      console.log(arrayInputsVazias);
+    if (!arrayInputsVazias) {
+      setTelaAtual("/filial/endereco");
+
     }
+  }
 
-    return (
-        <div className="conteiner-entrada-dados">
-          <div className="titulo-card-cadastro">
-            <figure>
-              <img src={user} alt="Imagem ilustrativa" />
-            </figure>
-            <h2>Informações de cadastro</h2>
-          </div>
-          <form>
-            <input
-              type="text"
-              placeholder="CNPJ"
-              name="txtcnpj"
-              id="cnpj"
-              value={novaFilial.cnpj}
-              onChange={handlerInput}
-              required
-              maxLength="12"
-              onBlur={InputCorreta}/>
+  return (
+    <div className="conteiner-entrada-dados">
+      <div className="titulo-card-cadastro">
+        <figure>
+          <img src={user} alt="Imagem ilustrativa" />
+        </figure>
+        <h2>Informações de cadastro</h2>
+      </div>
+      <div className="form form-informacao">
+        <div className="form-grupo-input" id="cnpj">
+          <Field
+            type="text"
+            placeholder="CNPJ"
+            name="cnpj"
+            onBlur={InputCorreta} />
+          <ErrorMessage className="mensagem-erro" component="span" name="cnpj" />
+        </div>
 
-            <input
-              type="text"
-              placeholder="I.E"
-              name="txtie"
-              id="ie"
-              value={novaFilial.ie}
-              onChange={handlerInput}
-              required
-              onBlur={InputCorreta}/>
+        <div className="form-grupo-input" id="ie">
+          <Field
+            type="text"
+            placeholder="I.E"
+            name="ie"
+            onBlur={InputCorreta} />
+          <ErrorMessage className="mensagem-erro" component="span" name="ie" />
+        </div>
 
-            <input
-              type="text"
-              placeholder="Razão social"
-              name="txtrazaosocial"
-              id="razaoSocial"
-              value={novaFilial.razaoSocial}
-              onChange={handlerInput}
-              required
-              onBlur={InputCorreta}/>
+        <div className="form-grupo-input" id="razaoSocial">
+          <Field
+            type="text"
+            placeholder="Razão social"
+            name="razaoSocial"
+            onBlur={InputCorreta} />
+          <ErrorMessage className="mensagem-erro" component="span" name="razaoSocial" />
+        </div>
 
-            <input
-              type="text"
-              placeholder="Nome fantasia"
-              name="txtnomefantasia"
-              id="nomeFantasia"
-              value={novaFilial.nomeFantasia}
-              onChange={handlerInput}
-              required
-              maxLength="80"
-              onBlur={InputCorreta}/>
+        <div className="form-grupo-input" id="nomeFantasia">
+          <Field
+            type="text"
+            placeholder="Nome fantasia"
+            name="nomeFantasia"
+            onBlur={InputCorreta} />
+          <ErrorMessage className="mensagem-erro" component="span" name="nomeFantasia" />
+        </div>
 
-            <input
-              type="text"
-              placeholder="Data abertura"
-              name="txtdataabertura"
-              id="dataAbertura"
-              value={novaFilial.dataAbertura}
-              onChange={handlerInput}
-              required
-              maxLength="9"
-              onBlur={InputCorreta}/>
+        <div className="form-grupo-input" id="dataAbertura">
+          <Field
+            type="text"
+            placeholder="Data abertura"
+            name="dataAbertura"
+            onBlur={InputCorreta} />
+          <ErrorMessage className="mensagem-erro" component="span" name="dataAbertura" />
+        </div>
 
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              id="email"
-              value={novaFilial.email}
-              onChange={handlerInput}
-              required
-              maxLength="100"
-              onBlur={InputCorreta}/>
-            {/* <input
+        <div className="form-grupo-input" id="email">
+          <Field
+            type="email"
+            placeholder="Email"
+            name="email"
+            onBlur={InputCorreta} />
+          <ErrorMessage className="mensagem-erro" component="span" name="email" />
+        </div>
+
+        {/* <input
               type="tel"
               placeholder="Telefone"
               name="telefone"
@@ -102,21 +95,18 @@ function Informacoes({novaFilial, handlerInput}) {
               maxLength="15"
             /> */}
 
-            <div className="caixa-botoes">
-              <button style={{opacity: 0}}>
-                
-              </button>
-              {/* <Link to="/cadastrar-endereco"> */}
-                <button onClick={validar}>
-                  &rarr;
-                </button>
-              {/* </Link> */}
-            </div>
-              
-          </form>
-        </div>
+        <div className="caixa-botoes">
+          <button style={{ opacity: 0 }} type="button" />
 
-    );
+          <button type="submit" onClick={validar}>
+            &rarr;
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  );
 }
 
 export default Informacoes;

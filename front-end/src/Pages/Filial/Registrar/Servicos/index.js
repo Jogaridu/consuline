@@ -6,9 +6,8 @@ import teste from "../../../../Assets/c.jpg"
 import api from "../../../../Services/api";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
-function Servicos({setNovaFilial, servicosSel, cadastrarFilial}) {
+function Servicos({ setNovaFilial, servicosSel, cadastrarFilial, setTelaAtual }) {
 
     const [servicos, setServicos] = useState([]);
 
@@ -27,7 +26,7 @@ function Servicos({setNovaFilial, servicosSel, cadastrarFilial}) {
             } else {
                 alert("Serviços não existem");
             }
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -36,29 +35,29 @@ function Servicos({setNovaFilial, servicosSel, cadastrarFilial}) {
     const pegarServico = (evento) => {
 
         const servicoId = evento.target.parentNode.parentNode.getAttribute("id");
-        
+
         if (evento.target.checked) {
-            setNovaFilial((e) =>  ({...e, servicos: [...e.servicos, servicoId]}));
+            setNovaFilial((e) => ({ ...e, servicos: [...e.servicos, servicoId] }));
         } else {
-            setNovaFilial((e) => ({...e, servicos: e.servicos.filter(servico => servico !== servicoId)}));
-            
+            setNovaFilial((e) => ({ ...e, servicos: e.servicos.filter(servico => servico !== servicoId) }));
+
         }
     }
 
-    const CardServico = ({id, nome, descricao}) => {
+    const CardServico = ({ id, nome, descricao }) => {
         return (
             <div className="card-servico" id={id}>
                 <label className="chk">
-                    <input type="checkbox" checked={(servicosSel.filter(s => s === id.toString())).length !== 0} id="teste" name="teste" className="verificado" onChange={(evento) => pegarServico(evento)}/>
+                    <input type="checkbox" checked={(servicosSel.filter(s => s === id.toString())).length !== 0} id="teste" name="teste" className="verificado" onChange={(evento) => pegarServico(evento)} />
                     <span />
                 </label>
-                <input type="checkbox" className="ver-mais"/>
+                <input type="checkbox" className="ver-mais" />
                 <h3 className="card-titulo">{nome}</h3>
                 <figure className="card-imagem">
-                    <img src={teste} alt="Imagem do serviço"/>
+                    <img src={teste} alt="Imagem do serviço" />
                 </figure>
                 <div className="btn-descricao">+</div>
-                
+
                 <div className="card-descricao">
                     <p>
                         {descricao}
@@ -72,20 +71,19 @@ function Servicos({setNovaFilial, servicosSel, cadastrarFilial}) {
         <div className="conteiner-entrada-servicos">
 
             <div className="container-card-servicos">
-                {servicos === [] ? "Sem nenhum serviço cadastrado" : servicos.map(servico => (<CardServico 
-                                                    id={servico.id} 
-                                                    nome={servico.nome} 
-                                                    descricao={servico.descricao}/>)
+                {servicos === [] ? "Sem nenhum serviço cadastrado" : servicos.map(servico => (<CardServico
+                    id={servico.id}
+                    nome={servico.nome}
+                    descricao={servico.descricao} />)
                 )}
 
             </div>
-           
-            <div className="caixa-botoes">
-                <Link to="cadastrar-endereco">
-                    <button>&larr;</button>
-                </Link>
 
-                <button style={{width: "180px", fontSize: "1.1em"}} onClick={() => cadastrarFilial()}>Cadastrar</button>
+            <div className="caixa-botoes">
+
+                <button onClick={() => setTelaAtual("/filial/endereco")}>&larr;</button>
+
+                <button style={{ width: "180px", fontSize: "1.1em" }} onClick={() => cadastrarFilial()}>Cadastrar</button>
             </div>
         </div>
     );
