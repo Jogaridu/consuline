@@ -23,8 +23,6 @@ module.exports = {
 
     const verificado = false;
 
-    // const { firebaseUrl } = req.file ? req.file : "";
-
     try {
 
       let pacienteCriado = await Paciente.findOne({
@@ -138,6 +136,7 @@ module.exports = {
       });
     }
   },
+
   async listar(req, res) {
     try {
       let pacientes = await Paciente.findAll({
@@ -163,6 +162,7 @@ module.exports = {
       });
     }
   },
+
   async deletar(req, res) {
     const { id } = req.params;
 
@@ -289,5 +289,23 @@ module.exports = {
     }
 
     res.status(404).send({ erro: "Paciente não existe" });
+  },
+
+  async cadastrarImagem(req, res) {
+    const { id } = req.params;
+
+    const { firebaseUrl } = req.file ? req.file : "";
+
+    if (firebaseUrl !== "") {
+      await Paciente.update({ foto: firebaseUrl },
+        {
+          where: {
+            id: id
+          }
+        }
+      )
+
+      return res.status(201).send({ foto: firebaseUrl });
+    }
   }
 };
