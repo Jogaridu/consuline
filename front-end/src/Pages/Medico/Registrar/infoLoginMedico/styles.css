@@ -3,6 +3,7 @@
     height: 655px;
      background-color: var(--fundo); 
      margin-top: -60px;
+     
 }
     
 
@@ -84,13 +85,12 @@
 
             /* ---------------------------- Container-left-side ---------------------------- */
 
-
-.img-usuario{
-    width: 180px;
-    height: 180px;
-    background-color: var(--principal);
-    border-radius: 50%;
-    background-position: -15px -15px;
+.cadeado{
+    width: 100px;
+    height: 130px;
+    margin-left: 40px;
+    margin-top: 20px;
+    /* background-color: red; */
 }
 
 .subtitulo-img{
@@ -108,9 +108,13 @@
 
             /* ---------------------------- Container-right-side ---------------------------- */
 
-.entrada-de-dados{
+.entrada-de-dados-login{
     width: 350px;
     height: 430px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     /* background-color: #fff; */
 }
 .entrada-dados2{
@@ -152,10 +156,10 @@
     float: left;
 } */
 
-.next-right{
-    width: 40px;
+.next-right-medico{
+    width: 140px;
     height: 40px;
-    font-size: 30px;
+    font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     /* margin-left: 140px; */
@@ -163,6 +167,10 @@
     color: var(--container);
     border-radius: 10px;
     cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont,
+     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
     text-align: center;
 }
 

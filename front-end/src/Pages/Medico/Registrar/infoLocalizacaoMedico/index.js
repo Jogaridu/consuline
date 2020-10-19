@@ -12,7 +12,7 @@ function MenuCentral3() {
     return (
 
         <div className="container-medicos">    
-        <div className="cadastro">  
+        <div className="cadastro-pessoal">  
 
             <div id="container-card">
                 <div className="container-left-side">
@@ -26,7 +26,7 @@ function MenuCentral3() {
                 </div>
     
                 <div className="container-right-side">
-                    <div className="entrada-de-dados">
+                    <div className="entrada-de-dados-localizacao">
                     <div className="entrada-dados2">
                         <div className="inputs-line-1">
                           <input placeholder="CEP"></input>

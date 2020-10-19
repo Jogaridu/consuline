@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {Switch, Route, BrowserRouter as Router } from "react-router-dom" ;
 import { Formik, Form } from "formik";
 
@@ -12,6 +12,25 @@ import MenuCentral4 from "./infoLoginMedico";
 // import { Link } from "react-router-dom";
 
 function Medico  () {
+
+  const [medicoInformacoes, setmedicoInformacoes] = useState({
+    nome:"",
+    datanascimento:"",
+    cpf:"",
+    crm:"",
+    email:"",
+    telefone:"",
+    cep:"",
+    cidadeId:"",
+    rua:"",
+    numero:"",
+    bairro:"",
+    estadoId:"",
+    login:"",
+    senha:""
+  });
+
+
   return (
     <>
         <body>

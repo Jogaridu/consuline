@@ -2,18 +2,19 @@
     width: auto;
     height: 655px;
      background-color: var(--fundo); 
-     margin-top: -60px;
+     display: flex;
+     justify-content: center;
+     /* margin-top: -60px; */
 }
     
 
                         /****************************** CONTAINER DO CADASTRO COMPLETO FORM + TITULO ******************************/
-.cadastro{
+.cadastro-pessoal{
     width: 810px;
     height: 600px;
     /* border: 2px solid black;   */
     float: left;
     margin-top: 35px;
-    margin-left: 150px;
     
 }
 
@@ -129,7 +130,7 @@
     display: flex;
     flex-direction: row;
 }
-.entrada-dados3{
+.entrada-dados3-pessoal{
     margin-left: 20px;
 }
 

@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
-
+import cadeado from "../../../../Assets/cadeado.png"
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
 function MenuCentral4() {
@@ -23,34 +24,29 @@ function MenuCentral4() {
             <div id="container-card">
                 <div className="container-left-side">
                         <div className="img-usuario">
-                            {/* <img id="usuario" src={usuario} alt="logo projeto" /> */}
+                             <img className="cadeado" src={cadeado} alt="logo projeto" /> 
                         </div>
     
                         <div className="subtitulo-img">
-                          Cadastro Pessoal
+                          Cadastro Login
                         </div>                              
                 </div>
     
     
                 <div className="container-right-side">
-                    <div className="entrada-de-dados">
-                      <input placeholder="Nome Completo"></input>
-                      <input placeholder="Data de Nascimento"></input>
-                      <div className="entrada-dados2">
-                        <div className="">
-                          <input placeholder="R.G"></input>
-                        </div>
-                        <div className="entrada-dados3">
-                          <input placeholder="CPF"></input>
-                        </div>
-                      </div>
-                      <input placeholder="Email"></input>
-                      <input placeholder="Telefone"></input>      
+                    <div className="entrada-de-dados-login">
+                      <input placeholder="Login"></input>
+                      <input placeholder="Senha"></input>
+                      <input placeholder="Confirmar Senha"></input>      
                     </div>
     
     
-                     <div className="div-btn">
-                      
+                    <div className="div-btn">
+                        <Link to="/cadastro-localizacao">
+                              <div className="next-right">
+                                ⇦
+                              </div>
+                        </Link>
                         <div className="qnt-pag">
                             <div className="pg1-1"> 
                             
@@ -62,9 +58,11 @@ function MenuCentral4() {
                             
                             </div>
                         </div>
-                        <div className="next-right">
-                        ⇨
-                        </div>
+                        <Link to="/cadastro-login">
+                              <div className="next-right-medico">
+                                Concluido
+                              </div>
+                        </Link>
                     </div>
                     </div>
                    

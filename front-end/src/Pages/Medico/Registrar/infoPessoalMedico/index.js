@@ -11,7 +11,7 @@ function MenuCentral2() {
     return (
 
         <div className="container-medicos">    
-        <div className="cadastro">
+        <div className="cadastro-pessoal">
             {/* <div className="container-titulo">
                     <div className="titulo">
                     ADICIONAR PROFISSIONAL DA SAÚDE
@@ -41,7 +41,7 @@ function MenuCentral2() {
                         <div className="">
                           <input placeholder="R.G"></input>
                         </div>
-                        <div className="entrada-dados3">
+                        <div className="entrada-dados3-pessoal">
                           <input placeholder="CPF"></input>
                         </div>
                       </div>
