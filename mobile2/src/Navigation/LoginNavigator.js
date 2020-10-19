@@ -22,15 +22,16 @@ import CadastroLoginSenha from "../Views/Registrar/LoginSenha";
 import colors from "../Styles/colors";
 
 const optionsHeader = {
-  headerBackTitleVisible: true,
+  headerBackTitleVisible: false,
   headerBackTitle: "Voltar",
+  headerBackTitleVisible: true,
 
   headerStyle: {
     backgroundColor: colors.container,
   },
   headerTintColor: colors.secundaria,
 
-  headerTitle: false,
+  headerTitle: true,
 };
 
 const config = {
@@ -100,7 +101,7 @@ const LoginNavigator = () => {
         component={CadastroLoginSenha}
         options={{
           ...optionsHeader
-          
+
         }}
       />
 

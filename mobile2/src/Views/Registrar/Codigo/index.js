@@ -90,7 +90,7 @@ const Codigo = ({ navigation, route }) => {
     ]).start();
   }
 
-  // const pacienteId = route.params;
+  const pacienteId = route.params;
 
   const { height, width } = Dimensions.get("window");
 
@@ -150,7 +150,7 @@ const Codigo = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgCodigo>
-      <Animated.Image
+        <Animated.Image
           source={require("../../../Assets/codigoVerificado.png")}
           style={{
             width: img.x,

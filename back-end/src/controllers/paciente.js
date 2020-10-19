@@ -23,7 +23,7 @@ module.exports = {
 
     const verificado = false;
 
-    const { firebaseUrl } = req.file ? req.file : "";
+    // const { firebaseUrl } = req.file ? req.file : "";
 
     try {
 
@@ -191,54 +191,50 @@ module.exports = {
   },
 
   async atualizar(req, res) {
+
     const { id } = req.params;
 
-    let {
-      nome,
-      celular,
-      login,
-      senha,
-      dataNascimento,
-      email,
-      rg,
-      cpf,
-      endereco,
-    } = req.body;
+    const dados = req.body;
+
+    console.log(dados);
 
     try {
       let paciente = await Paciente.findByPk(id);
+
       if (!paciente) {
         return res
           .status(400)
-          .send({ error: "Paciente não encontrado no sistema" });
+          .send({ erro: "Paciente não encontrado no sistema" });
       }
 
-      await EnderecoPaciente.update(endereco, { where: { id: paciente.EnderecoPacienteId } });
+      if (dados.endereco) {
+        await EnderecoPaciente.update(dados.endereco, { where: { id: paciente.EnderecoPacienteId } });
 
-      const senhaCripto = bcrypt.hashSync(senha, 10);
+      }
 
-      await Paciente.update(
-        {
-          nome,
-          celular,
-          login,
-          senha: senhaCripto,
-          dataNascimento,
-          email,
-          rg,
-          cpf,
-        },
-        {
-          where: { id: id },
-        }
-      );
+      if (dados.senha) {
+        const senhaCripto = bcrypt.hashSync(dados.senha, 10);
+
+        await Paciente.update({ ...dados, senha: senhaCripto },
+          {
+            where: { id: id },
+          }
+        );
+
+      } else {
+        await Paciente.update(dados,
+          {
+            where: { id: id },
+          }
+        );
+      }
 
       res.status(200).send({ sucesso: "Profissional atualizado com sucesso" });
 
     } catch (error) {
 
       console.error(error);
-      
+
       return res.status(500).send({
         error: "Não foi possivel atualzar, tente novamente por favor",
       });
@@ -292,6 +288,6 @@ module.exports = {
       return res.status(200).send("Sucesso");
     }
 
-    res.status(404).send({erro: "Paciente não existe"});
+    res.status(404).send({ erro: "Paciente não existe" });
   }
 };

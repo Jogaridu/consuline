@@ -124,9 +124,9 @@ const Telefone = ({ navigation, route }) => {
 
       try {
         const retorno = await api.post("/paciente", novoPaciente);
-        
+
         if (retorno.status === 201) {
-          
+
           navigation.navigate("RegistrarCodigo", retorno.data.paciente.id);
 
         }
@@ -143,7 +143,7 @@ const Telefone = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgTelefone>
-      <Animated.Image
+        <Animated.Image
           source={require("../../../Assets/vetorCelular.jpg")}
           style={{
             width: img.x,

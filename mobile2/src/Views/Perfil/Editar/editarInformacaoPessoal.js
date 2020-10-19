@@ -142,8 +142,8 @@ const EditarInformacaoPessoal = (props) => {
 
       arrayInputsVazias.find((campo) => campo === "dataNascimento")
         ? inputData.current
-            .getElement()
-            .setNativeProps({ style: { borderColor: "red" } })
+          .getElement()
+          .setNativeProps({ style: { borderColor: "red" } })
         : "";
 
       arrayInputsVazias.find((campo) => campo === "rg")
