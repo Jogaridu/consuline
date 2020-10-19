@@ -5,6 +5,7 @@ import Home from "./Pages/Home/index";
 import Login from "./Pages/Login/index";
 import HomeCrud from "./Pages/Home-Crud/index";
 import RegistrarFilial from "./Pages/Filial/Registrar";
+import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import HomeFilial from "./Pages/Filial/Home/index";
 function Routes() {
   return (
@@ -21,6 +22,9 @@ function Routes() {
         </Route>
         <Route path="/filial">
           <RegistrarFilial />
+        </Route>
+        <Route path="/filiais">
+          <ListagemFilial />
         </Route>
         <Route path="/home-filial">
           <HomeFilial />

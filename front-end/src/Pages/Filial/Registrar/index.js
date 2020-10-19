@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router, Redirect, useHistory } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import './styles.css';
@@ -19,47 +19,9 @@ import validacaoSchema from "./ValidacaoInputSchema";
 function Registrar() {
 
   const [novaFilial, setNovaFilial] = useState({
-    nomeFantasia: "",
-    dataAbertura: "",
-    cnpj: "",
-    ie: "",
-    email: "",
-    razaoSocial: "",
-    rua: "",
-    bairro: "",
-    numero: "",
-    complemento: "",
-    cep: "",
-    cidade: "",
-    estado: "",
     telefones: ["11963688640"],
     servicos: []
   });
-
-  const [telaAtual, setTelaAtual] = useState("/filial");
-
-  console.log(novaFilial);
-  const cadastrarFilial = async () => {
-
-    try {
-      console.log(novaFilial);
-      const retorno = await api.post("/filial", novaFilial);
-
-      if (retorno.status === 201) {
-        alert("Cadastro realizado com sucesso");
-
-      }
-
-    } catch (error) {
-      console.error(error);
-
-    }
-
-  }
-
-  const onSubmit = (values, actions) => {
-    console.log("Submit: " + JSON.stringify(values));
-  }
 
   return (
     <div className="container-central">
@@ -69,37 +31,16 @@ function Registrar() {
         <TituloPrincipal nome="Informações de cadastro" imagem={user} />
 
         <Router>
-          <Formik
-            onSubmit={onSubmit}
-            initialValues={novaFilial}
-            validationSchema={validacaoSchema}>
-            <Form>
+          <Switch>
+            <Route path="/filial" exact component={Informacoes} />
 
-              <Switch>
+            <Route path="/filial/endereco" component={Endereco} />
 
-                <Route path={`/filial`} exact>
-                  {telaAtual === "/filial" ? <Informacoes setTelaAtual={setTelaAtual} /> : <Redirect to={telaAtual} />}
-                </Route>
-
-                <Route path="/filial/endereco" exact>
-                  {telaAtual === "/filial/endereco" ? <Endereco setTelaAtual={setTelaAtual} /> : <Redirect to={telaAtual} />}
-                </Route>
-
-                <Route path="/filial/servicos" exact>
-                  {telaAtual === "/filial/servicos" ?
-                    <Servicos
-                      setNovaFilial={setNovaFilial}
-                      servicosSel={novaFilial.servicos}
-                      cadastrarFilial={cadastrarFilial}
-                      setTelaAtual={setTelaAtual} /> : <Redirect to={telaAtual} />}
-                </Route>
-              </Switch>
-
-            </Form>
-          </Formik>
+            <Route path="/filial/servicos" component={Servicos} />
+          </Switch>
         </Router>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

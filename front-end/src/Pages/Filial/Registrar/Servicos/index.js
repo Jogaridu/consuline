@@ -6,14 +6,41 @@ import teste from "../../../../Assets/c.jpg"
 import api from "../../../../Services/api";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-function Servicos({ setNovaFilial, servicosSel, cadastrarFilial, setTelaAtual }) {
+function Servicos() {
+
+    const history = useHistory();
+
+    const location = useLocation();
+
+    let novaFilial = location.state;
 
     const [servicos, setServicos] = useState([]);
+    const [novoServico, setNovoServico] = useState([]);
 
     useEffect(() => {
         carragarServicos();
     }, []);
+
+    const cadastrarFilial = async () => {
+
+        novaFilial.telefones = ["11912341234"]; // Provisório
+
+        console.log(novaFilial);
+        try {
+            const retorno = await api.post("/filial", novaFilial);
+
+            if (retorno.status === 201) {
+                alert("Cadastro realizado com sucesso");
+            }
+
+        } catch (error) {
+            console.error(error);
+
+        }
+
+    }
 
     const carragarServicos = async () => {
         try {
@@ -32,23 +59,25 @@ function Servicos({ setNovaFilial, servicosSel, cadastrarFilial, setTelaAtual })
         }
     }
 
-    const pegarServico = (evento) => {
-
-        const servicoId = evento.target.parentNode.parentNode.getAttribute("id");
+    const pegarServico = (evento, servicoId) => {
 
         if (evento.target.checked) {
-            setNovaFilial((e) => ({ ...e, servicos: [...e.servicos, servicoId] }));
+            setNovoServico(e => [...e, servicoId]);
+
         } else {
-            setNovaFilial((e) => ({ ...e, servicos: e.servicos.filter(servico => servico !== servicoId) }));
+            setNovoServico(e => e.filter(servico => servico !== servicoId));
 
         }
+
+        novaFilial["servicos"] = novoServico;
+
     }
 
     const CardServico = ({ id, nome, descricao }) => {
         return (
             <div className="card-servico" id={id}>
                 <label className="chk">
-                    <input type="checkbox" checked={(servicosSel.filter(s => s === id.toString())).length !== 0} id="teste" name="teste" className="verificado" onChange={(evento) => pegarServico(evento)} />
+                    <input type="checkbox" checked={(novoServico.filter(s => s === id)).length !== 0} id="teste" name="teste" className="verificado" onChange={(evento) => pegarServico(evento, id)} />
                     <span />
                 </label>
                 <input type="checkbox" className="ver-mais" />
@@ -79,7 +108,7 @@ function Servicos({ setNovaFilial, servicosSel, cadastrarFilial, setTelaAtual })
             </div>
 
             <div className="caixa-botoes">
-                <button onClick={() => setTelaAtual("/filial/endereco")} type="button">&larr;</button>
+                <button onClick={() => history.push("/filial/endereco")} type="button">&larr;</button>
 
                 <button style={{ width: "180px", fontSize: "1.1em" }} type="submit" onClick={cadastrarFilial}>Cadastrar</button>
             </div>
