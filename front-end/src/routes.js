@@ -19,7 +19,7 @@ function Routes() {
         <Route path="/home-central">
           <HomeCrud />
         </Route>
-        <Route path="/filial" exact>
+        <Route path="/filial">
           <RegistrarFilial />
         </Route>
         <Route path="/home-filial">

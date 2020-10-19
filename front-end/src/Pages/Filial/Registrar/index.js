@@ -19,12 +19,12 @@ import validacaoSchema from "./ValidacaoInputSchema";
 function Registrar() {
 
   const [novaFilial, setNovaFilial] = useState({
-    nomeFantasia: "Hospital de saOsasco",
-    dataAbertura: "05-08-2003",
-    cnpj: "12321",
-    ie: "00000000",
-    email: "j@gmail.com",
-    razaoSocial: "jogaridu",
+    nomeFantasia: "",
+    dataAbertura: "",
+    cnpj: "",
+    ie: "",
+    email: "",
+    razaoSocial: "",
     rua: "",
     bairro: "",
     numero: "",
@@ -32,12 +32,13 @@ function Registrar() {
     cep: "",
     cidade: "",
     estado: "",
-    servicos: [],
-    telefones: ["12315165"],
+    telefones: ["11963688640"],
+    servicos: []
   });
 
   const [telaAtual, setTelaAtual] = useState("/filial");
 
+  console.log(novaFilial);
   const cadastrarFilial = async () => {
 
     try {
@@ -58,7 +59,6 @@ function Registrar() {
 
   const onSubmit = (values, actions) => {
     console.log("Submit: " + JSON.stringify(values));
-    console.log(telaAtual);
   }
 
   return (

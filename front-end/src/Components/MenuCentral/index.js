@@ -20,7 +20,7 @@ function MenuCentral() {
                 <div className="itensMenu">
                     Medicos
                 </div>
-                <Link to="cadastrar-filial">
+                <Link to="/filial">
                     <div className="itensMenu">
                         Filiais
                     </div>

@@ -23,7 +23,7 @@ const Login = (props) => {
   const entrar = async (e) => {
     e.preventDefault();
 
-    return history.push("/home");
+    return history.push("/home-central");
 
     try {
       const response = await api.post("/login", adminLogin);

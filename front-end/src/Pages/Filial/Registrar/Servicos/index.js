@@ -76,14 +76,12 @@ function Servicos({ setNovaFilial, servicosSel, cadastrarFilial, setTelaAtual })
                     nome={servico.nome}
                     descricao={servico.descricao} />)
                 )}
-
             </div>
 
             <div className="caixa-botoes">
+                <button onClick={() => setTelaAtual("/filial/endereco")} type="button">&larr;</button>
 
-                <button onClick={() => setTelaAtual("/filial/endereco")}>&larr;</button>
-
-                <button style={{ width: "180px", fontSize: "1.1em" }} onClick={() => cadastrarFilial()}>Cadastrar</button>
+                <button style={{ width: "180px", fontSize: "1.1em" }} type="submit" onClick={cadastrarFilial}>Cadastrar</button>
             </div>
         </div>
     );

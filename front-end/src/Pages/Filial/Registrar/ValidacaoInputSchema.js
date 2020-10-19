@@ -11,9 +11,9 @@ export default yup.object().shape({
     email: yup.string().email().required(mensagemObrigatoria),
     rua: yup.string().max(120).required(mensagemObrigatoria),
     bairro: yup.string().max(80).required(mensagemObrigatoria),
-    numero: yup.string(),
-    complemento: yup.string(),
-    cep: yup.string(),
-    cidade: yup.string(),
-    estado: yup.string()
+    numero: yup.string().required(mensagemObrigatoria),
+    complemento: yup.string().required(mensagemObrigatoria),
+    cep: yup.string().required(mensagemObrigatoria),
+    cidade: yup.string().required(mensagemObrigatoria),
+    estado: yup.string().required(mensagemObrigatoria)
 });

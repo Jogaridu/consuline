@@ -5,8 +5,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: row;
-  margin: 10px auto;
-  transition: 500ms ease all; 
+  margin: 10px auto; 
 }
 
 .titulo-card-cadastro {

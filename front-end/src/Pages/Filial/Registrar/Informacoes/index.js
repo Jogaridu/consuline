@@ -16,7 +16,7 @@ function Informacoes({ setTelaAtual }) {
     const arrayInputsVazias = validarInputVazia(arrInputs);
 
     if (!arrayInputsVazias) {
-      setTelaAtual("/filial/endereco");
+      // setTelaAtual("/filial/endereco");
 
     }
   }
