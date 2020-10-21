@@ -68,9 +68,19 @@ function Informacoes({ novaFilial }) {
           <div className="form-grupo-input" id="ie">
             <Field
               type="text"
-              placeholder="I.E"
               name="ie"
-              onBlur={InputCorreta} />
+              onBlur={InputCorreta}
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.ie}
+                  onBlur={InputCorreta}
+                  placeholder="I.E"
+
+                />
+              )}
+            />
             <ErrorMessage className="mensagem-erro" component="span" name="ie" />
           </div>
 
@@ -97,7 +107,18 @@ function Informacoes({ novaFilial }) {
               type="text"
               placeholder="Data abertura"
               name="dataAbertura"
-              onBlur={InputCorreta} />
+              onBlur={InputCorreta}
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.data}
+                  onBlur={InputCorreta}
+                  placeholder="Data abertura"
+
+                />
+              )}
+            />
             <ErrorMessage className="mensagem-erro" component="span" name="dataAbertura" />
           </div>
 

@@ -12,6 +12,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { validarEndereco } from '../ValidacaoInputSchema';
 import { useEffect } from 'react';
 
+import MaskedInput from "react-text-mask";
+
+import mascaras from "./mask";
+import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+
 function Endereco() {
 
 
@@ -128,7 +133,17 @@ function Endereco() {
                   limparCampos();
                 }
               }}
-              value={endereco.cep} />
+              value={endereco.cep}
+              // render={({field}) => (
+              //   <MaskedInput
+              //     {...field}
+              //     type="text"
+              //     mask={mascaras.cep}
+              //     onBlur={InputCorreta}
+              //   />
+              // ) }
+
+              />
             <ErrorMessage className="mensagem-erro" component="span" name="cep" />
           </div>
 
@@ -148,7 +163,18 @@ function Endereco() {
               name="numero"
               onChange={handlerInput}
               value={endereco.numero}
-              placeholder="Numero" />
+              render={({field}) => (
+                  <MaskedInput
+                    {...field}
+                    type="text"
+                    mask={mascaras.numero}
+                    onBlur={InputCorreta}
+                    placeholder="Numero"
+
+                  />
+              )
+              }
+              />
             <ErrorMessage className="mensagem-erro" component="span" name="numero" />
           </div>
 
@@ -168,7 +194,8 @@ function Endereco() {
               name="complemento"
               onChange={handlerInput}
               value={endereco.complemento}
-              placeholder="Complemento" />
+              placeholder="Complemento"
+              />
             <ErrorMessage className="mensagem-erro" component="span" name="complemento" />
           </div>
 
