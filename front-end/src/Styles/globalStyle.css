@@ -107,7 +107,9 @@ a:visited {
   width: 95%;
 }
 
+/* Formatações gerais de formulário */
 .form-grupo-input {
+  padding-top: 30px;
   position: relative;
 }
 
