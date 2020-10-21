@@ -4,14 +4,14 @@
     justify-content: space-around;
     grid-area: botoes;
     margin-top: 15px;
-}
-
-.caixa-botoes button {
+  }
+  
+  .caixa-botoes button {
     height: 60px;
-    width: 60px;
+    min-width: 60px;
+    max-width: 140px;
     background-color: var(--principal);
     color: #fff;
-    font-size: 3em;
     font-weight: bold;
     outline: none;
     border: none;
@@ -20,15 +20,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.caixa-botoes button:focus {
+  }
+  
+  .caixa-botoes button:focus {
     outline: none;
     border: none;
-}
-
-.caixa-botoes button:hover {
+  }
+  
+  .caixa-botoes button:hover {
     transform: scale(1.2);
     box-shadow: 0px 0px 6px rgb(0, 0, 0),
                 0px 0px 4px rgb(0, 0, 0);
-}
+  }

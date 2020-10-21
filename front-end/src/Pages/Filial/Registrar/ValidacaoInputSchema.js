@@ -3,8 +3,8 @@ import * as yup from "yup";
 const mensagemObrigatoria = "Campo obrigatório";
 
 const validarInformacoes = yup.object().shape({
-    cnpj: yup.number().positive().integer().required(mensagemObrigatoria),
-    ie: yup.number().positive().integer().required(mensagemObrigatoria),
+    cnpj: yup.string().required(mensagemObrigatoria),
+    ie: yup.string().required(mensagemObrigatoria),
     razaoSocial: yup.string().required(mensagemObrigatoria),
     nomeFantasia: yup.string().required(mensagemObrigatoria),
     dataAbertura: yup.date().required(mensagemObrigatoria),

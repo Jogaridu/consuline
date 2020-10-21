@@ -10,7 +10,11 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { validarInformacoes } from '../ValidacaoInputSchema';
 
+import MaskedInput from "react-text-mask";
+import mascaras from "./mask";
+
 function Informacoes({ novaFilial }) {
+
   const history = useHistory();
 
   const validar = (values) => {
@@ -47,10 +51,17 @@ function Informacoes({ novaFilial }) {
         <div className="form form-informacao">
           <div className="form-grupo-input" id="cnpj">
             <Field
-              type="text"
-              placeholder="CNPJ"
               name="cnpj"
-              onBlur={InputCorreta} />
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.cnpj}
+                  placeholder="CNPJ"
+                  onBlur={InputCorreta}
+
+                />
+              )} />
             <ErrorMessage className="mensagem-erro" component="span" name="cnpj" />
           </div>
 
