@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 
 import './styles.css';
 
@@ -56,6 +56,18 @@ function Endereco() {
     }
   }
 
+  const limparCampos = () => {
+    setEndereco({
+      cep:"",
+      rua: "",
+      bairro: "",
+      complemento: "",
+      numero: "",
+      cidade: "",
+      estado: ""
+    })
+  }
+
   const preencherFormulario = (enderecoCep) => {
     setEndereco({
       ...endereco,
@@ -103,8 +115,18 @@ function Endereco() {
               placeholder="CEP"
               onChange={handlerInput}
               onBlur={async () => {
-                const apiCep = await viaCep(endereco.cep);
-                preencherFormulario(apiCep);
+                if (endereco.cep.length === 9) {
+                  const apiCep = await viaCep(endereco.cep);
+                  if (apiCep.erro) {
+                    window.alert("Informe um cep válido  !!!");
+                    limparCampos();
+                  } else {
+                    preencherFormulario(apiCep);
+                  }
+                } else {
+                  window.alert("Informe um cep válido !!!");
+                  limparCampos();
+                }
               }}
               value={endereco.cep} />
             <ErrorMessage className="mensagem-erro" component="span" name="cep" />
