@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 
 import './styles.css';
 
@@ -13,6 +13,25 @@ import { validarEndereco } from '../ValidacaoInputSchema';
 import { useEffect } from 'react';
 
 function Endereco() {
+
+
+  const viaCep = async (cep) => {
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    const pegarEndereco = await fetch(url);
+    const endereco = await pegarEndereco.json();
+
+    return endereco;
+  };
+
+  const [endereco, setEndereco] = useState({
+    rua: "",
+    bairro: "",
+    numero: "",
+    complemento: "",
+    cep: "",
+    rua: "",
+    estado: "",
+  });
 
   const history = useHistory();
 
@@ -37,6 +56,19 @@ function Endereco() {
     }
   }
 
+  const preencherFormulario = (enderecoCep) => {
+    setEndereco({
+      ...endereco,
+      bairro: enderecoCep.bairro,
+      rua: enderecoCep.logradouro,
+      cidade: enderecoCep.localidade,
+      estado: enderecoCep.uf
+    })
+  }
+
+  const handlerInput = (e) => {
+    setEndereco({ ...endereco, [e.target.id]: e.target.value });
+  };
 
   return (
 
@@ -67,7 +99,14 @@ function Endereco() {
             <Field
               type="text"
               name="cep"
-              placeholder="CEP" />
+              id="cep"
+              placeholder="CEP"
+              onChange={handlerInput}
+              onBlur={async () => {
+                const apiCep = await viaCep(endereco.cep);
+                preencherFormulario(apiCep);
+              }}
+              value={endereco.cep} />
             <ErrorMessage className="mensagem-erro" component="span" name="cep" />
           </div>
 
@@ -75,6 +114,7 @@ function Endereco() {
             <Field
               type="text"
               name="rua"
+              value={endereco.rua}
               placeholder="Logradouro" />
             <ErrorMessage className="mensagem-erro" component="span" name="rua" />
           </div>
@@ -82,7 +122,10 @@ function Endereco() {
           <div className="form-grupo-input" id="numero">
             <Field
               type="text"
+              id="numero"
               name="numero"
+              onChange={handlerInput}
+              value={endereco.numero}
               placeholder="Numero" />
             <ErrorMessage className="mensagem-erro" component="span" name="numero" />
           </div>
@@ -91,6 +134,7 @@ function Endereco() {
             <Field
               type="text"
               name="bairro"
+              value={endereco.bairro}
               placeholder="Bairro" />
             <ErrorMessage className="mensagem-erro" component="span" name="bairro" />
           </div>
@@ -98,7 +142,10 @@ function Endereco() {
           <div className="form-grupo-input" id="complemento">
             <Field
               type="text"
+              id="complemento"
               name="complemento"
+              onChange={handlerInput}
+              value={endereco.complemento}
               placeholder="Complemento" />
             <ErrorMessage className="mensagem-erro" component="span" name="complemento" />
           </div>
@@ -107,6 +154,7 @@ function Endereco() {
             <Field
               type="text"
               name="cidade"
+              value={endereco.cidade}
               placeholder="Cidade" />
             <ErrorMessage className="mensagem-erro" component="span" name="cidade" />
           </div>
@@ -115,6 +163,7 @@ function Endereco() {
             <Field
               type="text"
               name="estado"
+              value={endereco.estado}
               placeholder="Estado" />
             <ErrorMessage className="mensagem-erro" component="span" name="estado" />
           </div>
