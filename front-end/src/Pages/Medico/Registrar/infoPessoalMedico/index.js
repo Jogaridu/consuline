@@ -35,18 +35,18 @@ function MenuCentral2() {
     
                 <div className="container-right-side">
                     <div className="entrada-de-dados">
-                      <input placeholder="Nome Completo"></input>
-                      <input placeholder="Data de Nascimento"></input>
+                      <input placeholder="Nome Completo" required></input>
+                      <input placeholder="Data de Nascimento" required></input>
                       <div className="entrada-dados2">
                         <div className="">
-                          <input placeholder="R.G"></input>
+                          <input placeholder="R.G" required></input>
                         </div>
                         <div className="entrada-dados3-pessoal">
-                          <input placeholder="CPF"></input>
+                          <input placeholder="CPF" required></input>
                         </div>
                       </div>
-                      <input placeholder="Email"></input>
-                      <input placeholder="Telefone"></input>      
+                      <input placeholder="Email" required></input>
+                      <input placeholder="Telefone" required></input>      
                     </div>
   
                       <div className="div-btn">
@@ -64,9 +64,10 @@ function MenuCentral2() {
                           </div>
                           
                             <Link to="/cadastro-localizacao">
-                              <div className="next-right">
-                                ⇨
-                              </div>
+                              
+                              
+                                <button type="submit">⇨</button>
+                              
                             </Link>
                       </div>
                     </div>

@@ -162,7 +162,7 @@
     float: left;
 } */
 
-.next-right{
+button{
     width: 40px;
     height: 40px;
     font-size: 30px;
@@ -175,6 +175,7 @@
     cursor: pointer;
     text-align: center;
 }
+
 
 .qnt-pag{
     width: 60px;
