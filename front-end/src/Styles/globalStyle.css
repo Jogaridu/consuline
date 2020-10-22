@@ -113,6 +113,10 @@ a:visited {
   position: relative;
 }
 
+.form-grupo-input .desabilitado {
+  background-color: rgb(202, 202, 202);
+}
+
 .form .mensagem-erro {
   color: rgb(255, 38, 38);
   font-weight: 500;

@@ -12,10 +12,12 @@ import { validarInformacoes } from '../ValidacaoInputSchema';
 
 import MaskedInput from "react-text-mask";
 import mascaras from "./mask";
+import ValidarData from '../../../../Fixtures/ValidarData';
 
-function Informacoes({ novaFilial }) {
+function Informacoes() {
 
   const history = useHistory();
+
 
   const validar = (values) => {
     const arrInputs = Array.from(document.querySelectorAll("form input"));
@@ -23,8 +25,12 @@ function Informacoes({ novaFilial }) {
     const arrayInputsVazias = validarInputVazia(arrInputs);
 
     if (!arrayInputsVazias) {
-      history.push("/filial/endereco", values);
+      const dataAberturaEn = ValidarData(values.dataAbertura);
 
+      if (dataAberturaEn) {
+        history.push("/filial/endereco", { ...values, dataAbertura: dataAberturaEn });
+
+      }
     }
   }
 
@@ -59,7 +65,7 @@ function Informacoes({ novaFilial }) {
                   mask={mascaras.cnpj}
                   placeholder="CNPJ"
                   onBlur={InputCorreta}
-
+                  guide={false}
                 />
               )} />
             <ErrorMessage className="mensagem-erro" component="span" name="cnpj" />
@@ -69,7 +75,6 @@ function Informacoes({ novaFilial }) {
             <Field
               type="text"
               name="ie"
-              onBlur={InputCorreta}
               render={({ field }) => (
                 <MaskedInput
                   {...field}
@@ -77,7 +82,7 @@ function Informacoes({ novaFilial }) {
                   mask={mascaras.ie}
                   onBlur={InputCorreta}
                   placeholder="I.E"
-
+                  guide={false}
                 />
               )}
             />
@@ -89,7 +94,8 @@ function Informacoes({ novaFilial }) {
               type="text"
               placeholder="Razão social"
               name="razaoSocial"
-              onBlur={InputCorreta} />
+              onBlur={InputCorreta}
+              maxLength="30" />
             <ErrorMessage className="mensagem-erro" component="span" name="razaoSocial" />
           </div>
 
@@ -98,16 +104,19 @@ function Informacoes({ novaFilial }) {
               type="text"
               placeholder="Nome fantasia"
               name="nomeFantasia"
-              onBlur={InputCorreta} />
+              onBlur={InputCorreta}
+              maxLength="30" />
             <ErrorMessage className="mensagem-erro" component="span" name="nomeFantasia" />
           </div>
 
           <div className="form-grupo-input" id="dataAbertura">
             <Field
-              type="text"
-              placeholder="Data abertura"
               name="dataAbertura"
-              onBlur={InputCorreta}
+              validate={values => {
+                if (!ValidarData(values)) {
+                  return "Data inválida";
+                }
+              }}
               render={({ field }) => (
                 <MaskedInput
                   {...field}
@@ -115,7 +124,7 @@ function Informacoes({ novaFilial }) {
                   mask={mascaras.data}
                   onBlur={InputCorreta}
                   placeholder="Data abertura"
-
+                  guide={false}
                 />
               )}
             />
@@ -147,7 +156,7 @@ function Informacoes({ novaFilial }) {
 
             <button type="submit">
               &rarr;
-          </button>
+            </button>
           </div>
         </div>
 

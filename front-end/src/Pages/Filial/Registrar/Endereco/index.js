@@ -21,21 +21,42 @@ function Endereco() {
 
 
   const viaCep = async (cep) => {
-    const url = `https://viacep.com.br/ws/${cep}/json/`;
-    const pegarEndereco = await fetch(url);
-    const endereco = await pegarEndereco.json();
 
-    return endereco;
+    try {
+      const url = `https://viacep.com.br/ws/${cep}/json/`;
+      const pegarEndereco = await fetch(url);
+      const endereco = await pegarEndereco.json();
+
+      return endereco;
+
+    } catch (error) {
+
+      return false;
+    }
+
   };
+
+  const buscarCep = async (cep) => {
+
+    console.log(cep);
+    const apiCep = await viaCep(cep);
+
+    console.log(apiCep);
+
+    if (!apiCep) {
+      window.alert("Informe um cep válido  !!!");
+      limparCampos();
+
+    } else {
+      preencherFormulario(apiCep);
+    }
+  }
 
   const [endereco, setEndereco] = useState({
     rua: "",
     bairro: "",
-    numero: "",
-    complemento: "",
-    cep: "",
-    rua: "",
-    estado: "",
+    cidade: "",
+    estado: ""
   });
 
   const history = useHistory();
@@ -56,18 +77,15 @@ function Endereco() {
     const arrayInputsVazias = ValidarInputVazia(arrInputs);
 
     if (!arrayInputsVazias) {
-      history.push("/filial/servicos", { ...novaFilial, endereco: values, servicos: ["1"] });
+      history.push("/filial/servicos", { ...novaFilial, endereco: values, servicos: [] });
 
     }
   }
 
   const limparCampos = () => {
     setEndereco({
-      cep:"",
       rua: "",
       bairro: "",
-      complemento: "",
-      numero: "",
       cidade: "",
       estado: ""
     })
@@ -75,7 +93,6 @@ function Endereco() {
 
   const preencherFormulario = (enderecoCep) => {
     setEndereco({
-      ...endereco,
       bairro: enderecoCep.bairro,
       rua: enderecoCep.logradouro,
       cidade: enderecoCep.localidade,
@@ -83,22 +100,14 @@ function Endereco() {
     })
   }
 
-  const handlerInput = (e) => {
-    setEndereco({ ...endereco, [e.target.id]: e.target.value });
-  };
-
   return (
 
     <Formik
       onSubmit={validar}
       initialValues={{
         cep: "",
-        rua: "",
-        bairro: "",
         complemento: "",
         numero: "",
-        cidade: "",
-        estado: ""
       }}
       validationSchema={validarEndereco}>
       <Form className="conteiner-entrada-dados-endereco">
@@ -114,36 +123,18 @@ function Endereco() {
 
           <div className="form-grupo-input" id="cep">
             <Field
-              type="text"
               name="cep"
-              id="cep"
-              placeholder="CEP"
-              onChange={handlerInput}
-              onBlur={async () => {
-                if (endereco.cep.length === 9) {
-                  const apiCep = await viaCep(endereco.cep);
-                  if (apiCep.erro) {
-                    window.alert("Informe um cep válido  !!!");
-                    limparCampos();
-                  } else {
-                    preencherFormulario(apiCep);
-                  }
-                } else {
-                  window.alert("Informe um cep válido !!!");
-                  limparCampos();
-                }
-              }}
-              value={endereco.cep}
-              // render={({field}) => (
-              //   <MaskedInput
-              //     {...field}
-              //     type="text"
-              //     mask={mascaras.cep}
-              //     onBlur={InputCorreta}
-              //   />
-              // ) }
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.cep}
+                  onBlur={(cep) => { buscarCep(cep.target.value); }}
+                  placeholder="CEP"
+                />
+              )}
 
-              />
+            />
             <ErrorMessage className="mensagem-erro" component="span" name="cep" />
           </div>
 
@@ -152,29 +143,28 @@ function Endereco() {
               type="text"
               name="rua"
               value={endereco.rua}
-              placeholder="Logradouro" />
+              placeholder="Logradouro"
+              className="desabilitado"
+              disabled
+            />
             <ErrorMessage className="mensagem-erro" component="span" name="rua" />
           </div>
-
           <div className="form-grupo-input" id="numero">
             <Field
               type="text"
-              id="numero"
               name="numero"
-              onChange={handlerInput}
-              value={endereco.numero}
-              render={({field}) => (
-                  <MaskedInput
-                    {...field}
-                    type="text"
-                    mask={mascaras.numero}
-                    onBlur={InputCorreta}
-                    placeholder="Numero"
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.numero}
+                  // onBlur={InputCorreta}
+                  placeholder="Numero"
 
-                  />
+                />
               )
               }
-              />
+            />
             <ErrorMessage className="mensagem-erro" component="span" name="numero" />
           </div>
 
@@ -183,19 +173,18 @@ function Endereco() {
               type="text"
               name="bairro"
               value={endereco.bairro}
-              placeholder="Bairro" />
+              placeholder="Bairro"
+              className="desabilitado"
+              disabled />
             <ErrorMessage className="mensagem-erro" component="span" name="bairro" />
           </div>
 
           <div className="form-grupo-input" id="complemento">
             <Field
               type="text"
-              id="complemento"
               name="complemento"
-              onChange={handlerInput}
-              value={endereco.complemento}
               placeholder="Complemento"
-              />
+            />
             <ErrorMessage className="mensagem-erro" component="span" name="complemento" />
           </div>
 
@@ -204,7 +193,9 @@ function Endereco() {
               type="text"
               name="cidade"
               value={endereco.cidade}
-              placeholder="Cidade" />
+              placeholder="Cidade"
+              className="desabilitado"
+              disabled />
             <ErrorMessage className="mensagem-erro" component="span" name="cidade" />
           </div>
 
@@ -212,8 +203,11 @@ function Endereco() {
             <Field
               type="text"
               name="estado"
+              placeholder="Estado"
               value={endereco.estado}
-              placeholder="Estado" />
+
+              className="desabilitado"
+              disabled />
             <ErrorMessage className="mensagem-erro" component="span" name="estado" />
           </div>
 

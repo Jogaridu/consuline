@@ -3,22 +3,18 @@ import * as yup from "yup";
 const mensagemObrigatoria = "Campo obrigatório";
 
 const validarInformacoes = yup.object().shape({
-    cnpj: yup.string().required(mensagemObrigatoria),
-    ie: yup.string().required(mensagemObrigatoria),
-    razaoSocial: yup.string().required(mensagemObrigatoria),
-    nomeFantasia: yup.string().required(mensagemObrigatoria),
-    dataAbertura: yup.date().required(mensagemObrigatoria),
-    email: yup.string().email().required(mensagemObrigatoria),
+    cnpj: yup.string().min(18, "CNPJ deve ter os 14 dígitos").required(mensagemObrigatoria),
+    ie: yup.string().min(15, "IE deve ter os 12 dígitos").required(mensagemObrigatoria),
+    razaoSocial: yup.string().trim().max(30, "Máximo de caracteres é 30").required(mensagemObrigatoria),
+    nomeFantasia: yup.string().trim().max(30, "Máximo de caracteres é 30").required(mensagemObrigatoria),
+    dataAbertura: yup.string().trim().required(mensagemObrigatoria),
+    email: yup.string().email().trim().required(mensagemObrigatoria),
 });
 
 const validarEndereco = yup.object().shape({
-    rua: yup.string().max(120).required(mensagemObrigatoria),
-    bairro: yup.string().max(80).required(mensagemObrigatoria),
     numero: yup.string().required(mensagemObrigatoria),
     complemento: yup.string().required(mensagemObrigatoria),
-    cep: yup.string().required(mensagemObrigatoria),
-    cidade: yup.string().required(mensagemObrigatoria),
-    estado: yup.string().required(mensagemObrigatoria)
+    cep: yup.string().required("Informe seu CEP para autopreencher os campos abaixo"),
 });
 
 export { validarEndereco, validarInformacoes }
