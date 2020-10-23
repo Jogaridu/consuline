@@ -4,42 +4,48 @@ import React from 'react';
 import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
+import { Link } from 'react-router-dom';
 
 function MenuCentral() {
+
+    const SubMenu = ({ itens }) => {
+        console.log(itens);
+
+        const titulos = Object.keys(itens);
+
+        const itensSubMenuJSX = titulos.map(titulo => {
+            return (
+                <Link to={`${itens[titulo]}`}>
+                    <div className="sub-menu-item">{titulo}</div>
+                </Link>
+            );
+        })
+
+        return (
+            <div className="sub-menu">
+                {itensSubMenuJSX}
+            </div>
+        )
+    }
     return (
         <div className="menu">
-            <figure className="iconeMenu">
-                <img id="logoprojeto" src={logoConsuline} alt="Logo da empresa Consuline" />
-            </figure>
+            <Link to="home-central">
+                <figure className="iconeMenu">
+                    <img id="logoprojeto" src={logoConsuline} alt="Logo da empresa Consuline" />
+                </figure>
+            </Link>
 
             <div className="topicosMenu">
-                <div className="pesquisar">
-                    <input type="text" name="" placeholder="PESQUISAR" required=""></input>
-                </div>
                 <div className="itensMenu">
                     Central
                 </div>
                 <div className="itensMenu">
                     Medicos
-                    <div className="sub-menu">
-                        <div className="submenu-adicionar">
-                            Adicionar
-                        </div>
-                        <div className="submenu-listar">
-                            Listar
-                        </div>
-                    </div>
+                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
                 </div>
                 <div className="itensMenu">
                     Filiais
-                    <div className="sub-menu">
-                        <div className="submenu-adicionar">
-                            Adicionar
-                        </div>
-                        <div className="submenu-listar">
-                            Listar
-                        </div>
-                    </div>
+                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
                 </div>
                 <div className="itensMenu">
                     Serviços

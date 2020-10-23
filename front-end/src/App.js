@@ -13,7 +13,7 @@ import infoPessoal from "./Pages/Medico/Registrar/infoPessoalMedico";
 function App() {
   return (
     <>
-      <Medico/>
+      <Routes />
       {/* <ListarFiliais /> */}
     </>
   );
