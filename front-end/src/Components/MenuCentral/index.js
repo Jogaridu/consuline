@@ -22,7 +22,7 @@ function MenuCentral() {
         })
 
         return (
-            <div className="sub-menu">
+            <div className="sub-menu-central">
                 {itensSubMenuJSX}
             </div>
         )
@@ -41,14 +41,16 @@ function MenuCentral() {
                 </div>
                 <div className="itensMenu">
                     Medicos
-                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
+                    <SubMenu itens={{ Adicionar: "/profissional-saude" }} />
                 </div>
                 <div className="itensMenu">
                     Filiais
-                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
+                    <SubMenu itens={{ Adicionar: "/filial", Listar: "/filiais" }} />
                 </div>
                 <div className="itensMenu">
                     Serviços
+                    <SubMenu itens={{ Listar: "/servicos" }} />
+
                 </div>
             </div>
 

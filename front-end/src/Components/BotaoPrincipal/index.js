@@ -4,8 +4,8 @@ import './styles.css';
 
 function BotaoPrincipal(props) {
   return (
-    <button type={props.type} className="botao-principal">
-      {props.title}
+    <button type={props.tipo} className="botao-principal">
+      {props.titulo}
     </button>
   );
 }

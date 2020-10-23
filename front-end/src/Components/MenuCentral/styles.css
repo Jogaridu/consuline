@@ -95,7 +95,7 @@
     transform: scaleX(1);
   }
 
-.sub-menu {
+.sub-menu-central {
     width: 180px;
     height: 120px;
     margin-top: 75px;
@@ -109,7 +109,7 @@
     position: absolute;
     visibility: hidden;
     border-radius: 0 20px 20px 20px;
-    z-index: 999;
+    z-index: 999999;
    
 }
 .sub-menu-item {
@@ -126,10 +126,9 @@
     /* margin-top: 10px; */
     background-color: var(--principal);
 }
-.itensMenu:hover .sub-menu {
+.itensMenu:hover .sub-menu-central {
     visibility: visible;
 }
-
 
 .sub-menu-item {
   display: flex;

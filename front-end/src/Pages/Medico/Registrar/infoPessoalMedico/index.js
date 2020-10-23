@@ -8,11 +8,11 @@ import medico from "../../../../Assets/medico.png"
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
 function MenuCentral2() {
-    return (
+  return (
 
-        <div className="container-medicos">    
-        <div className="cadastro-pessoal">
-            {/* <div className="container-titulo">
+    <div className="container-medicos">
+      <div className="cadastro-pessoal">
+        {/* <div className="container-titulo">
                     <div className="titulo">
                     ADICIONAR PROFISSIONAL DA SAÚDE
                     </div>
@@ -20,39 +20,39 @@ function MenuCentral2() {
                         <img id="iconeAdc" src={adc} alt="icone" /> 
                     </div>
             </div> */}
-           
-           
-            <div id="container-card">
-                <div className="container-left-side">
-                        <div className="img-usuario">
-                             <img id="usuario" src={medico} alt="logo projeto" /> 
+
+
+        <div id="container-card">
+          <div className="container-left-side">
+            <div className="img-usuario">
+              <img id="usuario" src={medico} alt="logo projeto" />
+            </div>
+
+            <div className="subtitulo-img">
+              Cadastro Pessoal
                         </div>
-    
-                        <div className="subtitulo-img">
-                          Cadastro Pessoal
-                        </div>                              
+          </div>
+
+          <div className="container-right-side">
+            <div className="entrada-de-dados">
+              <input placeholder="Nome Completo" required></input>
+              <input placeholder="Data de Nascimento" required></input>
+              <div className="entrada-dados2">
+                <div className="">
+                  <input placeholder="R.G" required></input>
                 </div>
-    
-                <div className="container-right-side">
-                    <div className="entrada-de-dados">
-                      <input placeholder="Nome Completo" required></input>
-                      <input placeholder="Data de Nascimento" required></input>
-                      <div className="entrada-dados2">
-                        <div className="">
-                          <input placeholder="R.G" required></input>
-                        </div>
-                        <div className="entrada-dados3-pessoal">
-                          <input placeholder="CPF" required></input>
-                        </div>
-                      </div>
-                      <input placeholder="Email" required></input>
-                      <input placeholder="Telefone" required></input>      
-                    </div>
-  
-                      <div className="div-btn">
-                        
-                          <div className="qnt-pag">
-                              {/* <div className="pg1-1"> 
+                <div className="entrada-dados3-pessoal">
+                  <input placeholder="CPF" required></input>
+                </div>
+              </div>
+              <input placeholder="Email" required></input>
+              <input placeholder="Telefone" required></input>
+            </div>
+
+            <div className="div-btn">
+
+              <div className="qnt-pag">
+                {/* <div className="pg1-1"> 
                               
                               </div>
                               <div className="pg2-1"> 
@@ -61,23 +61,23 @@ function MenuCentral2() {
                               <div className="pg3-1"> 
                               
                               </div> */}
-                          </div>
-                          
-                            <Link to="/cadastro-localizacao">
-                              <div className="next-right">
-                                ⇨
+              </div>
+
+              <Link to="/profissional-saude/endereco">
+                <div className="next-right">
+                  ⇨
                               </div>
-                            </Link>
-                      </div>
-                    </div>
-                   
-                
+              </Link>
             </div>
-        </div>            
-    
+          </div>
+
+
+        </div>
+      </div>
+
     </div>
-        
-    );
+
+  );
 }
 
 export default MenuCentral2;
@@ -147,25 +147,25 @@ export default MenuCentral2;
 //                                         <input type="text" name="" placeholder="Vinculado a qual filial?" required=""></input>
 //                                     </div> 
 //                              </form>
-                             
+
 //                             </div>
 //                             <div className="div-btn">
 //                                 <div className="next-left">
-                                
+
 //                                 </div>
 //                                 <div className="qnt-pag">
 //                                     <div className="pg1-1"> 
-                                    
+
 //                                     </div>
 //                                     <div className="pg2-1"> 
-                                    
+
 //                                     </div>
 //                                     <div className="pg3-1"> 
-                                    
+
 //                                     </div>
 //                                 </div>
 //                                 <div className="next-right">
-                                    
+
 //                                 </div>
 //                             </div>
 //                         </div>
