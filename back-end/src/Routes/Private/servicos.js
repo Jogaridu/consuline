@@ -8,7 +8,10 @@ const Multer = require("../../fixtures/manipulacaoForm");
 const enviarImagem = require("../../services/firebase");
 
 // routes.post("/servico", Multer("foto"), enviarImagem, controllerServico.cadastrar);
-routes.post("/servico", controllerServico.cadastrar);
+routes.post("/servico", 
+    Multer.single("imagem"),
+    enviarImagem,
+    controllerServico.cadastrar);
 
 routes.get("/servico/:id", controllerServico.buscarPorId);
 
