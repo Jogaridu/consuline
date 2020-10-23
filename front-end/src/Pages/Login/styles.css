@@ -1,78 +1,72 @@
-body{
-    /* width: 1300px; */
-    height: auto;
-    background-color: var(--fundo);
-    border: 2px solid var(--fundo);
-}
 /**************************** CONTAINER PRINCIPAL ****************************/
-.container {
-    height: 100vh;
+.container-principal{
+    min-height: 95vh;
+    height: auto;
+    width: 80vw;
+    border: 0.2em solid var(--principal);
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-.container-principal{
-    min-height: 630px;
-    height: auto;
-    width: 1100px;
-    border: 2px solid var(--principal);
-    /* margin: 0 auto; */
-    /* margin-left: 120px;   */
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 2vh auto;
     box-sizing: border-box;
     border-radius: 30px;
-    /* margin-top: 10px; */
     box-shadow: -30px 20px 20px rgba(0, 0, 0, 0.1);
-    
 }
 
 /**************************** IMAGEM ****************************/
 
 #imgLogoLogin{
-    height: 320px;
-    width: 320px;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+    width: 20vw;
 }
 /**************************** BOTOES ****************************/
-.conteiner-botoes{
-    width: 400px;
-    height: 100px;
+.container-botoes {
+    width: 90%;
+    min-height: 60px;
+    height: auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
+    flex-wrap: wrap;
+    margin: 20px auto;
+}
+
+@media screen and (max-device-width: 780px) {
+    .container-botoes {
+        justify-content: center;
+    }
+
+    .container-botoes button {
+        margin: 0;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (min-device-width: 1200px) {
+    .container-botoes {
+        justify-content: space-between;
+    }
+
+    .container-botoes button {
+        margin: 0;
+    }
 }
 
 /**************************** FORMULARIO ****************************/
-.box{
-    width: 600px;
-    min-height: 250px;
-    max-height: auto;
+.box {
+    width: 35vw;
+    height: 300px;
+    /* background-color: red; */
+}
+
+.box form {
+    height: 300px;
+    width: 100%;
     display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-     box-sizing: border-box;
-     
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-form {
-    width: 80%;
-    height: 30%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-div input{
-    margin-top: 30px;
-}
-
-.box input [type="submit"]{
+/* .box input [type="submit"]{
     border-bottom: none;
     cursor: pointer;
     text-transform: uppercase;
@@ -104,5 +98,5 @@ div input{
 .box input:focus
 {
     border-bottom: 2px solid var(--principal);
-}
+} */
 

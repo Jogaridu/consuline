@@ -5,7 +5,9 @@ import Home from "./Pages/Home/index";
 import Login from "./Pages/Login/index";
 import HomeCrud from "./Pages/Home-Crud/index";
 import RegistrarFilial from "./Pages/Filial/Registrar";
-import HomeFilial from "./Pages/Filial/Home/index";
+import ListagemFilial from "./Pages/Filial/Listar-Filiais";
+import ConsultaFilial from "./Pages/Filial/Editar/index";
+
 function Routes() {
   return (
     <BrowserRouter>
@@ -16,15 +18,24 @@ function Routes() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/home">
+        <Route path="/home-central">
           <HomeCrud />
         </Route>
-        <Route path="/filial-cadastro">
+
+        {/* Rota de filiais */}
+
+        <Route path="/filial">
           <RegistrarFilial />
         </Route>
-        <Route path="/home-filial">
-          <HomeFilial />
+
+        <Route path="/filiais">
+          <ListagemFilial />
         </Route>
+
+        {/* <Route path="/filial/">
+          <ConsultaFilial />
+        </Route> */}
+
       </Switch>
     </BrowserRouter>
   );

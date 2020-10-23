@@ -1,103 +1,169 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './styles.css';
 import '../../../../Styles/globalStyle.css';
 
 import user from "../../../../Assets/user.png";
-import seta from "../../../../Assets/seta2.png";
-import { Link, Route, Switch } from 'react-router-dom';
-import Endereco from '../Endereco';
+import validarInputVazia from '../../../../Fixtures/Inputs/ValidarInputVazia';
+import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { validarInformacoes } from '../ValidacaoInputSchema';
 
-function Informacoes({novaFilial, setNovaFilial, setNavegarEndereco}) {
-    
-    const handlerInput = (evento) => {
-        setNovaFilial({...novaFilial, [evento.target.id]: evento.target.value });
-    };
+import MaskedInput from "react-text-mask";
+import mascaras from "./mask";
+import ValidarData from '../../../../Fixtures/ValidarData';
 
-    return (
-        <div className="conteiner-entrada-dados">
-          <div className="titulo-card-cadastro">
-            <figure>
-              <img src={user} alt="Imagem ilustrativa" />
-            </figure>
-            <h2>Informações de cadastro</h2>
+function Informacoes() {
+
+  const history = useHistory();
+
+
+  const validar = (values) => {
+    const arrInputs = Array.from(document.querySelectorAll("form input"));
+
+    const arrayInputsVazias = validarInputVazia(arrInputs);
+
+    if (!arrayInputsVazias) {
+      const dataAberturaEn = ValidarData(values.dataAbertura);
+
+      if (dataAberturaEn) {
+        history.push("/filial/endereco", { ...values, dataAbertura: dataAberturaEn });
+
+      }
+    }
+  }
+
+  return (
+    <Formik
+      onSubmit={validar}
+      initialValues={{
+        nomeFantasia: "",
+        dataAbertura: "",
+        cnpj: "",
+        ie: "",
+        email: "",
+        razaoSocial: "",
+      }}
+      validationSchema={validarInformacoes}>
+
+      <Form className="conteiner-entrada-dados">
+        <div className="titulo-card-cadastro">
+          <figure>
+            <img src={user} alt="Imagem ilustrativa" />
+          </figure>
+          <h2>Informações de cadastro</h2>
+        </div>
+        <div className="form form-informacao">
+          <div className="form-grupo-input" id="cnpj">
+            <Field
+              name="cnpj"
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.cnpj}
+                  placeholder="CNPJ"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
+            <ErrorMessage className="mensagem-erro" component="span" name="cnpj" />
           </div>
-          <form>
-            <input
-            type="text"
-            placeholder="CNPJ"
-            name="txtcnpj"
-            id="cnpjInpt"
-            value={novaFilial.cnpj}
-            onChange={handlerInput}
-            required
-            maxLength="12"
+
+          <div className="form-grupo-input" id="ie">
+            <Field
+              type="text"
+              name="ie"
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.ie}
+                  onBlur={InputCorreta}
+                  placeholder="I.E"
+                  guide={false}
+                />
+              )}
             />
-            <input
-            type="text"
-            placeholder="I.E"
-            name="txtie"
-            id="ieInpt"
-            value={novaFilial.ie}
-            required
-            />
-            <input
+            <ErrorMessage className="mensagem-erro" component="span" name="ie" />
+          </div>
+
+          <div className="form-grupo-input" id="razaoSocial">
+            <Field
               type="text"
               placeholder="Razão social"
-              name="txtrazaosocial"
-              id="razaoSocialInpt"
-              value={novaFilial.razaoSocial}
-              onChange={handlerInput}
-              required
-            />
-            <input
+              name="razaoSocial"
+              onBlur={InputCorreta}
+              maxLength="30" />
+            <ErrorMessage className="mensagem-erro" component="span" name="razaoSocial" />
+          </div>
+
+          <div className="form-grupo-input" id="nomeFantasia">
+            <Field
               type="text"
               placeholder="Nome fantasia"
-              name="txtnomefantasia"
-              id="nomeFantasiaInpt"
-              value={novaFilial.nomeFantasia}
-              onChange={handlerInput}
-              required
-              maxLength="80"
+              name="nomeFantasia"
+              onBlur={InputCorreta}
+              maxLength="30" />
+            <ErrorMessage className="mensagem-erro" component="span" name="nomeFantasia" />
+          </div>
+
+          <div className="form-grupo-input" id="dataAbertura">
+            <Field
+              name="dataAbertura"
+              validate={values => {
+                if (!ValidarData(values)) {
+                  return "Data inválida";
+                }
+              }}
+              render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.data}
+                  onBlur={InputCorreta}
+                  placeholder="Data abertura"
+                  guide={false}
+                />
+              )}
             />
-            <input
-              type="text"
-              placeholder="Data abertura"
-              name="txtdataabertura"
-              id="dataAberturaInpt"
-              value={novaFilial.dataAbertura}
-              onChange={handlerInput}
-              required
-              maxLength="9"
-            />
-            <input
+            <ErrorMessage className="mensagem-erro" component="span" name="dataAbertura" />
+          </div>
+
+          <div className="form-grupo-input" id="email">
+            <Field
               type="email"
               placeholder="Email"
               name="email"
-              id="emailInpt"
-              value={novaFilial.email}
-              onChange={handlerInput}
-              required
-              maxLength="100"
-            />
-            {/* <input
+              onBlur={InputCorreta} />
+            <ErrorMessage className="mensagem-erro" component="span" name="email" />
+          </div>
+
+          {/* <input
               type="tel"
               placeholder="Telefone"
               name="telefone"
-              id="telefoneInpt"
+              id="telefone"
               value={novaFilial.telefone}
               onChange={handlerInput}
               required
               maxLength="15"
             /> */}
-              
-            <button id="botao" onClick={() => setNavegarEndereco(false)}>
-                Próximo
+
+          <div className="caixa-botoes">
+            <button style={{ opacity: 0 }} type="button" />
+
+            <button type="submit">
+              &rarr;
             </button>
-            
-          </form>
+          </div>
         </div>
-    );
+
+      </Form>
+
+    </Formik>
+  );
 }
 
 export default Informacoes;

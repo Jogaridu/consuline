@@ -10,7 +10,6 @@ module.exports = {
 
         const { servicos, endereco, telefones, ...dados } = req.body;
 
-        // celebrate
         if (endereco && telefones && dados && servicos) {
             try {
 
@@ -22,7 +21,7 @@ module.exports = {
                 });
 
                 if (filialCriado) {
-                    return res.status(400).send("Essa filial já está cadastrado");
+                    return res.status(400).send({ erro: "Essa filial já está cadastrado"});
 
                 }
 

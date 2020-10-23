@@ -1,6 +1,6 @@
 .conteiner-entrada-dados {
     width: 95%;
-    height: 80%;
+    height: 100%;
     background-color: var(--container);
     box-sizing: border-box;
     border-radius: 20px;
@@ -34,47 +34,26 @@
     width: 150px;
 }
 
-#cnpjInpt {grid-area: cnpj;}
-#ieInpt {grid-area: ie;}
-#razaoSocialInpt {grid-area: social;}
-#nomeFantasiaInpt {grid-area: nome;}
-#dataAberturaInpt {grid-area: data;}
-#emailInpt {grid-area: email;}
-#botao {
-    width: 100px;
-    height: 60px;
-    /* padding-top: 20px; */
-    font-weight: 500;
-    justify-self: flex-end;
-    font-size: 1.1em;
-    color: white;
-    margin-top: 30px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    grid-area: botao;
-    background-color: var(--secundaria);
-}
-  
-#botao:focus {
-    outline: thin dotted;
-    outline: 0px auto -webkit-focus-ring-color;
-    outline-offset: 0px;
-    border: 0px
-}
+#cnpj {grid-area: cnpj;}
+#ie {grid-area: ie;}
+#razaoSocial {grid-area: social;}
+#nomeFantasia {grid-area: nome;}
+#dataAbertura {grid-area: data;}
+#email {grid-area: email;}
 
-.conteiner-entrada-dados form {
-    flex: 3;
+.form-informacao {
+    flex: 2;
     height: 100%;
     display: grid;
     grid-template-areas:
-        "cnpj cnpj cnpj ie ie"
-        "social social social social social"
-        "nome nome nome nome data"
-        "email email email email botao";
+        "cnpj cnpj cnpj ie"
+        "social social social social"
+        "nome nome nome data"
+        "email email email email"
+        "botoes botoes botoes botoes";
     column-gap: 20px;
-    padding: 50px;
+    padding: 30px;
 }
+
+
 

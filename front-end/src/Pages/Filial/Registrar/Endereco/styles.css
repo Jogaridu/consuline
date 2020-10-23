@@ -1,11 +1,11 @@
 .conteiner-entrada-dados-endereco {
   width: 95%;
-  height: 80%;
+  height: 100%;
   background-color: var(--container);
   border-radius: 20px;
   display: flex;
   flex-direction: row;
-  margin: 10px auto;
+  margin: 10px auto; 
 }
 
 .titulo-card-cadastro {
@@ -33,24 +33,25 @@
   width: 150px;
 }
 
-#cepInpt {grid-area: cep;}
-#ruaInpt {grid-area: rua;}
-#numeroInpt {grid-area: numero; max-width: 120px;}
-#complementoInpt {grid-area: compl;}
-#bairroInpt {grid-area: bairro;}
-#estadoInpt {grid-area: estado; max-width: 80px;}
-#cidadeInpt {grid-area: cidade;}
+#cep {grid-area: cep;}
+#numero {grid-area: numero;}
+#complemento {grid-area: compl;}
+#rua {grid-area: rua;}
+#bairro {grid-area: bairro;}
+#estado {grid-area: estado;}
+#cidade {grid-area: cidade;}
 
-.conteiner-entrada-dados-endereco form {
+.form-endereco {
   flex: 2;
   height: 100%;
   padding: 50px;
   display: grid;
   grid-template-areas: 
-    "cep cep cep bairro bairro"
-    "rua rua rua rua numero"
-    "compl compl compl compl estado"
-    "cidade cidade cidade caixaBotao caixaBotao";
+    "cep cep cep cep cep"
+    "rua rua rua bairro bairro"
+    "cidade cidade cidade estado estado"
+    "numero numero numero compl compl"
+    "botoes botoes botoes botoes botoes";
   column-gap: 20px;
 }
 

@@ -1,12 +1,23 @@
 .conteiner-entrada-servicos {
     width: 95%;
     height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: var(--container);
     border-radius: 20px;
-    display: flex;
-    flex-direction: row;
     margin: 10px auto;
     padding: 30px;
+    text-align: center;
+}
+
+.container-card-servicos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
 }
 
 .card-servico {
@@ -20,6 +31,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    margin: 10px;
 }
 
 .card-imagem, 
@@ -109,9 +121,7 @@
 }
 
 .verificado {
-    /* display: none; */
-    height: 30px;
-    width: 30px;
+    display: none;
 }
 
 .chk span {
@@ -120,14 +130,16 @@
     position: absolute;
     border-radius: 50px;
     display: inline-block;
-    background-color: red;
-    right: 10px;
-    top: 10px;
+    background-color: greenyellow;
+
+    left: 10px;
+    bottom: 10px;
     border: none;
     outline: none;
     z-index: 9999;
 }
 
 .chk input:checked + span {
-    background-color: greenyellow;
+    background-color: red;
+
 }
