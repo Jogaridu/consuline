@@ -11,7 +11,7 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/cadastro-pessoal">
           <Home />
         </Route>
         <Route path="/login">

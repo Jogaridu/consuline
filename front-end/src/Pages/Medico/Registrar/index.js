@@ -13,24 +13,6 @@ import MenuCentral4 from "./infoLoginMedico";
 
 function Medico  () {
 
-  const [medicoInformacoes, setmedicoInformacoes] = useState({
-    nome:"",
-    datanascimento:"",
-    cpf:"",
-    crm:"",
-    email:"",
-    telefone:"",
-    cep:"",
-    cidadeId:"",
-    rua:"",
-    numero:"",
-    bairro:"",
-    estadoId:"",
-    login:"",
-    senha:""
-  });
-
-
   return (
     <>
         <body>

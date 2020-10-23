@@ -52,7 +52,7 @@ function MenuCentral2() {
                       <div className="div-btn">
                         
                           <div className="qnt-pag">
-                              <div className="pg1-1"> 
+                              {/* <div className="pg1-1"> 
                               
                               </div>
                               <div className="pg2-1"> 
@@ -60,14 +60,13 @@ function MenuCentral2() {
                               </div>
                               <div className="pg3-1"> 
                               
-                              </div>
+                              </div> */}
                           </div>
                           
                             <Link to="/cadastro-localizacao">
-                              
-                              
-                                <button type="submit">⇨</button>
-                              
+                              <div className="next-right">
+                                ⇨
+                              </div>
                             </Link>
                       </div>
                     </div>

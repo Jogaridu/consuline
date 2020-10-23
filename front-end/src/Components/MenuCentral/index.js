@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
@@ -20,9 +21,25 @@ function MenuCentral() {
                 </div>
                 <div className="itensMenu">
                     Medicos
+                    <div className="sub-menu">
+                        <div className="submenu-adicionar">
+                            Adicionar
+                        </div>
+                        <div className="submenu-listar">
+                            Listar
+                        </div>
+                    </div>
                 </div>
                 <div className="itensMenu">
                     Filiais
+                    <div className="sub-menu">
+                        <div className="submenu-adicionar">
+                            Adicionar
+                        </div>
+                        <div className="submenu-listar">
+                            Listar
+                        </div>
+                    </div>
                 </div>
                 <div className="itensMenu">
                     Serviços

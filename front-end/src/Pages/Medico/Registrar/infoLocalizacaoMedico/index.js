@@ -61,7 +61,7 @@ function MenuCentral3() {
                               </div>
                         </Link>
                         <div className="qnt-pag">
-                            <div className="pg1-1"> 
+                            {/* <div className="pg1-1"> 
                             
                             </div>
                             <div className="pg2-1"> 
@@ -69,7 +69,7 @@ function MenuCentral3() {
                             </div>
                             <div className="pg3-1"> 
                             
-                            </div>
+                            </div> */}
                         </div>
                         <Link to="/cadastro-login">
                               <div className="next-right">
