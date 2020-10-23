@@ -1,31 +1,52 @@
 import React from 'react';
 
+
 import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
 import { Link } from 'react-router-dom';
 
 function MenuCentral() {
+
+    const SubMenu = ({ itens }) => {
+        console.log(itens);
+
+        const titulos = Object.keys(itens);
+
+        const itensSubMenuJSX = titulos.map(titulo => {
+            return (
+                <Link to={`${itens[titulo]}`}>
+                    <div className="sub-menu-item">{titulo}</div>
+                </Link>
+            );
+        })
+
+        return (
+            <div className="sub-menu">
+                {itensSubMenuJSX}
+            </div>
+        )
+    }
     return (
         <div className="menu">
-            <Link to="/home-central">
+            <Link to="home-central">
                 <figure className="iconeMenu">
                     <img id="logoprojeto" src={logoConsuline} alt="Logo da empresa Consuline" />
                 </figure>
             </Link>
-            <div className="topicosMenu">
 
+            <div className="topicosMenu">
                 <div className="itensMenu">
                     Central
                 </div>
                 <div className="itensMenu">
                     Medicos
+                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
                 </div>
-                <Link to="/filial">
-                    <div className="itensMenu">
-                        Filiais
-                    </div>
-                </Link>
+                <div className="itensMenu">
+                    Filiais
+                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
+                </div>
                 <div className="itensMenu">
                     Serviços
                 </div>

@@ -1,19 +1,25 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Home from "./Pages/Home/index";
-import Login from "./Pages/Login/index";
-import HomeCrud from "./Pages/Home-Crud/index";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import HomeCrud from "./Pages/Home-Crud";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import ConsultaFilial from "./Pages/Filial/Editar/index";
+import HomeFilial from "./Pages/Filial/Home";
+import MenuCentral2 from "./Pages/Medico/Registrar/infoPessoalMedico";
+
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route path="/" exact>
           <Home />
+        </Route>
+        <Route path="/profissional-saude">
+          <MenuCentral2 />
         </Route>
         <Route path="/login">
           <Login />
@@ -32,12 +38,15 @@ function Routes() {
           <ListagemFilial />
         </Route>
 
-        {/* <Route path="/filial/">
+<<<<<<< HEAD
+      {/* <Route path="/filial/">
           <ConsultaFilial />
         </Route> */}
 
+=======
+>>>>>>> origin/funcionalidade/paginaCentralMedicos
       </Switch>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

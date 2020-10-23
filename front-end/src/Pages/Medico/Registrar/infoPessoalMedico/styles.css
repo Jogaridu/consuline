@@ -1,0 +1,199 @@
+.container-medicos{
+    width: auto;
+    height: 655px;
+     background-color: var(--fundo); 
+     display: flex;
+     justify-content: center;
+     /* margin-top: -60px; */
+}
+    
+
+                        /****************************** CONTAINER DO CADASTRO COMPLETO FORM + TITULO ******************************/
+.cadastro-pessoal{
+    width: 810px;
+    height: 600px;
+     /* border: 2px solid black;    */
+    float: left;
+    margin-top: 35px;
+    
+}
+
+                        /****************************** CONTAINER TITULO ******************************/
+.container-titulo{
+    width: 700px;
+    height: 60px;
+    /* background-color: green; */
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titulo{
+    width: 600px;
+    height: 60px;
+    text-align: center;
+    /* background-color: #fff; */
+    font-size: 35px;
+    float: left;
+
+}
+
+.icone-titulo{
+    width: 60px;
+    height: 60px;
+    /* background-color: red; */
+    float: right;
+}
+#iconeAdc{
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+                        /****************************** CONTAINER CADASTRO FORMULARIO ******************************/
+#container-card{
+    width: 800px;
+    height: 500px;
+    background-color: var(--container);
+    border-radius: 20px;
+    margin-top: 20px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-left-side{
+    width: 400px;
+    height: 500px;
+    /* background: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+.container-right-side{
+    width: 400px;
+    height: 500px;
+    /* background: yellow; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}                                     
+
+            /* ---------------------------- Container-left-side ---------------------------- */
+
+
+.img-usuario{
+    width: 180px;
+    height: 180px;
+    background-color: var(--principal);
+    border-radius: 50%;
+    background-position: -15px -15px;
+}
+
+#usuario{
+    height: 160px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: red; */
+
+}
+
+.subtitulo-img{
+    width: 300px;
+    height: 50px;
+    /* background-color: aqua; */
+    margin-top: 15px;
+    font-family: -apple-system, BlinkMacSystemFont,
+     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px; 
+}
+
+            /* ---------------------------- Container-right-side ---------------------------- */
+
+.entrada-de-dados{
+    width: 350px;
+    height: 430px;
+    /* background-color: #fff; */
+}
+.entrada-dados2{
+    width: 350px;
+    min-height: 30px;
+    height: auto;   
+    display: flex;
+    flex-direction: row;
+}
+.entrada-dados3-pessoal{
+    margin-left: 20px;
+}
+
+            /* ---------------------------- Button Next ---------------------------- */
+
+
+.div-btn{
+    width: 90%;
+    height: 50px;
+     /* background-color: yellow;  */
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: space-between;
+}
+
+  .next-left{
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 30px;
+    background-color: var(--principal); 
+    color: var(--container);
+    border-radius: 10px;
+    cursor: pointer;
+    float: left;
+} 
+
+
+
+.qnt-pag{
+    width: 60px;
+    height: 10px;
+    /* background-color: red;   */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+     margin-left: auto;
+     margin-right: auto;
+ 
+}
+.pg1-1, .pg2-1, .pg3-1, 
+.pg1-2, .pg2-2, .pg3-2,
+.pg1-3, .pg2-3, .pg3-3{
+    width: 10px;
+    height: 10px;
+    background-color: var(--fundo);
+    margin-left: 10px;
+    border-radius: 50%;
+    background-position: -15px -15px;
+    border: 1px solid black;
+
+}
+
+.pg1-1, .pg2-2, .pg3-3{
+    background-color: black;
+}
+
+
