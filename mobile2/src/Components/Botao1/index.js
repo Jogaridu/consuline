@@ -10,12 +10,12 @@ import { RectButton, TouchableOpacity } from "react-native-gesture-handler";
 
 const Botao1 = (props) => {
   return (
-    <RectButton
+    <TouchableOpacity
       style={styles.botao}
       onPress={props.funcExec}>
 
       <TextoBotao> {props.title} </TextoBotao>
-    </RectButton>
+    </TouchableOpacity>
   );
 };
 
@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     display: "flex",
     justifyContent: "center",
-    backgroundColor: colors.fundo,
-    borderWidth: 4,
-    borderColor: "#000",
+    backgroundColor: colors.container,
+    borderWidth: 1,
+    borderColor: colors.principal,
+    marginBottom: 30
   }
   
 })
