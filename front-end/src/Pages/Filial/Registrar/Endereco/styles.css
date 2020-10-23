@@ -1,0 +1,91 @@
+.conteiner-entrada-dados-endereco {
+  width: 95%;
+  height: 80%;
+  background-color: var(--container);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  margin: 10px auto;
+}
+
+.titulo-card-cadastro {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.titulo-card-cadastro figure {
+  height: 200px;
+  width: 200px;
+  background-color: var(--secundaria);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.titulo-card-cadastro figure img {
+  height: 150px;
+  width: 150px;
+}
+
+#cepInpt {grid-area: cep;}
+#ruaInpt {grid-area: rua;}
+#numeroInpt {grid-area: numero; max-width: 120px;}
+#complementoInpt {grid-area: compl;}
+#bairroInpt {grid-area: bairro;}
+#estadoInpt {grid-area: estado; max-width: 80px;}
+#cidadeInpt {grid-area: cidade;}
+
+.conteiner-entrada-dados-endereco form {
+  flex: 2;
+  height: 100%;
+  padding: 50px;
+  display: grid;
+  grid-template-areas: 
+    "cep cep cep bairro bairro"
+    "rua rua rua rua numero"
+    "compl compl compl compl estado"
+    "cidade cidade cidade caixaBotao caixaBotao";
+  column-gap: 20px;
+}
+
+#caixaBotoes {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  grid-area: caixaBotao;
+}
+#botao,
+#botaoVoltar {
+  width: 130px;
+  height: 60px;
+  font-weight: 500;
+  justify-self: flex-end;
+  font-size: 1.1em;
+  color: white;
+  margin-top: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  grid-area: botao;
+  background-color: var(--secundaria);
+}
+
+#botaoVoltar {
+  grid-area: botaoVoltar;
+  margin-right: 35px;
+}
+
+#botao:focus {
+  outline: thin dotted;
+  outline: 0px auto -webkit-focus-ring-color;
+  outline-offset: 0px;
+  border: 0px
+}

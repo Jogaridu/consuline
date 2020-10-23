@@ -13,7 +13,8 @@ class Paciente extends Model {
         rg: DataTypes.STRING,
         cpf: DataTypes.STRING,
         foto: DataTypes.STRING,
-        emailValidado: DataTypes.BOOLEAN,
+        codigoVerificacao: DataTypes.STRING,
+        verificado: DataTypes.BOOLEAN
       },
       {
         sequelize,
@@ -23,10 +24,8 @@ class Paciente extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.EnderecoPaciente, {
-      foreignKey: "EnderecoPacienteId",
-    });
-    this.belongsTo(models.PlanoDeSaude, { foreignKey: "PlanoDeSaudeId" });
+    this.belongsTo(models.EnderecoPaciente);
+    this.belongsTo(models.PlanoDeSaude);
   }
 }
 

@@ -6,12 +6,15 @@ class TelefoneCentral extends Model {
       {
         numero: DataTypes.STRING,
       },
-      { sequelize }
+      {
+        sequelize,
+        tableName: "tblTelefoneCentral"
+      }
     );
   }
 
   static associate(models) {
-    this.belongsTo(models.Central, { foreignKey: "idCentral" });
+    this.belongsTo(models.Central);
   }
 }
 

@@ -1,0 +1,25 @@
+.titulo-principal {
+    width: 100%;
+    height: 200px;
+    display: block;
+    /* background-color: red; */
+}
+
+.titulo-principal h1 {
+   /* background-color: white;  */
+}
+
+.titulo-principal figure {
+  height: 100px;
+  width: 100px;
+  background-color: var(--secundaria);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#imagem{
+  height:70px;
+  width:70px;
+}
