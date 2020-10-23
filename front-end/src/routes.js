@@ -7,7 +7,6 @@ import HomeCrud from "./Pages/Home-Crud";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import ConsultaFilial from "./Pages/Filial/Editar/index";
-import HomeFilial from "./Pages/Filial/Home";
 import MenuCentral2 from "./Pages/Medico/Registrar/infoPessoalMedico";
 
 
@@ -38,13 +37,10 @@ function Routes() {
           <ListagemFilial />
         </Route>
 
-<<<<<<< HEAD
-      {/* <Route path="/filial/">
+        {/* <Route path="/filial/">
           <ConsultaFilial />
         </Route> */}
 
-=======
->>>>>>> origin/funcionalidade/paginaCentralMedicos
       </Switch>
     </BrowserRouter >
   );
