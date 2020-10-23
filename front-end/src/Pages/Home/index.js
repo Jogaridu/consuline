@@ -81,10 +81,10 @@ function Home() {
     window.addEventListener("scroll", function () {
       var nav = document.querySelector("#container-menu");
 
-      if(nav != null) {
+      if (nav != null) {
         nav.classList.toggle("sticky", window.scrollY > 0);
       }
-      
+
     });
   };
 
