@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './styles.css';
 
-import usuario from "../../../../Assets/usuario.png"
+import medico from "../../../../Assets/medico.png"
 
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
@@ -25,7 +25,7 @@ function MenuCentral2() {
             <div id="container-card">
                 <div className="container-left-side">
                         <div className="img-usuario">
-                             <img id="usuario" src={usuario} alt="logo projeto" /> 
+                             <img id="usuario" src={medico} alt="logo projeto" /> 
                         </div>
     
                         <div className="subtitulo-img">

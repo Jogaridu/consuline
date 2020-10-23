@@ -99,8 +99,11 @@
     width: 160px;
     display: flex;
     align-items: center;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
+    /* background-color: red; */
+
 }
 
 .subtitulo-img{

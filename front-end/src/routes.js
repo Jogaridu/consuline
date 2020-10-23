@@ -6,13 +6,15 @@ import Login from "./Pages/Login/index";
 import HomeCrud from "./Pages/Home-Crud/index";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import HomeFilial from "./Pages/Filial/Home/index";
+import MenuCentral2 from "./Pages/Medico/Registrar/infoPessoalMedico";
+
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/cadastro-pessoal">
-          <Home />
+          <MenuCentral2 />
         </Route>
         <Route path="/login">
           <Login />
