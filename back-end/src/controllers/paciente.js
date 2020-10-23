@@ -1,10 +1,11 @@
 const Paciente = require("../models/Paciente");
 const EnderecoPaciente = require("../models/EnderecoPaciente");
-const enderecoPacienteController = require("../controllers/enderecoPaciente");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 const gerarCodigoVerificacao = require("../fixtures/gerarCodigo");
 const { enviarSMS } = require("../services/sms");
+const jwt = require("jsonwebtoken");
+const auth = require("../config/auth.json")
 
 module.exports = {
   async cadastrar(req, res) {
@@ -22,9 +23,6 @@ module.exports = {
 
     const verificado = false;
 
-    const { firebaseUrl } = req.file ? req.file : "";
-    endereco = JSON.parse(endereco);
-
     try {
 
       let pacienteCriado = await Paciente.findOne({
@@ -41,7 +39,7 @@ module.exports = {
 
       if (pacienteCriado) {
         return res.status(400).send({
-          error:
+          erro:
             "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email, Celular",
         });
       }
@@ -78,10 +76,12 @@ module.exports = {
       //     "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
-      return res.status(201).send(paciente);
+      const token = jwt.sign({ idPaciente: paciente.id }, auth.secret);
+
+      return res.status(201).send({ paciente, token });
 
     } catch (error) {
-
+      console.log(error)
       return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
 
     }
@@ -122,23 +122,28 @@ module.exports = {
             "numero",
             "complemento",
             "cep",
-            "EstadoId",
-            "CidadeId",
+            "cidade",
+            "estado",
           ],
         },
-        order: [["createdAt", "DESC"]],
       });
+
       if (!paciente) {
         return res.status(400).send({ error: "Paciente não cadastrado" });
       }
+
       res.status(200).send(paciente);
+
     } catch (error) {
+
+
       return res.status(500).send({
-        error:
-          "Não foi possivel listar estee paciente, por favor tente novamente",
+        erro:
+          "Não foi possivel listar este paciente, por favor tente novamente",
       });
     }
   },
+
   async listar(req, res) {
     try {
       let pacientes = await Paciente.findAll({
@@ -150,8 +155,8 @@ module.exports = {
             "numero",
             "complemento",
             "cep",
-            "EstadoId",
-            "CidadeId",
+            "cidade",
+            "estado",
           ],
         },
         order: [["createdAt", "DESC"]],
@@ -174,19 +179,13 @@ module.exports = {
         return res.status(404).send({ error: "Paciente não encontrado" });
       }
 
-      const statusDeleteEndereco = await enderecoPacienteController.apagar(
-        paciente.EnderecoPacienteId
-      );
+      const endereco = await EnderecoPaciente.findByPk(paciente.EnderecoPacienteId);
 
-      if (statusDeleteEndereco === 400) {
-        return res.status(400).send({
-          error: "Não foi possivel deletar o endereço desse paciente!!!",
-        });
-      }
+      await endereco.destroy();
 
       await paciente.destroy();
 
-      res.status(204).send();
+      res.status(200).send({ sucesso: "Profissional apagado com sucesso" });
 
     } catch (error) {
       console.log(error);
@@ -198,60 +197,50 @@ module.exports = {
   },
 
   async atualizar(req, res) {
+
     const { id } = req.params;
 
-    let {
-      nome,
-      celular,
-      login,
-      senha,
-      dataNascimento,
-      email,
-      rg,
-      cpf,
-      endereco,
-    } = req.body;
+    const dados = req.body;
 
-    const enderecoJson = JSON.parse(endereco);
+    console.log(dados);
 
     try {
       let paciente = await Paciente.findByPk(id);
+
       if (!paciente) {
         return res
           .status(400)
-          .send({ error: "Paciente não encontrado no sistema" });
+          .send({ erro: "Paciente não encontrado no sistema" });
       }
 
-      const statusUpdateEndereco = await enderecoPacienteController.atualizar(
-        enderecoJson,
-        paciente.EnderecoPacienteId
-      );
+      if (dados.endereco) {
+        await EnderecoPaciente.update(dados.endereco, { where: { id: paciente.EnderecoPacienteId } });
 
-      if (statusUpdateEndereco === 400) {
-        return res.status(400).send({
-          error:
-            "Não foi possivel atualizar este endereço, por favor tente novamente",
-        });
       }
 
-      await Paciente.update(
-        {
-          nome,
-          celular,
-          login,
-          senha,
-          dataNascimento,
-          email,
-          rg,
-          cpf,
-        },
-        {
-          where: { id: id },
-        }
-      );
+      if (dados.senha) {
+        const senhaCripto = bcrypt.hashSync(dados.senha, 10);
 
-      res.status(204).send();
+        await Paciente.update({ ...dados, senha: senhaCripto },
+          {
+            where: { id: id },
+          }
+        );
+
+      } else {
+        await Paciente.update(dados,
+          {
+            where: { id: id },
+          }
+        );
+      }
+
+      res.status(200).send({ sucesso: "Profissional atualizado com sucesso" });
+
     } catch (error) {
+
+      console.error(error);
+
       return res.status(500).send({
         error: "Não foi possivel atualzar, tente novamente por favor",
       });
@@ -275,13 +264,54 @@ module.exports = {
         return res.status(403).send({ error: "Usuário e/ou senha inválidos" });
       }
 
-      res.status(201).send({
+      const token = jwt.sign({ idPaciente: pacienteBuscado.id }, auth.secret);
+
+      const json = {
         paciente: {
           pacienteId: pacienteBuscado.id,
-
           nome: pacienteBuscado.nome,
         },
-      });
+        token
+      }
+
+      res.status(201).send(json);
     }
   },
+
+  async verificarSenha(req, res) {
+    const { id } = req.params;
+
+    const { senhaAntiga } = req.body;
+
+    const pacienteSenha = await Paciente.findByPk(id, {
+      attributes: ['senha'],
+      raw: true
+    });
+
+    console.log(pacienteSenha);
+
+    if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
+      return res.status(200).send("Sucesso");
+    }
+
+    res.status(404).send({ erro: "Paciente não existe" });
+  },
+
+  async cadastrarImagem(req, res) {
+    const { id } = req.params;
+
+    const { firebaseUrl } = req.file ? req.file : "";
+
+    if (firebaseUrl !== "") {
+      await Paciente.update({ foto: firebaseUrl },
+        {
+          where: {
+            id: id
+          }
+        }
+      )
+
+      return res.status(201).send({ foto: firebaseUrl });
+    }
+  }
 };

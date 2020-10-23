@@ -8,7 +8,7 @@ class Paciente extends Model {
         celular: DataTypes.STRING,
         login: DataTypes.STRING,
         senha: DataTypes.TEXT,
-        dataNascimento: DataTypes.DATE,
+        dataNascimento: DataTypes.DATEONLY,
         email: DataTypes.STRING,
         rg: DataTypes.STRING,
         cpf: DataTypes.STRING,
