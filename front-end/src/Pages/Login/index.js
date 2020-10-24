@@ -11,6 +11,8 @@ import api from "../../Services/api";
 import { signin } from "../../Services/security";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import validarInputScheme from "./ValidacaoInputSchema";
+import BotaoPrincipal from "../../Components/BotaoPrincipal";
+import BotaoSecundario from "../../Components/BotaoSecundario";
 
 const Login = () => {
 
@@ -67,12 +69,10 @@ const Login = () => {
 
               <div className="container-botoes">
                 <Link to="/">
-                  <button className="botao" type="button"> Voltar</button>
+                  <BotaoSecundario titulo="Voltar" />
                 </Link>
 
-                <button className="botao" type="submit">
-                  Iniciar sessão
-                </button>
+                <BotaoPrincipal titulo="Iniciar sessão" tipo="submit" />
               </div>
             </Form>
           </Formik>

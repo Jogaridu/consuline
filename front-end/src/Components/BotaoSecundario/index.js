@@ -5,7 +5,7 @@ import './styles.css';
 function BotaoSecundario(props) {
   return (
     <button type="button" className="botao-secundario">
-      {props.title}
+      {props.titulo}
     </button>
   );
 }

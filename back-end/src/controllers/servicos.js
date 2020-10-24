@@ -2,9 +2,11 @@ const Servico = require("../models/Servico");
 
 module.exports = {
   async cadastrar(req, res) {
-    const { nome, descricao, imagem } = req.body;
+    const { nome, descricao } = req.body;
 
-    if (nome && descricao && imagem) {
+    const { firebaseUrl } = req.file;
+
+    if (nome && descricao && firebaseUrl) {
       try {
         let servicoCriado = await Servico.findOne({
           where: {
@@ -12,7 +14,8 @@ module.exports = {
           },
         });
 
-        console.log(servicoCriado)
+        console.log(servicoCriado);
+
         if (servicoCriado) {
           return res.status(400).send("Esse serviço já está cadastrado");
         }
@@ -20,10 +23,10 @@ module.exports = {
         servicoCriado = await Servico.create({
           nome,
           descricao,
-          imagem,
+          imagem: firebaseUrl,
         });
 
-        res.status(201).send(servicoCriado);
+        return res.status(201).send(servicoCriado);
 
       } catch (error) {
         console.log(error);
@@ -31,12 +34,10 @@ module.exports = {
       }
     }
 
-    res
-      .status(400)
-      .send({
-        erro:
-          "Todos os campos devem ser preenchidos (nome, descrição e imagem).",
-      });
+    res.status(400).send({
+      erro:
+        "Todos os campos devem ser preenchidos (nome, descrição e imagem).",
+    });
   },
 
   async buscarPorId(req, res) {

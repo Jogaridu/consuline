@@ -9,83 +9,83 @@ import mapa from "../../../../Assets/mapa.png"
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
 function MenuCentral3() {
-    return (
+  return (
 
-        <div className="container-medicos">    
-        <div className="cadastro-pessoal">  
+    <div className="container-medicos">
+      <div className="cadastro-pessoal">
 
-            <div id="container-card">
-                <div className="container-left-side">
-                        <div className="img-usuario">
-                             <img className="mapa" src={mapa} alt="logo projeto" />
-                        </div>
-    
-                        <div className="subtitulo-img">
-                          Cadastro Localização
-                        </div>                              
-                </div>
-    
-                <div className="container-right-side">
-                    <div className="entrada-de-dados-localizacao">
-                    <div className="entrada-dados2">
-                        <div className="inputs-line-1">
-                          <input placeholder="CEP"></input>
-                        </div>
-                        <div className="">
-                          <input placeholder="Endereço"></input>
-                        </div>
-                      </div>
-                      <div className="entrada-dados2">
-                        <div className="entrada-dados1">
-                          <input placeholder="Rua"></input>
-                        </div>
-                        <div className="entrada-dados3">
-                          <input placeholder="N"></input>
-                        </div>
-                      </div>
-                      <div className="entrada-dados2">
-                        <div className="inputs-line-1">
-                          <input placeholder="Bairro"></input>
-                        </div>
-                        <div className="">
-                          <input placeholder="Complemento"></input>
-                        </div>
-                      </div>
-                    </div>
-    
-    
-                     <div className="div-btn">
-                        <Link to="/cadastro-pessoal">
-                              <div className="next-right">
-                                ⇦
-                              </div>
-                        </Link>
-                        <div className="qnt-pag">
-                            {/* <div className="pg1-1"> 
-                            
-                            </div>
-                            <div className="pg2-1"> 
-                            
-                            </div>
-                            <div className="pg3-1"> 
-                            
-                            </div> */}
-                        </div>
-                        <Link to="/cadastro-login">
-                              <div className="next-right">
-                                ⇨
-                              </div>
-                        </Link>
-                    </div>
-                    </div>
-                   
-                
+        <div id="container-card">
+          <div className="container-left-side">
+            <div className="img-usuario">
+              <img className="mapa" src={mapa} alt="logo projeto" />
             </div>
-        </div>            
-    
+
+            <div className="subtitulo-img">
+              Cadastro Localização
+                        </div>
+          </div>
+
+          <div className="container-right-side">
+            <div className="entrada-de-dados-localizacao">
+              <div className="entrada-dados2">
+                <div className="inputs-line-1">
+                  <input placeholder="CEP"></input>
+                </div>
+                <div className="">
+                  <input placeholder="Endereço"></input>
+                </div>
+              </div>
+              <div className="entrada-dados2">
+                <div className="entrada-dados1">
+                  <input placeholder="Rua"></input>
+                </div>
+                <div className="entrada-dados3">
+                  <input placeholder="N"></input>
+                </div>
+              </div>
+              <div className="entrada-dados2">
+                <div className="inputs-line-1">
+                  <input placeholder="Bairro"></input>
+                </div>
+                <div className="">
+                  <input placeholder="Complemento"></input>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="div-btn">
+              <Link to="/profissional-saude">
+                <div className="next-right">
+                  ⇦
+                </div>
+              </Link>
+              <div className="qnt-pag">
+                {/* <div className="pg1-1"> 
+                            
+                </div>
+                <div className="pg2-1"> 
+                
+                </div>
+                <div className="pg3-1"> 
+                
+                </div> */}
+              </div>
+              <Link to="/profissional-saude/login">
+                <div className="next-right">
+                  ⇨
+                </div>
+              </Link>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
     </div>
-        
-    );
+
+  );
 }
 
 export default MenuCentral3;
@@ -155,25 +155,25 @@ export default MenuCentral3;
 //                                         <input type="text" name="" placeholder="Vinculado a qual filial?" required=""></input>
 //                                     </div> 
 //                              </form>
-                             
+
 //                             </div>
 //                             <div className="div-btn">
 //                                 <div className="next-left">
-                                
+
 //                                 </div>
 //                                 <div className="qnt-pag">
 //                                     <div className="pg1-1"> 
-                                    
+
 //                                     </div>
 //                                     <div className="pg2-1"> 
-                                    
+
 //                                     </div>
 //                                     <div className="pg3-1"> 
-                                    
+
 //                                     </div>
 //                                 </div>
 //                                 <div className="next-right">
-                                    
+
 //                                 </div>
 //                             </div>
 //                         </div>

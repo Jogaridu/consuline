@@ -77,7 +77,7 @@ function Endereco() {
     const arrayInputsVazias = ValidarInputVazia(arrInputs);
 
     if (!arrayInputsVazias) {
-      history.push("/filial/servicos", { ...novaFilial, endereco: values, servicos: [] });
+      history.push("/filial/servicos", { ...novaFilial, endereco: { ...values, ...endereco }, servicos: [] });
 
     }
   }

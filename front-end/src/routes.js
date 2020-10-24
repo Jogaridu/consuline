@@ -7,7 +7,8 @@ import HomeCrud from "./Pages/Home-Crud";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import ConsultaFilial from "./Pages/Filial/Editar/index";
-import MenuCentral2 from "./Pages/Medico/Registrar/infoPessoalMedico";
+import RegistrarProfissional from "./Pages/Medico/Registrar";
+import RegistrarServico from "./Pages/Servicos/index";
 
 
 function Routes() {
@@ -17,9 +18,7 @@ function Routes() {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/profissional-saude">
-          <MenuCentral2 />
-        </Route>
+
         <Route path="/login">
           <Login />
         </Route>
@@ -40,6 +39,17 @@ function Routes() {
         {/* <Route path="/filial/">
           <ConsultaFilial />
         </Route> */}
+
+        {/* Rotas de profissionais */}
+
+        <Route path="/profissional-saude">
+          <RegistrarProfissional />
+        </Route>
+
+        {/* Rotas de serviços */}
+        <Route path="/servicos">
+          <RegistrarServico />
+        </Route>
 
       </Switch>
     </BrowserRouter >

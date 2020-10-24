@@ -8,44 +8,55 @@ import TituloPrincipal from "../../../Components/TituloPrincipal";
 import MenuCentral3 from "./infoLocalizacaoMedico";
 import MenuCentral4 from "./infoLoginMedico";
 
+import Lottie from "react-lottie";
+import loader from "../../../Assets/loader.json";
+
+import add from "../../../Assets/add3.png"
 
 // import { Link } from "react-router-dom";
 
 function Medico() {
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loader,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    }
+  };
+
   return (
     <>
-      <body>
-        <div className="container-central">
-          <MenuCentral />
-          <div className="container-conteudo-central">
-            <TituloPrincipal nome="Cadastro médico" />
+      <div className="container-central">
+        <MenuCentral />
+        <div className="container-conteudo-central">
+          {/* <TituloPrincipal nome="Cadastro médico" imagem={add} /> */}
+          {/* <Formik>
+            <Form>
+              <Router>
+                <Switch>
 
+                  <Route path={'/profissional-saude'}>
+                    <MenuCentral2 />
+                  </Route>
 
-            <Formik>
-              <Form>
-                <Router>
-                  <Switch>
+                  <Route path={'/profissional-saude/endereco'}>
+                    <MenuCentral3 />
+                  </Route>
 
-                    <Route path={'/cadastro-pessoal'}>
-                      <MenuCentral2 />
-                    </Route>
+                  <Route path={'/profissional-saude/login'}>
+                    <MenuCentral4 />
+                  </Route>
 
-                    <Route path={'/cadastro-localizacao'}>
-                      <MenuCentral3 />
-                    </Route>
-
-                    <Route path={'/cadastro-login'}>
-                      <MenuCentral4 />
-                    </Route>
-
-                  </Switch>
-                </Router>
-              </Form>
-            </Formik>
-          </div>
+                </Switch>
+              </Router>
+            </Form>
+          </Formik> */}
+          <Lottie options={defaultOptions} height={200} width={200} style={{ margin: "100px auto" }} />
+          <h2>EM DESENVOLVIMENTO</h2>
         </div>
-      </body>
+      </div>
     </>
   );
 };
