@@ -31,30 +31,31 @@ function Medico() {
       <div className="container-central">
         <MenuCentral />
         <div className="container-conteudo-central">
-          {/* <TituloPrincipal nome="Cadastro médico" imagem={add} /> */}
-          {/* <Formik>
+          <TituloPrincipal nome="Cadastro médico" imagem={add} />
+          <Formik>
             <Form>
               <Router>
                 <Switch>
-
+                  <Route path={'/profissional-saude/login'}>
+                    <MenuCentral4 />
+                  </Route>
+                  <Route path={'/profissional-saude/endereco'}>
+                    <MenuCentral3 />
+                  </Route>
                   <Route path={'/profissional-saude'}>
                     <MenuCentral2 />
                   </Route>
 
-                  <Route path={'/profissional-saude/endereco'}>
-                    <MenuCentral3 />
-                  </Route>
 
-                  <Route path={'/profissional-saude/login'}>
-                    <MenuCentral4 />
-                  </Route>
+
+
 
                 </Switch>
               </Router>
             </Form>
-          </Formik> */}
-          <Lottie options={defaultOptions} height={200} width={200} style={{ margin: "100px auto" }} />
-          <h2>EM DESENVOLVIMENTO</h2>
+          </Formik>
+          {/* <Lottie options={defaultOptions} height={200} width={200} style={{ margin: "100px auto" }} />
+          <h2>EM DESENVOLVIMENTO</h2> */}
         </div>
       </div>
     </>
