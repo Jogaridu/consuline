@@ -66,7 +66,6 @@ module.exports = {
         email,
         rg,
         cpf,
-        foto: firebaseUrl,
         verificado,
         codigoVerificacao,
       });
