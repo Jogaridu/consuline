@@ -15,27 +15,28 @@ import servico from "../../Assets/7774.jpg";
 
 import api from "../../Services/api";
 
-function Servicos() {
+import { Link } from "react-router-dom";
+
+function CadastrarServicos() {
   const [imagem, setImagem] = useState(null);
 
   const imgRef = useRef();
 
   const handleForm = async (values) => {
-
     const dados = new FormData();
 
     dados.append("nome", values.nome);
     dados.append("descricao", values.descricao);
     dados.append("imagem", imagem);
-    
+
     console.log(dados);
 
     try {
       const retorno = await api.post("/servico", dados, {
         headers: {
-            "Content-type": `multipart/form-data`
-        }
-      })
+          "Content-type": `multipart/form-data`,
+        },
+      });
 
       alert("Serviço cadastrado com sucesso!!!");
     } catch (error) {
@@ -46,9 +47,10 @@ function Servicos() {
   const handleImage = (e) => {
     if (e.target.files[0]) {
       imgRef.current.src = URL.createObjectURL(e.target.files[0]);
-      setImagem(e.target.files[0]);
+    } else {
+      imgRef.current.src = "";
     }
-    
+    setImagem(e.target.files[0]);
   };
 
   return (
@@ -73,8 +75,16 @@ function Servicos() {
                 <Field name="descricao" as="textarea" placeholder="Descrição" />
                 <div id="imagem-cadastro-servico">
                   <label> Imagem </label>
-                  <label for="selecao-arquivo"> Selecionar uma imagem </label>
-                  <Field id="selecao-arquivo" type="file" name="imagem" onChange={handleImage} />
+                  <label htmlFor="selecao-arquivo">
+                    {" "}
+                    Selecionar uma imagem{" "}
+                  </label>
+                  <Field
+                    id="selecao-arquivo"
+                    type="file"
+                    name="imagem"
+                    onChange={handleImage}
+                  />
                 </div>
 
                 <div id="imgCadastroServico">
@@ -84,10 +94,11 @@ function Servicos() {
                 </div>
 
                 <div id="container-botoes-servicos">
-                  <BotaoSecundario title="Voltar" />
-                  <BotaoPrincipal title="Cadastrar" type="submit" />
+                  <Link to="/servicos">
+                    <BotaoSecundario titulo="Voltar" />
+                  </Link>
+                  <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
                 </div>
-                
               </Form>
             </Formik>
           </div>
@@ -97,4 +108,4 @@ function Servicos() {
   );
 }
 
-export default Servicos;
+export default CadastrarServicos;

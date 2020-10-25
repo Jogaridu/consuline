@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { MdAdd, MdFormatListNumbered } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
+import { Link, useHistory } from "react-router-dom";
 import Lottie from "react-lottie";
+
 import loader from "../../Assets/loader.json";
 
 import "./styles.css";
@@ -12,10 +14,28 @@ import Titulo from "../../Components/TituloPrincipal";
 
 import api from "../../Services/api";
 
-const CardServicos = (props) => {
 
+const CardServicos = (props) => {
   const [mostrarSubMenu, setMostrarSubMenu] = useState(false);
   const [mostrarHospitais, setHospitais] = useState(false);
+  const history = useHistory();
+
+  const excluir = async () => {
+    if (window.confirm("Tem certeza que deseja excluir este serviço?")) {
+      try {
+        const retorno = await api.delete(`/servico/${props.id}`);
+
+        alert("Serviço excluido com sucesso!!!");
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const editar = () => {
+    history.push("/servicos/editar", props.id);
+  }
 
   const SubMenu = () => {
     return (
@@ -29,14 +49,19 @@ const CardServicos = (props) => {
               setHospitais(!mostrarHospitais);
               setTimeout(() => {
                 setHospitais(false);
-              }, 10000);
+              }, 30000);
             }}
           >
             Ver Hospitais
           </h2>
         </li>
         <li>
-          <h2>Editar</h2>
+          <h2 onClick={() => editar()}>Editar</h2>
+        </li>
+        <li>
+          <h2 style={{ color: "#e70011" }} onClick={() => excluir()}>
+            Excluir
+          </h2>
         </li>
       </ul>
     );
@@ -88,10 +113,7 @@ const CardServicos = (props) => {
       <input type="checkbox" className="ver-mais" />
       <h1 className="card-titulo"> {props.nome} </h1>
       <figure className="card-imagem-servicos">
-        <img
-          src={require("../../Assets/c.jpg")}
-          alt="Imagem do serviço"
-        />
+        <img src={props.imagem} alt="Imagem do serviço" />
       </figure>
       <div className="btn-descricao">+</div>
 
@@ -142,8 +164,11 @@ function Servicos() {
         <div id="container-conteudo-cms">
           <div id="btn-add-servicos">
             <MdAdd size={50} color="#FFF" />
-            <h1>Adicionar serviço </h1>
+            <Link to="/servicos/cadastrar">
+              <h1>Adicionar serviço </h1>
+            </Link>
           </div>
+
           {loading ? (
             <div id="loader">
               <Lottie options={defaultOptions} height={200} width={200} />
@@ -151,7 +176,12 @@ function Servicos() {
           ) : (
             <div id="container-card-servicos">
               {servicos.map((servico) => (
-                <CardServicos id={servico.id} nome={servico.nome} descricao={servico.descricao} />
+                <CardServicos
+                  id={servico.id}
+                  nome={servico.nome}
+                  descricao={servico.descricao}
+                  imagem={servico.imagem}
+                />
               ))}
             </div>
           )}

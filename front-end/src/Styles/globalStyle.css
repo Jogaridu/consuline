@@ -102,11 +102,14 @@ textarea {
   padding-left: 15px;
   outline: none;
   border: none;
-  border: 2px solid var(--principal);
+  border: 1px solid var(--principal);
   color: black;
+  background-color: var(--fundo);
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+input:hover,
+textarea:hover {
   box-shadow: 0px 0px 3px var(--principal);
 }

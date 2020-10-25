@@ -8,8 +8,9 @@ import RegistrarFilial from "./Pages/Filial/Registrar";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import ConsultaFilial from "./Pages/Filial/Editar/index";
 import RegistrarProfissional from "./Pages/Medico/Registrar";
-import RegistrarServico from "./Pages/Servicos/index";
-
+import Listar from "./Pages/Servicos/index";
+import RegistrarServico from "./Pages/Servicos/cadastrar";
+import EditarServico from "./Pages/Servicos/editar";
 
 function Routes() {
   return (
@@ -47,12 +48,18 @@ function Routes() {
         </Route>
 
         {/* Rotas de serviços */}
-        <Route path="/servicos">
+        <Route path="/servicos/cadastrar">
           <RegistrarServico />
         </Route>
-
+        <Route path="/servicos/editar">
+          <EditarServico />
+        </Route>
+        <Route path="/servicos">
+          <Listar />
+        </Route>
+        
       </Switch>
-    </BrowserRouter >
+    </BrowserRouter>
   );
 }
 
