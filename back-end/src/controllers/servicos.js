@@ -29,8 +29,9 @@ module.exports = {
         return res.status(201).send(servicoCriado);
 
       } catch (error) {
-        console.log(error);
+
         return res.status(404).send({ erro: "Falha na criação do serviço" });
+
       }
     }
 
@@ -91,19 +92,27 @@ module.exports = {
   async atualizar(req, res) {
     const { id } = req.params;
 
+    const { firebaseUrl } = req.file;
+
     try {
       const servicoCriado = await Servico.findByPk(id);
 
       if (servicoCriado) {
-        const { nome, descricao, imagem } = req.body;
+        const { nome, descricao } = req.body;
 
-        const servicoAtualizado = await servicoCriado.update({
+        await servicoCriado.update({
           nome,
           descricao,
-          imagem,
         });
 
-        res.status(200).send(servicoAtualizado);
+        if (firebaseUrl) {
+          servicoCriado.update({
+            imagem: firebaseUrl
+          });
+        }
+
+        res.status(200).send({ sucesso: "Serviço atualizado com sucesso" });
+
       }
 
       return res.status(404).send({ erro: "Serviço não encontrado" });
