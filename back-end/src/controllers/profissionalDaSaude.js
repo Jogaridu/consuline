@@ -17,6 +17,7 @@ module.exports = {
       login,
       senha,
       foto,
+      email,
       avaliacao,
       endereco,
       telefone,

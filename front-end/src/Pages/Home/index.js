@@ -109,7 +109,9 @@ function Home() {
 
       setFiliais(filiais.data);
     } catch (error) {
+
       console.log(error);
+
     }
   };
 
@@ -440,7 +442,7 @@ function Home() {
                 >
                   <Form.Control as="select" custom id="selectServico">
                     {filiais.map((filial) => (
-                      <option values={filial.id}>{filial.nome}</option>
+                      <option values={filial.id}>{filial.nomeFantasia}</option>
                     ))}
                   </Form.Control>
                 </Form.Group>
@@ -453,7 +455,7 @@ function Home() {
                 <div className="cardCarousel">
                   <div className="card">
                     <h1>{servico.nome}</h1>
-                    <img src={imgClinico} alt="Imagem Card" />
+                    <img src={servico.imagem} alt="Imagem Card" />
                     <p>{servico.descricao}</p>
                   </div>
                 </div>

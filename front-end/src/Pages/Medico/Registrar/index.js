@@ -14,9 +14,10 @@ function Medico() {
       <div className="container-central">
         <MenuCentral />
         <div className="container-conteudo-central">
+
          <TituloPrincipal nome="Cadastro médico" imagem={add} /> 
               
-              <Router>
+             
                 <Switch>
                 <Route path="/profissional-saude" exact component={DadosMedico} />
                 
@@ -25,8 +26,7 @@ function Medico() {
                 <Route path="/profissional-saude/login"  exact component={DadosMedicoLogin}/>
 
                 </Switch>
-              </Router>
-
+             
         </div>
       </div>
   );
