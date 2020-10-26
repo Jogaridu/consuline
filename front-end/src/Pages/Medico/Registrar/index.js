@@ -1,65 +1,45 @@
-import React, { useState } from "react";
+import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import { Formik, Form } from "formik";
 
 import MenuCentral from "../../../Components/MenuCentral";
-import MenuCentral2 from "./infoPessoalMedico";
 import TituloPrincipal from "../../../Components/TituloPrincipal";
-import MenuCentral3 from "./infoLocalizacaoMedico";
-import MenuCentral4 from "./infoLoginMedico";
-
-import Lottie from "react-lottie";
-import loader from "../../../Assets/loader.json";
+import DadosMedico from "./infoPessoalMedico";
+import DadosMedicoEndereco from "./infoLocalizacaoMedico";
+import DadosMedicoLogin from "./infoLoginMedico";
 
 import add from "../../../Assets/add3.png"
 
-// import { Link } from "react-router-dom";
-
 function Medico() {
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loader,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    }
-  };
-
   return (
-    <>
       <div className="container-central">
         <MenuCentral />
         <div className="container-conteudo-central">
-          {/* <TituloPrincipal nome="Cadastro médico" imagem={add} /> */}
-          {/* <Formik>
-            <Form>
+         <TituloPrincipal nome="Cadastro médico" imagem={add} /> 
+              
               <Router>
                 <Switch>
-
-                  <Route path={'/profissional-saude'}>
-                    <MenuCentral2 />
-                  </Route>
-
-                  <Route path={'/profissional-saude/endereco'}>
-                    <MenuCentral3 />
-                  </Route>
-
-                  <Route path={'/profissional-saude/login'}>
-                    <MenuCentral4 />
-                  </Route>
+                <Route path="/profissional-saude" exact component={DadosMedico} />
+                
+                <Route path="/profissional-saude/endereco"  exact component={DadosMedicoEndereco}/>
+                       
+                <Route path="/profissional-saude/login"  exact component={DadosMedicoLogin}/>
 
                 </Switch>
               </Router>
-            </Form>
-          </Formik> */}
-          <Lottie options={defaultOptions} height={200} width={200} style={{ margin: "100px auto" }} />
-          <h2>EM DESENVOLVIMENTO</h2>
+
         </div>
       </div>
-    </>
   );
 };
 
 export default Medico;
-{/* <MenuCentral2/>  */ }
+        // <Router>
+        //   <Switch>
+        //     <Route path="/filial" exact component={Informacoes} />
+
+        //     <Route path="/filial/endereco" component={Endereco} />
+
+        //     <Route path="/filial/servicos" component={Servicos} />
+        //   </Switch>
+        // </Router>
+    

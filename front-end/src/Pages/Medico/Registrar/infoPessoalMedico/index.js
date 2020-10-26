@@ -2,51 +2,46 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
+import '../../../../Styles/globalStyle.css'
 
 import medico from "../../../../Assets/medico.png"
 
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
-function MenuCentral2() {
+function DadosMedico() {
   return (
-
-    <div className="container-medicos">
-      <div className="cadastro-pessoal">
-        {/* <div className="container-titulo">
-                    <div className="titulo">
-                    ADICIONAR PROFISSIONAL DA SAÚDE
-                    </div>
-                    <div className="icone-titulo">
-                        <img id="iconeAdc" src={adc} alt="icone" /> 
-                    </div>
-            </div> */}
-
-
-        <div id="container-card">
-          <div className="container-left-side">
+        <div id="container-card1">
+          <div className="container-left-side1">
             <div className="img-usuario">
               <img id="usuario" src={medico} alt="logo projeto" />
             </div>
-
             <div className="subtitulo-img">
               Cadastro Pessoal
-                        </div>
+            </div>
           </div>
 
-          <div className="container-right-side">
-            <div className="entrada-de-dados">
-              <input placeholder="Nome Completo" required></input>
-              <input placeholder="Data de Nascimento" required></input>
-              <div className="entrada-dados2">
+          <div className="container-right-side1">
+            <div className="entrada-de-dados1">
+              <div className="inputs">
+                <input placeholder="Nome Completo" required></input>
+              </div>
+              <div className="inputs">
+                <input placeholder="Data de Nascimento" required></input>
+              </div>
+              <div className="entrada-dados22">
                 <div className="">
                   <input placeholder="R.G" required></input>
                 </div>
-                <div className="entrada-dados3-pessoal">
+                <div className="entrada-dados3-pessoal3">
                   <input placeholder="CPF" required></input>
                 </div>
               </div>
-              <input placeholder="Email" required></input>
-              <input placeholder="Telefone" required></input>
+              <div className="inputs">
+                <input placeholder="Email" required></input>
+              </div>
+              <div className="inputs">
+                <input placeholder="Telefone" required></input>
+              </div>
             </div>
 
             <div className="div-btn">
@@ -66,21 +61,15 @@ function MenuCentral2() {
               <Link to="/profissional-saude/endereco">
                 <div className="next-right">
                   ⇨
-                              </div>
+                </div>
               </Link>
             </div>
           </div>
-
-
         </div>
-      </div>
-
-    </div>
-
   );
 }
 
-export default MenuCentral2;
+export default DadosMedico;
 
 
 
