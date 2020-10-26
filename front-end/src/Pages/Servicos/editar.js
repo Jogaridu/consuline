@@ -50,16 +50,14 @@ function EditarServico() {
     dados.append("descricao", values.descricao);
     dados.append("imagem", imagem);
 
-    console.log(dados);
-
     try {
-      const retorno = await api.post("/servico", dados, {
+      const retorno = await api.put(`/servico/${location.state}`, dados, {
         headers: {
           "Content-type": `multipart/form-data`,
         },
       });
 
-      alert("Serviço cadastrado com sucesso!!!");
+      alert("Serviço editado com sucesso!!!");
     } catch (error) {
       console.log(error);
     }
@@ -95,23 +93,27 @@ function EditarServico() {
             </figure>
             <h2>Editar serviço</h2>
           </div>
-          {loading ? (
-            <div id="loader">
-              <Lottie options={defaultOptions} height={200} width={200} />
-            </div>
-          ) : (
-            <div id="container-form-servicos">
+          <div id="container-form-servicos">
+            {loading ? (
+              <div id="loader">
+                <Lottie options={defaultOptions} height={200} width={200} />
+              </div>
+            ) : (
               <Formik
-                initialValues={{ nome: "", descricao: "" }}
+                initialValues={{ nome: servicos.nome, descricao: servicos.descricao }}
                 onSubmit={(values) => handleForm(values)}
               >
                 <Form>
-                  <Field value={servicos.nome} name="nome" placeholder="Nome" />
                   <Field
-                    value={servicos.descricao}
+                    name="nome"
+                    placeholder="Nome"
+                    id="nome"
+                  />
+                  <Field
                     name="descricao"
                     as="textarea"
                     placeholder="Descrição"
+                    id="descricao"
                   />
                   <div id="imagem-cadastro-servico">
                     <label> Imagem </label>
@@ -135,14 +137,14 @@ function EditarServico() {
 
                   <div id="container-botoes-servicos">
                     <Link to="/servicos">
-                      <BotaoSecundario titulo="Voltar" />
+                      <BotaoSecundario titulo="Cancelar" />
                     </Link>
-                    <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
+                    <BotaoPrincipal titulo="Atualizar" tipo="submit" />
                   </div>
                 </Form>
               </Formik>
-            </div>
-           )} 
+            )}
+          </div>
         </div>
       </div>
     </div>

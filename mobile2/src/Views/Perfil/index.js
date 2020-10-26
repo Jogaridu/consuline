@@ -35,7 +35,14 @@ const Perfil = ({ navigation }) => {
   };
 
   useEffect(() => {
+
+    //registrar no evento realoadUsuario
+    
+    //dentro da função do evento, inserir no storage e atualizar o nome na tela
+
     pegarDados();
+
+    //remover o registro do listener
   }, []);
 
   const navegarConsultaEditar = () => {

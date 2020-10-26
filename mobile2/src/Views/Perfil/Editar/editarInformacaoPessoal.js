@@ -38,17 +38,6 @@ const EditarInformacaoPessoal = (props) => {
     cpf: "",
     email: "",
     celular: "",
-    endereco: {
-      bairro: "",
-      cep: "",
-      cidade: "",
-      complemento: "",
-      estado: "",
-      numero: "",
-      rua: "",
-    },
-    login: "",
-    senha: "",
   });
   const [id, setId] = useState();
   const [loading, setLoading] = useState(true);
@@ -65,17 +54,6 @@ const EditarInformacaoPessoal = (props) => {
       cpf: paciente.cpf,
       email: paciente.email,
       celular: paciente.celular,
-      login: paciente.login,
-      senha: paciente.senha,
-      endereco: {
-        bairro: paciente.EnderecoPaciente.bairro,
-        cep: paciente.EnderecoPaciente.cep,
-        cidade: paciente.EnderecoPaciente.cidade,
-        complemento: paciente.EnderecoPaciente.complemento,
-        estado: paciente.EnderecoPaciente.estado,
-        numero: paciente.EnderecoPaciente.numero,
-        rua: paciente.EnderecoPaciente.rua,
-      },
     });
     setId(paciente.id);
     setLoading(false);
@@ -169,6 +147,8 @@ const EditarInformacaoPessoal = (props) => {
 
       if (retorno.status === 200) {
         Alert.alert("Dados editados com sucesso!!!");
+
+        //dispara um evento com o nome realoadUsuario
       }
     } catch (error) {
       return console.log(error);
