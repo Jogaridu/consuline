@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, ScrollView, AsyncStorage } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { EventRegister } from "react-native-event-listeners";
 
 import {
   ContainerColor,
@@ -35,9 +36,12 @@ const Perfil = ({ navigation }) => {
   };
 
   useEffect(() => {
-
     //registrar no evento realoadUsuario
-    
+    listener = EventRegister.addEventListener("reloadPerfil", async (data) => {
+      const teste = await AsyncStorage.setItem("@Consuline:paciente", ...AsyncStorage, JSON.stringify(data));
+      console.log(teste);
+    });
+
     //dentro da função do evento, inserir no storage e atualizar o nome na tela
 
     pegarDados();

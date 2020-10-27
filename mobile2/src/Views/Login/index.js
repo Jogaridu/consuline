@@ -105,7 +105,7 @@ const Login = ({ navigation }) => {
       const resApi = await api.post("/paciente/sessao", pacienteLogin);
       const dadosResposta = resApi.data;
       const id = dadosResposta.paciente.pacienteId;
-      
+  
       const resApiFBPK = await api.get(`/paciente/${id}`);
 
       if(resApiFBPK.data.verificado) {

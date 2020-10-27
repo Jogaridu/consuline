@@ -25,28 +25,12 @@ import colors from "../../../Styles/colors";
 
 const EditarLogin = (props) => {
   const [dados, setDados] = useState({
-    nome: "",
-    dataNascimento: "",
-    rg: "",
-    cpf: "",
-    email: "",
-    celular: "",
-    endereco: {
-      bairro: "",
-      cep: "",
-      cidade: "",
-      complemento: "",
-      estado: "",
-      numero: "",
-      rua: "",
-    },
     login: "",
     senha: "",
     senhaAntiga: "",
     confirmarSenha: "",
   });
   const [id, setId] = useState();
-  const [dadoSenhaAntiga, setSenhaAntiga] = useState();
   const [loading, setLoading] = useState(true);
   const [fechar, setFechar] = useState("");
 
@@ -56,24 +40,8 @@ const EditarLogin = (props) => {
     );
     setDados({
       ...dados,
-      nome: paciente.nome,
-      dataNascimento: paciente.dataNascimento,
-      rg: paciente.rg,
-      cpf: paciente.cpf,
-      email: paciente.email,
-      celular: paciente.celular,
       login: paciente.login,
-      endereco: {
-        bairro: paciente.EnderecoPaciente.bairro,
-        cep: paciente.EnderecoPaciente.cep,
-        cidade: paciente.EnderecoPaciente.cidade,
-        complemento: paciente.EnderecoPaciente.complemento,
-        estado: paciente.EnderecoPaciente.estado,
-        numero: paciente.EnderecoPaciente.numero,
-        rua: paciente.EnderecoPaciente.rua,
-      },
     });
-    setSenhaAntiga(paciente.senha);
     setId(paciente.id);
     setLoading(false);
   };
@@ -115,18 +83,19 @@ const EditarLogin = (props) => {
         : "";
     } else {
       try {
-        const retorno = await api.post(`/paciente/${id}/verificar-senha`, dadoSenhaAntiga);
-
         console.log("Entrou")
+
+        const retorno = await api.post(`/paciente/${id}/verificar-senha`, {senhaAntiga: dados.senhaAntiga});
 
         if (retorno.status === 200) {
           const atualizarPaciete = await api.put(`/paciente/${id}`, {senha: dados.senha});
-
-          console.log("Deu certo")
+          
+          Alert.alert("Senha atualizada com sucesso!!!");
         }
         
 
       } catch (error) {
+        // mostrar msg de erro
         console.log(error)
       }
     }

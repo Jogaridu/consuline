@@ -121,6 +121,7 @@
     width: 350px;
     min-height: 0px;
     height: auto;   
+    margin-top: 35px;
     display: flex;
     flex-direction: row;
      /* background-color: red;  */

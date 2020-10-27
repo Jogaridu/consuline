@@ -130,7 +130,7 @@
     position: absolute;
     border-radius: 50px;
     display: inline-block;
-    background-color: greenyellow;
+    background-color: red;
 
     left: 10px;
     bottom: 10px;
@@ -140,6 +140,6 @@
 }
 
 .chk input:checked + span {
-    background-color: red;
+    background-color: greenyellow;
 
 }

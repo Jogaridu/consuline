@@ -41,17 +41,6 @@ const EditarLocalizacao = (props) => {
   const inputEstado = useRef(null);
   const inputComplemento = useRef(null);
 
-  const [dados, setDados] = useState({
-    nome: "",
-    dataNascimento: "",
-    rg: "",
-    cpf: "",
-    email: "",
-    celular: "",
-    login: "",
-    senha: "",
-    endereco: {},
-  });
   const [id, setId] = useState();
   const [loading, setLoading] = useState(true);
   const [endereco, setEndereco] = useState({
@@ -68,17 +57,6 @@ const EditarLocalizacao = (props) => {
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
-    setDados({
-      ...dados,
-      nome: paciente.nome,
-      dataNascimento: paciente.dataNascimento,
-      rg: paciente.rg,
-      cpf: paciente.cpf,
-      email: paciente.email,
-      celular: paciente.celular,
-      login: paciente.login,
-      senha: paciente.senha,
-    });
     setEndereco({
       ...endereco,
       bairro: paciente.EnderecoPaciente.bairro,
@@ -169,11 +147,12 @@ const EditarLocalizacao = (props) => {
   };
 
   const editar = async () => {
-    setDados({ ...dados, endereco: endereco });
-    // console.log(dados);
+    const localizacao = {
+      endereco
+    }
     try {
       
-      const retorno = await api.put(`/paciente/${id}`, dados);
+      const retorno = await api.put(`/paciente/${id}`, localizacao);
 
       if (retorno.status === 200) {
         Alert.alert("Dados editados com sucesso!!!");

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { EventRegister } from 'react-native-event-listeners'
 
 import Botao from "../../../Components/Botao2";
 
@@ -30,7 +31,7 @@ import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
 
-const EditarInformacaoPessoal = (props) => {
+const EditarInformacaoPessoal = (props, {navigation}) => {
   const [dados, setDados] = useState({
     nome: "",
     dataNascimento: "",
@@ -141,7 +142,6 @@ const EditarInformacaoPessoal = (props) => {
   };
 
   const editar = async () => {
-    console.log(dados);
     try {
       const retorno = await api.put(`/paciente/${id}`, dados);
 
@@ -149,6 +149,8 @@ const EditarInformacaoPessoal = (props) => {
         Alert.alert("Dados editados com sucesso!!!");
 
         //dispara um evento com o nome realoadUsuario
+        EventRegister.emit("reloadPerfil", dados);
+        // navigation.navigate("Perfil");
       }
     } catch (error) {
       return console.log(error);

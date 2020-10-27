@@ -8,24 +8,22 @@ import mapa from "../../../../Assets/mapa.png"
 
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
-function MenuCentral3() {
+function DadosMedicoEndereco() {
   return (
 
-    <div className="container-medicos">
-      <div className="cadastro-pessoal">
 
-        <div id="container-card">
-          <div className="container-left-side">
+        <div id="container-card1">
+          <div className="container-left-side1">
             <div className="img-usuario">
               <img className="mapa" src={mapa} alt="logo projeto" />
             </div>
 
             <div className="subtitulo-img">
               Cadastro Localização
-                        </div>
+            </div>
           </div>
 
-          <div className="container-right-side">
+          <div className="container-right-side1">
             <div className="entrada-de-dados-localizacao">
               <div className="entrada-dados2">
                 <div className="inputs-line-1">
@@ -81,14 +79,12 @@ function MenuCentral3() {
 
 
         </div>
-      </div>
 
-    </div>
 
   );
 }
 
-export default MenuCentral3;
+export default DadosMedicoEndereco;
 
 
 

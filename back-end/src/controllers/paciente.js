@@ -66,7 +66,6 @@ module.exports = {
         email,
         rg,
         cpf,
-        foto: firebaseUrl,
         verificado,
         codigoVerificacao,
       });
@@ -283,14 +282,12 @@ module.exports = {
 
     const { senhaAntiga } = req.body;
 
-    const pacienteSenha = await Paciente.findByPk(id, {
+    const {senha} = await Paciente.findByPk(id, {
       attributes: ['senha'],
       raw: true
     });
 
-    console.log(pacienteSenha);
-
-    if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
+    if (bcrypt.compareSync(senhaAntiga, senha)) {
       return res.status(200).send("Sucesso");
     }
 
