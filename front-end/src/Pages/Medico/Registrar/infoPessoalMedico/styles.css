@@ -1,83 +1,32 @@
-.container-medicos{
-    width: auto;
-    height: 655px;
-     background-color: var(--fundo); 
-     display: flex;
-     justify-content: center;
-     /* margin-top: -60px; */
-}
-    
 
-                        /****************************** CONTAINER DO CADASTRO COMPLETO FORM + TITULO ******************************/
-.cadastro-pessoal{
-    width: 810px;
-    height: 600px;
-     /* border: 2px solid black;    */
-    float: left;
-    margin-top: 35px;
-    
-}
-
-                        /****************************** CONTAINER TITULO ******************************/
-.container-titulo{
-    width: 700px;
-    height: 60px;
-    /* background-color: green; */
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.titulo{
-    width: 600px;
-    height: 60px;
-    text-align: center;
-    /* background-color: #fff; */
-    font-size: 35px;
-    float: left;
-
-}
-
-.icone-titulo{
-    width: 60px;
-    height: 60px;
-    /* background-color: red; */
-    float: right;
-}
-#iconeAdc{
-    height: 60px;
-    width: 60px;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-}
                         /****************************** CONTAINER CADASTRO FORMULARIO ******************************/
-#container-card{
-    width: 800px;
-    height: 500px;
+#container-card1{
+    height: 80%;
+    width: 95%;
     background-color: var(--container);
     border-radius: 20px;
-    margin-top: 20px;
-    border-radius: 40px;
+    margin-top: 10px;
+    border-radius: 20px;
     display: flex;
     flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.container-left-side{
-    width: 400px;
-    height: 500px;
-    /* background: red; */
+.container-left-side1{
+    width: 50%;
+    height: 100%;
+     /* background: red;  */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     
 }
-.container-right-side{
-    width: 400px;
-    height: 500px;
-    /* background: yellow; */
+.container-right-side1{
+    width: 50%;
+    height: 100%;
+     /* background: yellow;  */
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -121,20 +70,23 @@
 
             /* ---------------------------- Container-right-side ---------------------------- */
 
-.entrada-de-dados{
-    width: 350px;
+.entrada-de-dados1{
+    width: 450px;
     height: 430px;
-    /* background-color: #fff; */
+    margin-top: 10px;
+     /* background-color: #fff;   */
 }
-.entrada-dados2{
-    width: 350px;
+.entrada-dados22, .inputs{
+    width: 100%;
     min-height: 30px;
     height: auto;   
     display: flex;
     flex-direction: row;
+        margin-top: 35px;
+
 }
-.entrada-dados3-pessoal{
-    margin-left: 20px;
+.entrada-dados3-pessoal3{
+    margin-left: 80px;
 }
 
             /* ---------------------------- Button Next ---------------------------- */
@@ -144,6 +96,7 @@
     width: 90%;
     height: 50px;
      /* background-color: yellow;  */
+     margin-top: 15px;
      display: flex;
      flex-direction: row;
      align-items: center;
