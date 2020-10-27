@@ -1,0 +1,99 @@
+#cnpj {grid-area: cnpj;}
+#ie {grid-area: ie;}
+#razaoSocial {grid-area: social;}
+#nomeFantasia {grid-area: nome;}
+#dataAbertura {grid-area: data;}
+#email {grid-area: email;}
+
+.form-editar-informacoes {
+    flex: 4;
+    display: grid;
+    padding-top: 0px;
+    column-gap: 100px;
+    justify-content: center;
+    grid-template-areas:
+        "cnpj cnpj ie ie"
+        "nome nome social social"
+        "email email data data "
+        "telefones telefones telefones botao";
+}
+
+.form-editar-informacoes .form-grupo-input input {
+    width: 350px;
+}
+
+.caixa-botao {
+    grid-area: botao;
+    align-self: center;
+}
+
+.telefones-editar-filial {
+    height: 33vh;
+    width: 320px;
+    grid-area: telefones;
+    overflow: hidden;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.telefones-editar-filial h2 {
+    font-size: 1.2em;
+    text-align: left;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.telefones {
+    height: 25vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: var(--fundo);
+    border-radius: 10px;
+}
+
+.telefones div {
+    height: 40px;
+    width: 95%;
+    margin-bottom: 10px;
+    display: flex;
+    border-bottom: 1px solid var(--principal);
+}
+
+.telefones input[type=text] {
+    height: 39px;
+    width: 50%;
+    border: none;
+    box-shadow: none;
+    border-radius: 0px;
+    padding-left: 5px;
+}
+
+.telefones input[type=text]::selection {
+    background-color: transparent;
+}
+
+.telefones figure {
+    height: inherit;
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.telefones figure img {
+    height: 30px;
+    width: 30px;
+    transition: 500ms ease all;
+}
+
+.telefones img:hover {
+    border-radius: 10px;
+    box-shadow: 0px 0px 1px var(-);
+    transform: scale(1.1);
+    cursor: pointer;
+}
