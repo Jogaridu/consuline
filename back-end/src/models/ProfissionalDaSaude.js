@@ -11,7 +11,8 @@ class ProfissionalDaSaude extends Model {
         senha: DataTypes.STRING,
         foto: DataTypes.STRING,
         avaliacao: DataTypes.STRING,
-        email:DataTypes.STRING
+        email:DataTypes.STRING,
+        dataNascimento:DataTypes.DATEONLY
       },
       {
         sequelize,

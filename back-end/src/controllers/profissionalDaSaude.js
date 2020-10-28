@@ -20,18 +20,18 @@ module.exports = {
       avaliacao,
       endereco,
       telefone,
+      dataNascimento
     } = req.body;
 
     const { firebaseUrl } = req.file ? req.file : "";
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
 
-   console.log(req.body);
+    console.log(req.body);
 
     try {
       const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
-
-      let dadosProfissional = await ProfissionalDaSaude.findOne({
+     let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
           [Op.or]: [{ login: login }, { crm: crm }, { cpf: cpf }],
         },
@@ -54,7 +54,8 @@ module.exports = {
           foto,
           avaliacao,
           foto: firebaseUrl,
-          email
+          email,
+          dataNascimento
         }
       );
 
