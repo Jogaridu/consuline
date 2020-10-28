@@ -62,7 +62,7 @@ module.exports = {
                         model: EnderecoFilial,
                         attributes: [
                             "id", "rua", "bairro", "numero",
-                            "complemento", "cep"
+                            "complemento", "cep", "cidade", "estado"
                         ]
 
                     },
@@ -71,8 +71,6 @@ module.exports = {
                         attributes: ["id", "numero"]
                     }
                 ],
-
-                attributes: ["id", "nomeFantasia"]
 
             });
 
@@ -154,9 +152,12 @@ module.exports = {
 
                 const { servicos, endereco, telefones, ...dados } = req.body;
 
-                const enderecoAtualizado = await enderecoFilial.atualizar(endereco, endereco.id);
+                if (endereco) {
+                    const enderecoAtualizado = await enderecoFilial.atualizar(endereco, endereco.id);
 
-                if (enderecoAtualizado[0] === 1) {
+                }
+
+                if (telefones) {
 
                     const telefonesBanco = await filialBuscado.getTelefoneFilials();
 
@@ -165,16 +166,16 @@ module.exports = {
 
                     // Cadastrando todos os telefones
                     telefones.forEach(numero => filialBuscado.createTelefoneFilial({ numero: numero }));
+                }
 
-                    filialBuscado.update(dados);
-
+                if (servicos) {
                     filialBuscado.setServicos(servicos);
-
-                    res.status(200).send("Filial atualizada");
 
                 }
 
-                res.status(200).send("Endereco inválido, ajuste o ID");
+                filialBuscado.update(dados);
+
+                return res.status(200).send("Filial atualizada");
 
             }
 
@@ -183,6 +184,7 @@ module.exports = {
 
 
         } catch (error) {
+            console.log(error);
             res.status(404).send({ erro: "Filial não encontrada" });
         }
     }

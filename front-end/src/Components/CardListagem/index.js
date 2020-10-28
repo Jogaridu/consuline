@@ -5,9 +5,10 @@ import maisOpcoes from "../../Assets/3pontos.png";
 import "./styles.css";
 import { useState } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
+import { useHistory } from "react-router-dom";
 
 function CardListagem(props) {
-  const { id, nome, cidade, estado, telefones } = props;
+  const { id, nome, cidade, estado, telefones, telaEditar } = props;
 
   // const telefone = telefones[Math.floor(Math.random() * telefones.length)].numero;
 
@@ -18,10 +19,12 @@ function CardListagem(props) {
 
   const [mostrarSubMenu, setMostrarSubMenu] = useState(false);
 
+  const history = useHistory();
+
   const SubMenu = () => {
     return (
       <ul className="sub-menu">
-        <li>Editar</li>
+        <li onClick={() => history.push(telaEditar, id)}>Editar</li>
         <li>Ativar/Desativar</li>
         <li>Consulta completa</li>
       </ul>

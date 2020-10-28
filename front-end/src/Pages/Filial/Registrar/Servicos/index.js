@@ -7,6 +7,7 @@ import api from "../../../../Services/api";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 function Servicos() {
 
@@ -23,7 +24,7 @@ function Servicos() {
         carragarServicos();
         console.log(novaFilial.servicos);
 
-    }, []);
+    }, [novaFilial.servicos]);
 
     const cadastrarFilial = async () => {
 
@@ -34,7 +35,13 @@ function Servicos() {
             const retorno = await api.post("/filial", novaFilial);
 
             if (retorno.status === 201) {
-                alert("Cadastro realizado com sucesso");
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Filial cadastrada com sucesso',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => history.push("/filiais"));
             }
 
         } catch (error) {
@@ -110,7 +117,22 @@ function Servicos() {
             </div>
 
             <div className="caixa-botoes">
-                <button onClick={() => history.push("/filial/endereco")} type="button">&larr;</button>
+                <button onClick={() => {
+                    Swal.fire({
+                        title: 'Quer realmente voltar?',
+                        text: "Todos os dados registrados serão apagados",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sim, quero voltar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            history.push("/filial/endereco");
+
+                        }
+                    })
+                }} type="button">&larr;</button>
 
                 <button style={{ width: "180px", fontSize: "1.1em" }} type="submit" onClick={cadastrarFilial}>Cadastrar</button>
             </div>

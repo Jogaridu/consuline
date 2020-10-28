@@ -11,8 +11,8 @@ import ListarFiliais from "./Pages/Filial/Editar/";
 function App() {
   return (
     <>
-      {/* <Routes /> */}
-      <ListarFiliais />
+      <Routes />
+      {/* <ListarFiliais /> */}
     </>
   );
 }
