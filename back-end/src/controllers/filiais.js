@@ -160,10 +160,8 @@ module.exports = {
 
                     const telefonesBanco = await filialBuscado.getTelefoneFilials();
 
-                    // Apagando todos os telefones
                     telefonesBanco.forEach(telefone => telefone.destroy());
 
-                    // Cadastrando todos os telefones
                     telefones.forEach(numero => filialBuscado.createTelefoneFilial({ numero: numero }));
 
                     filialBuscado.update(dados);

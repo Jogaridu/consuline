@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 const Cidade = require("../models/Cidade");
 const Estado = require("../models/Estado");

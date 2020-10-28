@@ -36,8 +36,5 @@ module.exports = {
             res.status(404).send({ erro: "Falha ao atualizar a central" });
 
         }
-
-
-
     }
 }
