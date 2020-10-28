@@ -1,0 +1,33 @@
+.container-editar-servicos {
+    width: 100%;
+    flex: 5;
+    background-color: thistle;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.editar-servicos {
+    height: 60vh;
+    width: 22vw;
+    background-color: tomato;
+}
+
+.editar-servicos h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.lista-servicos {
+    height: 90%;
+    width: 100%;
+    background-color: yellow;
+    overflow: hidden;
+}
+
+.lista-servicos li {
+    height: 40px;
+    width: 100%;
+}

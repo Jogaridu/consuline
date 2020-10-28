@@ -6,38 +6,32 @@ import './styles.css';
 import cadeado from "../../../../Assets/cadeado.png"
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
-function MenuCentral4() {
+function DadosMedicoLogin() {
   return (
 
-    <div className="container-medicos">
-      <div className="cadastro">
-        {/* <div className="container-titulo">
-                    <div className="titulo">
-                    ADICIONAR PROFISSIONAL DA SAÚDE
-                    </div>
-                    <div className="icone-titulo">
-                        <img id="iconeAdc" src={adc} alt="icone" /> 
-                    </div>
-            </div> */}
-
-
-        <div id="container-card">
-          <div className="container-left-side">
+        <div id="container-card1">
+          <div className="container-left-side1">
             <div className="img-usuario">
               <img className="cadeado" src={cadeado} alt="logo projeto" />
             </div>
 
             <div className="subtitulo-img">
               Cadastro Login
-                        </div>
+             </div>
           </div>
 
 
-          <div className="container-right-side">
+          <div className="container-right-side1">
             <div className="entrada-de-dados-login">
+              <div className="inputs">
               <input placeholder="Login"></input>
+              </div>
+              <div className="inputs">
               <input placeholder="Senha"></input>
+              </div>
+              <div className="inputs">
               <input placeholder="Confirmar Senha"></input>
+              </div>
             </div>
 
 
@@ -66,14 +60,11 @@ function MenuCentral4() {
 
 
         </div>
-      </div>
-
-    </div>
 
   );
 }
 
-export default MenuCentral4;
+export default DadosMedicoLogin;
 
 
 

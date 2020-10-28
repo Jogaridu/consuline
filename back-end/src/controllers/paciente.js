@@ -66,7 +66,6 @@ module.exports = {
         email,
         rg,
         cpf,
-        foto: firebaseUrl,
         verificado,
         codigoVerificacao,
       });
@@ -287,8 +286,6 @@ module.exports = {
       attributes: ['senha'],
       raw: true
     });
-
-    console.log(pacienteSenha);
 
     if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
       return res.status(200).send("Sucesso");

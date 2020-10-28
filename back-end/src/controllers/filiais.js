@@ -21,7 +21,7 @@ module.exports = {
                 });
 
                 if (filialCriado) {
-                    return res.status(400).send({ erro: "Essa filial já está cadastrado"});
+                    return res.status(400).send({ erro: "Essa filial já está cadastrado" });
 
                 }
 
@@ -72,7 +72,7 @@ module.exports = {
                     }
                 ],
 
-                attributes: ["id", "nome", "horarioFuncionamento"]
+                attributes: ["id", "nomeFantasia"]
 
             });
 

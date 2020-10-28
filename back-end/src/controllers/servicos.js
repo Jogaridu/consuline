@@ -1,10 +1,13 @@
 const Servico = require("../models/Servico");
+const Filial = require("../models/Filial");
 
 module.exports = {
   async cadastrar(req, res) {
-    const { nome, descricao, imagem } = req.body;
+    const { nome, descricao } = req.body;
 
-    if (nome && descricao && imagem) {
+    const { firebaseUrl } = req.file;
+
+    if (nome && descricao && firebaseUrl) {
       try {
         let servicoCriado = await Servico.findOne({
           where: {
@@ -12,7 +15,8 @@ module.exports = {
           },
         });
 
-        console.log(servicoCriado)
+        console.log(servicoCriado);
+
         if (servicoCriado) {
           return res.status(400).send("Esse serviço já está cadastrado");
         }
@@ -20,23 +24,22 @@ module.exports = {
         servicoCriado = await Servico.create({
           nome,
           descricao,
-          imagem,
+          imagem: firebaseUrl,
         });
 
-        res.status(201).send(servicoCriado);
+        return res.status(201).send(servicoCriado);
 
       } catch (error) {
-        console.log(error);
+
         return res.status(404).send({ erro: "Falha na criação do serviço" });
+
       }
     }
 
-    res
-      .status(400)
-      .send({
-        erro:
-          "Todos os campos devem ser preenchidos (nome, descrição e imagem).",
-      });
+    res.status(400).send({
+      erro:
+        "Todos os campos devem ser preenchidos (nome, descrição e imagem).",
+    });
   },
 
   async buscarPorId(req, res) {
@@ -90,19 +93,27 @@ module.exports = {
   async atualizar(req, res) {
     const { id } = req.params;
 
+    const { firebaseUrl } = req.file;
+
     try {
       const servicoCriado = await Servico.findByPk(id);
 
       if (servicoCriado) {
-        const { nome, descricao, imagem } = req.body;
+        const { nome, descricao } = req.body;
 
-        const servicoAtualizado = await servicoCriado.update({
+        await servicoCriado.update({
           nome,
           descricao,
-          imagem,
         });
 
-        res.status(200).send(servicoAtualizado);
+        if (firebaseUrl) {
+          servicoCriado.update({
+            imagem: firebaseUrl
+          });
+        }
+
+        res.status(200).send({ sucesso: "Serviço atualizado com sucesso" });
+
       }
 
       return res.status(404).send({ erro: "Serviço não encontrado" });
@@ -110,4 +121,30 @@ module.exports = {
       return res.status(404).send({ erro: "Falha ao atualizar o serviço" });
     }
   },
+
+  async pegarFiliais(req, res) {
+    const { id } = req.params;
+
+    try {
+      if (id !== undefined) {
+        const filiais = await Servico.findByPk(id, {
+          include: {
+            model: Filial,
+            through: { attributes: [] },
+            attributes: ["nomeFantasia"]
+          },
+
+          attributes: []
+        });
+
+        return res.status(200).send(filiais.Filials);
+
+      }
+
+    } catch (error) {
+      return res.status(404).send({ erro: "Paciente não encontrado" });
+
+    }
+
+  }
 };

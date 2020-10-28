@@ -6,13 +6,13 @@ import "./Styles/globalStyle.css";
 
 import Servicos from "./Pages/Servicos";
 import Routes from "./routes";
-import ListarFiliais from "./Pages/Filial/Registrar/Servicos";
+import ListarFiliais from "./Pages/Filial/Editar/";
 
 function App() {
   return (
     <>
-      <Routes />
-      {/* <ListarFiliais /> */}
+      {/* <Routes /> */}
+      <ListarFiliais />
     </>
   );
 }

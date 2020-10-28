@@ -21,13 +21,15 @@ function Servicos() {
 
     useEffect(() => {
         carragarServicos();
+        console.log(novaFilial.servicos);
+
     }, []);
 
     const cadastrarFilial = async () => {
 
         novaFilial.telefones = ["11912341234"]; // Provisório
+        novaFilial["servicos"] = novoServico;
 
-        console.log(novaFilial);
         try {
             const retorno = await api.post("/filial", novaFilial);
 
@@ -69,7 +71,7 @@ function Servicos() {
 
         }
 
-        novaFilial["servicos"] = novoServico;
+        console.log(novaFilial.servicos);
 
     }
 

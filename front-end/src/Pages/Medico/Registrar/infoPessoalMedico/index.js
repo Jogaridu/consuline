@@ -2,51 +2,150 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
+import '../../../../Styles/globalStyle.css'
+
+
+ import validarInputVazia from '../../../../Fixtures/Inputs/ValidarInputVazia';
+import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
+import { validarDadosMedico } from '../ValidacaoInputSchema';
+
+import MaskedInput from "react-text-mask";
+ import mascaras from "./mask";
+import ValidarData from '../../../../Fixtures/ValidarData';
+
+
+
 
 import medico from "../../../../Assets/medico.png"
 
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
-function MenuCentral2() {
+function DadosMedico() {
+
+  const history = useHistory();
+
+
+  const validar = (values) => {
+    const arrInputs = Array.from(document.querySelectorAll("form input"));
+
+    const arrayInputsVazias = validarInputVazia(arrInputs);
+
+    if (!arrayInputsVazias) {
+      const dataNascimentoEn = ValidarData(values.dataNascimento);
+
+      if (dataNascimentoEn) {
+        history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn });
+
+      }
+    }
+  }
+
+
   return (
+    <Formik
+    onSubmit={validar}
+    initialValues={{
+      cpf: "",
+      nome: "",
+      crm: "",
+      dataNascimento: "",
+      email: "",
+      telefone: "",
+    }}
+    validationSchema={validarDadosMedico}>
 
-    <div className="container-medicos">
-      <div className="cadastro-pessoal">
-        {/* <div className="container-titulo">
-                    <div className="titulo">
-                    ADICIONAR PROFISSIONAL DA SAÚDE
-                    </div>
-                    <div className="icone-titulo">
-                        <img id="iconeAdc" src={adc} alt="icone" /> 
-                    </div>
-            </div> */}
 
-
-        <div id="container-card">
-          <div className="container-left-side">
+      {/* <Form> */}
+        <div id="container-card1">
+          <div className="container-left-side1">
             <div className="img-usuario">
               <img id="usuario" src={medico} alt="logo projeto" />
             </div>
-
             <div className="subtitulo-img">
               Cadastro Pessoal
-                        </div>
+            </div>
           </div>
 
-          <div className="container-right-side">
-            <div className="entrada-de-dados">
-              <input placeholder="Nome Completo" required></input>
-              <input placeholder="Data de Nascimento" required></input>
-              <div className="entrada-dados2">
+          <div className="container-right-side1">
+            <div className="entrada-de-dados1">
+              <div className="inputs">
+              <Field
+                name="nome"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.nome}
+                  placeholder="Nome Completo"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
+              </div>
+              <div className="inputs">
+              <Field
+                name="dataNascimento"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.data}
+                  placeholder="Data de Nascimento"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
+              </div>
+              <div className="entrada-dados22">
                 <div className="">
-                  <input placeholder="R.G" required></input>
+                  <input placeholder="R.G"
+                  name="crm"
+                  type="text"
+                  // mask={mascaras.cnpj}
+                  onBlur={InputCorreta}
+                  guide={false}
+                  required></input>
                 </div>
-                <div className="entrada-dados3-pessoal">
-                  <input placeholder="CPF" required></input>
+                <div className="entrada-dados3-pessoal3">
+                <Field
+                name="cpf"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.cpf}
+                  placeholder="CPF"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
                 </div>
               </div>
-              <input placeholder="Email" required></input>
-              <input placeholder="Telefone" required></input>
+              <div className="inputs">
+                <input placeholder="Email"
+                name="email"
+                type="text"
+                // mask={mascaras.cnpj}
+                onBlur={InputCorreta}
+                guide={false}
+                required></input>
+              </div>
+              <div className="inputs">
+              <Field
+                name="telefone"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  mask={mascaras.telefone}
+                  placeholder="Telefone"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
+              </div>
             </div>
 
             <div className="div-btn">
@@ -66,21 +165,17 @@ function MenuCentral2() {
               <Link to="/profissional-saude/endereco">
                 <div className="next-right">
                   ⇨
-                              </div>
+                </div>
               </Link>
             </div>
           </div>
-
-
         </div>
-      </div>
-
-    </div>
-
+        {/* </Form> */}
+      </Formik>
   );
 }
 
-export default MenuCentral2;
+export default DadosMedico;
 
 
 
