@@ -1,4 +1,5 @@
 const Servico = require("../models/Servico");
+const Filial = require("../models/Filial");
 
 module.exports = {
   async cadastrar(req, res) {
@@ -120,4 +121,30 @@ module.exports = {
       return res.status(404).send({ erro: "Falha ao atualizar o serviço" });
     }
   },
+
+  async pegarFiliais(req, res) {
+    const { id } = req.params;
+
+    try {
+      if (id !== undefined) {
+        const filiais = await Servico.findByPk(id, {
+          include: {
+            model: Filial,
+            through: { attributes: [] },
+            attributes: ["nomeFantasia"]
+          },
+
+          attributes: []
+        });
+
+        return res.status(200).send(filiais.Filials);
+
+      }
+
+    } catch (error) {
+      return res.status(404).send({ erro: "Paciente não encontrado" });
+
+    }
+
+  }
 };

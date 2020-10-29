@@ -287,7 +287,7 @@ module.exports = {
       raw: true
     });
 
-    if (bcrypt.compareSync(senhaAntiga, senha)) {
+    if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
       return res.status(200).send("Sucesso");
     }
 

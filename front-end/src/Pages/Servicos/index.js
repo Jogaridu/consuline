@@ -13,11 +13,10 @@ import Menu from "../../Components/MenuCentral";
 import Titulo from "../../Components/TituloPrincipal";
 
 import api from "../../Services/api";
-
+import { isInteger } from "formik";
 
 const CardServicos = (props) => {
   const [mostrarSubMenu, setMostrarSubMenu] = useState(false);
-  const [mostrarHospitais, setHospitais] = useState(false);
   const history = useHistory();
 
   const excluir = async () => {
@@ -35,7 +34,7 @@ const CardServicos = (props) => {
 
   const editar = () => {
     history.push("/servicos/editar", props.id);
-  }
+  };
 
   const SubMenu = () => {
     return (
@@ -44,14 +43,7 @@ const CardServicos = (props) => {
           <h2>Ver mais</h2>
         </li>
         <li>
-          <h2
-            onClick={() => {
-              setHospitais(!mostrarHospitais);
-              setTimeout(() => {
-                setHospitais(false);
-              }, 30000);
-            }}
-          >
+          <h2 onClick={() => {props.setTeste(!props.teste); VerHospitais({id: props.id})}}>
             Ver Hospitais
           </h2>
         </li>
@@ -67,36 +59,6 @@ const CardServicos = (props) => {
     );
   };
 
-  const VerHospitais = () => {
-    return (
-      <div id="ver-hospitais-servicos">
-        <IoMdClose
-          id="fechar-ver-hospitais"
-          color="#e70011"
-          size={62}
-          onClick={() => {
-            setHospitais(!mostrarHospitais);
-            setTimeout(() => {
-              setHospitais(false);
-            }, 10000);
-          }}
-        />
-        <h1> Clinico Geral </h1>
-
-        <ul>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-          <li> Hosp. Albert Ainten </li>
-        </ul>
-      </div>
-    );
-  };
-
   return (
     <div className="card-servico-servicos">
       <FiMoreHorizontal
@@ -104,9 +66,6 @@ const CardServicos = (props) => {
         className="configuracoes-servicos"
         onClick={() => {
           setMostrarSubMenu(!mostrarSubMenu);
-          setTimeout(() => {
-            setMostrarSubMenu(false);
-          }, 10000);
         }}
       />
       {mostrarSubMenu && <SubMenu />}
@@ -126,9 +85,46 @@ const CardServicos = (props) => {
 
 // ********************************************************************************
 
-function Servicos() {
+const VerHospitais = (props) => {
+
+  
+
+  //COnsumo
+  return (
+    <div id="ver-hospitais-servicos">
+      <IoMdClose
+        id="fechar-ver-hospitais"
+        color="#e70011"
+        size={62}
+        // onClick={() => {
+        //   setHospitais(!mostrarHospitais);
+        //   setTimeout(() => {
+        //     setHospitais(false);
+        //   }, 10000);
+        // }}
+      />
+      <h1> Clinico Geral </h1>
+
+      <ul>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+        <li> Hosp. Albert Ainten </li>
+      </ul>
+    </div>
+  );
+};
+
+// ********************************************************************************
+
+function Servicos(props) {
   const [servicos, setServicos] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [teste, setTeste] = useState(false);
 
   const defaultOptions = {
     loop: true,
@@ -139,7 +135,7 @@ function Servicos() {
     },
   };
 
-  console.log(servicos);
+  
 
   const listarservicos = async () => {
     try {
@@ -159,6 +155,7 @@ function Servicos() {
   return (
     <div className="container-central">
       <Menu />
+      {teste && <VerHospitais />}
       <div className="container-conteudo-central">
         <Titulo nome="Serviços" />
         <div id="container-conteudo-cms">
@@ -181,6 +178,8 @@ function Servicos() {
                   nome={servico.nome}
                   descricao={servico.descricao}
                   imagem={servico.imagem}
+                  setTeste={setTeste}
+                  teste={teste}
                 />
               ))}
             </div>

@@ -129,7 +129,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
       return false;
     } else {
       const dataNova = ano + "-" + mes + "-" + dia;
-
+      
       var rg = novoPaciente.rg;
       var cpf = novoPaciente.cpf;
 

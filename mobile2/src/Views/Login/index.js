@@ -99,22 +99,38 @@ const Login = ({ navigation }) => {
   const handlerInputSenha = (string) =>
     setPacienteLogin({ ...pacienteLogin, senha: string });
 
-
   const autenticarPaciente = async () => {
     try {
       const resApi = await api.post("/paciente/sessao", pacienteLogin);
       const dadosResposta = resApi.data;
+
       const id = dadosResposta.paciente.pacienteId;
-  
+
       const resApiFBPK = await api.get(`/paciente/${id}`);
 
-      if(resApiFBPK.data.verificado) {
-        const dadosPaciente = JSON.stringify(resApiFBPK.data);
-        await AsyncStorage.setItem("@Consuline:paciente", dadosPaciente);
-  
+      if (resApiFBPK.data.verificado) {
+        const dadosPaciente = resApiFBPK.data;
+
+        delete dadosPaciente.senha;
+
+        // const dadosPaciente = JSON.stringify(resApiFBPK.data);
+
+        await AsyncStorage.setItem(
+          "@Consuline:paciente",
+          JSON.stringify(dadosPaciente)
+        );
+
+        // const paciente = JSON.parse((await AsyncStorage.getItem("@Consuline:paciente")));
+
+        // paciente.nome = "novo nome";
+
+        // await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(paciente));
+
         return navigation.navigate("Home");
       } else {
-        Alert.alert("Você precisa inserir o código de verificação para logar!!!");
+        Alert.alert(
+          "Você precisa inserir o código de verificação para logar!!!"
+        );
         return navigation.navigate("RegistrarCodigo", resApiFBPK.data.id);
       }
     } catch (error) {

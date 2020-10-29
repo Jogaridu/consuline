@@ -37,16 +37,18 @@ const Perfil = ({ navigation }) => {
 
   useEffect(() => {
     //registrar no evento realoadUsuario
-    listener = EventRegister.addEventListener("reloadPerfil", async (data) => {
-      const teste = await AsyncStorage.setItem("@Consuline:paciente", ...AsyncStorage, JSON.stringify(data));
-      console.log(teste);
+    listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
+      await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
+
+      setDadosPaciente(dados);
+
     });
-
-    //dentro da função do evento, inserir no storage e atualizar o nome na tela
-
     pegarDados();
 
     //remover o registro do listener
+    return () => {
+      EventRegister.removeEventListener();
+    }
   }, []);
 
   const navegarConsultaEditar = () => {

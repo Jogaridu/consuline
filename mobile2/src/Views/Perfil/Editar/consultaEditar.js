@@ -31,7 +31,7 @@ const ConsultarOpcao = (props) => {
   }
 };
 
-const ConsultaEditar = () => {
+const ConsultaEditar = ({ navigation }) => {
   const [dados, setDados] = useState({
     nome: "",
     cidade: "",
@@ -84,12 +84,11 @@ const ConsultaEditar = () => {
             {dados.cidade + ", " + dados.estado}
           </Text>
 
-          {telasEditar === "editar" ? (
             <ContainerConteudoInformacoes>
               <TituloPerfil>Editar</TituloPerfil>
 
               <BotaoConsultaEditar
-                onPress={() => setTelasEditar("informacaoPessoal")}
+                onPress={() => navigation.navigate("EditarInformacaoPessoal")}
               >
                 <Image
                   source={require("../../../Assets/user.png")}
@@ -103,7 +102,7 @@ const ConsultaEditar = () => {
                 </TituloInformacoes>
               </BotaoConsultaEditar>
               <BotaoConsultaEditar
-                onPress={() => setTelasEditar("localizacao")}
+                onPress={() => navigation.navigate("EditarLocalizacao")}
               >
                 <Image
                   source={require("../../../Assets/localizacao.png")}
@@ -116,7 +115,7 @@ const ConsultaEditar = () => {
                   Localização{" "}
                 </TituloInformacoes>
               </BotaoConsultaEditar>
-              <BotaoConsultaEditar onPress={() => setTelasEditar("login")}>
+              <BotaoConsultaEditar onPress={() => navigation.navigate("EditarLogin")}>
                 <Image
                   source={require("../../../Assets/cadeado.jpg")}
                   style={{ width: 55, height: 62 }}
@@ -129,9 +128,6 @@ const ConsultaEditar = () => {
                 </TituloInformacoes>
               </BotaoConsultaEditar>
             </ContainerConteudoInformacoes>
-          ) : (
-            <ConsultarOpcao tela={telasEditar} edita={setTelasEditar} />
-          )}
         </ScrollView>
       </ContainerPerfil>
     </Container>

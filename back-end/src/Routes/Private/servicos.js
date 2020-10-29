@@ -24,4 +24,6 @@ routes.put("/servico/:id",
     enviarImagem,
     controllerServico.atualizar);
 
+routes.get("/servico/:id/filiais", controllerServico.pegarFiliais);
+
 module.exports = routes;

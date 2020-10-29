@@ -6,7 +6,7 @@ import "./Styles/globalStyle.css";
 
 import Servicos from "./Pages/Servicos/cadastrar";
 import Routes from "./routes";
-import ListarFiliais from "./Pages/Filial/Registrar/Servicos";
+import ListarFiliais from "./Pages/Filial/Editar/";
 
 function App() {
   return (
