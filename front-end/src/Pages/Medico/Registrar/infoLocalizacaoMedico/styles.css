@@ -1,0 +1,92 @@
+.conteiner-entrada-dados-endereco {
+  width: 95%;
+  height: 100%;
+  background-color: var(--container);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  margin: 10px auto; 
+}
+
+.titulo-card-cadastro {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.titulo-card-cadastro figure {
+  height: 200px;
+  width: 200px;
+  background-color: var(--secundaria);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.titulo-card-cadastro figure img {
+  height: 150px;
+  width: 150px;
+}
+
+#cep {grid-area: cep;}
+#numero {grid-area: numero;}
+#complemento {grid-area: compl;}
+#rua {grid-area: rua;}
+#bairro {grid-area: bairro;}
+#estado {grid-area: estado;}
+#cidade {grid-area: cidade;}
+
+.form-endereco {
+  flex: 2;
+  height: 100%;
+  padding: 50px;
+  display: grid;
+  grid-template-areas: 
+    "cep cep cep cep cep"
+    "rua rua rua bairro bairro"
+    "cidade cidade cidade estado estado"
+    "numero numero numero compl compl"
+    "botoes botoes botoes botoes botoes";
+  column-gap: 20px;
+}
+
+#caixaBotoes {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  grid-area: caixaBotao;
+}
+#botao,
+#botaoVoltar {
+  width: 130px;
+  height: 60px;
+  font-weight: 500;
+  justify-self: flex-end;
+  font-size: 1.1em;
+  color: white;
+  margin-top: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  grid-area: botao;
+  background-color: var(--secundaria);
+}
+
+#botaoVoltar {
+  grid-area: botaoVoltar;
+  margin-right: 35px;
+}
+
+#botao:focus {
+  outline: thin dotted;
+  outline: 0px auto -webkit-focus-ring-color;
+  outline-offset: 0px;
+  border: 0px
+}
