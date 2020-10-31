@@ -75,7 +75,10 @@ a:visited {
 .container-conteudo-central form {
   height: 80%;
   width: 95%;
-  /* background-color: red; */
+  margin-left: auto;
+   margin-right: auto;
+   /* background-color: var(--container); 
+   border-radius: 15px; */
  
 }
 

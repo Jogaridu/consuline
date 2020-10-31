@@ -1,13 +1,63 @@
-import React from 'react';
+import React, {useLocation} from 'react';
 import { Link } from 'react-router-dom';
+
+
+import Swal from 'sweetalert2';
+import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
+
+import MaskedInput from "react-text-mask";
+//  import mascaras from "./mask";
+
 
 import './styles.css';
 
 import cadeado from "../../../../Assets/cadeado.png"
+import api from '../../../../Services/api';
 // import logoConsuline from "../../Assets/logoprojeto1.png"
 
 function DadosMedicoLogin() {
+
+  const history = useHistory();
+
+  
+  const cadastrarProfissional = async () => {
+
+    try {
+        const retorno = await api.post("/profissional"); 
+
+        if (retorno.status === 201) {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Profissional cadastrada com sucesso',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => history.push("/profissional"));
+        }
+
+    } catch (error) {
+        console.error(error);
+
+    }
+
+}
+
+  const validar = () => {
+    
+  }
+
   return (
+
+    <Formik
+    onSubmit={validar}
+    initialValues={{
+      login: "",
+      senha: "",
+    }}
+    // validationSchema={}
+    >
 
         <div id="container-card1">
           <div className="container-left-side1">
@@ -24,13 +74,46 @@ function DadosMedicoLogin() {
           <div className="container-right-side1">
             <div className="entrada-de-dados-login">
               <div className="inputs">
-              <input placeholder="Login"></input>
+              <Field
+                name="login"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  // mask={mascaras.nome}
+                  placeholder="Login"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
               </div>
               <div className="inputs">
-              <input placeholder="Senha"></input>
+              <Field
+                name="senha"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  // mask={mascaras.nome}
+                  placeholder="Senha"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
               </div>
               <div className="inputs">
-              <input placeholder="Confirmar Senha"></input>
+              <Field
+                name="Confirmar Senha"
+                render={({ field }) => (
+                <MaskedInput
+                  {...field}
+                  type="text"
+                  // mask={mascaras.nome}
+                  placeholder="Confirmar Senha"
+                  onBlur={InputCorreta}
+                  guide={false}
+                />
+              )} />
               </div>
             </div>
 
@@ -39,7 +122,7 @@ function DadosMedicoLogin() {
               <Link to="/profissional-saude/endereco">
                 <div className="next-right">
                   ⇦
-                              </div>
+                </div>
               </Link>
               <div className="qnt-pag">
                 {/* <div className="pg1-1"> 
@@ -60,7 +143,7 @@ function DadosMedicoLogin() {
 
 
         </div>
-
+    </Formik>
   );
 }
 
