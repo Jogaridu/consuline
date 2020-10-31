@@ -1,32 +1,80 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MaskedInput from 'react-text-mask';
 import BotaoPrincipal from "../../../../Components/BotaoPrincipal"
 import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+
+import test from "../../../../Assets/add.png"
+import test2 from "../../../../Assets/add2.png"
 
 import { validarInformacoes } from "../../Registrar/ValidacaoInputSchema";
 import mascaras from "../../Registrar/Informacoes/mask";
 
 import './styles.css';
-import ValidarData from '../../../../Fixtures/ValidarData';
+import ValidarData, { converterDataBr } from '../../../../Fixtures/ValidarData';
 
-import test from "../../../../Assets/add.png"
-import test2 from "../../../../Assets/add2.png"
+import { useHistory, useParams } from 'react-router-dom';
+import api from '../../../../Services/api';
 
-function Informacoes() {
+function Informacoes({ validar }) {
+
+    const { id } = useParams();
+    const history = useHistory();
+    const [dados, setDados] = useState({
+        cnpj: "",
+        email: "",
+        ie: "",
+        razaoSocial: "",
+        nomeFantasia: "",
+        dataAbertura: ""
+
+    });
+
+    useEffect(() => {
+        const carregarDados = async () => {
+            try {
+                const retorno = await api.get(`/filial/${id}`);
+                const {
+                    cnpj,
+                    email,
+                    ie,
+                    razaoSocial,
+                    nomeFantasia,
+                    dataAbertura } = retorno.data;
+
+                setDados({
+                    cnpj,
+                    email,
+                    ie,
+                    razaoSocial,
+                    nomeFantasia,
+                    dataAbertura: converterDataBr(dataAbertura)
+                });
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        carregarDados();
+    }, [id]);
+
+    const irPara = (evento) => {
+        history.replace(evento.target.value);
+
+    }
+
     return (
-        <div className="container-editar-informacoes">
-            <div className="rota-editar">Informacoes empresa</div>
-
+        <div className="container-editar-informacoes" >
+            <select className="rota-editar" onChange={irPara}>
+                <option value={`/filial/editar/${id}`}>Informacoes</option>
+                <option value={`/filial/editar/endereco/${id}`}>Endereço</option>
+                <option value={`/filial/editar/servico/${id}`}>Serviços</option>
+            </select>
             <Formik
-                initialValues={{
-                    cnpj: "",
-                    ie: "",
-                    razaoSocial: "",
-                    nomeFantasia: "",
-                    dataAbertura: "",
-                    email: ""
-                }}
+                onSubmit={validar}
+                enableReinitialize={true}
+                initialValues={dados}
                 validationSchema={validarInformacoes}>
                 <Form className="form form-editar-informacoes">
                     <div className="form-grupo-input" id="cnpj">
@@ -38,7 +86,6 @@ function Informacoes() {
                                     type="text"
                                     mask={mascaras.cnpj}
                                     placeholder="CNPJ"
-                                    onBlur={InputCorreta}
                                     guide={false}
                                 />
                             )} />
@@ -54,7 +101,6 @@ function Informacoes() {
                                     {...field}
                                     type="text"
                                     mask={mascaras.ie}
-                                    onBlur={InputCorreta}
                                     placeholder="I.E"
                                     guide={false}
                                 />
@@ -68,7 +114,6 @@ function Informacoes() {
                             type="text"
                             placeholder="Razão social"
                             name="razaoSocial"
-                            onBlur={InputCorreta}
                             maxLength="30" />
                         <ErrorMessage className="mensagem-erro" component="span" name="razaoSocial" />
                     </div>
@@ -78,7 +123,6 @@ function Informacoes() {
                             type="text"
                             placeholder="Nome fantasia"
                             name="nomeFantasia"
-                            onBlur={InputCorreta}
                             maxLength="30" />
                         <ErrorMessage className="mensagem-erro" component="span" name="nomeFantasia" />
                     </div>
@@ -96,7 +140,6 @@ function Informacoes() {
                                     {...field}
                                     type="text"
                                     mask={mascaras.data}
-                                    onBlur={InputCorreta}
                                     placeholder="Data abertura"
                                     guide={false}
                                 />
@@ -109,8 +152,7 @@ function Informacoes() {
                         <Field
                             type="email"
                             placeholder="Email"
-                            name="email"
-                            onBlur={InputCorreta} />
+                            name="email" />
                         <ErrorMessage className="mensagem-erro" component="span" name="email" />
                     </div>
 
@@ -143,10 +185,7 @@ function Informacoes() {
                     </div>
                 </Form>
             </Formik>
-
-
-        </div>
-
+        </div >
     );
 }
 

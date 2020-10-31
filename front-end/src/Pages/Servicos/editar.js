@@ -17,13 +17,15 @@ import loader from "../../Assets/loader.json";
 
 import api from "../../Services/api";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { validarServico } from "../Filial/Registrar/ValidacaoInputSchema";
 
 function EditarServico() {
   const [imagem, setImagem] = useState(null);
   const [servicos, setServicos] = useState(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const history = useHistory();
 
   const imgRef = useRef();
 
@@ -58,6 +60,7 @@ function EditarServico() {
       });
 
       alert("Serviço editado com sucesso!!!");
+      history.push("/servicos");
     } catch (error) {
       console.log(error);
     }
@@ -100,21 +103,24 @@ function EditarServico() {
               </div>
             ) : (
               <Formik
-                initialValues={{ nome: servicos.nome, descricao: servicos.descricao }}
+                initialValues={{
+                  nome: servicos.nome,
+                  descricao: servicos.descricao,
+                }}
                 onSubmit={(values) => handleForm(values)}
+                validationSchema={validarServico}
               >
                 <Form>
-                  <Field
-                    name="nome"
-                    placeholder="Nome"
-                    id="nome"
-                  />
+                  <Field name="nome" placeholder="Nome" id="nome" />
+                  <ErrorMessage className="mensagem-erro" component="span" name="nome" />
+                  <h3> Max: 230 </h3>
                   <Field
                     name="descricao"
                     as="textarea"
                     placeholder="Descrição"
                     id="descricao"
                   />
+                  <ErrorMessage className="mensagem-erro" component="span" name="descricao" />
                   <div id="imagem-cadastro-servico">
                     <label> Imagem </label>
                     <label htmlFor="selecao-arquivo">

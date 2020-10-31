@@ -21,6 +21,8 @@ module.exports = {
       endereco,
     } = req.body;
 
+    console.log(req.body);
+
     const verificado = false;
 
     try {
@@ -71,8 +73,8 @@ module.exports = {
       });
 
       // await enviarSMS({
-      //     "numero_destino": `55${pacienteCriado.celular}`,
-      //     "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
+      //   "numero_destino": `55${pacienteCriado.celular}`,
+      //   "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
       const token = jwt.sign({ idPaciente: paciente.id }, auth.secret);
@@ -184,7 +186,7 @@ module.exports = {
 
       await paciente.destroy();
 
-      res.status(200).send({ sucesso: "Profissional apagado com sucesso" });
+      res.status(200).send({ sucesso: "Paciente apagado com sucesso" });
 
     } catch (error) {
       console.log(error);
@@ -234,7 +236,7 @@ module.exports = {
         );
       }
 
-      res.status(200).send({ sucesso: "Profissional atualizado com sucesso" });
+      res.status(200).send({ sucesso: "Paciente atualizado com sucesso" });
 
     } catch (error) {
 

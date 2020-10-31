@@ -65,6 +65,7 @@ const EditarLogin = ({ navigation }) => {
   const inputConfirmarSenha = useRef(null);
 
   const validaDados = async () => {
+    
     const arrayInputsVazias = validarCamposVazios(dados, "complemento");
 
     if (arrayInputsVazias.length) {
@@ -89,15 +90,15 @@ const EditarLogin = ({ navigation }) => {
         : "";
     } else {
       try {
-        console.log("Entrou");
 
         const retorno = await api.post(`/paciente/${id}/verificar-senha`, {
           senhaAntiga: dados.senhaAntiga,
         });
-
+        console.log("aqui")
         if (retorno.status === 200) {
+          console.log("200")
           const atualizarPaciete = await api.put(`/paciente/${id}`, {
-            login: dados.login,
+            // login: dados.login,
             senha: dados.senha,
           });
 

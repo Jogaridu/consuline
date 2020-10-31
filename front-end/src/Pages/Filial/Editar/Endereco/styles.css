@@ -14,10 +14,10 @@
     column-gap: 100px;
     justify-content: center;
     grid-template-areas:
-                        "cep bairro"
-                        "rua estado"
-                        "cidade numero"
-                        "compl botao";
+                        "cidade estado"
+                        "rua bairro"
+                        "numero compl"
+                        "cep botao";
 }
 
 .form-editar-endereco .form-grupo-input input {

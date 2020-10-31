@@ -2,14 +2,28 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import MaskedInput from 'react-text-mask';
 import BotaoPrincipal from "../../../../Components/BotaoPrincipal";
-import ValidarInputVazia from '../../../../Fixtures/Inputs/ValidarInputVazia';
 
 import { validarEndereco } from "../../Registrar/ValidacaoInputSchema";
 import mascaras from "../../Registrar/Endereco/mask";
 
 import './styles.css';
+import { useHistory, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import api from '../../../../Services/api';
 
-function Endereco() {
+function Endereco({ validar }) {
+    const { id } = useParams();
+    const history = useHistory();
+    const [dados, setDados] = useState({
+        numero: "",
+        rua: "",
+        bairro: "",
+        cep: "",
+        cidade: "",
+        estado: "",
+        complemento: ""
+    });
+
     const viaCep = async (cep) => {
 
         try {
@@ -30,72 +44,55 @@ function Endereco() {
 
         const apiCep = await viaCep(cep);
 
-        if (!apiCep) {
-            window.alert("Informe um cep válido  !!!");
-            limparCampos();
-
-        } else {
+        if (apiCep) {
             preencherFormulario(apiCep);
         }
-    }
 
-    const [endereco, setEndereco] = useState({
-        rua: "",
-        bairro: "",
-        cidade: "",
-        estado: ""
-    });
-
-    // const history = useHistory();
-
-    // const location = useLocation();
-
-    // const novaFilial = location.state;
-
-    // useEffect(() => {
-    //     if (novaFilial === undefined) {
-    //         history.push("/filial");
-    //     }
-    // })
-
-    const validar = (values) => {
-        const arrInputs = Array.from(document.querySelectorAll("form input"));
-
-        const arrayInputsVazias = ValidarInputVazia(arrInputs);
-
-        if (!arrayInputsVazias) {
-
-        }
-    }
-
-    const limparCampos = () => {
-        setEndereco({
-            rua: "",
-            bairro: "",
-            cidade: "",
-            estado: ""
-        })
     }
 
     const preencherFormulario = (enderecoCep) => {
-        setEndereco({
-            bairro: enderecoCep.bairro,
-            rua: enderecoCep.logradouro,
-            cidade: enderecoCep.localidade,
-            estado: enderecoCep.uf
+        setDados((e) => {
+            return {
+                ...e,
+                bairro: enderecoCep.bairro,
+                rua: enderecoCep.logradouro,
+                cidade: enderecoCep.localidade,
+                estado: enderecoCep.uf
+            }
         })
+    }
+
+    useEffect(() => {
+        const carregarDados = async () => {
+            try {
+                const retorno = await api.get(`/filial/${id}`);
+
+                setDados({ ...retorno.data.EnderecoFilial });
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        carregarDados()
+    }, [id])
+
+
+    const irPara = (evento) => {
+        history.replace(evento.target.value)
     }
 
     return (
         <div className="container-editar-informacoes">
-            <div className="rota-editar">Endereço empresa</div>
+            <select className="rota-editar" onChange={irPara}>
+                <option value={`/filial/editar/${id}`}>Informacoes</option>
+                <option value={`/filial/editar/endereco/${id}`} selected>Endereço</option>
+                <option value={`/filial/editar/servico/${id}`}>Serviços</option>
+            </select>
             <Formik
                 onSubmit={validar}
-                initialValues={{
-                    cep: "",
-                    complemento: "",
-                    numero: "",
-                }}
+                enableReinitialize={true}
+                initialValues={dados}
                 validationSchema={validarEndereco}>
                 <Form className="form form-editar-endereco">
 
@@ -118,7 +115,7 @@ function Endereco() {
                         <Field
                             type="text"
                             name="rua"
-                            value={endereco.rua}
+                            value={dados.rua}
                             placeholder="Logradouro"
                             className="desabilitado"
                             disabled
@@ -148,7 +145,7 @@ function Endereco() {
                         <Field
                             type="text"
                             name="bairro"
-                            value={endereco.bairro}
+                            value={dados.bairro}
                             placeholder="Bairro"
                             className="desabilitado"
                             disabled />
@@ -168,7 +165,7 @@ function Endereco() {
                         <Field
                             type="text"
                             name="cidade"
-                            value={endereco.cidade}
+                            value={dados.cidade}
                             placeholder="Cidade"
                             className="desabilitado"
                             disabled />
@@ -180,7 +177,7 @@ function Endereco() {
                             type="text"
                             name="estado"
                             placeholder="Estado"
-                            value={endereco.estado}
+                            value={dados.estado}
 
                             className="desabilitado"
                             disabled />
@@ -192,7 +189,7 @@ function Endereco() {
                     </div>
                 </Form>
             </Formik>
-        </div >
+        </div>
     )
 }
 

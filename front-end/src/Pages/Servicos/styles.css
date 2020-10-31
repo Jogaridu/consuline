@@ -1,12 +1,13 @@
 #ver-hospitais-servicos {
-  width: 400px;
+  width: 350px;
   height: 100%;
   background-color: var(--container);
   position: absolute;
-  z-index: 1000;
+  z-index: 1010;
   right: 0;
   display: flex;
   flex-direction: column;
+  box-shadow: 10px 10px 10px 10px rgb(65, 65, 65);
 }
 
 #fechar-ver-hospitais {
@@ -16,15 +17,18 @@
   cursor: pointer;
 }
 
+
 #ver-hospitais-servicos h1 {
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 40px;
+  font-weight: 500;
   margin-left: 12px;
 }
 
 #ver-hospitais-servicos ul {
   margin-left: 70px;
   list-style-type: square;
+  margin-top: 20px;
+
 }
 
 #ver-hospitais-servicos ul li {
@@ -96,9 +100,10 @@
 .configuracoes-servicos {
   align-self: flex-end;
   position: absolute;
-  top: 0%;
+  top: -5%;
   margin-right: 10px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .menu-config-servicos {
@@ -236,8 +241,15 @@
   height: 100%;
 }
 
+#container-form-servicos h3{
+  color: var(--titulo);
+  font-size: 16px;
+  /* margin: 0; */
+  margin-top: 14px;
+}
+
 #container-form-servicos textarea {
-  margin-top: 20px;
+  margin-top: 0px;
   height: 140px;
   resize: none;
   padding-top: 10px;

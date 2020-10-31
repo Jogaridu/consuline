@@ -1,7 +1,6 @@
 const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
-const enderecoProfissionalDaSaudeController = require("./enderecoProfissionalDaSaude");
 const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -21,16 +20,18 @@ module.exports = {
       avaliacao,
       endereco,
       telefone,
+      dataNascimento
     } = req.body;
 
     const { firebaseUrl } = req.file ? req.file : "";
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
 
+    console.log(req.body);
+
     try {
       const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
-
-      let dadosProfissional = await ProfissionalDaSaude.findOne({
+     let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
           [Op.or]: [{ login: login }, { crm: crm }, { cpf: cpf }],
         },
@@ -53,6 +54,8 @@ module.exports = {
           foto,
           avaliacao,
           foto: firebaseUrl,
+          email,
+          dataNascimento
         }
       );
 
@@ -73,6 +76,7 @@ module.exports = {
 
       res.status(201).send({ profissional });
     } catch (error) {
+      console.log(error);
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente  ",
       });
@@ -157,7 +161,6 @@ module.exports = {
       crm,
       login,
       senha,
-      foto,
       avaliacao,
       endereco,
       telefone,

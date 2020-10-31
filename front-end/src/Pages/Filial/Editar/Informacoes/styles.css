@@ -6,7 +6,7 @@
 #email {grid-area: email;}
 
 .form-editar-informacoes {
-    flex: 4;
+    flex: 5;
     display: grid;
     padding-top: 0px;
     column-gap: 100px;
@@ -44,7 +44,7 @@
 }
 
 .telefones {
-    height: 25vh;
+    height: 20vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -52,7 +52,7 @@
     padding-top: 10px;
     padding-left: 5px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: var(--fundo);
     border-radius: 10px;
 }
@@ -72,6 +72,11 @@
     box-shadow: none;
     border-radius: 0px;
     padding-left: 5px;
+    
+}
+
+.telefones input[type=text]:focus {
+    background-color: transparent;
 }
 
 .telefones input[type=text]::selection {

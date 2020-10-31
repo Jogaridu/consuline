@@ -15,10 +15,12 @@ import servico from "../../Assets/7774.jpg";
 
 import api from "../../Services/api";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { validarServico } from "../Filial/Registrar/ValidacaoInputSchema";
 
 function CadastrarServicos() {
   const [imagem, setImagem] = useState(null);
+  const history = useHistory();
 
   const imgRef = useRef();
 
@@ -29,8 +31,6 @@ function CadastrarServicos() {
     dados.append("descricao", values.descricao);
     dados.append("imagem", imagem);
 
-    console.log(dados);
-
     try {
       const retorno = await api.post("/servico", dados, {
         headers: {
@@ -39,6 +39,7 @@ function CadastrarServicos() {
       });
 
       alert("Serviço cadastrado com sucesso!!!");
+      history.push("/servicos");
     } catch (error) {
       console.log(error);
     }
@@ -69,10 +70,14 @@ function CadastrarServicos() {
             <Formik
               initialValues={{ nome: "", descricao: "" }}
               onSubmit={(values) => handleForm(values)}
+              validationSchema={validarServico}
             >
               <Form>
                 <Field name="nome" placeholder="Nome" />
-                <Field name="descricao" as="textarea" placeholder="Descrição" />
+                <ErrorMessage className="mensagem-erro" component="span" name="nome" />
+                <h3> Max: 230 </h3>
+                <Field name="descricao" as="textarea" placeholder="Descrição" maxLength={230} />
+                <ErrorMessage className="mensagem-erro" component="span" name="descricao" />
                 <div id="imagem-cadastro-servico">
                   <label> Imagem </label>
                   <label htmlFor="selecao-arquivo">

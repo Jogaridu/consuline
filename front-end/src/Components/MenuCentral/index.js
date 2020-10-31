@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 function MenuCentral() {
 
     const SubMenu = ({ itens }) => {
-        console.log(itens);
 
         const titulos = Object.keys(itens);
 

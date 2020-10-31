@@ -20,3 +20,11 @@ export default function (dataBr) {
 
     return false;
 }
+
+export function converterDataBr(dataEn) {
+    let [ano, mes, dia] = dataEn.split("-");
+
+    const dataObj = new Date(ano, mes, dia);
+
+    return format(dataObj, 'dd/MM/yyyy');
+}

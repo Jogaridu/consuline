@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MdAdd, MdFormatListNumbered } from "react-icons/md";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Lottie from "react-lottie";
 
 import loader from "../../Assets/loader.json";
@@ -18,6 +18,7 @@ import { isInteger } from "formik";
 const CardServicos = (props) => {
   const [mostrarSubMenu, setMostrarSubMenu] = useState(false);
   const history = useHistory();
+  // const [hospital, setHospital] = useState();
 
   const excluir = async () => {
     if (window.confirm("Tem certeza que deseja excluir este serviço?")) {
@@ -43,7 +44,12 @@ const CardServicos = (props) => {
           <h2>Ver mais</h2>
         </li>
         <li>
-          <h2 onClick={() => {props.setTeste(!props.teste); VerHospitais({id: props.id})}}>
+          <h2
+            onClick={() => {
+              history.replace(`/servicos/${props.id}`);
+              props.setmostrarHospitais(!props.mostrarHospitais);
+            }}
+          >
             Ver Hospitais
           </h2>
         </li>
@@ -86,45 +92,32 @@ const CardServicos = (props) => {
 // ********************************************************************************
 
 const VerHospitais = (props) => {
-
-  
-
-  //COnsumo
-  return (
-    <div id="ver-hospitais-servicos">
-      <IoMdClose
-        id="fechar-ver-hospitais"
-        color="#e70011"
-        size={62}
-        // onClick={() => {
-        //   setHospitais(!mostrarHospitais);
-        //   setTimeout(() => {
-        //     setHospitais(false);
-        //   }, 10000);
-        // }}
-      />
-      <h1> Clinico Geral </h1>
-
-      <ul>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-        <li> Hosp. Albert Ainten </li>
-      </ul>
-    </div>
-  );
-};
-
-// ********************************************************************************
-
-function Servicos(props) {
-  const [servicos, setServicos] = useState(null);
+  const { id } = useParams();
+  const [hospitais, setHospitais] = useState([]);
+  const [nomeServico, setNomeServico] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [teste, setTeste] = useState(false);
+
+  const buscarHospitais = async () => {
+    try {
+      const retornoHospitais = await api.get(`/servico/${id}/filiais`);
+
+      try {
+        const retornoServico = await api.get(`/servico/${id}`);
+
+        setNomeServico(retornoServico.data.nome);
+        setHospitais(retornoHospitais.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    buscarHospitais();
+  }, []);
 
   const defaultOptions = {
     loop: true,
@@ -135,7 +128,50 @@ function Servicos(props) {
     },
   };
 
-  
+    return (
+      <div id="ver-hospitais-servicos">
+        <IoMdClose
+          id="fechar-ver-hospitais"
+          color="#b9000c"
+          size={62}
+          onClick={() => {
+            props.setmostrarHospitais(!props.mostrarHospitais);
+          }}
+        />
+        {loading ? (
+          <div id="loader">
+            <Lottie options={defaultOptions} height={200} width={200} />
+          </div>
+        ) : (
+          <>
+            <h1> {nomeServico} </h1>
+
+            <ul>
+              {hospitais.map((hosp) => (
+                <li> {hosp.nomeFantasia} </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    );
+};
+
+// ********************************************************************************
+
+function Servicos() {
+  const [servicos, setServicos] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [mostrarHospitais, setmostrarHospitais] = useState(false);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loader,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   const listarservicos = async () => {
     try {
@@ -155,7 +191,13 @@ function Servicos(props) {
   return (
     <div className="container-central">
       <Menu />
-      {teste && <VerHospitais />}
+      {mostrarHospitais && (
+        <VerHospitais
+          setmostrarHospitais={setmostrarHospitais}
+          mostrarHospitais={mostrarHospitais}
+          servicos={servicos}
+        />
+      )}
       <div className="container-conteudo-central">
         <Titulo nome="Serviços" />
         <div id="container-conteudo-cms">
@@ -178,8 +220,8 @@ function Servicos(props) {
                   nome={servico.nome}
                   descricao={servico.descricao}
                   imagem={servico.imagem}
-                  setTeste={setTeste}
-                  teste={teste}
+                  setmostrarHospitais={setmostrarHospitais}
+                  mostrarHospitais={mostrarHospitais}
                 />
               ))}
             </div>

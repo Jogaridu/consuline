@@ -48,6 +48,10 @@ module.exports = {
           model: "tblEnderecoProfissional",
           key: "id",
         },
+        dataNascimento: {
+          type: Sequelize.DATEONLY,
+          allowNull: false
+        },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
