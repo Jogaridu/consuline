@@ -17,10 +17,10 @@ function Servicos() {
     const [todosServicos, setTodosServicos] = useState([]);
 
     const iconeLixeira = (<FaTrashAlt size={33} />);
-    const iconeAdicionar = (<RiAddCircleFill size={45} />)
+    const iconeAdicionar = (<RiAddCircleFill size={45} />);
 
     const history = useHistory();
-    console.log("entou");
+
     useEffect(() => {
         const servicosFilial = async () => {
             try {

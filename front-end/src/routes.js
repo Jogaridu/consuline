@@ -4,9 +4,12 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import HomeCrud from "./Pages/Home-Crud";
+
+import ConsultaFilial from "./Pages/Filial/Consulta";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import EditarFilial from "./Pages/Filial/Editar/index";
+
 import RegistrarProfissional from "./Pages/Medico/Registrar";
 import RegistrarServico from "./Pages/Servicos/index";
 
@@ -32,14 +35,17 @@ function Routes() {
           <EditarFilial />
         </Route>
 
-        <Route path="/filial">
+        <Route path="/filial/:id">
+          <ConsultaFilial />
+        </Route>
+
+        <Route path="/filial" exact>
           <RegistrarFilial />
         </Route>
 
         <Route path="/filiais">
           <ListagemFilial />
         </Route>
-
 
         {/* Rotas de profissionais */}
 

@@ -8,9 +8,7 @@ import { propTypes } from "react-bootstrap/esm/Image";
 import { useHistory } from "react-router-dom";
 
 function CardListagem(props) {
-  const { id, nome, cidade, estado, telefones, telaEditar } = props;
-
-  // const telefone = telefones[Math.floor(Math.random() * telefones.length)].numero;
+  const { id, nome, cidade, estado, telefones, telaEditar, telaConsulta } = props;
 
   const telefone = telefones[0].numero;
   const ddd = telefone.slice(0, 2);
@@ -24,18 +22,18 @@ function CardListagem(props) {
   const SubMenu = () => {
     return (
       <ul className="sub-menu">
-        <li onClick={() => history.push(telaEditar, id)}>Editar</li>
-        <li>Ativar/Desativar</li>
-        <li>Consulta completa</li>
+        <li onClick={() => history.push(telaEditar)}>Editar</li>
+        <li onClick={() => history.push(telaConsulta)}>Consulta completa</li>
+        <li style={{ color: "red" }}>Excluir</li>
       </ul>
     );
   };
 
   return (
     <div className="card-listagem" id={id}>
-      <figure className="imagem-card-listagem">
+      {/* <figure className="imagem-card-listagem">
         <img src={teste} alt="" />
-      </figure>
+      </figure> */}
       <div className="titulo-card-listagem">{nome || "Sem nome"}</div>
       <div className="local-card-listagem">{`${cidade || "Cidade"}/${estado || "Estado"
         }`}</div>

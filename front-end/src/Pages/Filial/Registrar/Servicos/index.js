@@ -41,7 +41,7 @@ function Servicos() {
                     title: 'Filial cadastrada com sucesso',
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => history.push("/filiais"));
+                }).then(() => history.push(`/filial/${retorno.data.id}`));
             }
 
         } catch (error) {

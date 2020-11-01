@@ -45,6 +45,7 @@ function ListarFiliais() {
                         cidade={filial.EnderecoFilial.cidade}
                         telefones={filial.TelefoneFilials}
                         telaEditar={`/filial/editar/${filial.id}`}
+                        telaConsulta={`/filial/${filial.id}`}
                     />)
                     )}
                 </div>
