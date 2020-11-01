@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, ScrollView, AsyncStorage } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { EventRegister } from "react-native-event-listeners";
 
 import {
   ContainerColor,
@@ -35,7 +36,19 @@ const Perfil = ({ navigation }) => {
   };
 
   useEffect(() => {
+    //registrar no evento realoadUsuario
+    listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
+      await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
+
+      setDadosPaciente(dados);
+
+    });
     pegarDados();
+
+    //remover o registro do listener
+    return () => {
+      EventRegister.removeEventListener();
+    }
   }, []);
 
   const navegarConsultaEditar = () => {

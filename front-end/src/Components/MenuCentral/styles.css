@@ -151,5 +151,5 @@
   transition: 500ms ease all;
   background-color: rgb(231, 231, 231);
   color: var(--principal);
-  box-shadow: inset 0px 0px 5px var(--principal);
+  /* box-shadow: inset 0px 0px 5px var(--principal); */
 }

@@ -14,7 +14,7 @@ import {
   FecharEditar,
   ContainerFormulario,
   Input,
-  TituloPerfil
+  TituloPerfil,
 } from "../styles";
 
 import encontrarCep from "../../../Services/viaCep";
@@ -29,10 +29,12 @@ import {
 import colors from "../../../Styles/colors";
 
 import Botao from "../../../Components/Botao2";
+import Container from "../../../Components/Container";
 
 import api from "../../../Services/api";
+import { EventRegister } from "react-native-event-listeners";
 
-const EditarLocalizacao = (props) => {
+const EditarLocalizacao = ({ navigation }) => {
   const inputCep = useRef(null);
   const inputBairro = useRef(null);
   const inputRua = useRef(null);
@@ -41,17 +43,6 @@ const EditarLocalizacao = (props) => {
   const inputEstado = useRef(null);
   const inputComplemento = useRef(null);
 
-  const [dados, setDados] = useState({
-    nome: "",
-    dataNascimento: "",
-    rg: "",
-    cpf: "",
-    email: "",
-    celular: "",
-    login: "",
-    senha: "",
-    endereco: {},
-  });
   const [id, setId] = useState();
   const [loading, setLoading] = useState(true);
   const [endereco, setEndereco] = useState({
@@ -63,22 +54,14 @@ const EditarLocalizacao = (props) => {
     numero: "",
     rua: "",
   });
+  const [dadosPaciente, setDadosPaciente] = useState({});
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
-    setDados({
-      ...dados,
-      nome: paciente.nome,
-      dataNascimento: paciente.dataNascimento,
-      rg: paciente.rg,
-      cpf: paciente.cpf,
-      email: paciente.email,
-      celular: paciente.celular,
-      login: paciente.login,
-      senha: paciente.senha,
-    });
+
+    setDadosPaciente(paciente);
     setEndereco({
       ...endereco,
       bairro: paciente.EnderecoPaciente.bairro,
@@ -129,7 +112,6 @@ const EditarLocalizacao = (props) => {
       estado: "",
       rua: "",
     });
-    // console.log(dados.endereco.cep);
   };
 
   const validaDados = () => {
@@ -168,119 +150,165 @@ const EditarLocalizacao = (props) => {
     }
   };
 
+  const estruturaDados = () => {
+    if (!dadosPaciente.EnderecoPaciente) {
+      editar(localizacao);
+    } else {
+    }
+  };
+  console.log(dadosPaciente.EnderecoPaciente);
+
   const editar = async () => {
-    setDados({ ...dados, endereco: endereco });
-    // console.log(dados);
+    const localizacao = {
+      endereco,
+    };
+
+
+    console.log(dadosPaciente);
     try {
-      
-      const retorno = await api.put(`/paciente/${id}`, dados);
+      const retorno = await api.put(`/paciente/${id}`, localizacao);
 
       if (retorno.status === 200) {
         Alert.alert("Dados editados com sucesso!!!");
+        //dispara um evento com o nome realoadUsuario
+        EventRegister.emit("reloadPerfil", dadosPaciente);
+
+        return navigation.navigate("Perfil");
       }
     } catch (error) {
       console.log(error);
       if (error.response) {
-
         return console.log(error);
       }
     }
   };
 
-  return (
-    <ContainerEditar>
-      <FecharEditar onPress={() => props.telaEditar("editar")} />
-      <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
-        Localização
-      </TituloPerfil>
-      <ContainerFormulario>
-        <TextInputMask
-          style={styles.input}
-          value={endereco.cep}
-          type={"custom"}
-          options={{
-            mask: "99999-999",
-          }}
-          maxLength={9}
-          placeholder="CEP"
-          placeholderTextColor="#403e66"
-          onChangeText={handlerInput}
-          onBlur={async () => {
-            preencherFormulario(await encontrarCep(endereco.cep));
-            validarInputMaskCorreta(endereco.cep, inputCep);
-          }}
-          ref={inputCep}
-          keyboardType="numeric"
-        />
-        <Input
-          style={{
-            width: 140,
-            marginLeft: 8,
-            backgroundColor: colors.fundo,
-          }}
-          value={endereco.bairro}
-          placeholder="Bairro"
-          placeholderTextColor="#403e66"
-          ref={inputBairro}
-          editable={false}
-          selectTextOnFocus={false}
-        />
-        <Input
-          style={{ width: 205, backgroundColor: colors.fundo }}
-          value={endereco.rua}
-          placeholder="Rua"
-          placeholderTextColor="#403e66"
-          ref={inputRua}
-          editable={false}
-          selectTextOnFocus={false}
-        />
-        <TextInputMask
-          style={styles.numero}
-          value={endereco.numero}
-          onChangeText={(e) => setEndereco({ ...endereco, numero: e })}
-          type={"only-numbers"}
-          placeholder="N°"
-          placeholderTextColor="#403e66"
-          ref={inputNumero}
-          onBlur={() => validarInputMaskCorreta(endereco.numero, inputNumero)}
-        />
-        <Input
-          value={endereco.complemento}
-          placeholder="Complemento"
-          placeholderTextColor="#403e66"
-          style={{ width: 140 }}
-          onChangeText={(e) => setEndereco({ ...endereco, complemento: e })}
-          ref={inputComplemento}
-          onBlur={() =>
-            validarInputCorreta(endereco.complemento, inputComplemento)
-          }
-        />
-        <Input
-          style={{
-            width: 140,
-            marginLeft: 8,
-            backgroundColor: colors.fundo,
-          }}
-          value={endereco.cidade}
-          placeholder="Cidade"
-          placeholderTextColor="#403e66"
-          ref={inputCidade}
-          editable={false}
-          selectTextOnFocus={false}
-        />
-        <Input
-          style={{ marginLeft: 8, backgroundColor: colors.fundo }}
-          value={endereco.estado}
-          placeholder="Estado"
-          placeholderTextColor="#403e66"
-          ref={inputEstado}
-          editable={false}
-          selectTextOnFocus={false}
-        />
-      </ContainerFormulario>
-      <Botao title="Editar" funcExec={validaDados} bottom={20} />
-    </ContainerEditar>
-  );
+  const teste = () => {
+    setDadosPaciente({
+      ...dadosPaciente,
+      EnderecoPaciente: endereco,
+    });
+  };
+
+  if (loading) {
+    return (
+      <Container>
+        <Text> Carregando... </Text>
+      </Container>
+    );
+  } else {
+    return (
+      <Container style={{ backgroundColor: colors.fundo }}>
+        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")} />
+        <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
+          Localização
+        </TituloPerfil>
+        <ContainerFormulario>
+          <TextInputMask
+            style={styles.input}
+            value={endereco.cep}
+            type={"custom"}
+            options={{
+              mask: "99999-999",
+            }}
+            maxLength={9}
+            placeholder="CEP"
+            placeholderTextColor="#403e66"
+            onChangeText={handlerInput}
+            onChange={teste}
+            onBlur={async () => {
+              preencherFormulario(await encontrarCep(endereco.cep));
+              validarInputMaskCorreta(endereco.cep, inputCep);
+            }}
+            ref={inputCep}
+            keyboardType="numeric"
+          />
+          <Input
+            style={{
+              width: 140,
+              marginLeft: 8,
+              backgroundColor: colors.fundo,
+            }}
+            value={endereco.bairro}
+            placeholder="Bairro"
+            placeholderTextColor="#403e66"
+            ref={inputBairro}
+            editable={false}
+            selectTextOnFocus={false}
+            onChange={teste}
+          />
+          <Input
+            style={{ width: 205, backgroundColor: colors.fundo }}
+            value={endereco.rua}
+            placeholder="Rua"
+            placeholderTextColor="#403e66"
+            ref={inputRua}
+            editable={false}
+            selectTextOnFocus={false}
+            onChange={teste}
+          />
+          <TextInputMask
+            style={styles.numero}
+            value={endereco.numero}
+            onChangeText={(e) => {
+              setEndereco({
+                ...endereco,
+                numero: e,
+              });
+            }}
+            type={"only-numbers"}
+            onChange={teste}
+            placeholder="N°"
+            placeholderTextColor="#403e66"
+            ref={inputNumero}
+            onBlur={() =>
+              validarInputMaskCorreta(
+                dadosPaciente.EnderecoPaciente.numero,
+                inputNumero
+              )
+            }
+          />
+          <Input
+            value={endereco.complemento}
+            placeholder="Complemento"
+            placeholderTextColor="#403e66"
+            style={{ width: 140 }}
+            onChangeText={(e) => setEndereco({ ...endereco, complemento: e })}
+            ref={inputComplemento}
+            onBlur={() =>
+              validarInputCorreta(dadosPaciente.complemento, inputComplemento)
+            }
+            onChange={teste}
+          />
+          <Input
+            style={{
+              width: 140,
+              marginLeft: 8,
+              backgroundColor: colors.fundo,
+            }}
+            value={endereco.cidade}
+            placeholder="Cidade"
+            placeholderTextColor="#403e66"
+            ref={inputCidade}
+            editable={false}
+            selectTextOnFocus={false}
+            onChange={teste}
+          />
+          <Input
+            style={{ marginLeft: 8, backgroundColor: colors.fundo }}
+            value={endereco.estado}
+            placeholder="Estado"
+            placeholderTextColor="#403e66"
+            ref={inputEstado}
+            editable={false}
+            selectTextOnFocus={false}
+            onChangeText={teste}
+          />
+        </ContainerFormulario>
+        <Botao title="Editar" funcExec={editar} bottom={20} />
+      </Container>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

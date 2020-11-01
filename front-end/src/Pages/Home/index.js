@@ -39,6 +39,8 @@ import menuMobile from "../../Assets/open-menu (1).png";
 import slider3 from "../../Assets/slider3.jpg";
 import api from "../../Services/api";
 
+import Botao from "../../Components/BotaoPrincipal";
+
 function Home() {
   const [size, setSize] = useState();
   const [display, setDisplay] = useState("none");
@@ -227,7 +229,6 @@ function Home() {
             <div className="txtSlider">
               <h1>
                 Bem-Vindo
-                <br />
                 ao
                 <br />
                 ConsuLine
@@ -276,14 +277,11 @@ function Home() {
                 aplicativo
               </h2>
               <div className="containerBotao">
-                <button
+                <Botao
                   onClick={() => go("#app")}
-                  type="button"
-                  className="botao"
-                >
-                  {" "}
-                  Saiba Mais
-                </button>
+                  tipo="button"
+                  titulo="Saiba Mais"
+                />
               </div>
             </div>
 

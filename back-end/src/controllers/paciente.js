@@ -284,7 +284,7 @@ module.exports = {
 
     const { senhaAntiga } = req.body;
 
-    const pacienteSenha = await Paciente.findByPk(id, {
+    const {senha} = await Paciente.findByPk(id, {
       attributes: ['senha'],
       raw: true
     });

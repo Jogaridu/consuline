@@ -9,8 +9,10 @@ import {
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { EventRegister } from 'react-native-event-listeners'
 
 import Botao from "../../../Components/Botao2";
+import Container from "../../../Components/Container";
 
 import {
   TituloInformacoes,
@@ -30,7 +32,7 @@ import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
 
-const EditarInformacaoPessoal = (props) => {
+const EditarInformacaoPessoal = ({navigation}) => {
   const [dados, setDados] = useState({
     nome: "",
     dataNascimento: "",
@@ -38,17 +40,6 @@ const EditarInformacaoPessoal = (props) => {
     cpf: "",
     email: "",
     celular: "",
-    endereco: {
-      bairro: "",
-      cep: "",
-      cidade: "",
-      complemento: "",
-      estado: "",
-      numero: "",
-      rua: "",
-    },
-    login: "",
-    senha: "",
   });
   const [id, setId] = useState();
   const [loading, setLoading] = useState(true);
@@ -57,26 +48,7 @@ const EditarInformacaoPessoal = (props) => {
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
-    setDados({
-      ...dados,
-      nome: paciente.nome,
-      dataNascimento: paciente.dataNascimento,
-      rg: paciente.rg,
-      cpf: paciente.cpf,
-      email: paciente.email,
-      celular: paciente.celular,
-      login: paciente.login,
-      senha: paciente.senha,
-      endereco: {
-        bairro: paciente.EnderecoPaciente.bairro,
-        cep: paciente.EnderecoPaciente.cep,
-        cidade: paciente.EnderecoPaciente.cidade,
-        complemento: paciente.EnderecoPaciente.complemento,
-        estado: paciente.EnderecoPaciente.estado,
-        numero: paciente.EnderecoPaciente.numero,
-        rua: paciente.EnderecoPaciente.rua,
-      },
-    });
+    setDados(paciente);
     setId(paciente.id);
     setLoading(false);
   };
@@ -163,12 +135,16 @@ const EditarInformacaoPessoal = (props) => {
   };
 
   const editar = async () => {
-    console.log(dados);
     try {
       const retorno = await api.put(`/paciente/${id}`, dados);
 
       if (retorno.status === 200) {
         Alert.alert("Dados editados com sucesso!!!");
+
+        //dispara um evento com o nome realoadUsuario
+        EventRegister.emit("reloadPerfil", dados);
+        
+        return(navigation.navigate("Perfil"));
       }
     } catch (error) {
       return console.log(error);
@@ -183,8 +159,8 @@ const EditarInformacaoPessoal = (props) => {
     );
   } else {
     return (
-      <ContainerEditar>
-        <FecharEditar onPress={() => props.telaEditar("editar")} />
+      <Container style={{backgroundColor: colors.fundo}}>
+        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")} />
         <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
           Informações pessoais
         </TituloPerfil>
@@ -280,7 +256,7 @@ const EditarInformacaoPessoal = (props) => {
           />
         </ContainerFormulario>
         <Botao title="Editar" funcExec={validaDados} bottom={20} />
-      </ContainerEditar>
+      </Container>
     );
   }
 };

@@ -1,8 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
-import { View, StyleSheet, TextInput, Text, AsyncStorage, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  AsyncStorage,
+  Alert,
+} from "react-native";
 // import bcrypt from "bcryptjs";
 
 import Botao from "../../../Components/Botao2";
+import Container from "../../../Components/Container";
+
 import api from "../../../Services/api";
 
 import {
@@ -11,7 +20,7 @@ import {
   FecharEditar,
   ContainerFormulario,
   Input,
-  TituloPerfil
+  TituloPerfil,
 } from "../styles";
 
 import validarCamposVazios from "../../../Fixtures/validarInputVazia";
@@ -23,30 +32,14 @@ import {
 
 import colors from "../../../Styles/colors";
 
-const EditarLogin = (props) => {
+const EditarLogin = ({ navigation }) => {
   const [dados, setDados] = useState({
-    nome: "",
-    dataNascimento: "",
-    rg: "",
-    cpf: "",
-    email: "",
-    celular: "",
-    endereco: {
-      bairro: "",
-      cep: "",
-      cidade: "",
-      complemento: "",
-      estado: "",
-      numero: "",
-      rua: "",
-    },
     login: "",
     senha: "",
     senhaAntiga: "",
     confirmarSenha: "",
   });
   const [id, setId] = useState();
-  const [dadoSenhaAntiga, setSenhaAntiga] = useState();
   const [loading, setLoading] = useState(true);
   const [fechar, setFechar] = useState("");
 
@@ -56,24 +49,8 @@ const EditarLogin = (props) => {
     );
     setDados({
       ...dados,
-      nome: paciente.nome,
-      dataNascimento: paciente.dataNascimento,
-      rg: paciente.rg,
-      cpf: paciente.cpf,
-      email: paciente.email,
-      celular: paciente.celular,
       login: paciente.login,
-      endereco: {
-        bairro: paciente.EnderecoPaciente.bairro,
-        cep: paciente.EnderecoPaciente.cep,
-        cidade: paciente.EnderecoPaciente.cidade,
-        complemento: paciente.EnderecoPaciente.complemento,
-        estado: paciente.EnderecoPaciente.estado,
-        numero: paciente.EnderecoPaciente.numero,
-        rua: paciente.EnderecoPaciente.rua,
-      },
     });
-    setSenhaAntiga(paciente.senha);
     setId(paciente.id);
     setLoading(false);
   };
@@ -88,10 +65,8 @@ const EditarLogin = (props) => {
   const inputConfirmarSenha = useRef(null);
 
   const validaDados = async () => {
-    const arrayInputsVazias = validarCamposVazios(
-      dados,
-      "complemento"
-    );
+    
+    const arrayInputsVazias = validarCamposVazios(dados, "complemento");
 
     if (arrayInputsVazias.length) {
       Alert.alert("Existem campos vazios!!!");
@@ -115,24 +90,31 @@ const EditarLogin = (props) => {
         : "";
     } else {
       try {
-        const retorno = await api.post(`/paciente/${id}/verificar-senha`, dadoSenhaAntiga);
 
-        console.log("Entrou")
-
+        const retorno = await api.post(`/paciente/${id}/verificar-senha`, {
+          senhaAntiga: dados.senhaAntiga,
+        });
+        console.log("aqui")
         if (retorno.status === 200) {
-          const atualizarPaciete = await api.put(`/paciente/${id}`, {senha: dados.senha});
+          console.log("200")
+          const atualizarPaciete = await api.put(`/paciente/${id}`, {
+            // login: dados.login,
+            senha: dados.senha,
+          });
 
-          console.log("Deu certo")
+          Alert.alert("Senha atualizada com sucesso!!!");
+
+          //dispara um evento com o nome realoadUsuario
+          EventRegister.emit("reloadPerfil", dados);
+
+          return navigation.navigate("Perfil");
         }
-
-
       } catch (error) {
-        console.log(error)
+        // mostrar msg de erro
+        console.log(error);
       }
     }
   };
-
-
 
   if (loading) {
     return (
@@ -142,9 +124,11 @@ const EditarLogin = (props) => {
     );
   } else {
     return (
-      <ContainerEditar>
-        <FecharEditar onPress={() => props.telaEditar("editar")} />
-        <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>Login</TituloPerfil>
+      <Container style={{ backgroundColor: colors.fundo }}>
+        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")} />
+        <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
+          Login
+        </TituloPerfil>
         <ContainerFormulario>
           <Input
             style={{ width: 288 }}
@@ -189,7 +173,7 @@ const EditarLogin = (props) => {
           />
         </ContainerFormulario>
         <Botao title="Editar" funcExec={validaDados} bottom={20} />
-      </ContainerEditar>
+      </Container>
     );
   }
 };
