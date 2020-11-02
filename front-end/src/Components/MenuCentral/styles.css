@@ -62,38 +62,39 @@
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     cursor: pointer;
-  }
-  .itensMenu:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--principal);
-    -webkit-transform: scaleX(0.1);
-    transform: scaleX(0.1);
-    -webkit-transform-origin: 0 50%;
-    transform-origin: 0 50%;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-    border-radius: 0px 20px 20px 0px;
-    border-radius: 0;
+}
+
+.itensMenu:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--principal);
+  -webkit-transform: scaleX(0.1);
+  transform: scaleX(0.1);
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  border-radius: 0px 20px 20px 0px;
+  border-radius: 0;
 
 
-  }
-  .itensMenu:hover, .itensMenu:focus, .itensMenu:active {
-    color: white;
-  }
-  .itensMenu:hover:before, .itensMenu:focus:before, .itensMenu:active:before {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
+}
+.itensMenu:hover, .itensMenu:focus, .itensMenu:active {
+  color: white;
+}
+.itensMenu:hover:before, .itensMenu:focus:before, .itensMenu:active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
 
 .sub-menu-central {
     width: 180px;
@@ -109,9 +110,8 @@
     position: absolute;
     visibility: hidden;
     border-radius: 0 20px 20px 20px;
-    z-index: 999;
-   
 }
+
 .sub-menu-item {
     width: 140px;
     height: 40px;
@@ -122,8 +122,6 @@
 .submenu-listar {
     width: 200px;
     height: 50px;
-    /* background-color:yellow; */
-    /* margin-top: 10px; */
     background-color: var(--principal);
 }
 .itensMenu:hover .sub-menu-central {
@@ -143,6 +141,7 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
+
 .sub-menu-item:hover,
 .sub-menu-item:focus,
 .sub-menu-item:active {
@@ -151,5 +150,4 @@
   transition: 500ms ease all;
   background-color: rgb(231, 231, 231);
   color: var(--principal);
-  /* box-shadow: inset 0px 0px 5px var(--principal); */
 }

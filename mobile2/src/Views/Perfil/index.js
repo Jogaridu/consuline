@@ -19,8 +19,6 @@ import {
 
 import Container from "../../Components/Container";
 
-import api from "../../Services/api";
-
 import colors from "../../Styles/colors";
 
 const Perfil = ({ navigation }) => {
@@ -38,6 +36,8 @@ const Perfil = ({ navigation }) => {
   useEffect(() => {
     //registrar no evento realoadUsuario
     listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
+      console.log("Saída de dados: ----- SAIDA ----");
+      console.log(dados);
       await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
 
       setDadosPaciente(dados);
@@ -125,7 +125,7 @@ const Perfil = ({ navigation }) => {
                   </TextoInformacoes>
                 </ContainerTextosInformacoes>
               </ContainerInformacoes>
-              <ContainerInformacoes style={{ height: 210 }}>
+              <ContainerInformacoes style={{ height: 230 }}>
                 <ContainerImageInformacoes>
                   <Image
                     source={require("../../Assets/iconeMaps.png")}
@@ -149,6 +149,10 @@ const Perfil = ({ navigation }) => {
                   <TextoInformacoes>
                     {" "}
                     N°: {dadosPaciente.EnderecoPaciente.numero}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Complemento: {dadosPaciente.EnderecoPaciente.complemento}{" "}
                   </TextoInformacoes>
                   <TextoInformacoes>
                     {" "}

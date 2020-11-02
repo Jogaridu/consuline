@@ -10,6 +10,7 @@
     position: relative;
     font-family: "Roboto", sans-serif;
     margin: 20px;
+    z-index: 1;
 }
 
 .imagem-card-listagem, 

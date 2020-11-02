@@ -170,6 +170,7 @@ module.exports = {
       });
     }
   },
+
   async deletar(req, res) {
     const { id } = req.params;
 
@@ -204,7 +205,6 @@ module.exports = {
     const dados = req.body;
 
     console.log(dados);
-
     try {
       let paciente = await Paciente.findByPk(id);
 
@@ -284,7 +284,7 @@ module.exports = {
 
     const { senhaAntiga } = req.body;
 
-    const {senha} = await Paciente.findByPk(id, {
+    const { senha } = await Paciente.findByPk(id, {
       attributes: ['senha'],
       raw: true
     });
