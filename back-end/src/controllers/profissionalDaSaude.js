@@ -6,7 +6,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json")
 
-
 module.exports = {
   async cadastrar(req, res) {
     const {
@@ -20,14 +19,12 @@ module.exports = {
       avaliacao,
       endereco,
       telefone,
-      dataNascimento
+      dataNascimento,
     } = req.body;
 
     const { firebaseUrl } = req.file ? req.file : "";
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
-
-    console.log(req.body);
 
     try {
       const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
@@ -58,6 +55,8 @@ module.exports = {
           dataNascimento
         }
       );
+
+      console.log(dadosProfissional.id);
 
       const telefones = await telefoneProfissionalController.cadastrar(
         telefoneJson,

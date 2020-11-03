@@ -11,8 +11,8 @@ class ProfissionalDaSaude extends Model {
         senha: DataTypes.STRING,
         foto: DataTypes.STRING,
         avaliacao: DataTypes.STRING,
-        email:DataTypes.STRING,
-        dataNascimento:DataTypes.DATEONLY
+        email: DataTypes.STRING,
+        dataNascimento: DataTypes.DATEONLY
       },
       {
         sequelize,
@@ -25,11 +25,16 @@ class ProfissionalDaSaude extends Model {
     this.belongsTo(models.EnderecoProfissionalDaSaude, {
       foreignKey: "EnderecoProfissionalDaSaudeId",
     });
-    this.hasMany(models.TelefoneProfissional);
-    
+    this.hasMany(models.TelefoneProfissional,{
+      foreignKey:"ProfissionalDaSaudeId"
+    });
+    this.hasMany(models.Consulta,{
+
+    })
+
     // this.belongsToMany(models.Servico, {
     //   through: "tblProfissionalServico",
-    // });
+    // })
   }
 }
 

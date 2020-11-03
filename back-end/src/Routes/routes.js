@@ -11,6 +11,8 @@ const rotasPublicaSessao = require("./Public/sessao");
 const rotasServicos = require("./Private/servicos");
 const rotasFiliais = require("./Private/filiais");
 const rotaCentral = require("./Private/central");
+const rotaAtendimento = require("./Private/atendimento");
+const rotasConsulta = require("./Private/consulta");
 
 
 router.use(rotasPublicaPaciente);
@@ -20,5 +22,7 @@ router.use(rotasPublicaSessao);
 router.use(rotasServicos);
 router.use(rotasFiliais);
 router.use(rotaCentral);
+router.use(rotaAtendimento);
+router.use(rotasConsulta);
 
 module.exports = router;

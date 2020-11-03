@@ -20,6 +20,10 @@ class Servico extends Model {
         this.belongsToMany(models.ProfissionalDaSaude, {
             through: "tblProfissionalServico"
         });
+
+        this.hasMany(models.Consulta, {
+            foreignKey: "ServicoId"
+        });
     }
 }
 

@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const {  DataTypes, Model } = require("sequelize");
 
 class Paciente extends Model {
   static init(sequelize) {
@@ -26,6 +26,10 @@ class Paciente extends Model {
   static associate(models) {
     this.belongsTo(models.EnderecoPaciente);
     this.belongsTo(models.PlanoDeSaude);
+    this.hasMany(models.Consulta, {
+      foreignKey: "ProfissionalId"
+    })
+
   }
 }
 
