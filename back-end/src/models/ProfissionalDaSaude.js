@@ -25,12 +25,12 @@ class ProfissionalDaSaude extends Model {
     this.belongsTo(models.EnderecoProfissionalDaSaude, {
       foreignKey: "EnderecoProfissionalDaSaudeId",
     });
-    this.hasMany(models.TelefoneProfissional,{
-      foreignKey:"ProfissionalDaSaudeId"
+    this.hasMany(models.TelefoneProfissional, {
+      foreignKey: "ProfissionalDaSaudeId"
     });
-    this.hasMany(models.Consulta,{
-
-    })
+    this.hasMany(models.Consulta, {
+      foreignKey: "ProfissionalDaSaudeId"
+    });
 
     // this.belongsToMany(models.Servico, {
     //   through: "tblProfissionalServico",

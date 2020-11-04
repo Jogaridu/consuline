@@ -27,7 +27,7 @@ class Paciente extends Model {
     this.belongsTo(models.EnderecoPaciente);
     this.belongsTo(models.PlanoDeSaude);
     this.hasMany(models.Consulta, {
-      foreignKey: "ProfissionalId"
+      foreignKey: "PacienteId"
     })
 
   }
