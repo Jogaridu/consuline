@@ -32,7 +32,7 @@ function DadosMedico() {
 
 
 
-        console.log ({ ...values, dataNascimento: dataNascimentoEn });
+      console.log ({ ...values, dataNascimento: dataNascimentoEn });
       }
     }
   }
@@ -66,47 +66,42 @@ function DadosMedico() {
             <div className="entrada-de-dados1">
               <div className="form-grupo-input" id="nome">
               <Field
-                name="nome"
+              type="text"
+              placeholder="Nome"
+              name="nome"
+              onBlur={InputCorreta}
+              maxLength="40" />
+            <ErrorMessage className="mensagem-erro" component="span" name="nome" />
+            </div>
+              <div className="form-grupo-input" id="dataNascimento">
+                <Field
+                name="dataNascimento"
+                validate={values => {
+                  if (!ValidarData(values)) {
+                    return "Data inválida";
+                  }
+                }}
                 render={({ field }) => (
                   <MaskedInput
                     {...field}
                     type="text"
-                    // mask={mascaras.nome}
-                    placeholder="Nome Completo"
-                    // onBlur={InputCorreta}
-                    // guide={false}
-                  />
-                )} />
-              {/* <ErrorMessage className="mensagem-erro" component="span" name="nome" /> */}
-            </div>
-              <div className="form-grupo-input" id="dataNascimento">
-                <Field
-                  name="dataNascimento"
-                  render={({ field }) => (
-                  <MaskedInput
-                    {...field}
-                    type="text"
                     mask={mascaras.data}
-                    placeholder="Data de Nascimento"
                     onBlur={InputCorreta}
+                    placeholder="Data Nascimento"
                     guide={false}
                   />
-                )} />
-                </div>
+                )}
+              />
+              <ErrorMessage className="mensagem-erro" component="span" name="dataNascimento" />
+              </div>
               <div className="form-grupo-input" id="crm">
-                  <Field
-                    name="crm"
-                    render={({ field }) => (
-                    <MaskedInput
-                    {...field}
-                    type="text"
-                    mask={mascaras.crm}
-                    placeholder="CRM"
-                    onBlur={InputCorreta}
-                    guide={false}
-                  />
-                )} />
-                  <ErrorMessage className="mensagem-erro" component="span" name="crm" />
+              <Field
+              type="text"
+              placeholder="CRM"
+              name="crm"
+              onBlur={InputCorreta}
+              maxLength="7" />
+            <ErrorMessage className="mensagem-erro" component="span" name="crm" />
                   </div>
               <div className="form-grupo-input" id="cpf">
                 <Field
@@ -115,7 +110,7 @@ function DadosMedico() {
                   <MaskedInput
                   {...field}
                   type="text"
-                  mask={mascaras.crm}
+                  mask={mascaras.cpf}
                   placeholder="CPF"
                   onBlur={InputCorreta}
                   guide={false}
@@ -126,18 +121,11 @@ function DadosMedico() {
                   </div>  
               <div className="form-grupo-input" id="email">
                 <Field
-                  name="email"
-                  render={({ field }) => (
-                  <MaskedInput
-                  {...field}
-                  type="text"
-                  mask={mascaras.email}
-                  placeholder="Email"
-                  onBlur={InputCorreta}
-                  guide={false}
-                  />
-                )} />
-                <ErrorMessage className="mensagem-erro" component="span" name="email" />
+                type="email"
+                placeholder="Email"
+                name="email"
+                onBlur={InputCorreta} />
+              <ErrorMessage className="mensagem-erro" component="span" name="email" />
               </div>
               <div className="form-grupo-input" id="telefone">
                 <Field
