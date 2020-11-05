@@ -10,7 +10,6 @@
     position: relative;
     font-family: "Roboto", sans-serif;
     margin: 20px;
-    z-index: 1;
 }
 
 .imagem-card-listagem, 
@@ -36,12 +35,13 @@
 }
 
 .mais-opcoes {
-    height: 20px;
-    width: 40px;
+    height: 15px;
+    width: 45px;
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 3.0em;
+    font-size: 2.0em;
+    text-align: center;
     line-height: 0px;
     cursor: pointer;
     border-radius: 5px;

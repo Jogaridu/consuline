@@ -17,100 +17,113 @@ import api from "../../Services/api";
 
 import { Link, useHistory } from "react-router-dom";
 import { validarServico } from "../Filial/Registrar/ValidacaoInputSchema";
+import Swal from "sweetalert2";
 
 function CadastrarServicos() {
-  const [imagem, setImagem] = useState(null);
-  const history = useHistory();
+    const [imagem, setImagem] = useState(null);
+    const history = useHistory();
 
-  const imgRef = useRef();
+    const imgRef = useRef();
 
-  const handleForm = async (values) => {
-    const dados = new FormData();
+    const handleForm = async (values) => {
+        const dados = new FormData();
 
-    dados.append("nome", values.nome);
-    dados.append("descricao", values.descricao);
-    dados.append("imagem", imagem);
+        dados.append("nome", values.nome);
+        dados.append("descricao", values.descricao);
+        dados.append("imagem", imagem);
 
-    try {
-      const retorno = await api.post("/servico", dados, {
-        headers: {
-          "Content-type": `multipart/form-data`,
-        },
-      });
+        try {
 
-      alert("Serviço cadastrado com sucesso!!!");
-      history.push("/servicos");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+            await api.post("/servico", dados, {
+                headers: {
+                    "Content-type": `multipart/form-data`,
+                },
+            });
 
-  const handleImage = (e) => {
-    if (e.target.files[0]) {
-      imgRef.current.src = URL.createObjectURL(e.target.files[0]);
-    } else {
-      imgRef.current.src = "";
-    }
-    setImagem(e.target.files[0]);
-  };
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "Serviço cadastrado com sucesso",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => history.push(`/servicos`));
 
-  return (
-    <div className="container-central">
-      <Menu />
-      <div className="container-conteudo-central">
-        <Titulo nome="Cadastrar um serviço" />
-        <div id="container-conteudo-cms">
-          <div className="titulo-card-cadastro-servicos">
-            <figure>
-              <img src={servico} alt="Imagem ilustrativa" />
-            </figure>
-            <h2>Cadastrar serviço</h2>
-          </div>
-          <div id="container-form-servicos">
-            <Formik
-              initialValues={{ nome: "", descricao: "" }}
-              onSubmit={(values) => handleForm(values)}
-              validationSchema={validarServico}
-            >
-              <Form>
-                <Field name="nome" placeholder="Nome" />
-                <ErrorMessage className="mensagem-erro" component="span" name="nome" />
-                <h3> Max: 230 </h3>
-                <Field name="descricao" as="textarea" placeholder="Descrição" maxLength={230} />
-                <ErrorMessage className="mensagem-erro" component="span" name="descricao" />
-                <div id="imagem-cadastro-servico">
-                  <label> Imagem </label>
-                  <label htmlFor="selecao-arquivo">
-                    {" "}
-                    Selecionar uma imagem{" "}
-                  </label>
-                  <Field
-                    id="selecao-arquivo"
-                    type="file"
-                    name="imagem"
-                    onChange={handleImage}
-                  />
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleImage = (e) => {
+        if (e.target.files[0]) {
+            imgRef.current.src = URL.createObjectURL(e.target.files[0]);
+        } else {
+            imgRef.current.src = "";
+        }
+        setImagem(e.target.files[0]);
+    };
+
+    return (
+        <div className="container-central">
+            <Menu />
+            <div className="container-conteudo-central">
+                <Titulo nome="Cadastrar um serviço" />
+                <div id="container-conteudo-cms">
+                    <div className="titulo-card-cadastro-servicos">
+                        <figure>
+                            <img src={servico} alt="Imagem ilustrativa" />
+                        </figure>
+                        <h2>Cadastrar serviço</h2>
+                    </div>
+                    <div id="container-form-servicos">
+                        <Formik
+                            initialValues={{ nome: "", descricao: "" }}
+                            onSubmit={(values) => handleForm(values)}
+                            validationSchema={validarServico}>
+                            <Form className="form">
+                                <div className="form-grupo-input" style={{ marginBottom: "25px" }}>
+                                    <Field name="nome" placeholder="Nome" />
+                                    <ErrorMessage className="mensagem-erro" component="span" name="nome" />
+                                </div>
+
+                                <div className="form-grupo-input">
+                                    <h3 className="contador" style={{ position: "absolute", right: "10px", bottom: "0px" }}>Máximo 230</h3>
+                                    <Field name="descricao" as="textarea" placeholder="Descrição" maxLength={230} />
+                                    <ErrorMessage className="mensagem-erro" component="span" name="descricao" />
+                                </div>
+
+                                <div id="imagem-cadastro-servico">
+                                    <label> Imagem </label>
+                                    <label htmlFor="selecao-arquivo">
+                                        {" "}
+                                        Selecionar uma imagem{" "}
+                                    </label>
+                                    <Field
+                                        id="selecao-arquivo"
+                                        type="file"
+                                        name="imagem"
+                                        onChange={handleImage}
+                                    />
+                                </div>
+
+                                <div id="imgCadastroServico">
+                                    <figure>
+                                        <img alt="preview" ref={imgRef} />
+                                    </figure>
+                                </div>
+
+                                <div id="container-botoes-servicos">
+                                    <Link to="/servicos">
+                                        <BotaoSecundario titulo="Voltar" />
+                                    </Link>
+                                    <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
+                                </div>
+                            </Form>
+                        </Formik>
+                    </div>
                 </div>
-
-                <div id="imgCadastroServico">
-                  <figure>
-                    <img alt="preview" ref={imgRef} />
-                  </figure>
-                </div>
-
-                <div id="container-botoes-servicos">
-                  <Link to="/servicos">
-                    <BotaoSecundario titulo="Voltar" />
-                  </Link>
-                  <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
-                </div>
-              </Form>
-            </Formik>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default CadastrarServicos;

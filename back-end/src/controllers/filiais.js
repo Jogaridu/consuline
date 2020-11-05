@@ -15,7 +15,9 @@ module.exports = {
 
                 let filialCriado = await Filial.findOne({
                     where: {
-                        cnpj: dados.cnpj
+                        cnpj: dados.cnpj,
+                        ie: dados.ie,
+                        nomeFantasia: dados.nomeFantasia
 
                     }
                 });
@@ -184,6 +186,82 @@ module.exports = {
         } catch (error) {
             console.log(error);
             res.status(404).send({ erro: "Filial não encontrada" });
+        }
+    },
+
+    async verificarCnpj(req, res) {
+
+        const { cnpj } = req.body;
+
+        try {
+
+            const filialBuscado = await Filial.findOne({
+                where: {
+                    cnpj
+                },
+                attributes: ["cnpj"]
+            });
+
+            if (filialBuscado) {
+                res.status(200).send("Filial cadastrada");
+
+            } else {
+                res.status(204).send();
+
+            }
+
+        } catch (error) {
+            res.status(404).send({ erro: "Paciente não encontrado ou CNPJ não informado" })
+        }
+    },
+
+    async verificarIe(req, res) {
+        const { ie } = req.body;
+
+        try {
+
+            const filialBuscado = await Filial.findOne({
+                where: {
+                    ie
+                },
+                attributes: ["ie"]
+            });
+
+            if (filialBuscado) {
+                res.status(200).send("Filial cadastrada");
+
+            } else {
+                res.status(204).send();
+
+            }
+
+        } catch (error) {
+            res.status(404).send({ erro: "Paciente não encontrado ou IE não informado" })
+        }
+    },
+
+    async verificarNomeFantasia(req, res) {
+        const { nomeFantasia } = req.body;
+
+        try {
+
+            const filialBuscado = await Filial.findOne({
+                where: {
+                    nomeFantasia
+                },
+                attributes: ["nomeFantasia"]
+            });
+
+            if (filialBuscado) {
+                res.status(200).send("Filial cadastrada");
+
+            } else {
+                res.status(204).send();
+
+            }
+
+        } catch (error) {
+            res.status(404).send({ erro: "Paciente não encontrado ou NOME FANTASIA não informado" })
         }
     }
 }

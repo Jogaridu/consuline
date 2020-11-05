@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import { RiAddCircleFill } from "react-icons/ri";
+import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
 
 function Servicos() {
 
@@ -41,6 +42,7 @@ function Servicos() {
 
             } catch (error) {
                 console.log(error);
+                MsgErroGenerico();
             }
         }
 

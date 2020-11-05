@@ -19,4 +19,9 @@ routes.delete("/profissional/:id", controller.apagar);
 
 routes.put("/profissional/:id", Multer.single("foto"), controller.atualizar);
 
+routes.post("/profissional/verificar-nome", controller.verificarNome);
+routes.post("/profissional/verificar-crm", controller.verificarCrm);
+routes.post("/profissional/verificar-login", controller.verificarLogin);
+routes.post("/profissional/verificar-email", controller.verificarEmail);
+
 module.exports = routes;

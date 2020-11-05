@@ -6,7 +6,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json")
 
-
 module.exports = {
   async cadastrar(req, res) {
     const {
@@ -20,20 +19,16 @@ module.exports = {
       avaliacao,
       endereco,
       telefone,
-      dataNascimento
+      dataNascimento,
     } = req.body;
 
     const { firebaseUrl } = req.file ? req.file : "";
-    const enderecoJson = JSON.parse(endereco);
-    const telefoneJson = JSON.parse(telefone);
-
-    console.log(req.body);
 
     try {
-      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
-     let dadosProfissional = await ProfissionalDaSaude.findOne({
+      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(endereco);
+      let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
-          [Op.or]: [{ login: login }, { crm: crm }, { cpf: cpf }],
+          [Op.or]: [{ login }, { crm }, { cpf }, { email }],
         },
       });
       if (dadosProfissional) {
@@ -60,7 +55,7 @@ module.exports = {
       );
 
       const telefones = await telefoneProfissionalController.cadastrar(
-        telefoneJson,
+        telefone,
         dadosProfissional.id
       );
 
@@ -75,7 +70,9 @@ module.exports = {
       const profissional = { dadosProfissional, telefones, token };
 
       res.status(201).send({ profissional });
+
     } catch (error) {
+
       console.log(error);
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente  ",
@@ -257,5 +254,105 @@ module.exports = {
     const profissional = { dados, telefones };
 
     res.status(200).send({ profissional });
+  },
+
+  async verificarNome(req, res) {
+    const { nome } = req.body;
+
+    try {
+
+      const profissionalBuscado = await ProfissionalDaSaude.findOne({
+        where: {
+          nome
+        },
+        attributes: ["nome"]
+      });
+
+      if (profissionalBuscado) {
+        res.status(200).send("Profissional cadastrado");
+
+      } else {
+        res.status(204).send();
+
+      }
+
+    } catch (error) {
+      res.status(404).send({ erro: "Profissional não encontrado ou NOME não informado" })
+    }
+  },
+
+  async verificarCrm(req, res) {
+    const { crm } = req.body;
+
+    try {
+
+      const profissionalBuscado = await ProfissionalDaSaude.findOne({
+        where: {
+          crm
+        },
+        attributes: ["crm"]
+      });
+
+      if (profissionalBuscado) {
+        res.status(200).send("Profissional cadastrado");
+
+      } else {
+        res.status(204).send();
+
+      }
+
+    } catch (error) {
+      res.status(404).send({ erro: "Profissional não encontrado ou CRM não informado" })
+    }
+  },
+
+  async verificarLogin(req, res) {
+    const { login } = req.body;
+
+    try {
+
+      const profissionalBuscado = await ProfissionalDaSaude.findOne({
+        where: {
+          login
+        },
+        attributes: ["login"]
+      });
+
+      if (profissionalBuscado) {
+        res.status(200).send("Profissional cadastrado");
+
+      } else {
+        res.status(204).send();
+
+      }
+
+    } catch (error) {
+      res.status(404).send({ erro: "Profissional não encontrado ou LOGIN não informado" })
+    }
+  },
+
+  async verificarEmail(req, res) {
+    const { email } = req.body;
+
+    try {
+
+      const profissionalBuscado = await ProfissionalDaSaude.findOne({
+        where: {
+          email
+        },
+        attributes: ["email"]
+      });
+
+      if (profissionalBuscado) {
+        res.status(200).send("Profissional cadastrado");
+
+      } else {
+        res.status(204).send();
+
+      }
+
+    } catch (error) {
+      res.status(404).send({ erro: "Profissional não encontrado ou EMAIL não informado" })
+    }
   },
 };

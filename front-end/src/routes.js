@@ -40,7 +40,7 @@ function Routes() {
           <ConsultaFilial />
         </Route>
 
-        <Route path="/filial" exact>
+        <Route path="/filial">
           <RegistrarFilial />
         </Route>
 
@@ -64,7 +64,7 @@ function Routes() {
         <Route path="/servicos/:id?">
           <Listar />
         </Route>
-        
+
       </Switch>
     </BrowserRouter>
   );

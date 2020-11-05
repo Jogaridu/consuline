@@ -7,7 +7,7 @@
   right: 0;
   display: flex;
   flex-direction: column;
-  box-shadow: 10px 10px 10px 10px rgb(65, 65, 65);
+  box-shadow: -2px -2px 25px rgba(65, 65, 65, 0.459);
 }
 
 #fechar-ver-hospitais {
@@ -16,7 +16,6 @@
   padding-top: 10px;
   cursor: pointer;
 }
-
 
 #ver-hospitais-servicos h1 {
   font-size: 40px;

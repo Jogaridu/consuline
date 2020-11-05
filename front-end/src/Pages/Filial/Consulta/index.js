@@ -42,8 +42,6 @@ function Consulta() {
 
                 setDados({ ...retorno.data });
 
-                console.log(retorno.data);
-
             } catch (error) {
                 console.log(error);
             }

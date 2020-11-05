@@ -38,10 +38,7 @@ function DadosMedicoEndereco() {
 
   const buscarCep = async (cep) => {
 
-    console.log(cep);
     const apiCep = await viaCep(cep);
-
-    console.log(apiCep);
 
     if (!apiCep) {
       window.alert("Informe um cep válido  !!!");
@@ -67,7 +64,7 @@ function DadosMedicoEndereco() {
 
   useEffect(() => {
     if (novoMedico === undefined) {
-      // history.push("/profissional-saude");
+      history.push("/profissional-saude");
     }
   })
 
@@ -77,10 +74,8 @@ function DadosMedicoEndereco() {
     const arrayInputsVazias = ValidarInputVazia(arrInputs);
 
     if (!arrayInputsVazias) {
-      history.push("/profissional-saude/login", { ...novoMedico, endereco: { ...values, ...endereco }});
-      
+      history.push("/profissional-saude/login", { ...novoMedico, endereco: { ...values, ...endereco } });
 
-      console.log({ ...novoMedico, endereco: { ...values, ...endereco }});
     }
   }
 

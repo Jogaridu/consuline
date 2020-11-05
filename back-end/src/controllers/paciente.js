@@ -204,7 +204,6 @@ module.exports = {
 
     const dados = req.body;
 
-    console.log(dados);
     try {
       let paciente = await Paciente.findByPk(id);
 

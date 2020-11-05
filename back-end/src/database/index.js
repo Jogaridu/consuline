@@ -26,7 +26,15 @@ const Servico = require("../models/Servico");
 const Central = require("../models/Central");
 const TelefoneCentral = require("../models/TelefoneCentral");
 
+// Atendimento
+const Atendimento = require("../models/Atendimento");
+
+//Consulta 
+const Consulta = require("../models/Consulta");
+
 const conexao = new Sequelize(dbConfig);
+
+
 
 // ----- INICIALIZAÇÃO -----
 
@@ -52,6 +60,12 @@ Servico.init(conexao);
 Central.init(conexao);
 TelefoneCentral.init(conexao);
 
+//Atendimento
+Atendimento.init(conexao);
+
+//Consulta
+Consulta.init(conexao);
+
 // ----- ASSOCIAÇÕES -----
 
 // Paciente
@@ -75,3 +89,10 @@ Servico.associate(conexao.models);
 // Central
 Central.associate(conexao.models);
 TelefoneCentral.associate(conexao.models);
+
+
+//Atendimento
+Atendimento.associate(conexao.models);
+
+//Consulta
+Consulta.associate(conexao.models);

@@ -146,5 +146,30 @@ module.exports = {
 
     }
 
+  },
+
+  async verificarNome(req, res) {
+    const { nome } = req.body;
+
+    try {
+
+      const servicoBuscado = await Filial.findOne({
+        where: {
+          nome
+        },
+        attributes: ["nome"]
+      });
+
+      if (servicoBuscado) {
+        res.status(200).send("Serviço cadastrado");
+
+      } else {
+        res.status(204).send();
+
+      }
+
+    } catch (error) {
+      res.status(404).send({ erro: "Paciente não encontrado ou NOME não informado" })
+    }
   }
 };
