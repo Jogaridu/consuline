@@ -1,45 +1,141 @@
+h5{
+  font-weight: bold;
+}
+
+p{
+  margin-bottom: 3em;
+  font-style: italic;
+}
+
 .container-consulta-home{
   width: 1050px;
   height: 97%;
   display: grid;
+  /* background-color: red; */
   row-gap: 20px; 
   column-gap: 20px;
-  grid-template-rows: 30vh 12vh 30vh 15vh;
+  grid-template-rows: 200px 85px 140px 150px;
+  grid-template-columns: 35% 35% 26%;
   grid-template-areas:  
-  "bem-vindo bem-vindo bem-vindo informacoes-consultas informacoes-consultas"
-  "consultas-hoje consultas-hoje consultas-hoje informacoes-consultas informacoes-consultas"
-  "consultas-hoje consultas-hoje consultas-hoje apresentacao-avaliacao apresentacao-avaliacao" 
-  "consultas-hoje consultas-hoje consultas-hoje apresentacao-avaliacao apresentacao-avaliacao";
+  "bem-vindo bem-vindo  informacoes-consultas"
+  "consultas-hoje consultas-hoje informacoes-consultas"
+  "consultas-hoje consultas-hoje apresentacao-avaliacao" 
+  "consultas-hoje consultas-hoje apresentacao-avaliacao";
 }
-
+                          /* *************** CARDS DO CONTAINER *************** */
 #bem-vindo {
   grid-area: bem-vindo;
   background-color: var(--principal);
   border-radius: 20px;
   display: grid;
-  grid-template-areas: "img-supermedico subtext-bemvindo";
+  grid-template-columns: 35% 65%;
+  grid-template-areas: "img-supermedico subtext-bemvindo";  
 }
 #consultas-hoje{
   grid-area: consultas-hoje;
   background-color: var(--container);
   border-radius: 20px;
+  gap: 10px;
+  grid-template-rows: 70px 300px 30px;
+  display: grid;
+  grid-template-areas: 
+  "titulo-card-consultashoje titulo-card-consultashoje titulo-card-consultashoje"
+  "card-previa-consulta-1 card-previa-consulta-2 card-previa-consulta-3"
+  "mais-consulta mais-consulta mais-consulta"
+  ;
+  
 }
 #informacoes-consultas{
   grid-area: informacoes-consultas;
-  background-color: var(--container);
+  background-color: var(--principal);
   border-radius: 20px;
 }
 #apresentacao-avaliacao{
   grid-area: apresentacao-avaliacao; 
-  background-color: var(--container);
+  background-color: var(--principal);
   border-radius: 20px;
 }
-
+                          /* *************** Elementos do card Bem-vindo *************** */
 .img-supermedico{
   grid-area: img-supermedico;
-  background-color: red;
+  /* background-color: red; */
 }
 .subtext-bemvindo{
   grid-area: subtext-bemvindo;
-  background-color:green;
+  color: white;
 } 
+ #supermedico{
+  width: 250px;
+  height: 225px;
+  margin-left: 15px;
+  margin-top: -25px;
+} 
+                          /* *************** Elementos do card Consultas Hoje *************** */
+.titulo-card-consultashoje{
+  grid-area: titulo-card-consultashoje;
+  color: rgba(0, 0, 0, 0.8);
+  margin-left: 10px;
+  margin-top: 10px;
+  /* background-color: red;  */
+}
+
+.card-previa-consulta-1{
+  grid-area: card-previa-consulta-1;
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 160px 75px 45px;
+  grid-template-areas: 
+  "img-paciente-previa"
+  "nome-paciente-previa"
+  "vermais-paciente-previa";
+  /* background-color: blue; */
+}
+.card-previa-consulta-2{
+  grid-area: card-previa-consulta-2;
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 160px 75px 45px;
+  grid-template-areas: 
+  "img-paciente-previa"
+  "nome-paciente-previa"
+  "vermais-paciente-previa";
+  /* background-color: yellow; */
+}
+.card-previa-consulta-3{
+  grid-area: card-previa-consulta-3;
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 160px 75px 45px;
+  grid-template-areas: 
+  "img-paciente-previa"
+  "nome-paciente-previa"
+  "vermais-paciente-previa";
+  /* background-color: green; */
+}
+.mais-consulta{
+  grid-area: mais-consulta;
+  background-color: fuchsia;
+}
+
+.img-paciente-previa{
+  grid-area: img-paciente-previa;
+  background-color: fuchsia;
+
+}
+.nome-paciente-previa{
+  grid-area: nome-paciente-previa;
+  background-color: green;
+
+}
+.vermais-paciente-previa{
+  grid-area: vermais-paciente-previa;
+  /* background-color: red; */
+  border: 1px solid #403e66;
+  border-radius: 30px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-weight: bold;
+
+}
