@@ -120,7 +120,7 @@ function DadosMedicoLogin() {
 
                 </div>
             </Form>
-        </Formik>
+        </Formik >
     );
 }
 

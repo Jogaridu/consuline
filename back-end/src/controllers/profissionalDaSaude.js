@@ -54,6 +54,8 @@ module.exports = {
         }
       );
 
+      console.log(dadosProfissional.id);
+
       const telefones = await telefoneProfissionalController.cadastrar(
         telefone,
         dadosProfissional.id
