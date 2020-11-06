@@ -40,7 +40,7 @@ p{
   display: grid;
   grid-template-areas: 
   "titulo-card-consultashoje titulo-card-consultashoje titulo-card-consultashoje"
-  "card-previa-consulta-1 card-previa-consulta-2 card-previa-consulta-3"
+  "card-previa-consulta card-previa-consulta card-previa-consulta"
   "mais-consulta mais-consulta mais-consulta"
   ;
   
@@ -79,63 +79,18 @@ p{
   /* background-color: red;  */
 }
 
-.card-previa-consulta-1{
-  grid-area: card-previa-consulta-1;
-  display: grid;
-  gap: 10px;
-  grid-template-rows: 160px 75px 45px;
-  grid-template-areas: 
-  "img-paciente-previa"
-  "nome-paciente-previa"
-  "vermais-paciente-previa";
-  /* background-color: blue; */
+.card-previa-consulta{
+  grid-area: card-previa-consulta;
+   background-color: blue; 
 }
-.card-previa-consulta-2{
-  grid-area: card-previa-consulta-2;
-  display: grid;
-  gap: 10px;
-  grid-template-rows: 160px 75px 45px;
-  grid-template-areas: 
-  "img-paciente-previa"
-  "nome-paciente-previa"
-  "vermais-paciente-previa";
-  /* background-color: yellow; */
-}
-.card-previa-consulta-3{
-  grid-area: card-previa-consulta-3;
-  display: grid;
-  gap: 10px;
-  grid-template-rows: 160px 75px 45px;
-  grid-template-areas: 
-  "img-paciente-previa"
-  "nome-paciente-previa"
-  "vermais-paciente-previa";
-  /* background-color: green; */
-}
+
 .mais-consulta{
   grid-area: mais-consulta;
   background-color: fuchsia;
 }
 
-.img-paciente-previa{
-  grid-area: img-paciente-previa;
-  background-color: fuchsia;
+/* .card-previa{
 
-}
-.nome-paciente-previa{
-  grid-area: nome-paciente-previa;
-  background-color: green;
+} */
 
-}
-.vermais-paciente-previa{
-  grid-area: vermais-paciente-previa;
-  /* background-color: red; */
-  border: 1px solid #403e66;
-  border-radius: 30px;
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  font-weight: bold;
 
-}

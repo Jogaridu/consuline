@@ -3,6 +3,7 @@ import React from 'react';
 import './style.css';
 import '../../../Styles/globalStyle.css'
 import supermedico from '../../../Assets/supermedico.png'
+// import medicoteste from '../../../Assets/medicoteste.png'
 
 function HomeConsulta(){
     return(
@@ -24,39 +25,11 @@ function HomeConsulta(){
                 <div className="titulo-card-consultashoje">
                     <h1>Consultas para hoje:</h1>
                 </div>
-                <div className="card-previa-consulta-1">
-                    <div className="img-paciente-previa">
-                       
-                    </div>
-                    <div className="nome-paciente-previa">
+                <div className="card-previa-consulta">
+                    <div className="card-previa">
                         
                     </div>
-                    <div className="vermais-paciente-previa">
-                        Ver mais
-                    </div>
-                </div>
-                <div className="card-previa-consulta-2">
-                <div className="img-paciente-previa">
-                       
-                       </div>
-                       <div className="nome-paciente-previa">
-                           
-                       </div>
-                       <div className="vermais-paciente-previa">
-                       Ver mais
-                       </div>
-                </div>
-                <div className="card-previa-consulta-3">
-                <div className="img-paciente-previa">
-                       
-                       </div>
-                       <div className="nome-paciente-previa">
-                           
-                       </div>
-                       <div className="vermais-paciente-previa">
-                       Ver mais
-                       </div>
-                </div>
+                </div>       
                 <div className="mais-consulta">
 
                 </div>
