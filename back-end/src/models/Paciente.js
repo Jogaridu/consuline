@@ -28,7 +28,11 @@ class Paciente extends Model {
     this.belongsTo(models.PlanoDeSaude);
     this.hasMany(models.Consulta, {
       foreignKey: "PacienteId"
-    })
+    });
+
+    this.hasMany(models.Avliacao, {
+      foreignKey: "PacienteId"
+    });
 
   }
 }

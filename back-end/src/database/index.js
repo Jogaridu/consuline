@@ -32,6 +32,10 @@ const Atendimento = require("../models/Atendimento");
 //Consulta 
 const Consulta = require("../models/Consulta");
 
+//Avaliação
+const Avaliacao = require("../models/Avaliacao");
+
+
 const conexao = new Sequelize(dbConfig);
 
 
@@ -66,6 +70,9 @@ Atendimento.init(conexao);
 //Consulta
 Consulta.init(conexao);
 
+//Avaliação
+Avaliacao.init(conexao);
+
 // ----- ASSOCIAÇÕES -----
 
 // Paciente
@@ -96,3 +103,6 @@ Atendimento.associate(conexao.models);
 
 //Consulta
 Consulta.associate(conexao.models);
+
+//Avaliação
+Avaliacao.associate(conexao.models);

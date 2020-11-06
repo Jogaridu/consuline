@@ -4,6 +4,8 @@ const Profissional = require("../models/ProfissionalDaSaude");
 const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 const Atendimento = require("../models/Atendimento");
+const { Op } = require("sequelize");
+
 
 module.exports = {
     async criar(req, res) {
@@ -16,7 +18,8 @@ module.exports = {
             ProfissionalDaSaudeId,
             FilialId,
             ServicoId,
-            AtendimentoId
+            AtendimentoId,
+            descricao
         } = req.body;
 
         try {
@@ -59,7 +62,8 @@ module.exports = {
                 ProfissionalDaSaudeId,
                 FilialId,
                 ServicoId,
-                AtendimentoId
+                AtendimentoId,
+                descricao
             });
 
             res.status(201).send(consulta);
@@ -221,10 +225,81 @@ module.exports = {
     },
 
     async listarIdMedico(req, res) {
-        const { id } = req.params;
+        const { idMedico } = req.params;
 
         try {
-            const consultas = await Consulta.findAll({
+            const consultas = await Consulta.findAll(
+
+                {
+                    where: { ProfissionalDaSaudeId: idMedico },
+                    order: [["horario", "ASC"]],
+
+                }
+                , {
+                    include: [{
+                        association: "Paciente",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "cpf"
+                        ]
+                    },
+                    {
+                        association: "Filial",
+                        attributes: [
+                            "nomeFantasia",
+                            "razaoSocial"
+                        ]
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: [
+                            "tipo"
+                        ]
+                    },
+                    {
+                        association: "ProfissionalDaSaude",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "crm"
+                        ]
+                    },
+
+
+
+                    ],
+                },
+            );
+
+            if (!consultas) {
+                return res.status(400).send({ error: "Profissional não encontrado(a)" });
+            }
+
+            res.status(200).send(consultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
+        }
+    },
+
+    async listarIdMedicoData(req, res) {
+        const { idMedico } = req.params;
+
+        const { data } = req.query;
+
+        try {
+            const consultas = await Consulta.findAll(
+                {
+                    where: {
+                        [Op.and]: [
+                            { ProfissionalDaSaudeId: idMedico },
+                            { data: data }
+                        ]
+                    },
+                    order: [["horario", "ASC"]],
+                },
+                {
                 include: [{
                     association: "Paciente",
                     attributes: [
@@ -260,9 +335,6 @@ module.exports = {
 
                 ],
             },
-                {
-                    where: { ProfissionalDaSaudeId: id }
-                }
             );
 
             if (!consultas) {
@@ -274,8 +346,5 @@ module.exports = {
             console.log(error);
             return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
         }
-
-
-
     }
 }

@@ -24,6 +24,10 @@ module.exports = {
         type: Sequelize.TIME,
         allowNull: false
       },
+      descricao: {
+        type: Sequelize.TEXT,
+        allownull: false
+      },
       PacienteId: {
         type: Sequelize.INTEGER,
         allowNull: false,

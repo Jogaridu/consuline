@@ -12,7 +12,10 @@ routes.put("/consulta/:id", controller.atualizar);
 
 routes.get("/consulta/:id", controller.listarId);
 
-routes.get("/consultas-medico/:id", controller.listarIdMedico);
+routes.get("/medico/:idMedico/consultas", controller.listarIdMedico);
+
+routes.get("/medico/:idMedico/consultas/proximas", controller.listarIdMedicoData);
+
 
 
 module.exports = routes;

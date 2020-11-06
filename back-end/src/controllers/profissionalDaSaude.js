@@ -16,16 +16,16 @@ module.exports = {
       senha,
       foto,
       email,
-      avaliacao,
       endereco,
       telefone,
       dataNascimento,
     } = req.body;
-
     const { firebaseUrl } = req.file ? req.file : "";
 
+    const enderecoJson = JSON.parse(endereco);
+
     try {
-      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(endereco);
+      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
       let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
           [Op.or]: [{ login }, { crm }, { cpf }, { email }],
@@ -34,7 +34,7 @@ module.exports = {
       if (dadosProfissional) {
         return res
           .status(400)
-          .send({ error: "Login ou crm ou cpf, já cadastrado!!" });
+          .send({ error: "Login ou crm ou cpf ou email, já cadastrado!!" });
       }
 
       const senhaCripto = await bcrypt.hash(senha, 10);
@@ -47,7 +47,6 @@ module.exports = {
           login,
           senha: senhaCripto,
           foto,
-          avaliacao,
           foto: firebaseUrl,
           email,
           dataNascimento

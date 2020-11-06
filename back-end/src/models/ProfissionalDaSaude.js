@@ -10,7 +10,6 @@ class ProfissionalDaSaude extends Model {
         login: DataTypes.STRING,
         senha: DataTypes.STRING,
         foto: DataTypes.STRING,
-        avaliacao: DataTypes.STRING,
         email: DataTypes.STRING,
         dataNascimento: DataTypes.DATEONLY
       },
@@ -30,6 +29,9 @@ class ProfissionalDaSaude extends Model {
     });
     this.hasMany(models.Consulta, {
       foreignKey: "ProfissionalDaSaudeId"
+    });
+    this.hasMany(models.Avliacao,{
+      foreignKey:"ProfissionalDaSaudeId"
     });
 
     // this.belongsToMany(models.Servico, {
