@@ -53,6 +53,20 @@ module.exports = {
                 return res.status(400).send({ error: "Atendimento não cadastrado" });
             }
 
+            let consultaCriada = await Consulta.findOne({
+                where: {
+                    [Op.and]: [
+                        { data: data },
+                        { horario: horario },
+                        { ProfissionalDaSaudeId: ProfissionalDaSaudeId }
+                    ]
+                }
+            })
+
+            if (consultaCriada) {
+                return res.status(400).send({ error: "Já existe uma consulta com esse horario,data e profissional, por favor tente novamente" });
+            }
+
             const consulta = await Consulta.create({
                 valor,
                 desconto,
@@ -232,7 +246,7 @@ module.exports = {
 
                 {
                     where: { ProfissionalDaSaudeId: idMedico },
-                    order: [["horario", "ASC"]],
+                    order: [["data", "DESC"]],
 
                 }
                 , {
@@ -300,41 +314,41 @@ module.exports = {
                     order: [["horario", "ASC"]],
                 },
                 {
-                include: [{
-                    association: "Paciente",
-                    attributes: [
-                        "nome",
-                        "dataNascimento",
-                        "cpf"
-                    ]
-                },
-                {
-                    association: "Filial",
-                    attributes: [
-                        "nomeFantasia",
-                        "razaoSocial"
-                    ]
-                },
-                {
-                    association: "Atendimento",
-                    attributes: [
-                        "tipo"
-                    ]
-                },
-                {
-                    association: "ProfissionalDaSaude",
-                    attributes: [
-                        "nome",
-                        "avaliacao",
-                        "dataNascimento",
-                        "crm"
-                    ]
-                },
+                    include: [{
+                        association: "Paciente",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "cpf"
+                        ]
+                    },
+                    {
+                        association: "Filial",
+                        attributes: [
+                            "nomeFantasia",
+                            "razaoSocial"
+                        ]
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: [
+                            "tipo"
+                        ]
+                    },
+                    {
+                        association: "ProfissionalDaSaude",
+                        attributes: [
+                            "nome",
+                            "avaliacao",
+                            "dataNascimento",
+                            "crm"
+                        ]
+                    },
 
 
 
-                ],
-            },
+                    ],
+                },
             );
 
             if (!consultas) {
@@ -346,5 +360,127 @@ module.exports = {
             console.log(error);
             return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
         }
-    }
+    },
+
+    async listarDia(req, res) {
+        const { idMedico } = req.params;
+
+        try {
+            const consultas = await Consulta.findAll(
+
+                {
+                    where: { ProfissionalDaSaudeId: idMedico },
+                    order: [["horario", "ASC"]],
+
+                }
+                , {
+                    include: [{
+                        association: "Paciente",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "cpf"
+                        ]
+                    },
+                    {
+                        association: "Filial",
+                        attributes: [
+                            "nomeFantasia",
+                            "razaoSocial"
+                        ]
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: [
+                            "tipo"
+                        ]
+                    },
+                    {
+                        association: "ProfissionalDaSaude",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "crm"
+                        ]
+                    },
+
+
+
+                    ],
+                },
+            );
+
+            if (!consultas) {
+                return res.status(400).send({ error: "Profissional não encontrado(a)" });
+            }
+
+            let arrayConsultas = new Array();
+
+            for (let i = 0; i < consultas.length; i++) {
+                arrayConsultas[i] = { data: consultas[i].data, horario: consultas[i].horario };
+            }
+
+            res.status(200).send(arrayConsultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
+        }
+    },
+
+
+    async listarIdPaciente(req, res) {
+        const { idPaciente } = req.params;
+
+        try {
+            const consultas = await Consulta.findAll(
+
+                {
+                    where: { PacienteId: idPaciente },
+                    order: [["data", "DESC"]],
+
+                }
+                , {
+                    include: [{
+                        association: "Paciente",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "cpf"
+                        ]
+                    },
+                    {
+                        association: "Filial",
+                        attributes: [
+                            "nomeFantasia",
+                            "razaoSocial"
+                        ]
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: [
+                            "tipo"
+                        ]
+                    },
+                    {
+                        association: "ProfissionalDaSaude",
+                        attributes: [
+                            "nome",
+                            "dataNascimento",
+                            "crm"
+                        ]
+                    },
+                    ],
+                },
+            );
+
+            if (!consultas) {
+                return res.status(400).send({ error: "Paciente não encontrado(a)" });
+            }
+
+            res.status(200).send(consultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
+        }
+    },
 }

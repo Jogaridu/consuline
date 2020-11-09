@@ -14,7 +14,11 @@ routes.get("/consulta/:id", controller.listarId);
 
 routes.get("/medico/:idMedico/consultas", controller.listarIdMedico);
 
+routes.get("/medico/:idMedico/consultas/dias", controller.listarDia);
+
 routes.get("/medico/:idMedico/consultas/proximas", controller.listarIdMedicoData);
+
+routes.get("/paciente/:idPaciente/consultas", controller.listarIdPaciente);
 
 
 
