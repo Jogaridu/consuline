@@ -3,11 +3,14 @@ const express = require("express");
 const routes = express.Router();
 
 const controller = require("../../controllers/profissionalDaSaude");
+
+const enviarArquivos = require("../../services/firebase");
+
 const login = require("../../controllers/sessao");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 
-routes.post("/profissional", Multer.single("foto"), controller.cadastrar);
+routes.post("/profissional", Multer.single("foto"), enviarArquivos, controller.cadastrar);
 
 routes.post("/profissional-login", login.logar);
 
