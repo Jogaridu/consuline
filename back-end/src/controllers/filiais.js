@@ -99,7 +99,7 @@ module.exports = {
                     {
                         model: EnderecoFilial,
                         attributes: [
-                            "id", "estado", "cidade"
+                            "id", "estado", "cidade", "cep", "numero"
                         ]
 
                     },
