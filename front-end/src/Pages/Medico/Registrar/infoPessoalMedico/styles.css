@@ -1,40 +1,35 @@
 
                         /****************************** CONTAINER CADASTRO FORMULARIO ******************************/
 
-#container-card1{
+#container-card1 {
     width: 100%;
     height: 100%;
     background-color: var(--container);
     box-sizing: border-box;
     border-radius: 20px;
+    margin: 10px auto;
     display: flex;
     flex-direction: row;
-    margin: 10px auto;
 }
 
-.container-left-side1{
+.container-left-side1 {
     width: 50%;
     height: 100%;
-      /* background: red;   */
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    
+    flex-direction: column;    
 }
-.container-right-side1{
-    width: 50%;
+
+.container-right-side1 {
+    flex: 1;
     height: 100%;
-       /* background: yellow;    */
-    display: flex;
-    align-items: center;
-    flex-direction: column;
 }                                     
 
             /* ---------------------------- Container-left-side ---------------------------- */
 
 
-.img-usuario{
+.img-usuario {
     width: 180px;
     height: 180px;
     background-color: var(--principal);
@@ -42,7 +37,7 @@
     background-position: -15px -15px;
 }
 
-#usuario{
+#usuario {
     height: 160px;
     width: 160px;
     display: flex;
@@ -54,7 +49,7 @@
 
 }
 
-.subtitulo-img{
+.subtitulo-img {
     width: 300px;
     height: 50px;
     /* background-color: aqua; */
@@ -69,23 +64,17 @@
 
             /* ---------------------------- Container-right-side ---------------------------- */
 
-.entrada-de-dados1{
+.entrada-de-dados1 {
+    height: 80%;
     width: 450px;
-    height: 430px;
-    margin-top: 10px;
-    /* background-color: blue;   */
-}
-
-.entrada-de-dados1{
     display: grid;
+    align-items: flex-end;
     grid-column-gap: 20px;
     grid-template-areas: 
     "nome nome"
-    "dataNascimento dataNascimento"
+    "dataNascimento telefone"
     "crm cpf"
-    "telefone telefone"
     "email email";
-    
 }
 
 #nome {grid-area: nome;}
@@ -96,21 +85,20 @@
 #email {grid-area: email;}
 
 
-.entrada-dados22, .inputs{
+.entrada-dados22, .inputs {
     width: 100%;
     min-height: 30px;
     height: auto;   
     display: flex;
     flex-direction: row;
     margin-top: 35px;
-
 }
 
 
             /* ---------------------------- Button Next ---------------------------- */
 
 
-.div-btn{
+.div-btn {
     width: 90%;
     height: 50px;
      /* background-color: yellow;  */

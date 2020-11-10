@@ -24,6 +24,9 @@ class Filial extends Model {
     this.belongsToMany(models.Servico, {
       through: "tblFilialServico",
     });
+    this.hasMany(models.Consulta,{
+      foreignKey:"FilialId"
+    });
   }
 }
 module.exports = Filial;

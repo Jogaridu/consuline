@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import { RiAddCircleFill } from "react-icons/ri";
+import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
 
 function Servicos() {
 
@@ -17,10 +18,10 @@ function Servicos() {
     const [todosServicos, setTodosServicos] = useState([]);
 
     const iconeLixeira = (<FaTrashAlt size={33} />);
-    const iconeAdicionar = (<RiAddCircleFill size={45} />)
+    const iconeAdicionar = (<RiAddCircleFill size={45} />);
 
     const history = useHistory();
-    console.log("entou");
+
     useEffect(() => {
         const servicosFilial = async () => {
             try {
@@ -41,6 +42,7 @@ function Servicos() {
 
             } catch (error) {
                 console.log(error);
+                MsgErroGenerico();
             }
         }
 

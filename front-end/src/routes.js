@@ -4,13 +4,17 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import HomeCrud from "./Pages/Home-Crud";
+
+import ConsultaFilial from "./Pages/Filial/Consulta";
 import RegistrarFilial from "./Pages/Filial/Registrar";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import EditarFilial from "./Pages/Filial/Editar/index";
+
 import RegistrarProfissional from "./Pages/Medico/Registrar";
 import Listar from "./Pages/Servicos/index";
 import RegistrarServico from "./Pages/Servicos/cadastrar";
 import EditarServico from "./Pages/Servicos/editar";
+import AreaMedico from "./Pages/trabalhoMedico";
 
 function Routes() {
   return (
@@ -33,6 +37,10 @@ function Routes() {
           <EditarFilial />
         </Route>
 
+        <Route path="/filial/:id">
+          <ConsultaFilial />
+        </Route>
+
         <Route path="/filial">
           <RegistrarFilial />
         </Route>
@@ -40,7 +48,6 @@ function Routes() {
         <Route path="/filiais">
           <ListagemFilial />
         </Route>
-
 
         {/* Rotas de profissionais */}
 
@@ -58,7 +65,13 @@ function Routes() {
         <Route path="/servicos/:id?">
           <Listar />
         </Route>
-        
+
+        {/* Rotas de consultas | Area Médico */}
+
+        <Route path="/consultas">
+          <AreaMedico />
+        </Route>
+
       </Switch>
     </BrowserRouter>
   );

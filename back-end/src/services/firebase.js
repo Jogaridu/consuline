@@ -11,23 +11,23 @@ admin.initializeApp({
 
 const bucket = admin.storage().bucket();
 
-const enviarImagem = (req, res, next) => {
+const enviarArquivo = (req, res, next) => {
 
     if (!req.file) {
         return next();
     }
 
-    const imagem = req.file;
+    const arquivo = req.file;
 
-    const nomeArquivo = `${Date.now()}.${imagem.originalname.split(".").pop()}`;
+    const nomeArquivo = `${Date.now()}.${arquivo.originalname.split(".").pop()}`;
 
-    const arquivo = bucket.file(nomeArquivo);
+    const arquivoBucket = bucket.file(nomeArquivo);
 
     const file = bucket.file(nomeArquivo);
 
-    const stream = arquivo.createWriteStream({
+    const stream = arquivoBucket.createWriteStream({
         metadata: {
-            contentType: imagem.mimetype
+            contentType: arquivo.mimetype
         }
     });
 
@@ -42,7 +42,7 @@ const enviarImagem = (req, res, next) => {
         return next();
     });
 
-    stream.end(imagem.buffer);
+    stream.end(arquivo.buffer);
 }
 
-module.exports = enviarImagem;
+module.exports = enviarArquivo;

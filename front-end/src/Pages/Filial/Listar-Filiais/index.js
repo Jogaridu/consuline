@@ -5,6 +5,7 @@ import CardListagem from '../../../Components/CardListagem';
 import MenuCentral from '../../../Components/MenuCentral';
 import TituloPrincipal from '../../../Components/TituloPrincipal';
 import api from '../../../Services/api';
+import MsgErroGenerico from "../../../Fixtures/MsgErroGenerico"
 
 import './styles.css';
 
@@ -23,10 +24,11 @@ function ListarFiliais() {
 
             setFiliais(retorno.data);
 
-            console.log(retorno.data);
 
         } catch (error) {
             console.log(error);
+
+            MsgErroGenerico();
         }
 
     }
@@ -45,6 +47,7 @@ function ListarFiliais() {
                         cidade={filial.EnderecoFilial.cidade}
                         telefones={filial.TelefoneFilials}
                         telaEditar={`/filial/editar/${filial.id}`}
+                        telaConsulta={`/filial/${filial.id}`}
                     />)
                     )}
                 </div>

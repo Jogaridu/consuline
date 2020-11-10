@@ -5,7 +5,20 @@ const bcrypt = require("bcryptjs");
 const gerarCodigoVerificacao = require("../fixtures/gerarCodigo");
 const { enviarSMS } = require("../services/sms");
 const jwt = require("jsonwebtoken");
-const auth = require("../config/auth.json")
+const auth = require("../config/auth.json");
+const emailConsuline = require("../services/email");
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+const smtpTransport = require("nodemailer-smtp-transport");
+
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: emailConsuline.email,
+    pass: emailConsuline.senha
+  },
+});
+
 
 module.exports = {
   async cadastrar(req, res) {
@@ -20,8 +33,6 @@ module.exports = {
       cpf,
       endereco,
     } = req.body;
-
-    console.log(req.body);
 
     const verificado = false;
 
@@ -170,6 +181,7 @@ module.exports = {
       });
     }
   },
+
   async deletar(req, res) {
     const { id } = req.params;
 
@@ -202,8 +214,6 @@ module.exports = {
     const { id } = req.params;
 
     const dados = req.body;
-
-    console.log(dados);
 
     try {
       let paciente = await Paciente.findByPk(id);
@@ -284,7 +294,7 @@ module.exports = {
 
     const { senhaAntiga } = req.body;
 
-    const {senha} = await Paciente.findByPk(id, {
+    const { senha } = await Paciente.findByPk(id, {
       attributes: ['senha'],
       raw: true
     });
@@ -312,5 +322,46 @@ module.exports = {
 
       return res.status(201).send({ foto: firebaseUrl });
     }
-  }
+  },
+
+  async enviarExame(req, res) {
+    const { texto } = req.body;
+    const { firebaseUrl } = req.file ? req.file : "";
+    const { idPaciente } = req.params;
+
+    try {
+
+      const paciente = await Paciente.findByPk(idPaciente);
+
+      if (!paciente) {
+        return res.status(400).send({ error: "Paciente não encontrado (a)" });
+      }
+
+      const mailOptions = {
+        from: emailConsuline.email,
+        to: paciente.email,
+        attachments: [
+          {
+            "path": firebaseUrl
+          }
+        ],
+        subject: 'Seu exame esta pronto!!!!',
+        text: texto,
+        html: '<p>Abaixo está o resultado do seu exame, Consuline ltda.</p>'
+      };
+
+      transporter.sendMail(mailOptions, function (err, info) {
+        if (err)
+          console.log(err)
+        else
+          console.log(info);
+      });
+
+      res.status(200).send({sucesso:"Resultado do exame enviado com sucesso"});
+
+
+    } catch (error) {
+      return res.status(500).send({ error: "Não foi possivel enviar o resultado do exame, por favor tente novamente " });
+    }
+  },
 };

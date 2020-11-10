@@ -25,4 +25,6 @@ routes.put("/servico/:id",
 
 routes.get("/servico/:id/filiais", controllerServico.pegarFiliais);
 
+routes.post("/servico/verificar-nome", controllerServico.verificarNome);
+
 module.exports = routes;

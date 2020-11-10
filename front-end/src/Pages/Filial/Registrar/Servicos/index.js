@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Swal from "sweetalert2";
+import RemoverMask from '../../../../Fixtures/RemoverMask';
+import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
 
 function Servicos() {
 
@@ -22,7 +24,7 @@ function Servicos() {
 
     useEffect(() => {
         carragarServicos();
-        console.log(novaFilial.servicos);
+
 
     }, [novaFilial.servicos]);
 
@@ -32,20 +34,32 @@ function Servicos() {
         novaFilial["servicos"] = novoServico;
 
         try {
-            const retorno = await api.post("/filial", novaFilial);
+
+            const dados = {
+                ...novaFilial,
+                cnpj: RemoverMask(novaFilial.cnpj),
+                ie: RemoverMask(novaFilial.ie),
+                endereco: {
+                    ...novaFilial.endereco,
+                    cep: RemoverMask(novaFilial.endereco.cep)
+                }
+            }
+
+            const retorno = await api.post("/filial", dados);
 
             if (retorno.status === 201) {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Filial cadastrada com sucesso',
+                    title: "Filial cadastrada com sucesso",
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => history.push("/filiais"));
+                }).then(() => history.push(`/filial/${retorno.data.id}`));
             }
 
         } catch (error) {
             console.error(error);
+            MsgErroGenerico();
 
         }
 
@@ -77,8 +91,6 @@ function Servicos() {
             setNovoServico(e => e.filter(servico => servico !== servicoId));
 
         }
-
-        console.log(novaFilial.servicos);
 
     }
 

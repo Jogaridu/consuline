@@ -38,10 +38,7 @@ function Endereco() {
 
   const buscarCep = async (cep) => {
 
-    console.log(cep);
     const apiCep = await viaCep(cep);
-
-    console.log(apiCep);
 
     if (!apiCep) {
       window.alert("Informe um cep válido  !!!");
