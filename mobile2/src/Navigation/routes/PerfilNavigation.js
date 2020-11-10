@@ -9,10 +9,10 @@ import {
 
 const Stack = createStackNavigator();
 
-import ConsultaEditar from "../Views/Perfil/Editar/consultaEditar";
-import EditarInformacaoPessoal from "../Views/Perfil/Editar/editarInformacaoPessoal";
-import EditarLocalizacao from "../Views/Perfil/Editar/editarLocalizacao";
-import EditarLogin from "../Views/Perfil/Editar/editarLogin";
+import ConsultaEditar from "../../Views/Perfil/Editar/consultaEditar";
+import EditarInformacaoPessoal from "../../Views/Perfil/Editar/editarInformacaoPessoal";
+import EditarLocalizacao from "../../Views/Perfil/Editar/editarLocalizacao";
+import EditarLogin from "../../Views/Perfil/Editar/editarLogin";
 
 const PerfilNavigation = () => {
   return (

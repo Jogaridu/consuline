@@ -9,15 +9,15 @@ import {
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import Home from "../Views/Home";
-import Perfil from "../Views/Perfil";
+import Home from "../../Views/Home";
+import Perfil from "../../Views/Perfil";
 
-import colors from "../Styles/colors";
+import colors from "../../Styles/colors";
 
 export default HomeNavigator = () => {
   return (
@@ -28,13 +28,13 @@ export default HomeNavigator = () => {
 
           if (route.name === "Home") {
             iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
+              ? "home"
+              : "home-outline";
           } else if (route.name === "Perfil") {
-            iconName = focused ? "ios-list-box" : "ios-list";
+            iconName = focused ? "md-checkmark-circle" : "md-checkmark-circle";
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{

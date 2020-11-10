@@ -16,17 +16,65 @@ import {
   ContainerPassos,
 } from "./styles";
 
+import api from "../../../Services/api";
+
 const Foto = ({ navigation }) => {
   const { height, width } = Dimensions.get("window");
 
+  const [paciente, setPaciente] = useState(null);
   const [image, setImage] = useState(null);
+  const [id, setId] = useState(null);
+  const [nomeImg, setNomeImg] = useState(null);
   const [tituloBotao, setTituloBotao] = useState({
     sim: "Sim",
     nao: "Não",
   });
 
+  const pegarDados = async () => {
+    const retorno = await api.get("/paciente/1");
+
+    setPaciente(retorno.data);
+  };
+
+  useEffect(() => {
+    pegarDados();
+  }, []);
+
+  const upload = async () => {
+    const nomeArquivo = Date.now() + "." + image.split(".").pop();
+
+    const urlImg = nomeArquivo.split(".");
+
+    let nome = urlImg[0];
+    let type = urlImg[1];
+
+    const formData = new FormData();
+    formData.append("foto", {
+      uri: image,
+      name: nome,
+      type: "image/" + type,
+    });
+
+    try {
+      const retorno = await api.post(
+        `/paciente/${paciente.id}/imagem`,
+        formData,
+        {
+          headers: {
+            "Content-Type": `multipart/form-data`,
+          },
+        }
+      );
+
+      Alert.alert("deu certo cachorro");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const navegarSucesso = () => {
-    navigation.navigate("RegistrarSucesso");
+    // /paciente/id/imagem
+    // navigation.navigate("RegistrarSucesso");
   };
 
   const permissaoCamera = async () => {
@@ -101,7 +149,7 @@ const Foto = ({ navigation }) => {
               title={tituloBotao.sim}
               funcExec={permissaoCamera}
             />
-            <Botao1 title={tituloBotao.nao} funcExec={navegarSucesso} />
+            <Botao1 title={tituloBotao.nao} funcExec={upload} />
           </ContainerBotao>
         </ScrollView>
       </ContainerConteudo>

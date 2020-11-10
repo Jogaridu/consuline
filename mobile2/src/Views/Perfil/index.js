@@ -33,6 +33,7 @@ const Perfil = ({ navigation }) => {
     );
     setDadosPaciente(paciente);
     setLoading(false);
+    console.log(paciente.foto)
   };
 
   useEffect(() => {
@@ -41,7 +42,6 @@ const Perfil = ({ navigation }) => {
       await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
 
       setDadosPaciente(dados);
-
     });
     pegarDados();
 
@@ -57,7 +57,7 @@ const Perfil = ({ navigation }) => {
 
   if (loading) {
     return (
-      <Container>
+      <Container style={{backgroundColor: colors.principal}}>
         <Text> Carregando... </Text>
       </Container>
     );
@@ -66,7 +66,7 @@ const Perfil = ({ navigation }) => {
       <Container>
         <ContainerColor />
         <ContainerPerfil>
-          <FotoPerfil />
+          <FotoPerfil source={{uri: dadosPaciente.foto}} />
 
           <BtnEditar onPress={navegarConsultaEditar} />
           <ScrollView>
