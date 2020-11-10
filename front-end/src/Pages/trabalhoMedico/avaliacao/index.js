@@ -7,11 +7,11 @@ import medicoteste from '../../../Assets/medicoteste.png'
 function Avaliacao () {
     return(
      <div className="container-avaliacao">
-        <header>
+        <div className="header-consultas">
             <div className="titulo-avaliacao">
                 Avaliação
             </div>
-        </header>
+        </div>
         <div className="conteudo-avaliacao">
             <div className="card-avaliacao">
                 <div className="data-avaliacao">
