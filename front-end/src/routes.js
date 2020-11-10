@@ -68,7 +68,7 @@ function Routes() {
 
         {/* Rotas de consultas | Area Médico */}
 
-        <Route path="/consultas/home">
+        <Route path="/consultas">
           <AreaMedico />
         </Route>
 

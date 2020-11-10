@@ -22,7 +22,9 @@ module.exports = {
     } = req.body;
     const { firebaseUrl } = req.file ? req.file : "";
 
+
     const enderecoJson = JSON.parse(endereco);
+    const telefoneJson = JSON.parse(telefone);
 
     try {
       const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
@@ -56,7 +58,7 @@ module.exports = {
       console.log(dadosProfissional.id);
 
       const telefones = await telefoneProfissionalController.cadastrar(
-        telefone,
+        telefoneJson,
         dadosProfissional.id
       );
 

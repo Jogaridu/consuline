@@ -1,0 +1,63 @@
+.container-consulta-completa{
+    width: 1050px;
+    height: 97%;
+     background-color: red; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-consulta-aberta{
+    width: 800px;
+    height: 500px;
+    border-radius: 20px;
+    margin-top: -80px;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: 25% auto 15%;
+    grid-template-areas: 
+    "dadospaciente dadospaciente"
+    "informacoes-consulta informacoes-consulta"
+    "data-hora btn-realizar-consulta";
+}
+
+.dadospaciente{
+    grid-area: dadospaciente;
+    background-color: green;
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-template-areas: 
+    "imagem-paciente-consulta nome-paciente-consulta"
+    "imagem-paciente-consulta dados-paciente-consulta";
+}
+
+                        /* ************ Divs card-consulta-aberta ************ */
+.informacoes-consulta{
+    grid-area: informacoes-consulta;
+    background-color: yellow;
+}
+
+.data-hora{
+    grid-area: data-hora;
+    background-color: fuchsia;
+}
+
+.btn-realizar-consulta{
+    grid-area: btn-realizar-consulta;
+    background-color: black;
+}
+
+                        /* ************ Divs dadospaciente ************ */
+
+.imagem-paciente-consulta{
+    grid-area: imagem-paciente-consulta;
+    background-color: fuchsia;
+}
+.nome-paciente-consulta{
+    grid-area: nome-paciente-consulta;
+    background-color: yellow;
+}
+.dados-paciente-consulta{
+    grid-area: dados-paciente-consulta;
+    background-color: aqua;
+}
