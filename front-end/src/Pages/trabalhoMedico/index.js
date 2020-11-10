@@ -5,6 +5,7 @@ import MenuConsulta from '../../Components/MenuConsulta';
 
 import HomeConsulta from './home';
 import Avaliacao from './avaliacao'
+import AbrirConsulta from './agendamentos/abrir-consulta'
 
 function AreaMedico() {
   return (
@@ -17,7 +18,7 @@ function AreaMedico() {
                 
             <Route path="/consultas/avaliacao" component={Avaliacao}/>
                        
-            {/* <Route path="/profissional-saude/login"  exact component={DadosMedicoLogin}/>  */}
+            <Route path="/consultas/Abrir-consulta" component={AbrirConsulta}/>
           </Switch> 
         </div>
       </div>
