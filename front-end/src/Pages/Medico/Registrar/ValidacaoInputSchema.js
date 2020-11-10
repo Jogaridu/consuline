@@ -17,5 +17,11 @@ const validarEndereco = yup.object().shape({
     cep: yup.string().required("Informe seu CEP para autopreencher os campos abaixo"),
 });
 
-export { validarEndereco, validarDadosMedico }
+const validarLogin = yup.object().shape({
+    login: yup.string().required(mensagemObrigatoria),
+    senha: yup.string().required(mensagemObrigatoria),
+    confirmarSenha: yup.string().required(mensagemObrigatoria),
+});
+
+export { validarEndereco, validarDadosMedico, validarLogin }
 

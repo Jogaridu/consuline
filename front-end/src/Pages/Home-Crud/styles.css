@@ -1,44 +1,184 @@
-.main {
-  height: 100%;
-  width: 100%;
-  min-width: 900px;
-  background-color: var(--fundo);
-  padding-top: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 22% 22% 22% 22%;
-  grid-gap: 40px;
-  justify-content: center;
+.cabecalho-dashboard {
+    height: 200px;
+    width: 100%;
+    background-color: var(--principal);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    position: relative;
 }
 
-.cardInformativo {
-  height: 150px;
-  display: grid;
-  grid-template-columns: 35% 65%;
-  background-color: var(--secundaria);
-  border-radius: 15px;
+.cabecalho-dashboard p,
+.cabecalho-dashboard span {
+    width: 400px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.3em;
+    color: rgb(255, 255, 255);
+    float: right;
+    padding-top: 20px;
+    font-style: normal;
+    margin-left: -35px;
+    /* background-color: lemonchiffon; */
 }
-.cardInformativo img {
-  width: 100%;
-  height: 130px;
+
+.cabecalho-dashboard figure,
+.cabecalho-dashboard figure img {
+    width: 580px;
+    height: 238px;
 }
-.cardInformativo > div {
-  width: 100%;
-  height: 100%;
-  padding-top: 18px;
-  box-sizing: border-box;
+
+.cabecalho-dashboard figure img {
+    margin-top: -20px;
 }
-.cardInformativo > div > h3{
-  color: var(--fundo);
-  font-size: 2.3em;
-  font-weight: bold;
-  text-align: left;
+
+.logo-central {
+    height: 78px;
+    width: 410px;
+    position: absolute;
+    right: 0;
+    bottom: 30px;
 }
-.cardInformativo > div > p{
-  color: var(--fundo);
-  font-size: 1.3em;
-  font-weight: bold;
-  text-align: left;
+
+.informacoes-dashboard {
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.card-informacoes {
+    height: 250px;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0px 3px 3px rgb(180, 180, 180);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 500ms ease all;
+}
+
+.card-informacoes:hover {
+    transform: scale(1.1);
+}
+
+.card-informacoes figure {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border: 2px solid;
+}
+
+.card-informacoes figure img {
+    height: 78px;
+    width: 78px;
+}
+
+.card-informacoes p {
+    height: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.card-informacoes span {
+    height: 30px;
+    font-size: 2.6em;
+    font-weight: 600;
+    line-height: 0px;
+    display: flex;
+    align-items: center;
+    color: var(--principal);
+}
+
+
+.medicos-dashboard {
+    height: 600px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.medicos-dashboard h2 {
+    width: 100%;
+    text-align: left;
+    color: #000;
+    font-weight: 700;
+    margin-bottom: 45px;
+}
+
+.pesquisa {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.pesquisa button {
+    margin-left: 30px;
+}
+
+.lista-card-medicos {
+    height: 400px;
+    width: 100%;
+    padding: 0 35px;
+}
+
+.card-medico {
+    height: 95px;
+    width: 100%;
+    background-color:#F6F6F6;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-medico figure {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.5;
+}
+
+.card-medico figure img {
+    height: 68px;
+    width: 68px;
+    border-radius: 50%;
+    background-color: red;
+    margin-top: 10px;
+}
+
+.card-medico div {
+    flex: 3;
+    color: var(--principal);
+    font-weight: 700;
+    font-size: 1.4em;
+}
+
+.card-medico .visualizar-perfil {
+    flex: 1;
+    font-size: 1.2em;
+    transition: 100ms ease all;
+}
+
+.card-medico .visualizar-perfil:hover {
+    border-bottom: 5px solid var(--principal);
+    cursor: pointer;
 }

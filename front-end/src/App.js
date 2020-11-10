@@ -2,11 +2,8 @@ import React from "react";
 
 import "./Styles/globalStyle.css";
 
-// import "slick-carousel";
-
-import Servicos from "./Pages/Servicos/cadastrar";
 import Routes from "./routes";
-import ListarFiliais from "./Pages/Filial/Editar/";
+import ListarFiliais from "./Pages/Medico/Registrar/infoEspecialidade";
 
 function App() {
   return (

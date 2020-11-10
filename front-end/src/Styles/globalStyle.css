@@ -66,20 +66,15 @@ a:visited {
 .container-conteudo-central {
   height: 100vh;
   width: 100%;
-  /* padding-top: 15px; */
   box-sizing: border-box;
   overflow-x: auto;
-  /* background-color: green; */
 }
 
 .container-conteudo-central form {
   height: 80%;
   width: 95%;
   margin-left: auto;
-   margin-right: auto;
-   /* background-color: var(--container); 
-   border-radius: 15px; */
- 
+  margin-right: auto;
 }
 
 /* Formatações gerais de formulário */
@@ -123,12 +118,10 @@ textarea:hover {
 .container-conteudo-consulta {
   height: 100vh;
   width: 100%;
-  /* padding-top: 15px; */
   margin-left: -11px;
   box-sizing: border-box;
   overflow-x: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-   /* background-color: green;  */
 }

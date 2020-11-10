@@ -1,0 +1,10 @@
+.conteiner-entrada-dados {
+    width: 95%;
+    height: 100%;
+    background-color: var(--container);
+    box-sizing: border-box;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+}

@@ -32,7 +32,7 @@ const Login = () => {
     } catch (error) {
 
       if (error.response) {
-        return alert(error.response.data.error);
+        return console.log(error);
       }
 
       alert("Algo deu errado, tente novamente.");
