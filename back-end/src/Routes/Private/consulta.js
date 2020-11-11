@@ -20,6 +20,8 @@ routes.get("/medico/:idMedico/consultas/proximas", controller.listarIdMedicoData
 
 routes.get("/paciente/:idPaciente/consultas", controller.listarIdPaciente);
 
+routes.post("/paciente/:idPaciente/consulta/:idConsulta/iniciar", controller.iniciarConsulta);
+
 
 
 module.exports = routes;
