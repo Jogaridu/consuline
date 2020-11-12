@@ -141,7 +141,7 @@ const Codigo = ({ navigation, route }) => {
 
   const navegarFoto = async () => {
     if ((await verificarCodigo()) == true) {
-      navigation.navigate("RegistrarFoto");
+      navigation.navigate("RegistrarFoto", pacienteId);
     } else {
       Alert.alert("Código inválido");
     }

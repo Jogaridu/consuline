@@ -28,6 +28,10 @@ const LocalHospital = (props) => {
 
   props.setTitulo("Local");
 
+  const navigateEsolhaMedico = () => {
+    props.navigation.navigate("EscolhaMedicos");
+  }
+
   const InfrmHospital = () => {
     return (
       <>
@@ -53,7 +57,7 @@ const LocalHospital = (props) => {
             {" "}
             <TituloTextoHospital> {props.dados.cidade} - {props.dados.estado} </TituloTextoHospital>
           </TextoHospital>
-          <Botao title="OK" width={75} height={40} fontSize={18}></Botao>
+          <Botao title="OK" width={75} height={40} fontSize={18} funcExec={navigateEsolhaMedico}></Botao>
         </ContainerInfrmHospital>
       </>
     );
@@ -122,7 +126,7 @@ const Plataformas = (props) => {
   );
 };
 
-const Atendimento = () => {
+const Atendimento = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dadosHospital, setDadosHospital] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -183,6 +187,7 @@ const Atendimento = () => {
                       cidade: hospital.EnderecoFilial.cidade,
                       estado: hospital.EnderecoFilial.estado,
                     }}
+                    navigation={navigation}
                   />
                 ))}
               </>

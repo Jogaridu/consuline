@@ -18,7 +18,7 @@ import {
 
 import api from "../../../Services/api";
 
-const Foto = ({ navigation }) => {
+const Foto = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
   const [paciente, setPaciente] = useState(null);
@@ -30,8 +30,10 @@ const Foto = ({ navigation }) => {
     nao: "Não",
   });
 
+  const pacienteId = route.params;
+
   const pegarDados = async () => {
-    const retorno = await api.get("/paciente/1");
+    const retorno = await api.get(`/paciente/${pacienteId}`);
 
     setPaciente(retorno.data);
   };
@@ -66,15 +68,14 @@ const Foto = ({ navigation }) => {
         }
       );
 
-      Alert.alert("deu certo cachorro");
+      navegarSucesso();
     } catch (error) {
       console.error(error);
     }
   };
 
   const navegarSucesso = () => {
-    // /paciente/id/imagem
-    // navigation.navigate("RegistrarSucesso");
+    navigation.navigate("RegistrarSucesso");
   };
 
   const permissaoCamera = async () => {

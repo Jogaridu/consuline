@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView } from "react-native";
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { View, Text, ScrollView, FlatList, Button } from "react-native";
+import { Rating, AirbnbRating } from "react-native-ratings";
 
 import Container from "../../../Components/Container";
 import colors from "../../../Styles/colors";
@@ -13,13 +13,42 @@ import {
   ImgMedico,
   ContainerInfrmMedico,
   ContainerEstrelas,
-  Label
+  Label,
 } from "../styles";
 
 import api from "../../../Services/api";
 
-const EscolhaMedicos = ({navigation}) => {
+const CardMedico = (props) => {
+  // const navigateAtendimento = () => {
+  //   props.navegacao.navigate("Atendimento");
+  // };
 
+  return (
+    <BtnMedicos>
+      <ContainerImgMedico>
+        <ImgMedico source={{uri: props.imagem}} />
+      </ContainerImgMedico>
+      <ContainerInfrmMedico>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "bold",
+            color: colors.principal,
+            marginBottom: 3,
+            marginTop: 14,
+          }}
+        >
+          {props.nome}
+        </Text>
+        <ContainerEstrelas>
+          <Rating imageSize={20} readonly startingValue={5} />
+        </ContainerEstrelas>
+      </ContainerInfrmMedico>
+    </BtnMedicos>
+  );
+};
+
+const EscolhaMedicos = ({ navigation }) => {
   const [dadosMedico, setDadosMedico] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,73 +63,34 @@ const EscolhaMedicos = ({navigation}) => {
     pegarDados();
   }, []);
 
-  const navigateAtendimento = () => {
-    navigation.navigate("Atendimento");
-  }
+  const renderItem = ({ item }) => (
+    <CardMedico
+      nome={item.profissional.dadosProfissional.nome}
+      navegacao={navigation}
+      imagem={item.profissional.dadosProfissional.foto}
+    />
+  );
 
   return (
     <Container style={{ backgroundColor: colors.fundo }}>
-      <ScrollView style={{width: "100%"}}>
-        <Passos cor1={true} cor2={true} />
-        <Label>Escolha o médico que irá atendê-lo: </Label>
-        
-        <BtnMedicos onPress={navigateAtendimento}>
-          <ContainerImgMedico>
-            <ImgMedico source={require("../../../Assets/fotoMedico.png")} />
-          </ContainerImgMedico>
-          <ContainerInfrmMedico>
-              <Text style={{fontSize: 18, fontWeight: "bold", color: colors.principal, marginBottom: 3, marginTop: 14}}>
-                  Dr. Augusto da Silva
-              </Text>
-              <ContainerEstrelas>
-                <Rating imageSize={20} readonly startingValue={5} />
-              </ContainerEstrelas>
-              
-          </ContainerInfrmMedico>
-        </BtnMedicos>
-        <BtnMedicos>
-          <ContainerImgMedico>
-            <ImgMedico source={require("../../../Assets/fotoMedico.png")} />
-          </ContainerImgMedico>
-          <ContainerInfrmMedico>
-              <Text style={{fontSize: 18, fontWeight: "bold", color: colors.principal, marginBottom: 3, marginTop: 14}}>
-                  Dr. Augusto da Silva
-              </Text>
-              <ContainerEstrelas>
-                <Rating imageSize={20} readonly startingValue={5} />
-              </ContainerEstrelas>
-              
-          </ContainerInfrmMedico>
-        </BtnMedicos>
-        <BtnMedicos>
-          <ContainerImgMedico>
-            <ImgMedico source={require("../../../Assets/fotoMedico.png")} />
-          </ContainerImgMedico>
-          <ContainerInfrmMedico>
-              <Text style={{fontSize: 18, fontWeight: "bold", color: colors.principal, marginBottom: 3, marginTop: 14}}>
-                  Dr. Augusto da Silva
-              </Text>
-              <ContainerEstrelas>
-                <Rating imageSize={20} readonly startingValue={5} />
-              </ContainerEstrelas>
-              
-          </ContainerInfrmMedico>
-        </BtnMedicos>
-        <BtnMedicos>
-          <ContainerImgMedico>
-            <ImgMedico source={require("../../../Assets/fotoMedico.png")} />
-          </ContainerImgMedico>
-          <ContainerInfrmMedico>
-              <Text style={{fontSize: 18, fontWeight: "bold", color: colors.principal, marginBottom: 3, marginTop: 14}}>
-                  Dr. Augusto da Silva
-              </Text>
-              <ContainerEstrelas>
-                <Rating imageSize={20} readonly startingValue={5} />
-              </ContainerEstrelas>
-              
-          </ContainerInfrmMedico>
-        </BtnMedicos>
-      </ScrollView>
+      {/* <ScrollView style={{ width: "100%" }}> */}
+      <Passos cor1={true} cor2={true} />
+      <Label>Escolha o médico que irá atendê-lo: </Label>
+      {loading ? (
+        <Container>
+          <Text> Carregando... </Text>
+        </Container>
+      ) : (
+        <FlatList
+          data={dadosMedico}
+          renderItem={renderItem}
+          keyExtractor={(item) =>
+            item.profissional.dadosProfissional.id.toString()
+          }
+        />
+      )}
+
+      {/* </ScrollView> */}
     </Container>
   );
 };

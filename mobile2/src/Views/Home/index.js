@@ -96,8 +96,7 @@ const Home = ({ navigation }) => {
                   marginTop: -6,
                 }}
               >
-                {" "}
-                Nicolas{" "}
+                {nome}
               </Text>
             </ContainerTextoBoasVindas>
             <ContainerBtnTheme>

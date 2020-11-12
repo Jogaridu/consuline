@@ -1,6 +1,27 @@
 import styled from 'styled-components/native';
 import colors from '../../Styles/colors';
 
+export const ContainerForm = styled.View`
+    width: 100%;
+    height: auto;
+    /* background-color: orange; */
+    flex: 5;
+`;
+
+export const ContainerListaServicos = styled.View`
+    width: 100%;
+    height: 100%;
+    background-color: ${colors.container};
+    margin: 0 auto;
+    margin-top: 80px;
+    border-radius: 40px;
+`; 
+
+export const ContainerPassos = styled.View`
+    width: 100%;
+    height: auto;
+`;
+
 export const ImgFundo = styled.ImageBackground`
     width: 100%;
     height: 100%;
@@ -39,18 +60,59 @@ export const Label = styled.Text`
     margin: 10px 20px;
 `; 
 
-export const ContainerInputBusca = styled.View`
-    width: 90%;
-    height: auto;
+export const ContainerBotaoBusca = styled.TouchableOpacity`
+    width: 80%;
+    height: 45px;
     background-color: ${colors.container};
     border-radius: 30px;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     margin: 0 auto;
-    padding-left: 30px;
+    margin-bottom: 15px;
+    padding-left: 24px;
+`;
+
+export const ContainerInputBusca = styled.View`
+    width: 80%;
+    height: auto;
+    background-color: ${colors.fundo};
+    border-radius: 30px;
     border-width: 1px;
     border-color: ${colors.principal};
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    /* margin-bottom: 20px; */
+    padding-left: 24px;
+`;
+
+export const ContainerCardServicos = styled.TouchableOpacity`
+    width: 90%;
+    height: 60px;
+    margin: 0 auto;
+    border-bottom-width: 1px;
+    border-color: #C4C4C4;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 5px;
+    background-color: ${props => props.selecionado ? colors.principal : colors.container};
+    border-radius: 15px;
+    padding-left: 10px;
+`;
+
+export const ImgServicos = styled.Image`
+    width: 45px;
+    height: 45px;
+    margin: 0 10px;
+    border-radius: 100px;
+`;
+
+export const TituloServico = styled.Text`
+    font-size: 17px;
+    font-weight: 500;
+    color: ${props => props.selecionado ? colors.container : colors.corTitulo};
 `;
 
 export const ContainerBotaoCadastro = styled.View`
@@ -58,36 +120,6 @@ export const ContainerBotaoCadastro = styled.View`
     height: auto;
     align-items: center;
     margin: 26px 0;
-`;
-
-export const ContainerCardServicos = styled.View`
-    width: 100%;
-    height: 110px;
-    /* background-color: orange; */
-    padding-left: 15px;
-    flex-direction: row;
-`;
-
-export const BtnServicos = styled.TouchableOpacity`
-    width: 105px;
-    height: 110px;
-    /* background-color: purple; */
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-`;
-
-export const ImgServicos = styled.Image`
-    width: 70px;
-    height: 70px;
-    border-radius: 100px;
-`;
-
-export const TituloServicos = styled.Text`
-    font-size: 18px;
-    font-weight: 600;
-    color: ${colors.corTitulo};
-    margin-top: 5px;
 `;
 
 export const BtnMedicos = styled.TouchableOpacity`
