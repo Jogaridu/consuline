@@ -483,4 +483,43 @@ module.exports = {
             return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
         }
     },
+
+    async iniciarConsulta(req, res) {
+        const { idPaciente, idConsulta } = req.params;
+
+        try {
+
+            const consulta = await Consulta.findByPk(idConsulta);
+
+            if (!consulta) {
+                return res.status(400).send({ error: "Consulta não encontrada" });
+            }
+
+            const atendimento = await Atendimento.findByPk(consulta.AtendimentoId);
+
+            if (!atendimento) {
+                return res.status(400).send({ error: "Atendimento não cadastrado" });
+            }
+
+            if (atendimento.tipo != 'Remoto') {
+                return res.status(400).send({ error: "Essa consulta não é remota !!!" });
+            }
+
+            const paciente = await Paciente.findByPk(idPaciente);
+
+            if (!paciente) {
+                return res.status(400).send({ error: "Paciente não encontrado(a)" });
+            }
+
+            const whatsapp = `https://api.whatsapp.com/send?phone=${paciente.celular}`;
+
+            res.status(200).send({ whatsapp });
+
+        } catch (error) {
+            return res.status(500).send({ error: "Não foi possivel iniciar a consulta, por favor tente novamente" });
+        }
+
+
+
+    }
 }

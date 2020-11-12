@@ -5,7 +5,8 @@ import MenuConsulta from '../../Components/MenuConsulta';
 
 import HomeConsulta from './home';
 import Avaliacao from './avaliacao'
-import AbrirConsulta from './agendamentos/abrir-consulta'
+import Agendadas from './agendamentos'
+// import AbrirConsulta from './agendamentos/abrir-consulta'
 
 function AreaMedico() {
   return (
@@ -18,7 +19,9 @@ function AreaMedico() {
                 
             <Route path="/consultas/avaliacao" component={Avaliacao}/>
                        
-            <Route path="/consultas/Abrir-consulta" component={AbrirConsulta}/>
+            <Route path="/consultas/agendadas" component={Agendadas}/>
+
+            {/* <Route path="/consultas/abrir-consulta" component={AbrirConsulta}/> */}
           </Switch> 
         </div>
       </div>
