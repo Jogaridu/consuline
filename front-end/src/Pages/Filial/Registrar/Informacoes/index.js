@@ -200,7 +200,7 @@ function Informacoes() {
 
                         <button type="submit">
                             &rarr;
-            </button>
+                        </button>
                     </div>
                 </div>
 

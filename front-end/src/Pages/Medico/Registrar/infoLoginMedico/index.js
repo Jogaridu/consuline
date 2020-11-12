@@ -78,7 +78,7 @@ function DadosMedicoLogin() {
             onSubmit={validar}
             validationSchema={validarLogin}>
 
-            <Form className="conteiner-entrada-dados">
+            <Form className="conteiner-entrada-dados-login">
                 <div className="titulo-card-cadastro">
                     <figure>
                         <img src={cadeado} alt="Imagem ilustrativa" />
@@ -86,7 +86,7 @@ function DadosMedicoLogin() {
                     <h2>Cadastro login</h2>
                 </div>
 
-                <div className="form container-right-side1">
+                <div className="form form-login">
 
                     <div className="form-grupo-input" id="login">
                         <Field
