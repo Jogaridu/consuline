@@ -1,0 +1,17 @@
+.listar-medicos {
+    min-height: 100px;
+    height: auto;
+    padding-top: 15px;
+    box-sizing: border-box;
+}
+
+.container-cards {
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
