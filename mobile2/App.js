@@ -9,12 +9,13 @@ import Codigo from "./src/Views/Registrar/Codigo";
 import Valida from "./src/Views/Registrar/ValidarCamposExistentes";
 import ConsultaEditar from "./src/Views/Perfil/Editar/consultaEditar";
 import Medicos from "./src/Views/Consulta/Form/escolhaMedicos";
+import Servicos from "./src/Views/Consulta/Form/servicos";
 import Routes from "./src/Navigation/routes";
 
 export default function App() {
   return (
     <>
-      <Routes />
+      <Servicos />
     </>
   );
 }

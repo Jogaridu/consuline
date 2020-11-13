@@ -27,6 +27,8 @@ function Medico() {
                     <Route path="/profissional-saude/especialidade" component={DadosMedicoEspecialidade} />
 
                     <Route path="/profissional-saude" component={DadosMedico} />
+
+                    {/* <Route path="/profissionais-saude" component={ListarMedicos} /> */}
                 </Switch>
 
             </div>
