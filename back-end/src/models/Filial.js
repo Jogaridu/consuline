@@ -9,7 +9,7 @@ class Filial extends Model {
         cnpj: DataTypes.STRING,
         ie: DataTypes.STRING,
         email: DataTypes.STRING,
-        razaoSocial: DataTypes.STRING
+        razaoSocial: DataTypes.STRING,
       },
       {
         sequelize,
@@ -24,8 +24,11 @@ class Filial extends Model {
     this.belongsToMany(models.Servico, {
       through: "tblFilialServico",
     });
-    this.hasMany(models.Consulta,{
-      foreignKey:"FilialId"
+    this.hasMany(models.Consulta, {
+      foreignKey: "FilialId",
+    });
+    this.hasMany(models.ProfissionalDaSaude, {
+      foreignKey: "FilialId",
     });
   }
 }

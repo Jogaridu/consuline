@@ -5,11 +5,11 @@ const routes = express.Router();
 const controllerServico = require("../../controllers/servicos");
 
 const Multer = require("../../fixtures/manipulacaoForm");
-const enviarImagem = require("../../services/firebase");
+const enviarArquivos = require("../../services/firebase");
 
 routes.post("/servico",
     Multer.single("imagem"),
-    enviarImagem,
+    enviarArquivos,
     controllerServico.cadastrar);
 
 routes.get("/servico/:id", controllerServico.buscarPorId);
@@ -20,7 +20,7 @@ routes.delete("/servico/:id", controllerServico.deletar);
 
 routes.put("/servico/:id",
     Multer.single("imagem"),
-    enviarImagem,
+    enviarArquivos,
     controllerServico.atualizar);
 
 routes.get("/servico/:id/filiais", controllerServico.pegarFiliais);

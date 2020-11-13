@@ -30,7 +30,7 @@ class Paciente extends Model {
       foreignKey: "PacienteId"
     });
 
-    this.hasMany(models.Avliacao, {
+    this.hasMany(models.Avaliacao, {
       foreignKey: "PacienteId"
     });
 
