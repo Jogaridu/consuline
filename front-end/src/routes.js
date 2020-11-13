@@ -15,6 +15,7 @@ import Listar from "./Pages/Servicos/index";
 import RegistrarServico from "./Pages/Servicos/cadastrar";
 import EditarServico from "./Pages/Servicos/editar";
 import AreaMedico from "./Pages/trabalhoMedico";
+import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
 
 function Routes() {
   return (
@@ -53,6 +54,10 @@ function Routes() {
 
         <Route path="/profissional-saude">
           <RegistrarProfissional />
+        </Route>
+
+        <Route path="/profissionais-saude">
+          <ListarProfissional />
         </Route>
 
         {/* Rotas de serviços */}
