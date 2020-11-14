@@ -41,6 +41,10 @@ function Agendadas () {
                     <div className="sintomas">
                         Dores Abdominais
                     </div>
+                    <div className="sintomas">
+                        Dores Abdominais
+                    </div>
+                   
                     <div className="status-da-consulta">
                         • Já atendido
                     </div>

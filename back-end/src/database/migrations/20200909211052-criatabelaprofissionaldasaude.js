@@ -37,10 +37,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      avaliacao: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       EnderecoProfissionalDaSaudeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -51,9 +47,19 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
+      FilialId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        refences: {
+          model: "tblservico",
+          key: "id",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
       dataNascimento: {
         type: Sequelize.DATEONLY,
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,

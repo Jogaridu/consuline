@@ -9,17 +9,17 @@ import {
 
 const Stack = createStackNavigator();
 
-import TelaInicial from "../Views/TelaInicial";
-import Login from "../Views/Login";
-import InformacaoPessoal from "../Views/Registrar/InformacaoPessoal";
-import Localizacao from "../Views/Registrar/Localizacao";
-import Telefone from "../Views/Registrar/Telefone";
-import Codigo from "../Views/Registrar/Codigo";
-import Foto from "../Views/Registrar/Foto";
-import Sucesso from "../Views/Registrar/Sucesso";
-import CadastroLoginSenha from "../Views/Registrar/LoginSenha";
+import TelaInicial from "../../Views/TelaInicial";
+import Login from "../../Views/Login";
+import InformacaoPessoal from "../../Views/Registrar/InformacaoPessoal";
+import Localizacao from "../../Views/Registrar/Localizacao";
+import Telefone from "../../Views/Registrar/Telefone";
+import Codigo from "../../Views/Registrar/Codigo";
+import Foto from "../../Views/Registrar/Foto";
+import Sucesso from "../../Views/Registrar/Sucesso";
+import CadastroLoginSenha from "../../Views/Registrar/LoginSenha";
 
-import colors from "../Styles/colors";
+import colors from "../../Styles/colors";
 
 const optionsHeader = {
   headerBackTitleVisible: false,

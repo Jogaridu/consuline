@@ -17,7 +17,7 @@ export const ContainerPerfil = styled.View`
   margin-top: -40px;
 `;
 
-export const FotoPerfil = styled.View`
+export const FotoPerfil = styled.Image`
   margin: 0 auto;
   width: 150px;
   height: 150px;

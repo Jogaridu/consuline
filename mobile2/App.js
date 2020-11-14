@@ -8,12 +8,13 @@ import Foto from "./src/Views/Registrar/Foto";
 import Codigo from "./src/Views/Registrar/Codigo";
 import Valida from "./src/Views/Registrar/ValidarCamposExistentes";
 import ConsultaEditar from "./src/Views/Perfil/Editar/consultaEditar";
+import Agendamento from "./src/Views/Consulta/Form/agendamento";
 import Routes from "./src/Navigation/routes";
 
 export default function App() {
   return (
     <>
-      <Routes />
+      <Agendamento />
     </>
   );
 }

@@ -16,14 +16,63 @@ import {
   ContainerPassos,
 } from "./styles";
 
-const Foto = ({ navigation }) => {
+import api from "../../../Services/api";
+
+const Foto = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
+  const [paciente, setPaciente] = useState(null);
   const [image, setImage] = useState(null);
+  const [id, setId] = useState(null);
+  const [nomeImg, setNomeImg] = useState(null);
   const [tituloBotao, setTituloBotao] = useState({
     sim: "Sim",
     nao: "Não",
   });
+
+  const pacienteId = route.params;
+
+  const pegarDados = async () => {
+    const retorno = await api.get(`/paciente/${pacienteId}`);
+
+    setPaciente(retorno.data);
+  };
+
+  useEffect(() => {
+    pegarDados();
+  }, []);
+
+  const upload = async () => {
+    const nomeArquivo = Date.now() + "." + image.split(".").pop();
+
+    const urlImg = nomeArquivo.split(".");
+
+    let nome = urlImg[0];
+    let type = urlImg[1];
+
+    const formData = new FormData();
+    formData.append("foto", {
+      uri: image,
+      name: nome,
+      type: "image/" + type,
+    });
+
+    try {
+      const retorno = await api.post(
+        `/paciente/${paciente.id}/imagem`,
+        formData,
+        {
+          headers: {
+            "Content-Type": `multipart/form-data`,
+          },
+        }
+      );
+
+      navegarSucesso();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const navegarSucesso = () => {
     navigation.navigate("RegistrarSucesso");
@@ -101,7 +150,7 @@ const Foto = ({ navigation }) => {
               title={tituloBotao.sim}
               funcExec={permissaoCamera}
             />
-            <Botao1 title={tituloBotao.nao} funcExec={navegarSucesso} />
+            <Botao1 title={tituloBotao.nao} funcExec={upload} />
           </ContainerBotao>
         </ScrollView>
       </ContainerConteudo>

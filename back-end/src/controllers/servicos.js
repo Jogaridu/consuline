@@ -5,7 +5,9 @@ module.exports = {
   async cadastrar(req, res) {
     const { nome, descricao } = req.body;
 
+
     const { firebaseUrl } = req.file;
+  
 
     if (nome && descricao && firebaseUrl) {
       try {

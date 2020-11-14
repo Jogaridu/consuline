@@ -2,9 +2,11 @@ const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
+const Filial = require("../models/Filial");
+const Servico = require("../models/Servico");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const auth = require("../config/auth.json")
+const auth = require("../config/auth.json");
 
 module.exports = {
   async cadastrar(req, res) {
@@ -19,15 +21,35 @@ module.exports = {
       endereco,
       telefone,
       dataNascimento,
+      FilialId,
+      servicos,
     } = req.body;
     const { firebaseUrl } = req.file ? req.file : "";
 
-
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
+    const servicosJson = JSON.parse(servicos);
 
     try {
-      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(enderecoJson);
+      for (let i = 0; i < servicosJson.length; i++) {
+        const servicoId = servicosJson[i];
+
+        const servico = await Servico.findByPk(servicoId);
+
+        if (!servico) {
+          return res.status(400).send({ error: "Serviço não cadastrado" });
+        }
+      }
+
+      const filial = await Filial.findByPk(FilialId);
+
+      if (!filial) {
+        return res.status(400).send({ error: "Filial não encontrada" });
+      }
+
+      const enderecoProfissionalDaSaude = await EnderecoProfissionalDaSaude.create(
+        enderecoJson
+      );
       let dadosProfissional = await ProfissionalDaSaude.findOne({
         where: {
           [Op.or]: [{ login }, { crm }, { cpf }, { email }],
@@ -51,11 +73,13 @@ module.exports = {
           foto,
           foto: firebaseUrl,
           email,
-          dataNascimento
+          dataNascimento,
+          FilialId,
         }
       );
 
-      console.log(dadosProfissional.id);
+      dadosProfissional.addServicos(servicosJson);
+
 
       const telefones = await telefoneProfissionalController.cadastrar(
         telefoneJson,
@@ -68,14 +92,15 @@ module.exports = {
           .send({ error: "Não foi possivel cadastrar telefone !!" });
       }
 
-      const token = jwt.sign({ idProfissional: dadosProfissional.id }, auth.secret);
+      const token = jwt.sign(
+        { idProfissional: dadosProfissional.id },
+        auth.secret
+      );
 
       const profissional = { dadosProfissional, telefones, token };
 
       res.status(201).send({ profissional });
-
     } catch (error) {
-
       console.log(error);
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente  ",
@@ -136,7 +161,9 @@ module.exports = {
         .send({ erro: "Profissional da saúde não encontrado(a)." });
     }
 
-    const endereco = await EnderecoProfissionalDaSaude.findByPk(profissionalDaSaude.EnderecoProfissionalDaSaudeId);
+    const endereco = await EnderecoProfissionalDaSaude.findByPk(
+      profissionalDaSaude.EnderecoProfissionalDaSaudeId
+    );
 
     const statusDeleteTelefone = await telefoneProfissionalController.apagar(
       profissionalDaSaude.id
@@ -166,7 +193,6 @@ module.exports = {
       telefone,
     } = req.body;
 
-
     const { firebaseUrl } = req.file ? req.file : "";
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
@@ -177,7 +203,9 @@ module.exports = {
       return res.status(400).send({ error: "Profisional não encontrado(a)!!" });
     }
 
-    await EnderecoProfissionalDaSaude.update(enderecoJson, { where: { id: profissionalDaSaude.EnderecoProfissionalDaSaudeId } });
+    await EnderecoProfissionalDaSaude.update(enderecoJson, {
+      where: { id: profissionalDaSaude.EnderecoProfissionalDaSaudeId },
+    });
 
     const statusUpdateTelefone = await telefoneProfissionalController.atualizar(
       telefoneJson,
@@ -263,24 +291,22 @@ module.exports = {
     const { nome } = req.body;
 
     try {
-
       const profissionalBuscado = await ProfissionalDaSaude.findOne({
         where: {
-          nome
+          nome,
         },
-        attributes: ["nome"]
+        attributes: ["nome"],
       });
 
       if (profissionalBuscado) {
         res.status(200).send("Profissional cadastrado");
-
       } else {
         res.status(204).send();
-
       }
-
     } catch (error) {
-      res.status(404).send({ erro: "Profissional não encontrado ou NOME não informado" })
+      res
+        .status(404)
+        .send({ erro: "Profissional não encontrado ou NOME não informado" });
     }
   },
 
@@ -288,24 +314,22 @@ module.exports = {
     const { crm } = req.body;
 
     try {
-
       const profissionalBuscado = await ProfissionalDaSaude.findOne({
         where: {
-          crm
+          crm,
         },
-        attributes: ["crm"]
+        attributes: ["crm"],
       });
 
       if (profissionalBuscado) {
         res.status(200).send("Profissional cadastrado");
-
       } else {
         res.status(204).send();
-
       }
-
     } catch (error) {
-      res.status(404).send({ erro: "Profissional não encontrado ou CRM não informado" })
+      res
+        .status(404)
+        .send({ erro: "Profissional não encontrado ou CRM não informado" });
     }
   },
 
@@ -313,24 +337,22 @@ module.exports = {
     const { login } = req.body;
 
     try {
-
       const profissionalBuscado = await ProfissionalDaSaude.findOne({
         where: {
-          login
+          login,
         },
-        attributes: ["login"]
+        attributes: ["login"],
       });
 
       if (profissionalBuscado) {
         res.status(200).send("Profissional cadastrado");
-
       } else {
         res.status(204).send();
-
       }
-
     } catch (error) {
-      res.status(404).send({ erro: "Profissional não encontrado ou LOGIN não informado" })
+      res
+        .status(404)
+        .send({ erro: "Profissional não encontrado ou LOGIN não informado" });
     }
   },
 
@@ -338,24 +360,22 @@ module.exports = {
     const { email } = req.body;
 
     try {
-
       const profissionalBuscado = await ProfissionalDaSaude.findOne({
         where: {
-          email
+          email,
         },
-        attributes: ["email"]
+        attributes: ["email"],
       });
 
       if (profissionalBuscado) {
         res.status(200).send("Profissional cadastrado");
-
       } else {
         res.status(204).send();
-
       }
-
     } catch (error) {
-      res.status(404).send({ erro: "Profissional não encontrado ou EMAIL não informado" })
+      res
+        .status(404)
+        .send({ erro: "Profissional não encontrado ou EMAIL não informado" });
     }
   },
 };
