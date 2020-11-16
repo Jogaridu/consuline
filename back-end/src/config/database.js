@@ -6,7 +6,7 @@ module.exports = {
 
     username: "root",
 
-    password: "bd127",
+    password: "bd137",
 
     database: "bdConsuline",
 

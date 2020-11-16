@@ -26,7 +26,7 @@ const Login = () => {
       if (response.status === 200) {
         signin(response.data);
 
-        return history.push("/home-central");
+        return history.push("/consultas/home");
       }
 
     } catch (error) {

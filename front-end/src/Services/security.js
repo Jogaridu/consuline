@@ -13,3 +13,9 @@ export const isSignIn = () => {
 
     return admin ? true : false;
 }
+
+export const getMedico = () => {
+    const { medico } = JSON.parse(localStorage.getItem(CHAVE_ADMIN));
+
+    return medico;
+}
