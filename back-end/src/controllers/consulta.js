@@ -425,7 +425,8 @@ module.exports = {
                     arrayConsultas.push({
                         data: consulta.data, horario: consultas.map(e => {
                             if (e.data === consulta.data) {
-                                return e.horario;
+                                const arr = e.horario.split(":")
+                                return `${arr[0]}:${arr[1]}`;
                             }
                         }).filter(e => e !== undefined)
                     });
