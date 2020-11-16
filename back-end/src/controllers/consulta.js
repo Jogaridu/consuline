@@ -371,7 +371,8 @@ module.exports = {
                 {
                     where: { ProfissionalDaSaudeId: idMedico },
                     order: [["horario", "ASC"]],
-
+                    raw: true,
+                    attributes: ['data', 'horario', 'id']
                 }
                 , {
                     include: [{
@@ -416,11 +417,24 @@ module.exports = {
 
             let arrayConsultas = new Array();
 
-            for (let i = 0; i < consultas.length; i++) {
-                arrayConsultas[i] = { data: consultas[i].data, horario: consultas[i].horario };
-            }
+            let dataAdicionada = "";
+
+            consultas.forEach(consulta => {
+                if (dataAdicionada !== consulta.data) {
+                    dataAdicionada = consulta.data
+                    arrayConsultas.push({
+                        data: consulta.data, horario: consultas.map(e => {
+                            if (e.data === consulta.data) {
+                                return e.horario;
+                            }
+                        }).filter(e => e !== undefined)
+                    });
+                }
+
+            });
 
             res.status(200).send(arrayConsultas);
+
         } catch (error) {
             console.log(error);
             return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });
