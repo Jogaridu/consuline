@@ -241,4 +241,31 @@ export const TextoHospital = styled.Text`
     padding-top: 5px;
 `;
 
+export const ContainerHorarios = styled.View`
+    width: 100%;
+    height: auto;
+    /* background-color: blue; */
+    padding-left: 30px;
+    padding-right: 15px;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+`;
+
+export const Horarios = styled.TouchableOpacity`
+    width: 85px;
+    height: 45px;
+    background-color: ${props => props.selecionado ? colors.principal : colors.container};
+    border-radius: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const TextoHorario = styled.Text`
+    font-size: 16px;
+    color: ${colors.principal};
+    font-weight: 500;
+`;
 

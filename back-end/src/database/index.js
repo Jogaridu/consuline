@@ -29,16 +29,13 @@ const TelefoneCentral = require("../models/TelefoneCentral");
 // Atendimento
 const Atendimento = require("../models/Atendimento");
 
-//Consulta 
+//Consulta
 const Consulta = require("../models/Consulta");
 
 //Avaliação
 const Avaliacao = require("../models/Avaliacao");
 
-
 const conexao = new Sequelize(dbConfig);
-
-
 
 // ----- INICIALIZAÇÃO -----
 
@@ -97,7 +94,6 @@ Servico.associate(conexao.models);
 Central.associate(conexao.models);
 TelefoneCentral.associate(conexao.models);
 
-
 //Atendimento
 Atendimento.associate(conexao.models);
 
@@ -106,3 +102,4 @@ Consulta.associate(conexao.models);
 
 //Avaliação
 Avaliacao.associate(conexao.models);
+

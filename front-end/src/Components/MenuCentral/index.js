@@ -40,7 +40,7 @@ function MenuCentral() {
                 </div>
                 <div className="itensMenu">
                     Medicos
-                    <SubMenu itens={{ Adicionar: "/profissional-saude" }} />
+                    <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
                 </div>
                 <div className="itensMenu">
                     Filiais

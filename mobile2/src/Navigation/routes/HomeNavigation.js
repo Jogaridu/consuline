@@ -31,7 +31,7 @@ export default HomeNavigator = () => {
               ? "home"
               : "home-outline";
           } else if (route.name === "Perfil") {
-            iconName = focused ? "md-checkmark-circle" : "md-checkmark-circle";
+            iconName = focused ? "home" : "home-outline";
           }
 
           return <Icon name={iconName} size={size} color={color} />;
