@@ -2,7 +2,6 @@
     height: 50px;
     width: 100%;
     color: var(--principal);
-    /* background-color: red; */
     border-radius: 30px;
     border: 1px solid var(--principal);
     display: flex;
@@ -10,6 +9,7 @@
     align-items: center;
     justify-content: center;
     padding-left: 30px;
+    background-color: white;
 }
 
 .input-busca input[type=text],

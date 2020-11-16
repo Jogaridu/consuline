@@ -6,7 +6,7 @@ import TituloPrincipal from "../../../Components/TituloPrincipal";
 import DadosMedico from "./infoPessoalMedico";
 import DadosMedicoEndereco from "./infoLocalizacaoMedico";
 import DadosMedicoLogin from "./infoLoginMedico";
-import DadosMedicoEspecialidade from "./infoEspecialidade";
+import DadosMedicoEspecialidade from "./InfoEspecialidade";
 
 import add from "../../../Assets/add3.png"
 

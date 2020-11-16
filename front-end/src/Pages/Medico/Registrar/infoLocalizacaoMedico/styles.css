@@ -42,7 +42,7 @@
 #cidade {grid-area: cidade;}
 
 .form-endereco {
-  flex: 2;
+  flex: 1;
   height: 100%;
   padding: 50px;
   display: grid;

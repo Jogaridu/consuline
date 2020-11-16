@@ -11,7 +11,7 @@ module.exports = {
 
     const central = await Central.findOne({
       where: { login: login },
-      attributes: ["login", "senha"],
+      attributes: ["login", "id"],
       raw: true
     });
 

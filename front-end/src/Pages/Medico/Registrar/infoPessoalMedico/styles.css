@@ -13,17 +13,31 @@
 }
 
 .container-left-side1 {
-    width: 50%;
-    height: 100%;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;    
+    flex-direction: column;  
 }
+
+#nome {grid-area: nome;}
+#dataNascimento {grid-area: dataNascimento;}
+#crm {grid-area: crm;}
+#cpf {grid-area: cpf;}
+#telefone {grid-area: telefone;}
+#email {grid-area: email;}
 
 .container-right-side1 {
     flex: 1;
-    height: 100%;
+    display: grid;
+    column-gap: 10px;
+    grid-template-areas: 
+    "nome nome"
+    "dataNascimento telefone"
+    "crm cpf"
+    "email email"
+    "botoes botoes";
+    padding: 10px;
 }                                     
 
             /* ---------------------------- Container-left-side ---------------------------- */
@@ -64,26 +78,6 @@
 
             /* ---------------------------- Container-right-side ---------------------------- */
 
-.entrada-de-dados1 {
-    height: 80%;
-    width: 450px;
-    display: grid;
-    align-items: flex-end;
-    grid-column-gap: 20px;
-    grid-template-areas: 
-    "nome nome"
-    "dataNascimento telefone"
-    "crm cpf"
-    "email email";
-}
-
-#nome {grid-area: nome;}
-#dataNascimento {grid-area: dataNascimento;}
-#crm {grid-area: crm;}
-#cpf {grid-area: cpf;}
-#telefone {grid-area: telefone;}
-#email {grid-area: email;}
-
 
 .entrada-dados22, .inputs {
     width: 100%;
@@ -93,66 +87,3 @@
     flex-direction: row;
     margin-top: 35px;
 }
-
-
-            /* ---------------------------- Button Next ---------------------------- */
-
-
-.div-btn {
-    width: 90%;
-    height: 50px;
-     /* background-color: yellow;  */
-     margin-top: 15px;
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     justify-content: space-between;
-}
-
-  .next-left{
-    width: 40px;
-    height: 40px;
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-left: 30px;
-    background-color: var(--principal); 
-    color: var(--container);
-    border-radius: 10px;
-    cursor: pointer;
-    float: left;
-} 
-
-
-
-.qnt-pag{
-    width: 60px;
-    height: 10px;
-    /* background-color: red;   */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-     margin-left: auto;
-     margin-right: auto;
- 
-}
-.pg1-1, .pg2-1, .pg3-1, 
-.pg1-2, .pg2-2, .pg3-2,
-.pg1-3, .pg2-3, .pg3-3{
-    width: 10px;
-    height: 10px;
-    background-color: var(--fundo);
-    margin-left: 10px;
-    border-radius: 50%;
-    background-position: -15px -15px;
-    border: 1px solid black;
-
-}
-
-.pg1-1, .pg2-2, .pg3-3{
-    background-color: black;
-}
-
-
