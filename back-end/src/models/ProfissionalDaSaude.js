@@ -35,9 +35,7 @@ class ProfissionalDaSaude extends Model {
     });
     this.belongsTo(models.Filial);
 
-    this.belongsToMany(models.Servico, {
-      through: "tblProfissionalServico", foreignKey: "ProfissionalDaSaudeId"
-    });
+    this.belongsTo(models.Servico);
   }
 }
 
