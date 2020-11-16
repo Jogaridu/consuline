@@ -51,12 +51,23 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
-          model: "tblservico",
+          model: "tblfilial",
           key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
+      ServicoId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        refences: {
+          model: "tblservico",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      }
+      ,
       dataNascimento: {
         type: Sequelize.DATEONLY,
         allowNull: false,

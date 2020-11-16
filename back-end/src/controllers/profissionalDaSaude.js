@@ -22,23 +22,20 @@ module.exports = {
       telefone,
       dataNascimento,
       FilialId,
-      servicos,
+      ServicoId,
     } = req.body;
     const { firebaseUrl } = req.file ? req.file : "";
 
+console.log(endereco);
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
-    const servicosJson = JSON.parse(servicos);
 
     try {
-      for (let i = 0; i < servicosJson.length; i++) {
-        const servicoId = servicosJson[i];
 
-        const servico = await Servico.findByPk(servicoId);
+      const servico = await Servico.findByPk(ServicoId);
 
-        if (!servico) {
-          return res.status(400).send({ error: "Serviço não cadastrado" });
-        }
+      if (!servico) {
+        return res.status(400).send({ error: "Serviço não encontrado" });
       }
 
       const filial = await Filial.findByPk(FilialId);
@@ -75,11 +72,9 @@ module.exports = {
           email,
           dataNascimento,
           FilialId,
+          ServicoId
         }
       );
-
-      dadosProfissional.addServicos(servicosJson);
-
 
       const telefones = await telefoneProfissionalController.cadastrar(
         telefoneJson,

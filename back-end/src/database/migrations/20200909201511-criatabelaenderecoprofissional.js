@@ -22,7 +22,7 @@ module.exports = {
       },
       complemento: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       cep: {
         type: Sequelize.STRING,

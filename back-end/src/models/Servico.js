@@ -17,10 +17,10 @@ class Servico extends Model {
       through: "tblFilialServico",
     });
 
-    this.belongsToMany(models.ProfissionalDaSaude, {
-      through: "tblProfissionalServico",
-      foreignKey: "servicoId",
+    this.hasMany(models.ProfissionalDaSaude, {
+      foreignKey: "ServicoId",
     });
+
 
     this.hasMany(models.Consulta, {
       foreignKey: "ServicoId",
