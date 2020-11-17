@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import "../InfoEspecialidade/styles.css"
+import "../InfoEspecialidade/styles.css";
 import "../../../../Styles/globalStyle.css";
 
 import InputBusca from "../../../../Components/InputBusca";

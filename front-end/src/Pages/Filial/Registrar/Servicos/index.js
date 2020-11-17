@@ -6,7 +6,7 @@ import teste from "../../../../Assets/c.jpg"
 import api from "../../../../Services/api";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import Swal from "sweetalert2";
 import RemoverMask from '../../../../Fixtures/RemoverMask';
 import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
@@ -54,7 +54,9 @@ function Servicos() {
                     title: "Filial cadastrada com sucesso",
                     showConfirmButton: false,
                     timer: 1500
-                }).then(() => history.push(`/filial/${retorno.data.id}`));
+                })
+                // .then(() => 
+                history.replace(`/filial/${retorno.data.id}`);
             }
 
         } catch (error) {
@@ -146,7 +148,9 @@ function Servicos() {
                     })
                 }} type="button">&larr;</button>
 
+
                 <button style={{ width: "180px", fontSize: "1.1em" }} type="submit" onClick={cadastrarFilial}>Cadastrar</button>
+
             </div>
         </div>
     );

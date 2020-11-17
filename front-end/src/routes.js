@@ -18,68 +18,68 @@ import AreaMedico from "./Pages/trabalhoMedico";
 import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
 
 function Routes() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact>
+                    <Home />
+                </Route>
 
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/home-central">
-          <HomeCrud />
-        </Route>
+                <Route path="/login">
+                    <Login />
+                </Route>
+                <Route path="/home-central">
+                    <HomeCrud />
+                </Route>
 
-        {/* Rota de filiais */}
+                {/* Rota de filiais */}
 
-        <Route path="/filial/editar/:id">
-          <EditarFilial />
-        </Route>
+                <Route path="/filial/editar/:id">
+                    <EditarFilial />
+                </Route>
 
-        <Route path="/filial/:id">
-          <ConsultaFilial />
-        </Route>
+                <Route path="/filial" exact>
+                    <RegistrarFilial />
+                </Route>
 
-        <Route path="/filial">
-          <RegistrarFilial />
-        </Route>
+                <Route path="/filial/:id" exact>
+                    <ConsultaFilial />
+                </Route>
 
-        <Route path="/filiais">
-          <ListagemFilial />
-        </Route>
+                <Route path="/filiais">
+                    <ListagemFilial />
+                </Route>
 
-        {/* Rotas de profissionais */}
+                {/* Rotas de profissionais */}
 
-        <Route path="/profissional-saude">
-          <RegistrarProfissional />
-        </Route>
+                <Route path="/profissional-saude">
+                    <RegistrarProfissional />
+                </Route>
 
-        <Route path="/profissionais-saude">
-          <ListarProfissional />
-        </Route>
+                <Route path="/profissionais-saude">
+                    <ListarProfissional />
+                </Route>
 
-        {/* Rotas de serviços */}
-        <Route path="/servicos/cadastrar">
-          <RegistrarServico />
-        </Route>
-        <Route path="/servicos/editar">
-          <EditarServico />
-        </Route>
-        <Route path="/servicos/:id?">
-          <Listar />
-        </Route>
+                {/* Rotas de serviços */}
+                <Route path="/servicos/cadastrar">
+                    <RegistrarServico />
+                </Route>
+                <Route path="/servicos/editar">
+                    <EditarServico />
+                </Route>
+                <Route path="/servicos/:id?">
+                    <Listar />
+                </Route>
 
-        {/* Rotas de consultas | Area Médico */}
+                {/* Rotas de consultas | Area Médico */}
 
-        <Route path="/consultas">
-          <AreaMedico />
-        </Route>
+                <Route path="/consultas">
+                    <AreaMedico />
+                </Route>
 
-      </Switch>
-    </BrowserRouter>
-  );
+            </Switch>
+        </BrowserRouter>
+    );
 }
 
 export default Routes;

@@ -7,92 +7,102 @@ import colors from "../../../Styles/colors";
 import Passos from "../../../Components/Passos";
 
 import {
-  TituloCadastro,
-  BtnMedicos,
-  ContainerImgMedico,
-  ImgMedico,
-  ContainerInfrmMedico,
-  ContainerEstrelas,
-  Label,
+    TituloCadastro,
+    BtnMedicos,
+    ContainerImgMedico,
+    ImgMedico,
+    ContainerInfrmMedico,
+    ContainerEstrelas,
+    Label,
 } from "../styles";
 
 import api from "../../../Services/api";
 
 const CardMedico = (props) => {
-  // const navigateAtendimento = () => {
-  //   props.navegacao.navigate("Atendimento");
-  // };
 
-  return (
-    <BtnMedicos>
-      <ContainerImgMedico>
-        <ImgMedico source={{uri: props.imagem}} />
-      </ContainerImgMedico>
-      <ContainerInfrmMedico>
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: "bold",
-            color: colors.principal,
-            marginBottom: 3,
-            marginTop: 14,
-          }}
-        >
-          {props.nome}
-        </Text>
-        <ContainerEstrelas>
-          <Rating imageSize={20} readonly startingValue={5} />
-        </ContainerEstrelas>
-      </ContainerInfrmMedico>
-    </BtnMedicos>
-  );
+    return (
+        <BtnMedicos onPress={() => props.navigateCalendar(props.id)}>
+            <ContainerImgMedico>
+                <ImgMedico source={{ uri: props.imagem }} />
+            </ContainerImgMedico>
+            <ContainerInfrmMedico>
+                <Text
+                    style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: colors.principal,
+                        marginBottom: 3,
+                        marginTop: 14,
+                    }}>
+                    {props.nome}
+                </Text>
+                <ContainerEstrelas>
+                    <Rating imageSize={20} readonly startingValue={5} />
+                </ContainerEstrelas>
+            </ContainerInfrmMedico>
+        </BtnMedicos>
+    );
 };
 
-const EscolhaMedicos = ({ navigation }) => {
-  const [dadosMedico, setDadosMedico] = useState(null);
-  const [loading, setLoading] = useState(true);
+const EscolhaMedicos = ({ navigation, route }) => {
+    const [dadosMedico, setDadosMedico] = useState(null);
+    const [loading, setLoading] = useState(true);
+    let novaConsulta = route.params;
 
-  const pegarDados = async () => {
-    const retorno = await api.get("/profissional");
+    const pegarDados = async () => {
+        const retorno = await api.get("/profissional");
 
-    setDadosMedico(retorno.data);
-    setLoading(false);
-  };
+        setDadosMedico(retorno.data);
+        setLoading(false);
+    };
 
-  useEffect(() => {
-    pegarDados();
-  }, []);
+    const navigateCalendar = (profissionalId) => {
 
-  const renderItem = ({ item }) => (
-    <CardMedico
-      nome={item.profissional.dadosProfissional.nome}
-      navegacao={navigation}
-      imagem={item.profissional.dadosProfissional.foto}
-    />
-  );
+        if (profissionalId !== "") {
+            novaConsulta = { ...novaConsulta, profissionalId };
 
-  return (
-    <Container style={{ backgroundColor: colors.fundo }}>
-      {/* <ScrollView style={{ width: "100%" }}> */}
-      <Passos cor1={true} cor2={true} />
-      <Label>Escolha o médico que irá atendê-lo: </Label>
-      {loading ? (
-        <Container>
-          <Text> Carregando... </Text>
+            props.navegacao.navigate("Atendimento", novaConsulta);
+        } else {
+            console.log("Erro, profissional sem ID");
+
+        }
+
+    };
+
+    useEffect(() => {
+        pegarDados();
+    }, []);
+
+    const renderItem = ({ item }) => (
+        <CardMedico
+            id={item.profissional.dadosProfissional.id}
+            nome={item.profissional.dadosProfissional.nome}
+            navegacao={navigation}
+            imagem={item.profissional.dadosProfissional.foto}
+            navigateCalendar={navigateCalendar} />
+    );
+
+    return (
+        <Container style={{ backgroundColor: colors.fundo }}>
+            {/* <ScrollView style={{ width: "100%" }}> */}
+            <Passos cor1={true} cor2={true} />
+            <Label>Escolha o médico que irá atendê-lo: </Label>
+            {loading ? (
+                <Container>
+                    <Text> Carregando... </Text>
+                </Container>
+            ) : (
+                    <FlatList
+                        data={dadosMedico}
+                        renderItem={renderItem}
+                        keyExtractor={(item) =>
+                            item.profissional.dadosProfissional.id.toString()
+                        } />
+                )}
+
+            {/* </ScrollView> */}
         </Container>
-      ) : (
-        <FlatList
-          data={dadosMedico}
-          renderItem={renderItem}
-          keyExtractor={(item) =>
-            item.profissional.dadosProfissional.id.toString()
-          }
-        />
-      )}
-
-      {/* </ScrollView> */}
-    </Container>
-  );
+    );
 };
 
 export default EscolhaMedicos;
