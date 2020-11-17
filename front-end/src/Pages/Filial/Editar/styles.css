@@ -19,7 +19,7 @@
     outline: none;
     border: none;
     border-bottom: 1px solid var(--principal);
-    padding-left: 400px;
+    text-align-last:center;
     -webkit-appearance: none;
       -moz-appearance: none;
       text-indent: 1px;

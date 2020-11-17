@@ -11,7 +11,7 @@ module.exports = {
 
     const central = await Central.findOne({
       where: { login: login },
-      attributes: ["login", "id"],
+      attributes: ["login", "id", "senha"],
       raw: true
     });
 
@@ -19,7 +19,8 @@ module.exports = {
 
       if (central) {
         if (bcrypt.compareSync(senha, central.senha)) {
-          return res.status(200).send(central);
+
+          return res.status(200).send({id: central.id, login: central.login});
 
         } else {
           return res.status(404).send({ erro: "Senha da central inválida" });
@@ -38,6 +39,7 @@ module.exports = {
       }
 
     } catch (error) {
+      console.log(error);
       console.log({ erro: "Falha no login" });
     }
   }

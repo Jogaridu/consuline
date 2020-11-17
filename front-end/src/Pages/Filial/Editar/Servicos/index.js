@@ -28,6 +28,7 @@ function Servicos() {
                 const retorno = await api.get(`/filial/${id}`);
 
                 setMeusServicos(retorno.data.Servicos);
+                console.log(retorno.data);
 
             } catch (error) {
                 console.log(error);
