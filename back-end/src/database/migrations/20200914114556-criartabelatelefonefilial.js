@@ -1,12 +1,16 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("tblFilialServico", {
+    return queryInterface.createTable("tblTelefoneFilial", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      numero: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       filialId: {
         type: Sequelize.INTEGER,
@@ -18,29 +22,17 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      servicoId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "tblServico",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
       },
-    })
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblFilialServico");
-  }
+    return queryInterface.dropTable("tblTelefoneFilial");
+  },
 };

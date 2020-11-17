@@ -2,32 +2,35 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("tblFilialServico", {
+    queryInterface.createTable("tblCoberturaPlanoSaude", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        autoIncrement: true
       },
-      filialId: {
+
+      idCobertura: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allownull: false,
         references: {
-          model: "tblFilial",
-          key: "id",
+          model: "tblCobertura",
+          key: "id"
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        onDelete: "CASCADE"
       },
-      servicoId: {
+
+      idPlanoDeSaude: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allownull: false,
         references: {
-          model: "tblServico",
-          key: "id",
+          model: "tblPlanoDeSaude",
+          key: "id"
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        onDelete: "CASCADE"
       },
+
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -36,11 +39,15 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
+
       },
+
     })
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblFilialServico");
+
+    return queryInterface.dropTable("tblCoberturaPlanoSaude");
+
   }
 };
