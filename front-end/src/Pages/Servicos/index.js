@@ -6,6 +6,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import Lottie from "react-lottie";
 
 import loader from "../../Assets/loader.json";
+import icone from "../../Assets/icone-servico.png";
 
 import "./styles.css";
 
@@ -223,14 +224,12 @@ function Servicos() {
                 />
             )}
             <div className="container-conteudo-central">
-                <Titulo nome="Serviços" />
+                <Titulo nome="Serviços" imagem={icone} />
                 <div id="container-conteudo-cms">
-                    <div id="btn-add-servicos">
+                    <Link to="/servico" id="btn-add-servicos">
                         <MdAdd size={50} color="#FFF" />
-                        <Link to="/servicos/cadastrar">
-                            <h1>Adicionar serviço </h1>
-                        </Link>
-                    </div>
+                        <h1>Adicionar serviço</h1>
+                    </Link>
 
                     {loading ? (
                         <div id="loader">

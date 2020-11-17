@@ -256,16 +256,25 @@
   border-width: 1px;
 }
 
-#imgCadastroServico {
+#img-cadastro-servico {
   width: 220px;
   height: 200px;
-  border: 1px solid var(--principal);
+  /* border: 1px solid var(--principal); */
   background-color: var(--fundo);
+  margin: 20px auto;
+  border-radius: 5px;
+  transition: 100ms ease all;
 }
 
-#imgCadastroServico figure img {
+#img-cadastro-servico:hover {
+  background-color: var(--principal);
+  cursor: pointer;
+}
+
+#img-cadastro-servico figure img {
   width: 220px;
   height: 200px;
+  padding: 5px;
 }
 
 input[type="file"] {

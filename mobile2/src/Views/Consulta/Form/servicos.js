@@ -42,6 +42,7 @@ const ContainerFormulario = (props) => {
 
     return (
         <ContainerForm>
+            <ScrollView>
             <ContainerPassos>
                 <Passos cor1={true} />
             </ContainerPassos>
@@ -89,6 +90,7 @@ const ContainerFormulario = (props) => {
                     {/* </ScrollView> */}
                 </>)}
             </Formik>
+            </ScrollView>
         </ContainerForm>
     );
 };

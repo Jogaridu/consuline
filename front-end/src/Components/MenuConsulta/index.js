@@ -21,19 +21,19 @@ function MenuConsulta(){
             <div id="nome-menu-consulta">
                 Bruno Gonçalves
             </div>
-            <Link to="/consultas/home">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/consultas/home">
             <div id="elemento-home-menu">
                 <img id="ihome" src={ihome} alt="Imagem de teste" />
                 Home
             </div>
             </Link>
-            <Link to="/consultas/agendadas">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/consultas/agendadas">
             <div id="elemento-agendamentos-menu">
                 <img id="icalendario" src={icalendario} alt="Imagem de teste" />
                 Agendamentos
             </div>
             </Link>
-            <Link to="/consultas/avaliacao">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/consultas/avaliacao">
             <div id="elemento-avaliacao-menu">
                 <img id="iavaliacao" src={iavaliacao} alt="Imagem de teste" />
                 Avaliações

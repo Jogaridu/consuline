@@ -208,7 +208,7 @@ const Codigo = ({ navigation, route }) => {
                 }}
               >
                 Não recebi o código no número{" "}
-                <Text style={{ color: "#0095C5" }}>(11)96368-8640</Text>
+                <Text style={{ color: "#0095C5" }}>(11)96368-86410</Text>
               </Text>
             </ContainerFormularioCodigo>
             <Passos cor1={true} cor2={true} cor3={true} cor4={true} cor5={true} />

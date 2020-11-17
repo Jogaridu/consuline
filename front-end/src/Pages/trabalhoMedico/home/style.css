@@ -258,13 +258,16 @@ h1{
 .informacoes-agendamento-medico{
   grid-area: informacoes-agendamento-medico;
   border-right: 1px solid  #d4d3cf;
-
+  height: 90%;
+  margin-top: 5px;
   /* background-color: yellow; */
   /* width: 120px; */
 
 }
 .informacoes-totalconsulta-medico{
   grid-area: informacoes-totalconsulta-medico;
+  height: 90%;
+  margin-top: 7px;
   /* background-color: blue; */
   /* width: 120px; */
 }
@@ -333,6 +336,7 @@ h1{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -15px;
 }
 .nome-cliente-avaliador{
   grid-area: nome-cliente-avaliador;
