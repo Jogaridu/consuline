@@ -9,6 +9,7 @@ module.exports = {
         autoIncrement: true,
       },
       filialId: {
+        unique: true,
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -19,6 +20,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       servicoId: {
+        unique: true,
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -27,6 +29,14 @@ module.exports = {
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
     })
   },
