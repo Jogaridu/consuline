@@ -10,8 +10,9 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 
 import "./styles.css";
 
-import mapa from "../../Assets/mapa.png";
 import servico from "../../Assets/7774.jpg";
+import iconeAdd from "../../Assets/add3.png";
+import semFoto from "../../Assets/sem-foto.jpg";
 
 import api from "../../Services/api";
 
@@ -66,7 +67,7 @@ function CadastrarServicos() {
         <div className="container-central">
             <Menu />
             <div className="container-conteudo-central">
-                <Titulo nome="Cadastrar um serviço" />
+                <Titulo nome="Cadastrar um serviço" imagem={iconeAdd} />
                 <div id="container-conteudo-cms">
                     <div className="titulo-card-cadastro-servicos">
                         <figure>
@@ -105,11 +106,11 @@ function CadastrarServicos() {
                                     />
                                 </div>
 
-                                <div id="imgCadastroServico">
+                                <label id="img-cadastro-servico" htmlFor="selecao-arquivo">
                                     <figure>
-                                        <img alt="preview" ref={imgRef} />
+                                        <img alt="preview" ref={imgRef} src={semFoto}/>
                                     </figure>
-                                </div>
+                                </label>
 
                                 <div id="container-botoes-servicos">
                                     <Link to="/servicos">

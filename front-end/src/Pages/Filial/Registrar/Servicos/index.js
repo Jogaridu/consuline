@@ -56,7 +56,7 @@ function Servicos() {
                     timer: 1500
                 })
                 // .then(() => 
-                history.replace(`/filial/${retorno.data.id}`);
+                history.replace(`/detalhe/filial/${retorno.data.id}`);
             }
 
         } catch (error) {

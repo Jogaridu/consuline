@@ -9,6 +9,7 @@ import Endereco from './Endereco';
 import MenuCentral from '../../../Components/MenuCentral';
 import TituloPrincipal from '../../../Components/TituloPrincipal';
 import Servicos from './Servicos';
+import ConsultaFilial from "../Consulta/index";
 
 
 import user from "../../../Assets/user.png";
@@ -21,19 +22,19 @@ function Registrar() {
             <MenuCentral />
 
             <div className="container-conteudo-central">
-                <TituloPrincipal nome="Informações de cadastro alal" imagem={user} />
+                <TituloPrincipal nome="Informações de cadastro" imagem={user} />
 
                 <Router>
                     <Switch>
+                        <Route path="/filial" exact component={Informacoes} />
+                        
+                        <Route path="/detalhe/filial/:id" component={ConsultaFilial} />
+
                         <Route path="/filial/endereco" component={Endereco} />
 
                         <Route path="/filial/servicos" component={Servicos} />
 
-                        <Route path="/filial" exact component={Informacoes} />
 
-                        <Route path="*">
-                            <Redirect to="/filial/13" />
-                        </Route>
                     </Switch>
                 </Router>
             </div >
