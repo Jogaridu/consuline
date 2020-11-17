@@ -31,9 +31,9 @@ const ContainerFormulario = (props) => {
     const navigateAtendimento = (values) => {
 
         if (values.sintomas !== "" && props.servico !== undefined) {
-            const dados = {sintomas: values.sintomas, servico: {...props.servicos}};
+            const dados = { sintomas: values.sintomas, servico: { ...props.servicos } };
             props.navigation.navigate("Atendimento", dados);
-            
+
         } else {
             console.warn("Complete todas as informaçoes");
         }
@@ -50,7 +50,7 @@ const ContainerFormulario = (props) => {
                 <Icon name="search1" size={20} color={colors.principal} />
                 <Text style={{ color: colors.principal, marginLeft: 5 }}>
                     {" "}
-          Pesquisar Serviço{" "}
+                    Pesquisar Serviço{" "}
                 </Text>
             </ContainerBotaoBusca>
 
@@ -64,15 +64,23 @@ const ContainerFormulario = (props) => {
             )}
 
             <Formik
-                initialValues={{ sintomas: '' }}
+                initialValues={{ sintomas: '', descricao: '' }}
                 onSubmit={navigateAtendimento} >
-                {({ handleChange, handleBlur, handleSubmit, values }) => (<>
+                {({ handleChange, handleBlur, handleSubmit }) => (<>
                     <Label> Sintomas </Label>
                     <Input
-                        style={{ height: 180 }}
-                        placeholder="Informe seus sintomas"
+                        placeholder="Digite seus sintomas"
                         onChangeText={handleChange('sintomas')}
                         onBlur={handleBlur('sintomas')}
+                        placeholderTextColor={colors.principal}
+                        style={{ marginBottom: 50 }} />
+
+                    <Label> Descrição </Label>
+                    <Input
+                        style={{ height: 180, padding: 0 }}
+                        placeholder="Descreva o que você está sentindo"
+                        onChangeText={handleChange('descricao')}
+                        onBlur={handleBlur('descricao')}
                         placeholderTextColor={colors.principal}
                     />
                     <ContainerBotaoCadastro>
@@ -152,8 +160,7 @@ const CardServicos = ({ nome, imagem, servico, setServico, setView }) => {
             onPress={() => {
                 setServico({ nome: nome, imagem: imagem });
                 setView("form");
-            }}
-        >
+            }}>
             <ImgServicos source={{ uri: imagem }} />
             <TituloServico selecionado={servico === nome}> {nome} </TituloServico>
         </ContainerCardServicos>
