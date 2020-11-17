@@ -10,7 +10,12 @@ const login = require("../../controllers/sessao");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 
-routes.post("/profissional", Multer.single("foto"), enviarArquivos, controller.cadastrar);
+routes.post(
+  "/profissional",
+  Multer.single("foto"),
+  enviarArquivos,
+  controller.cadastrar
+);
 
 routes.post("/profissional-login", login.logar);
 

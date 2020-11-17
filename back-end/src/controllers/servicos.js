@@ -7,7 +7,7 @@ module.exports = {
 
 
     const { firebaseUrl } = req.file;
-  
+
 
     if (nome && descricao && firebaseUrl) {
       try {
@@ -17,7 +17,6 @@ module.exports = {
           },
         });
 
-        console.log(servicoCriado);
 
         if (servicoCriado) {
           return res.status(400).send("Esse serviço já está cadastrado");
