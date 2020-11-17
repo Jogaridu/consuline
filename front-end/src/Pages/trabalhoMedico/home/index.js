@@ -128,7 +128,7 @@ function HomeConsulta(){
                             </div>
                         </div>
                         <div className="nome-cliente-avaliador">
-                            Bruno Gonçalves
+                            Bruno G. Menezes
                         </div>
                         <div className="ratingbar-cliente-avaliador">
                             
