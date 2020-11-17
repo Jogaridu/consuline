@@ -21,7 +21,7 @@ import api from "../../../Services/api";
 const CardMedico = (props) => {
 
     return (
-        <BtnMedicos onPress={() => props.navigateCalendar(props.id)}>
+        <BtnMedicos onPress={() => props.navegacao.navigate("Agendamento", props.id)}>
             <ContainerImgMedico>
                 <ImgMedico source={{ uri: props.imagem }} />
             </ContainerImgMedico>
@@ -56,18 +56,18 @@ const EscolhaMedicos = ({ navigation, route }) => {
         setLoading(false);
     };
 
-    const navigateCalendar = (profissionalId) => {
+    // const navigateCalendar = (profissionalId) => {
 
-        if (profissionalId !== "") {
-            novaConsulta = { ...novaConsulta, profissionalId };
+    //     if (profissionalId !== "") {
+    //         novaConsulta = { ...novaConsulta, profissionalId };
 
-            props.navegacao.navigate("Atendimento", novaConsulta);
-        } else {
-            console.log("Erro, profissional sem ID");
+    //         props.navegacao.navigate("Atendimento", novaConsulta);
+    //     } else {
+    //         console.log("Erro, profissional sem ID");
 
-        }
+    //     }
 
-    };
+    // };
 
     useEffect(() => {
         pegarDados();
@@ -79,7 +79,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
             nome={item.profissional.dadosProfissional.nome}
             navegacao={navigation}
             imagem={item.profissional.dadosProfissional.foto}
-            navigateCalendar={navigateCalendar} />
+             />
     );
 
     return (
