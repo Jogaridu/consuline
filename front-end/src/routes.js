@@ -16,6 +16,19 @@ import RegistrarServico from "./Pages/Servicos/cadastrar";
 import EditarServico from "./Pages/Servicos/editar";
 import AreaMedico from "./Pages/trabalhoMedico";
 import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
+import Endereco from "./Pages/Filial/Registrar/Endereco";
+import Servicos from "./Pages/Filial/Registrar/Servicos";
+import Informacoes from "./Pages/Filial/Registrar/Informacoes";
+
+function MenuTalRoute({children}){
+    return (
+        <>
+        <Menu></Menu>
+        {children}
+        </>
+    )
+}
+
 
 function Routes() {
     return (
@@ -38,13 +51,16 @@ function Routes() {
                     <EditarFilial />
                 </Route>
 
-                <Route path="/filial" exact>
+                <Route path="/filial">
                     <RegistrarFilial />
                 </Route>
 
-                <Route path="/filial/:id" exact>
-                    <ConsultaFilial />
-                </Route>
+                {/* <Route path="/filial/endereco" component={Endereco} />
+
+                <Route path="/filial/servicos" component={Servicos} />
+
+                <Route path="/filial" exact component={Informacoes} /> */}
+
 
                 <Route path="/filiais">
                     <ListagemFilial />
@@ -61,7 +77,7 @@ function Routes() {
                 </Route>
 
                 {/* Rotas de serviços */}
-                <Route path="/servicos/cadastrar">
+                <Route path="/servico">
                     <RegistrarServico />
                 </Route>
                 <Route path="/servicos/editar">

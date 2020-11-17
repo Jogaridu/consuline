@@ -48,7 +48,7 @@ function MenuCentral() {
                 </div>
                 <div className="itensMenu">
                     Serviços
-                    <SubMenu itens={{ Listar: "/servicos" }} />
+                    <SubMenu itens={{ Adicionar: "/servico", Listar: "/servicos" }} />
 
                 </div>
             </div>
