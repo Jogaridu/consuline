@@ -5,11 +5,11 @@ import '../../../Styles/globalStyle.css'
 import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
 import medicoteste from '../../../Assets/medicoteste.png'
-import { getMedico } from '../../../Services/security';
+
 
 function Agendadas () {
 
-    const medicoSessao = getMedico();
+    
 
     return(
      <div className="container-agendadas">

@@ -7,8 +7,11 @@ import ihome from '../../Assets/ihome.png'
 import icalendario from '../../Assets/icalendario.png'
 import iavaliacao from  '../../Assets/iavaliacao.png'
 import { Link } from 'react-router-dom';
+import { getProfissional } from "../../Services/security"
 
 function MenuConsulta(){
+
+    const medicoSessao = getProfissional();
 
     return(
         <div className="menu-consultas">
@@ -19,7 +22,7 @@ function MenuConsulta(){
                 <img id="medicoteste" src={medicoteste} alt="Imagem de teste" />
             </div>
             <div id="nome-menu-consulta">
-                Bruno Gonçalves
+                {medicoSessao.nome}
             </div>
             <Link style={{ textDecoration: 'none', color: 'black' }} to="/consultas/home">
             <div id="elemento-home-menu">
