@@ -14,7 +14,7 @@ module.exports = {
       },
       desconto: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       data: {
         type: Sequelize.DATEONLY,
@@ -26,6 +26,10 @@ module.exports = {
       },
       descricao: {
         type: Sequelize.TEXT,
+        allownull: false
+      },
+      sintomas: {
+        type: Sequelize.STRING,
         allownull: false
       },
       PacienteId: {

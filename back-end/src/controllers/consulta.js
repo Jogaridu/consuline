@@ -12,6 +12,7 @@ module.exports = {
         const {
             valor,
             desconto,
+            sintomas,
             data,
             horario,
             PacienteId,
@@ -77,7 +78,8 @@ module.exports = {
                 FilialId,
                 ServicoId,
                 AtendimentoId,
-                descricao
+                descricao,
+                sintomas
             });
 
             res.status(201).send(consulta);

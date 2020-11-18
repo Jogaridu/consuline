@@ -8,7 +8,8 @@ class Consulta extends Model {
                 desconto: DataTypes.STRING,
                 data: DataTypes.DATEONLY,
                 horario: DataTypes.TIME,
-                descricao:DataTypes.TEXT
+                descricao: DataTypes.TEXT,
+                sintomas: DataTypes.STRING
             }, {
             sequelize,
             tableName: "tblConsulta"
