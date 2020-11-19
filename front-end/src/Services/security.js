@@ -1,7 +1,7 @@
-const CHAVE_ADMIN = "@admin";
+const CHAVE_USUARIO = "@usuario";
 
-export const signin = (admin) => {
-    localStorage.setItem(CHAVE_ADMIN, JSON.stringify(admin));
+export const signin = (usuario) => {
+    localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuario));
 }
 
 export const signOut = () => {
@@ -9,13 +9,13 @@ export const signOut = () => {
 }
 
 export const isSignIn = () => {
-    const admin = JSON.parse(localStorage.getItem(CHAVE_ADMIN));
+    const usuario = JSON.parse(localStorage.getItem(CHAVE_USUARIO));
 
-    return admin ? true : false;
+    return usuario ? true : false;
 }
 
-export const getMedico = () => {
-    const { medico } = JSON.parse(localStorage.getItem(CHAVE_ADMIN));
+export const getProfissional = () => {
+    const { profissionalDaSaude } = JSON.parse(localStorage.getItem(CHAVE_USUARIO));
 
-    return medico;
+    return profissionalDaSaude;
 }

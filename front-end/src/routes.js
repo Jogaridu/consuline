@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
@@ -19,6 +19,7 @@ import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
 import Endereco from "./Pages/Filial/Registrar/Endereco";
 import Servicos from "./Pages/Filial/Registrar/Servicos";
 import Informacoes from "./Pages/Filial/Registrar/Informacoes";
+import { isSignIn } from "./Services/security";
 
 // function MenuTalRoute({children}){
 //     return (
@@ -28,6 +29,22 @@ import Informacoes from "./Pages/Filial/Registrar/Informacoes";
 //         </>
 //     )
 // }
+
+const PrivateRoute = ({ children, ...rest }) => {
+    return (<Route {...rest}
+        render={({ location }) =>
+            isSignIn() ? (children) : (
+                <Redirect
+                    to={{
+                        pathname: "/login",
+                        state: { from: location },
+                    }}
+                /> 
+            )
+        }
+    />
+    );
+};
 
 
 function Routes() {
@@ -41,19 +58,19 @@ function Routes() {
                 <Route path="/login">
                     <Login />
                 </Route>
-                <Route path="/home-central">
+                <PrivateRoute path="/home-central">
                     <HomeCrud />
-                </Route>
+                </PrivateRoute>
 
                 {/* Rota de filiais */}
 
-                <Route path="/filial/editar/:id">
+                <PrivateRoute path="/filial/editar/:id">
                     <EditarFilial />
-                </Route>
+                </PrivateRoute>
 
-                <Route path="/filial">
+                <PrivateRoute path="/filial">
                     <RegistrarFilial />
-                </Route>
+                </PrivateRoute>
 
                 {/* <Route path="/filial/endereco" component={Endereco} />
 
@@ -62,36 +79,36 @@ function Routes() {
                 <Route path="/filial" exact component={Informacoes} /> */}
 
 
-                <Route path="/filiais">
+                <PrivateRoute path="/filiais">
                     <ListagemFilial />
-                </Route>
+                </PrivateRoute>
 
                 {/* Rotas de profissionais */}
 
-                <Route path="/profissional-saude">
+                <PrivateRoute path="/profissional-saude">
                     <RegistrarProfissional />
-                </Route>
+                </PrivateRoute>
 
-                <Route path="/profissionais-saude">
+                <PrivateRoute path="/profissionais-saude">
                     <ListarProfissional />
-                </Route>
+                </PrivateRoute>
 
                 {/* Rotas de serviços */}
-                <Route path="/servico">
+                <PrivateRoute path="/servico">
                     <RegistrarServico />
-                </Route>
-                <Route path="/servicos/editar">
+                </PrivateRoute>
+                <PrivateRoute path="/servicos/editar">
                     <EditarServico />
-                </Route>
-                <Route path="/servicos/:id?">
+                </PrivateRoute>
+                <PrivateRoute path="/servicos/:id?">
                     <Listar />
-                </Route>
+                </PrivateRoute>
 
                 {/* Rotas de consultas | Area Médico */}
 
-                <Route path="/consultas">
+                <PrivateRoute path="/consultas">
                     <AreaMedico />
-                </Route>
+                </PrivateRoute>
 
             </Switch>
         </BrowserRouter>

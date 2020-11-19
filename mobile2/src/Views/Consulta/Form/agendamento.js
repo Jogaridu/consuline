@@ -81,7 +81,7 @@ const Agendamento = ({ navigation, route }) => {
   }, []);
 
   const navegarPagamento = () => {
-    navigation.navigate("");
+    navigation.navigate("Pagamento");
   };
 
   return (
@@ -139,7 +139,7 @@ const Agendamento = ({ navigation, route }) => {
             </ContainerHorarios>
 
             <ContainerBotaoCadastro>
-              <Botao title="Próximo" />
+              <Botao title="Próximo" funcExec={navegarPagamento} />
             </ContainerBotaoCadastro>
 
       </ScrollView>

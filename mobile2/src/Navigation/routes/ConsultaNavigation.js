@@ -14,6 +14,7 @@ import Servicos from "../../Views/Consulta/Form/servicos";
 import EscolhaMedicos from "../../Views/Consulta/Form/escolhaMedicos";
 import Atendimento from "../../Views/Consulta/Form/atendimento";
 import Agendamento from "../../Views/Consulta/Form/agendamento";
+import Pagamento from "../../Views/Consulta/Form/pagamento";
 
 const ConsultaNavigation = () => {
   return (
@@ -45,6 +46,12 @@ const ConsultaNavigation = () => {
       <Stack.Screen
         name="Agendamento"
         component={Agendamento}
+        options={{ headerShown: true }}
+      />
+
+      <Stack.Screen
+        name="Pagamento"
+        component={Pagamento}
         options={{ headerShown: true }}
       />
     </Stack.Navigator>
