@@ -18,7 +18,7 @@ module.exports = {
       if (central) {
         if (bcrypt.compareSync(senha, central.senha)) {
 
-          const token = jwt.sign({ idCentral: central.id }, auth.secret);
+          const token = jwt.sign({ idCentral: central.id, tipoPerfil:"admin" }, auth.secret);
 
           return res.status(200).send({ id: central.id, login: central.login, token });
         } else {
