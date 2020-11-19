@@ -11,7 +11,7 @@ import {
   ContainerHorarios,
   Horarios,
   TextoHorario,
-  ContainerBotaoCadastro
+  ContainerBotaoCadastro,
 } from "../styles";
 
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
@@ -29,27 +29,15 @@ const CardHorarios = ({
   const [todasDatas, setTodasDatas] = useState();
   const [horariosDisponiveis, setHorariosDisponiveis] = useState([]);
 
-  // const pegarTodasDatas = () => {
-  //   var datas = [];
-  //   dia.forEach((item, index) => {
-  //     datas.push(item.data);
-  //   });
-  //   setTodasDatas(datas);
-
-  //   var filtred = datas.filter((el) => el === diaSelecionado);
-
-  //   // console.log(filtred);
-  // };
-
   const iniciarHorarios = () => {
     var horarios = [];
 
-    for (let i = 8; i <= 17; i++) {
-      if (!diaSelecionado || !diaSelecionado.horario.includes(`${i}:00`) ){
+    for (let i = "08"; i <= 17; i++) {
+      if (!diaSelecionado || !diaSelecionado.horario.includes(`${i}:00`)) {
         horarios.push(`${i}:00`);
       }
     }
-
+    // console.log(diaSelecionado.horario[0].length);
     setHorariosDisponiveis(horarios);
   };
 
@@ -64,7 +52,7 @@ const CardHorarios = ({
           horarioSelecionado={horarioSelecionado}
           onPress={() => {
             setHorarioSelecionado(!horarioSelecionado);
-            console.log(horariosDisponiveis);
+            console.log(diaSelecionado);
           }}
         >
           <TextoHorario> {horario} </TextoHorario>
@@ -74,87 +62,86 @@ const CardHorarios = ({
   );
 };
 
-const Agendamento = ({navigation}) => {
+const Agendamento = ({ navigation, route }) => {
   const [dia, setDia] = useState({});
   const [diaSelecionado, setDiaSelecionado] = useState();
+  const [marcador, setMarcador] = useState(false);
   const [horarioSelecionado, setHorarioSelecionado] = useState(false);
-  const [mostrarHorarios, setMostrarHorarios] = useState(false);
+  const [mostrarHorarios, setMostrarHorarios] = useState();
 
   const pegarDados = async () => {
-    const retorno = await api.get(`/medico/2/consultas/dias`);
+    const idMedico = route.params;
+    const retorno = await api.get(`/medico/${idMedico}/consultas/dias`);
 
     setDia(retorno.data);
   };
 
   useEffect(() => {
-    pegarDados();
+      pegarDados();
   }, []);
 
   const navegarPagamento = () => {
-    navigation.navigate("")
-  }
+    navigation.navigate("");
+  };
 
   return (
     <Container style={{ backgroundColor: colors.fundo }}>
       <ScrollView style={{ width: "100%" }}>
         <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
         <Label> Agendamento </Label>
-        <Calendar
-          current={new Date()}
-          // minDate={new Date()}
-          maxDate={"2021-01-30"}
-          onDayPress={(day) => {
-            const [diaSel] = dia.filter(d => {
-              console.log(d.data, day.dateString)
-              return d.data == day.dateString
-            });
-            setDiaSelecionado(diaSel);
-            setMostrarHorarios(!mostrarHorarios);
-          }}
-          markedDates={{
-            // [dia.dateString]: {
-            //   selected: true,
-            //   selectedColor: colors.principal,
-            // },
 
-            "2020-11-24": {
-              marked: true,
-              disabled: true,
-              disableTouchEvent: true,
-            },
-          }}
-          // Callback which gets executed when visible months change in scroll view. Default = undefined
-          // onVisibleMonthsChange={(months) => {
-          //   console.log("now these months are visible", months);
-          // }}
-          scrollEnabled={true}
-        // Enable or disable vertical scroll indicator. Default = false
-        />
-        <Label> Horários </Label>
-        <ContainerHorarios>
-          <ScrollView horizontal={true}>
-            {mostrarHorarios ? (
-              <CardHorarios
-                horarioSelecionado={horarioSelecionado}
-                setHorarioSelecionado={setHorarioSelecionado}
-                dia={dia}
-                diaSelecionado={diaSelecionado}
-              />
-            ) : (
-                <Container style={{ backgroundColor: colors.fundo }}>
-                  <Text>
-                    {" "}
-                  Selecione um dia no calendário para {"\n"} ver os horários{" "}
-                  </Text>
-                </Container>
-              )}
-          </ScrollView>
-        </ContainerHorarios>
+            <Calendar
+              current={new Date()}
+              minDate={new Date()}
+              maxDate={"2021-01-30"}
+              onDayPress={(day) => {
+                const [diaSel] = dia.filter((d) => {
+                  return d.data == day.dateString;
+                });
 
-        <ContainerBotaoCadastro>
-          <Botao title="Próximo" funcExec={navegarPagamento} />
-        </ContainerBotaoCadastro>
-        
+                setDiaSelecionado(diaSel);
+                setMostrarHorarios(true);
+                setMarcador(day.dateString);
+                console.log(diaSel);
+              }}
+              markedDates={{
+                [marcador]: {
+                  selected: true,
+                  selectedColor: colors.principal,
+                },
+
+                "2020-11-24": {
+                  marked: true,
+                  disabled: true,
+                  disableTouchEvent: true,
+                },
+              }}
+              scrollEnabled={true}
+            />
+            <Label> Horários </Label>
+            <ContainerHorarios>
+              <ScrollView horizontal={true}>
+                {mostrarHorarios ? (
+                  <CardHorarios
+                    horarioSelecionado={horarioSelecionado}
+                    setHorarioSelecionado={setHorarioSelecionado}
+                    dia={dia}
+                    diaSelecionado={diaSelecionado}
+                  />
+                ) : (
+                  <Container style={{ backgroundColor: colors.fundo }}>
+                    <Text>
+                      Selecione um dia no calendário para {"\n"} ver os horários
+                    </Text>
+                  </Container>
+                )}
+              </ScrollView>
+            </ContainerHorarios>
+
+            <ContainerBotaoCadastro>
+              <Botao title="Próximo" />
+            </ContainerBotaoCadastro>
+
       </ScrollView>
     </Container>
   );

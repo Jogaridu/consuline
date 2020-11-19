@@ -20,14 +20,14 @@ import Endereco from "./Pages/Filial/Registrar/Endereco";
 import Servicos from "./Pages/Filial/Registrar/Servicos";
 import Informacoes from "./Pages/Filial/Registrar/Informacoes";
 
-function MenuTalRoute({children}){
-    return (
-        <>
-        <Menu></Menu>
-        {children}
-        </>
-    )
-}
+// function MenuTalRoute({children}){
+//     return (
+//         <>
+//         <Menu></Menu>
+//         {children}
+//         </>
+//     )
+// }
 
 
 function Routes() {
