@@ -16,16 +16,27 @@ import RegistrarServico from "./Pages/Servicos/cadastrar";
 import EditarServico from "./Pages/Servicos/editar";
 import AreaMedico from "./Pages/trabalhoMedico";
 import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
-import Endereco from "./Pages/Filial/Registrar/Endereco";
-import Servicos from "./Pages/Filial/Registrar/Servicos";
-import Informacoes from "./Pages/Filial/Registrar/Informacoes";
+import EnderecoFilial from "./Pages/Filial/Registrar/Endereco";
+import ServicosFilial from "./Pages/Filial/Registrar/Servicos";
+import InformacoesFilial from "./Pages/Filial/Registrar/Informacoes";
+import MenuCentral from "./Components/MenuCentral";
+import TituloPrincipal from "./Components/TituloPrincipal";
+import user from "./Assets/user.png";
+import Consulta from "./Pages/Filial/Consulta";
 
-function MenuTalRoute({children}){
+
+function RotaCadastroFilial({ children }) {
     return (
-        <>
-        <Menu></Menu>
-        {children}
-        </>
+
+        <div className="container-central">
+            <MenuCentral />
+
+            <div className="container-conteudo-central">
+                <TituloPrincipal nome="Informações de cadastro" imagem={user} />
+                {children}
+            </div>
+        </div>
+
     )
 }
 
@@ -51,15 +62,21 @@ function Routes() {
                     <EditarFilial />
                 </Route>
 
-                <Route path="/filial">
-                    <RegistrarFilial />
+                <RotaCadastroFilial path="/filial/endereco">
+                    <EnderecoFilial />
+                </RotaCadastroFilial>
+
+                <RotaCadastroFilial path="/filial/servicos">
+                    <ServicosFilial />
+                </RotaCadastroFilial>
+
+                <Route path="/filial/:id">
+                    <Consulta />
                 </Route>
 
-                {/* <Route path="/filial/endereco" component={Endereco} />
-
-                <Route path="/filial/servicos" component={Servicos} />
-
-                <Route path="/filial" exact component={Informacoes} /> */}
+                <RotaCadastroFilial path="/filial" exact>
+                    <InformacoesFilial />
+                </RotaCadastroFilial>
 
 
                 <Route path="/filiais">
