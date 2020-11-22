@@ -6,9 +6,12 @@ const controller = require("../../controllers/profissionalDaSaude");
 
 const enviarArquivos = require("../../services/firebase");
 
+
 const login = require("../../controllers/sessao");
 
 const Multer = require("../../fixtures/manipulacaoForm");
+
+
 
 routes.post(
   "/profissional",
@@ -17,7 +20,7 @@ routes.post(
   controller.cadastrar
 );
 
-routes.post("/profissional-login", login.logar);
+routes.post("/profissional/login", login.logar);
 
 routes.get("/profissional", controller.listar);
 
