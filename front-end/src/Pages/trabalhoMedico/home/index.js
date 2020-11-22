@@ -4,8 +4,12 @@ import './style.css';
 import '../../../Styles/globalStyle.css'
 import supermedico from '../../../Assets/supermedico.png'
 import medicoteste from '../../../Assets/medicoteste.png'
+import { getProfissional } from "../../../Services/security"
 
 function HomeConsulta(){
+
+    const medicoSessao = getProfissional();
+
     return(
         <div className="container-consulta-home">
            <div id="bem-vindo">
@@ -93,7 +97,7 @@ function HomeConsulta(){
                      <img id="medicoteste" src={medicoteste} alt="Logoteste" /> 
                     </div>
                     <div className="nome-perfil-medico-previa">
-                        Bruno Gonçalves
+                        {medicoSessao.nome}
                     </div>
                     <div className="cidade-perfil-medico-previa">
                         Osasco, SP

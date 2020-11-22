@@ -17,6 +17,7 @@ module.exports = (req, res, next) => {
   try {
     const retorno = jwt.verify(token, authConfig.secret);
     req.idCentral = retorno.idCentral;
+    req.tipoPerfil = retorno.tipoPerfil;
     return next();
   } catch (error) {
     res.status(401).send({ error: "Token Inválido" });
