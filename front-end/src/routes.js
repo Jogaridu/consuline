@@ -23,6 +23,10 @@ import MenuCentral from "./Components/MenuCentral";
 import TituloPrincipal from "./Components/TituloPrincipal";
 import user from "./Assets/user.png";
 import Consulta from "./Pages/Filial/Consulta";
+import Endereco from "./Pages/Filial/Registrar/Endereco";
+import Servicos from "./Pages/Filial/Registrar/Servicos";
+import Informacoes from "./Pages/Filial/Registrar/Informacoes";
+import { isSignIn } from "./Services/security";
 
 
 function RotaCadastroFilial({ children }) {
@@ -39,10 +43,6 @@ function RotaCadastroFilial({ children }) {
 
     )
 }
-import Endereco from "./Pages/Filial/Registrar/Endereco";
-import Servicos from "./Pages/Filial/Registrar/Servicos";
-import Informacoes from "./Pages/Filial/Registrar/Informacoes";
-import { isSignIn } from "./Services/security";
 
 // function MenuTalRoute({children}){
 //     return (
@@ -91,59 +91,56 @@ function Routes() {
                     <EditarFilial />
                 </PrivateRoute>
 
-<<<<<<< HEAD
-            <RotaCadastroFilial path="/filial/endereco">
-                <EnderecoFilial />
-            </RotaCadastroFilial>
-=======
+                <RotaCadastroFilial path="/filial/endereco">
+                    <EnderecoFilial />
+                </RotaCadastroFilial>
                 <PrivateRoute path="/filial">
-                <RegistrarFilial />
-            </PrivateRoute>
->>>>>>> f82053a27a1f69bc7165a1f0cd420448d327700c
+                    <RegistrarFilial />
+                </PrivateRoute>
 
-            <RotaCadastroFilial path="/filial/servicos">
-                <ServicosFilial />
-            </RotaCadastroFilial>
+                <RotaCadastroFilial path="/filial/servicos">
+                    <ServicosFilial />
+                </RotaCadastroFilial>
 
-            <Route path="/filial/:id">
-                <Consulta />
-            </Route>
+                <Route path="/filial/:id">
+                    <Consulta />
+                </Route>
 
-            <RotaCadastroFilial path="/filial" exact>
-                <InformacoesFilial />
-            </RotaCadastroFilial>
+                <RotaCadastroFilial path="/filial" exact>
+                    <InformacoesFilial />
+                </RotaCadastroFilial>
 
 
-            <PrivateRoute path="/filiais">
-                <ListagemFilial />
-            </PrivateRoute>
+                <PrivateRoute path="/filiais">
+                    <ListagemFilial />
+                </PrivateRoute>
 
-            {/* Rotas de profissionais */}
+                {/* Rotas de profissionais */}
 
-            <PrivateRoute path="/profissional-saude">
-                <RegistrarProfissional />
-            </PrivateRoute>
+                <PrivateRoute path="/profissional-saude">
+                    <RegistrarProfissional />
+                </PrivateRoute>
 
-            <PrivateRoute path="/profissionais-saude">
-                <ListarProfissional />
-            </PrivateRoute>
+                <PrivateRoute path="/profissionais-saude">
+                    <ListarProfissional />
+                </PrivateRoute>
 
-            {/* Rotas de serviços */}
-            <PrivateRoute path="/servico">
-                <RegistrarServico />
-            </PrivateRoute>
-            <PrivateRoute path="/servicos/editar">
-                <EditarServico />
-            </PrivateRoute>
-            <PrivateRoute path="/servicos/:id?">
-                <Listar />
-            </PrivateRoute>
+                {/* Rotas de serviços */}
+                <PrivateRoute path="/servico">
+                    <RegistrarServico />
+                </PrivateRoute>
+                <PrivateRoute path="/servicos/editar">
+                    <EditarServico />
+                </PrivateRoute>
+                <PrivateRoute path="/servicos/:id?">
+                    <Listar />
+                </PrivateRoute>
 
-            {/* Rotas de consultas | Area Médico */}
+                {/* Rotas de consultas | Area Médico */}
 
-            <PrivateRoute path="/consultas">
-                <AreaMedico />
-            </PrivateRoute>
+                <PrivateRoute path="/consultas">
+                    <AreaMedico />
+                </PrivateRoute>
 
             </Switch>
         </BrowserRouter >

@@ -454,47 +454,49 @@ module.exports = {
                 {
                     where: { PacienteId: idPaciente },
                     order: [["data", "DESC"]],
-
-                }
-                , {
-                    include: [{
-                        association: "Paciente",
-                        attributes: [
-                            "nome",
-                            "dataNascimento",
-                            "cpf"
-                        ]
-                    },
-                    {
-                        association: "Filial",
-                        attributes: [
-                            "nomeFantasia",
-                            "razaoSocial"
-                        ]
-                    },
-                    {
-                        association: "Atendimento",
-                        attributes: [
-                            "tipo"
-                        ]
-                    },
-                    {
-                        association: "ProfissionalDaSaude",
-                        attributes: [
-                            "nome",
-                            "dataNascimento",
-                            "crm"
-                        ]
-                    },
+                    include: [
+                        {
+                            association: "Filial",
+                            attributes: [
+                                "nomeFantasia",
+                            ]
+                        },
+                        {
+                            association: "Servico",
+                            attributes: [
+                                "nome",
+                            ]
+                        },
+                        {
+                            association: "Atendimento",
+                            attributes: [
+                                "tipo"
+                            ]
+                        },
+                        {
+                            association: "ProfissionalDaSaude",
+                            attributes: [
+                                "nome",
+                                "foto",
+                            ]
+                        },
                     ],
-                },
+                    raw: true
+                }
             );
 
             if (!consultas) {
                 return res.status(400).send({ error: "Paciente não encontrado(a)" });
             }
 
-            res.status(200).send(consultas);
+            const dados = consultas.map(consulta => {
+                const arr = consulta.horario.split(":");
+
+                return { ...consulta, horario: `${arr[0]}:${arr[1]}` }
+            });
+
+            res.status(200).send(dados);
+
         } catch (error) {
             console.log(error);
             return res.status(500).send({ error: "Não foi possivel listar consultas, por favor tente novamente" });

@@ -37,8 +37,6 @@ module.exports = {
 
                 filialCriado = await enderecoFilialCriado.createFilial(dados);
 
-                console.log(servicos);
-
                 filialCriado.setServicos(servicos);
 
                 telefones.forEach(numero => filialCriado.createTelefoneFilial({ numero: numero }));
