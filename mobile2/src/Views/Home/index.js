@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 import LottieView from "lottie-react-native";
+import { EventRegister } from "react-native-event-listeners";
 
 import Container from "../../Components/Container";
 import { Botao1 } from "../../Components/Botao1";
@@ -41,16 +42,29 @@ const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 250 }));
   const [opacity] = useState(new Animated.Value(0));
+  const [dadosConsulta, setDadosConsulta] = useState();
 
   const pegarDados = async () => {
+
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
+
+    const consultas = await api.get(`paciente/${paciente.id}/consultas`);
+
+    setDadosConsulta(consultas.data);
     setNome(paciente.nome);
     setLoading(false);
+
   };
 
   useEffect(() => {
+    //registrar no evento realoadUsuario
+    listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
+      await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
+
+      setNome(dados.nome);
+    });
     pegarDados();
 
     Animated.parallel([
@@ -65,10 +79,66 @@ const Home = ({ navigation }) => {
         useNativeDriver: true,
       }),
     ]).start();
+
+    //remover o registro do listener
+    return () => {
+      EventRegister.removeEventListener();
+    };
   }, []);
 
   const navegarConsulta = () => {
     navigation.navigate("Consulta");
+  };
+
+  const Consultas = () => {
+    return (
+      <>
+        {dadosConsulta.map((consulta) => (
+          <CardConsulta style={{ elevation: 4 }}>
+          <HeaderCardConsulta>
+            <ImgMedico source={require("../../Assets/fotoMedico.png")} />
+            <ContainerTextosHeader>
+              <TitulosCardConsulta> Dr. Thomas Shelby </TitulosCardConsulta>
+              <TextoCardConsulta> 04/08, 15:00 </TextoCardConsulta>
+            </ContainerTextosHeader>
+          </HeaderCardConsulta>
+          <InfrmCardConsulta>
+            <ContainerInfrmCardConsulta>
+              <TitulosCardConsulta style={{ fontSize: 15 }}>
+                {" "}
+                Serviço:{" "}
+              </TitulosCardConsulta>
+              <TextoCardConsulta> Cardiologia </TextoCardConsulta>
+            </ContainerInfrmCardConsulta>
+            <ContainerInfrmCardConsulta>
+              <TitulosCardConsulta style={{ fontSize: 15 }}>
+                {" "}
+                Atendimento:{" "}
+              </TitulosCardConsulta>
+              <TextoCardConsulta> Presencial </TextoCardConsulta>
+            </ContainerInfrmCardConsulta>
+            <ContainerInfrmCardConsulta>
+              <TitulosCardConsulta style={{ fontSize: 15 }}>
+                {" "}
+                Local:{" "}
+              </TitulosCardConsulta>
+              <TextoCardConsulta> Hospital Santo Agostino </TextoCardConsulta>
+            </ContainerInfrmCardConsulta>
+            <ContainerInfrmCardConsulta style={{ justifyContent: "flex-end" }}>
+              <TitulosCardConsulta style={{ fontSize: 15 }}>
+                {" "}
+                Valor:{" "}
+              </TitulosCardConsulta>
+              <TextoCardConsulta style={{ color: "green", paddingRight: 10 }}>
+                {" "}
+                R$ 100,00{" "}
+              </TextoCardConsulta>
+            </ContainerInfrmCardConsulta>
+          </InfrmCardConsulta>
+        </CardConsulta>
+        ))}
+      </>
+    );
   };
 
   if (loading) {
@@ -102,7 +172,7 @@ const Home = ({ navigation }) => {
             <ContainerBtnTheme>
               <Image
                 source={require("../../Assets/logo-consuline.png")}
-                style={{ width: "100%", height: 30, marginTop: 55 }}
+                style={{ width: "100%", height: 40, marginTop: -12 }}
               />
             </ContainerBtnTheme>
           </ContainerColor>
@@ -140,154 +210,10 @@ const Home = ({ navigation }) => {
               {" "}
               Minhas consultas:{" "}
             </TituloHome>
-            <CardConsulta style={{ elevation: 4 }}>
-              <HeaderCardConsulta>
-                <ImgMedico source={require("../../Assets/fotoMedico.png")} />
-                <ContainerTextosHeader>
-                  <TitulosCardConsulta> Dr. Thomas Shelby </TitulosCardConsulta>
-                  <TextoCardConsulta> 04/08, 15:00 </TextoCardConsulta>
-                </ContainerTextosHeader>
-              </HeaderCardConsulta>
-              <InfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Serviço:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta> Cardiologia </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Atendimento:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta> Presencial </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Local:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta>
-                    {" "}
-                    Hospital Santo Agostino{" "}
-                  </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta
-                  style={{ justifyContent: "flex-end" }}
-                >
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Valor:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta
-                    style={{ color: "green", paddingRight: 10 }}
-                  >
-                    {" "}
-                    R$ 100,00{" "}
-                  </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-              </InfrmCardConsulta>
-            </CardConsulta>
-            <CardConsulta style={{ elevation: 4 }}>
-              <HeaderCardConsulta>
-                <ImgMedico source={require("../../Assets/fotoMedico.png")} />
-                <ContainerTextosHeader>
-                  <TitulosCardConsulta> Dr. Thomas Shelby </TitulosCardConsulta>
-                  <TextoCardConsulta> 04/08, 15:00 </TextoCardConsulta>
-                </ContainerTextosHeader>
-              </HeaderCardConsulta>
-              <InfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Serviço:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta> Cardiologia </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Atendimento:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta> Presencial </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Local:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta>
-                    {" "}
-                    Hospital Santo Agostino{" "}
-                  </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta
-                  style={{ justifyContent: "flex-end" }}
-                >
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Valor:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta
-                    style={{ color: "green", paddingRight: 10 }}
-                  >
-                    {" "}
-                    R$ 100,00{" "}
-                  </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-              </InfrmCardConsulta>
-            </CardConsulta>
-            <CardConsulta style={{ elevation: 4 }}>
-              <HeaderCardConsulta>
-                <ImgMedico source={require("../../Assets/fotoMedico.png")} />
-                <ContainerTextosHeader>
-                  <TitulosCardConsulta> Dr. Thomas Shelby </TitulosCardConsulta>
-                  <TextoCardConsulta> 04/08, 15:00 </TextoCardConsulta>
-                </ContainerTextosHeader>
-              </HeaderCardConsulta>
-              <InfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Serviço:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta> Cardiologia </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Atendimento:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta> Presencial </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta>
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Local:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta>
-                    {" "}
-                    Hospital Santo Agostino{" "}
-                  </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-                <ContainerInfrmCardConsulta
-                  style={{ justifyContent: "flex-end" }}
-                >
-                  <TitulosCardConsulta style={{ fontSize: 15 }}>
-                    {" "}
-                    Valor:{" "}
-                  </TitulosCardConsulta>
-                  <TextoCardConsulta
-                    style={{ color: "green", paddingRight: 10 }}
-                  >
-                    {" "}
-                    R$ 100,00{" "}
-                  </TextoCardConsulta>
-                </ContainerInfrmCardConsulta>
-              </InfrmCardConsulta>
-            </CardConsulta>
-            <Botao2 title="Marcar consulta +" funcExec={navegarConsulta} />
+
+            <Consultas />
+
+            <Botao2 title="Marcar consulta +" funcExec={() => console.log(dadosConsulta)} />
           </ContainerConteudoHome>
         </ScrollView>
       </Container>
