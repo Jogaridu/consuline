@@ -241,6 +241,13 @@ export const TextoHospital = styled.Text`
     padding-top: 5px;
 `;
 
+export const ContainerBotaoCardHospital = styled.View`
+    width: 100%;
+    height: auto;
+    align-items: flex-end;
+    padding-right: 20px;
+`;
+
 export const ContainerHorarios = styled.View`
     width: 100%;
     height: auto;

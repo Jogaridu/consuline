@@ -34,7 +34,7 @@ export const ContainerBtnTheme = styled.View`
 `;
 
 export const ContainerCardCovid = styled(Animated.View)`
-  width: 88%;
+  width: 90%;
   height: 130px;
   background-color: ${colors.principal};
   margin-top: 40px;
@@ -57,7 +57,9 @@ export const ContainerInfrmCardCovid = styled.View`
 `;
 
 export const TextoInfrmCardCovid = styled.Text`
-  font-size: 21px;
+  width: 210px;
+  /* background-color: blue; */
+  font-size: 20px;
   color: ${colors.container};
   font-weight: bold;
   text-align: right;

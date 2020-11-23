@@ -143,3 +143,36 @@
 [1121/201706.912:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1121/203206.915:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1121/204707.329:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/194737.709:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/195737.821:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/195737.900:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1122/195737.900:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/195737.900:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/200237.722:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/201737.799:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/203237.892:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/204738.046:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/210238.183:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/211738.188:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/213238.196:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/214738.196:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/220238.198:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/221738.209:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1122/223238.971:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/061425.402:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/062425.612:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/062425.771:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1123/062425.771:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/062425.771:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/062925.481:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/064425.515:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/065925.515:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/071425.546:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/072925.637:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/074426.220:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/075926.238:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/081426.278:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/082926.363:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/084426.402:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/085926.494:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/091426.501:ERROR:crash_report_database_win.cc(457)] unexpected header

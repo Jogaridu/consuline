@@ -14,7 +14,7 @@ import {
 } from "react-native";
 
 import { Botao1 } from "../../Components/Botao1";
-import Botao2 from "../../Components/Botao2";
+import Botao3 from "../../Components/Botao3";
 import { Input } from "./styles";
 import Container from "../../Components/Container";
 import Titulo from "../../Components/TituloCadastro";
@@ -181,7 +181,7 @@ const Login = ({ navigation }) => {
               onChangeText={handlerInputSenha}
             />
 
-            <Botao2 bottom={16} title="Entrar" funcExec={autenticarPaciente} />
+            <Botao3 title="Entrar" funcExec={() => autenticarPaciente()} />
             <Botao1 title="Não tenho cadastro" funcExec={navegarTelaInicial} />
           </ScrollView>
         </KeyboardAvoidingView>

@@ -70,8 +70,8 @@ const Agendamento = ({ navigation, route }) => {
   const [mostrarHorarios, setMostrarHorarios] = useState();
 
   const pegarDados = async () => {
-    const idMedico = route.params;
-    const retorno = await api.get(`/medico/${idMedico}/consultas/dias`);
+    // const idMedico = route.params;
+    const retorno = await api.get(`/medico/1/consultas/dias`);
 
     setDia(retorno.data);
   };
@@ -87,7 +87,7 @@ const Agendamento = ({ navigation, route }) => {
   return (
     <Container style={{ backgroundColor: colors.fundo }}>
       <ScrollView style={{ width: "100%" }}>
-        <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+        
         <Label> Agendamento </Label>
 
             <Calendar
@@ -139,6 +139,7 @@ const Agendamento = ({ navigation, route }) => {
             </ContainerHorarios>
 
             <ContainerBotaoCadastro>
+              <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
               <Botao title="Próximo" funcExec={navegarPagamento} />
             </ContainerBotaoCadastro>
 

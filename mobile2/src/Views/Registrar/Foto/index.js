@@ -59,7 +59,7 @@ const Foto = ({ navigation, route }) => {
 
     try {
       const retorno = await api.post(
-        `/paciente/${paciente.id}/imagem`,
+        `/paciente/${pacienteId}/imagem`,
         formData,
         {
           headers: {
@@ -148,9 +148,16 @@ const Foto = ({ navigation, route }) => {
             <Botao2
               bottom={15}
               title={tituloBotao.sim}
-              funcExec={permissaoCamera}
+              funcExec={
+                tituloBotao.sim === "Sim" ? permissaoCamera : upload
+              }
             />
-            <Botao1 title={tituloBotao.nao} funcExec={upload} />
+            <Botao1
+              title={tituloBotao.nao}
+              funcExec={
+                tituloBotao.nao === "Não" ? navegarSucesso : permissaoCamera
+              }
+            />
           </ContainerBotao>
         </ScrollView>
       </ContainerConteudo>

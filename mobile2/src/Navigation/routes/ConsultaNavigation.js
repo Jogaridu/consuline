@@ -18,7 +18,7 @@ import Pagamento from "../../Views/Consulta/Form/pagamento";
 
 const ConsultaNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="ConsultaNavigation">
+    <Stack.Navigator initialRouteName="Servicos">
       <Stack.Screen
         name="ConsultaNavigation"
         component={Consulta}
