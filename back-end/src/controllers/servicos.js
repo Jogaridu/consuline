@@ -3,6 +3,13 @@ const Filial = require("../models/Filial");
 
 module.exports = {
   async cadastrar(req, res) {
+
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+    }
+
     const { nome, descricao } = req.body;
 
     const { firebaseUrl } = req.file;
@@ -74,6 +81,12 @@ module.exports = {
   },
 
   async deletar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+    }
+
     const { id } = req.params;
 
     try {
@@ -91,6 +104,13 @@ module.exports = {
   },
 
   async atualizar(req, res) {
+
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+    }
+
     const { id } = req.params;
 
     const { firebaseUrl } = req.file;
@@ -123,6 +143,13 @@ module.exports = {
   },
 
   async pegarFiliais(req, res) {
+
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+    }
+
     const { id } = req.params;
 
     try {
@@ -149,6 +176,13 @@ module.exports = {
   },
 
   async verificarNome(req, res) {
+
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+    }
+
     const { nome } = req.body;
 
     try {
