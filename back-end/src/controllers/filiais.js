@@ -10,6 +10,12 @@ module.exports = {
 
         const { servicos, endereco, telefones, ...dados } = req.body;
 
+        const { idCentral, tipoPerfil } = req;
+
+        if (tipoPerfil !== "admin") {
+            return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        }
+
         if (endereco && telefones && dados && servicos) {
             try {
 
@@ -123,6 +129,12 @@ module.exports = {
 
     async deletar(req, res) {
 
+        const { idCentral, tipoPerfil } = req;
+
+        if (tipoPerfil !== "admin") {
+            return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        }
+
         const { id } = req.params;
 
         try {
@@ -144,6 +156,12 @@ module.exports = {
     },
 
     async atualizar(req, res) {
+
+        const { idCentral, tipoPerfil } = req;
+
+        if (tipoPerfil !== "admin") {
+            return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        }
 
         const { id } = req.params;
 

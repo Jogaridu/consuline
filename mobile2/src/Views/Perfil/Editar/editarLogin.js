@@ -7,7 +7,7 @@ import {
   AsyncStorage,
   Alert,
 } from "react-native";
-// import bcrypt from "bcryptjs";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Botao from "../../../Components/Botao2";
 import Container from "../../../Components/Container";
@@ -125,7 +125,9 @@ const EditarLogin = ({ navigation }) => {
   } else {
     return (
       <Container style={{ backgroundColor: colors.fundo }}>
-        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")} />
+        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")}>
+        <Icon name="close" size={42} color="#911" />
+        </FecharEditar>
         <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
           Login
         </TituloPerfil>

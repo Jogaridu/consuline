@@ -9,7 +9,7 @@ export const ContainerColor = styled.View`
 `;
 
 export const ContainerPerfil = styled.View`
-  flex: 3;
+  flex: 3.5;
   width: 100%;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
@@ -19,20 +19,21 @@ export const ContainerPerfil = styled.View`
 
 export const FotoPerfil = styled.Image`
   margin: 0 auto;
-  width: 150px;
-  height: 150px;
+  width: 135px;
+  height: 135px;
   background: ${colors.container};
   border-radius: 100px;
-  margin-top: -100px;
+  margin-top: -80px;
 `;
 
 export const BtnEditar = styled.TouchableOpacity`
   width: 55px;
   height: 35px;
-  background: ${colors.container};
   left: 75%;
   margin-top: -30px;
   border-radius: 10px;
+  align-items: center;
+  margin-left: 15px;
 `;
 
 export const ContainerConteudoInformacoes = styled.View`
@@ -117,11 +118,10 @@ export const ContainerEditar = styled.View`
 `;
 
 export const FecharEditar = styled.TouchableOpacity`
-  width: 30px;
-  height: 30px;
-  background: red;
+  width: 40px;
+  height: 40px;
   align-self: flex-end;
-  margin-top: 10px;
+  margin-bottom: 5px;
   margin-right: 20px;
   border-radius: 100px;
 `;

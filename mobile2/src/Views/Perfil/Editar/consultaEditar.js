@@ -21,16 +21,6 @@ import EditarInformacaoPessoal from "./editarInformacaoPessoal";
 import EditarLocalizacao from "./editarLocalizacao";
 import EditarLogin from "./editarLogin";
 
-const ConsultarOpcao = (props) => {
-  if (props.tela === "informacaoPessoal") {
-    return <EditarInformacaoPessoal telaEditar={props.edita} />;
-  } else if (props.tela === "localizacao") {
-    return <EditarLocalizacao telaEditar={props.edita} />;
-  } else if (props.tela === "login") {
-    return <EditarLogin telaEditar={props.edita} />;
-  }
-};
-
 const ConsultaEditar = ({ navigation }) => {
   const [dados, setDados] = useState({
     nome: "",
@@ -47,6 +37,7 @@ const ConsultaEditar = ({ navigation }) => {
       cidade: paciente.EnderecoPaciente.cidade,
       estado: paciente.EnderecoPaciente.estado,
       nome: paciente.nome,
+      foto: paciente.foto,
     });
   };
 
@@ -59,7 +50,7 @@ const ConsultaEditar = ({ navigation }) => {
     <Container>
       <ContainerColor style={{ marginTop: -25 }} />
       <ContainerPerfil>
-        <FotoPerfil />
+        <FotoPerfil source={{uri: dados.foto}}/>
 
         <BtnEditar>{/* <Ionicons size={32} color={"black"} /> */}</BtnEditar>
         <ScrollView>

@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+ const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
@@ -10,6 +10,7 @@ const auth = require("../config/auth.json");
 
 module.exports = {
   async cadastrar(req, res) {
+
     const {
       cpf,
       nome,
@@ -26,7 +27,6 @@ module.exports = {
     } = req.body;
     const { firebaseUrl } = req.file ? req.file : "";
 
-console.log(endereco);
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
 
@@ -96,7 +96,6 @@ console.log(endereco);
 
       res.status(201).send({ profissional });
     } catch (error) {
-      console.log(error);
       return res.status(500).send({
         error: "Não foi possível cadastar este profissional, tente novamente  ",
       });

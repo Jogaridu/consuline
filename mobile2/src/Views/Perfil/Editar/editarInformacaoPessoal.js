@@ -160,7 +160,9 @@ const EditarInformacaoPessoal = ({navigation}) => {
   } else {
     return (
       <Container style={{backgroundColor: colors.fundo}}>
-        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")} />
+        <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")}>
+          <Icon name="close" size={42} color="#911" />
+        </FecharEditar>
         <TituloPerfil style={{ marginTop: 5, fontSize: 20 }}>
           Informações pessoais
         </TituloPerfil>

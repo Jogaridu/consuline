@@ -16,6 +16,7 @@ const Tab = createBottomTabNavigator();
 
 import Home from "../../Views/Home";
 import Perfil from "../../Views/Perfil";
+import Consulta from "../../Views/Consulta";
 
 import colors from "../../Styles/colors";
 
@@ -30,8 +31,12 @@ export default HomeNavigator = () => {
             iconName = focused
               ? "home"
               : "home-outline";
-          } else if (route.name === "Perfil") {
-            iconName = focused ? "home" : "home-outline";
+          } 
+          else if (route.name === "Perfil") {
+            iconName = focused ? "account" : "account-outline";
+          } 
+          else if (route.name === "Agendar") {
+            iconName = focused ? "calendar-range" : "calendar-range-outline";
           }
 
           return <Icon name={iconName} size={size} color={color} />;
@@ -43,6 +48,7 @@ export default HomeNavigator = () => {
       }}
     >
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Agendar" component={Consulta} tabBarVisible={true} />
       <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
   );

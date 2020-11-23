@@ -16,10 +16,33 @@ import RegistrarServico from "./Pages/Servicos/cadastrar";
 import EditarServico from "./Pages/Servicos/editar";
 import AreaMedico from "./Pages/trabalhoMedico";
 import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
+import EnderecoFilial from "./Pages/Filial/Registrar/Endereco";
+import ServicosFilial from "./Pages/Filial/Registrar/Servicos";
+import InformacoesFilial from "./Pages/Filial/Registrar/Informacoes";
+import MenuCentral from "./Components/MenuCentral";
+import TituloPrincipal from "./Components/TituloPrincipal";
+import user from "./Assets/user.png";
+import Consulta from "./Pages/Filial/Consulta";
 import Endereco from "./Pages/Filial/Registrar/Endereco";
 import Servicos from "./Pages/Filial/Registrar/Servicos";
 import Informacoes from "./Pages/Filial/Registrar/Informacoes";
 import { isSignIn } from "./Services/security";
+
+
+function RotaCadastroFilial({ children }) {
+    return (
+
+        <div className="container-central">
+            <MenuCentral />
+
+            <div className="container-conteudo-central">
+                <TituloPrincipal nome="Informações de cadastro" imagem={user} />
+                {children}
+            </div>
+        </div>
+
+    )
+}
 
 // function MenuTalRoute({children}){
 //     return (
@@ -39,7 +62,7 @@ const PrivateRoute = ({ children, ...rest }) => {
                         pathname: "/login",
                         state: { from: location },
                     }}
-                /> 
+                />
             )
         }
     />
@@ -68,15 +91,24 @@ function Routes() {
                     <EditarFilial />
                 </PrivateRoute>
 
+                <RotaCadastroFilial path="/filial/endereco">
+                    <EnderecoFilial />
+                </RotaCadastroFilial>
                 <PrivateRoute path="/filial">
                     <RegistrarFilial />
                 </PrivateRoute>
 
-                {/* <Route path="/filial/endereco" component={Endereco} />
+                <RotaCadastroFilial path="/filial/servicos">
+                    <ServicosFilial />
+                </RotaCadastroFilial>
 
-                <Route path="/filial/servicos" component={Servicos} />
+                <Route path="/filial/:id">
+                    <Consulta />
+                </Route>
 
-                <Route path="/filial" exact component={Informacoes} /> */}
+                <RotaCadastroFilial path="/filial" exact>
+                    <InformacoesFilial />
+                </RotaCadastroFilial>
 
 
                 <PrivateRoute path="/filiais">
@@ -111,7 +143,7 @@ function Routes() {
                 </PrivateRoute>
 
             </Switch>
-        </BrowserRouter>
+        </BrowserRouter >
     );
 }
 

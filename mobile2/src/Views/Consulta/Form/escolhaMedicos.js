@@ -47,7 +47,7 @@ const CardMedico = (props) => {
 const EscolhaMedicos = ({ navigation, route }) => {
     const [dadosMedico, setDadosMedico] = useState(null);
     const [loading, setLoading] = useState(true);
-    let novaConsulta = route.params;
+    // let novaConsulta = route.params;
 
     const pegarDados = async () => {
         const retorno = await api.get("/profissional");
@@ -85,7 +85,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
     return (
         <Container style={{ backgroundColor: colors.fundo }}>
             {/* <ScrollView style={{ width: "100%" }}> */}
-            <Passos cor1={true} cor2={true} />
+            
             <Label>Escolha o médico que irá atendê-lo: </Label>
             {loading ? (
                 <Container>
@@ -101,6 +101,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
                 )}
 
             {/* </ScrollView> */}
+            <Passos cor1={true} cor2={true} />
         </Container>
     );
 };

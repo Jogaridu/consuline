@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, AsyncStorage } from "react-native";
+import { View, Text, Image, ScrollView, AsyncStorage, StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { EventRegister } from "react-native-event-listeners";
 
@@ -22,23 +22,29 @@ import Container from "../../Components/Container";
 import colors from "../../Styles/colors";
 
 const Perfil = ({ navigation }) => {
-  const [dadosPaciente, setDadosPaciente] = useState();
+  const [dadosPaciente, setDadosPaciente ] = useState();
   const [loading, setLoading] = useState(true);
+  const [dataNascimento, setDataNascimento] = useState();
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
+
+    var dataNasc = paciente.dataNascimento;
+    var dataNascBR = dataNasc.split("-");
+    var dataNova = dataNascBR[2] + "-" + dataNascBR[1] + "-" + dataNascBR[0];
+
     setDadosPaciente(paciente);
+    setDataNascimento(dataNova);
     setLoading(false);
-    console.log(paciente.foto)
+
+    console.log(dadosPaciente);
   };
 
   useEffect(() => {
     //registrar no evento realoadUsuario
     listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
-      console.log("Saída de dados: ----- SAIDA ----");
-      console.log(dados);
       await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
 
       setDadosPaciente(dados);
@@ -63,17 +69,19 @@ const Perfil = ({ navigation }) => {
     );
   } else {
     return (
-      <Container>
+      <Container style={{backgroundColor: colors.principal}}>
         <ContainerColor />
         <ContainerPerfil>
           <FotoPerfil source={{uri: dadosPaciente.foto}} />
 
-          <BtnEditar onPress={navegarConsultaEditar} />
+          <BtnEditar onPress={navegarConsultaEditar}>
+            <Icon name="account-edit" size={36} color={colors.principal} />
+          </BtnEditar>
           <ScrollView>
             <Text
               style={{
                 color: colors.corTitulo,
-                fontSize: 32,
+                fontSize: 30,
                 fontWeight: "bold",
                 textAlign: "center",
               }}
@@ -112,7 +120,7 @@ const Perfil = ({ navigation }) => {
                   </TextoInformacoes>
                   <TextoInformacoes>
                     {" "}
-                    Data de nascimento: {dadosPaciente.dataNascimento}
+                    Data de nascimento: {dataNascimento}
                   </TextoInformacoes>
                   <TextoInformacoes> RG: {dadosPaciente.rg} </TextoInformacoes>
                   <TextoInformacoes>
