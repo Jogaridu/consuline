@@ -31,7 +31,10 @@ const ContainerFormulario = (props) => {
     const navigateAtendimento = (values) => {
 
         if (values.sintomas !== "" && props.servico !== undefined) {
-            const dados = { sintomas: values.sintomas, servico: { ...props.servicos } };
+            const dados = { sintomas: values.sintomas, servico: { ...props.servico } };
+
+            console.log(dados);
+
             props.navigation.navigate("Atendimento", dados);
 
         } else {
@@ -43,53 +46,53 @@ const ContainerFormulario = (props) => {
     return (
         <ContainerForm>
             <ScrollView>
-            <ContainerPassos>
-                <Passos cor1={true} />
-            </ContainerPassos>
-            <Label> Serviços </Label>
-            <ContainerBotaoBusca onPress={() => props.setView("lista")}>
-                <Icon name="search1" size={20} color={colors.principal} />
-                <Text style={{ color: colors.principal, marginLeft: 5 }}>
-                    {" "}
+                <ContainerPassos>
+                    <Passos cor1={true} />
+                </ContainerPassos>
+                <Label> Serviços </Label>
+                <ContainerBotaoBusca onPress={() => props.setView("lista")}>
+                    <Icon name="search1" size={20} color={colors.principal} />
+                    <Text style={{ color: colors.principal, marginLeft: 5 }}>
+                        {" "}
                     Pesquisar Serviço{" "}
-                </Text>
-            </ContainerBotaoBusca>
+                    </Text>
+                </ContainerBotaoBusca>
 
-            {props.servico && (
-                <ContainerCardServicos
-                    selecionado={props.servico.nome === props.servico.nome}
-                >
-                    <ImgServicos source={{ uri: props.servico.imagem }} />
-                    <TituloServico selecionado={props.servico.nome === props.servico.nome}> {props.servico.nome} </TituloServico>
-                </ContainerCardServicos>
-            )}
+                {props.servico && (
+                    <ContainerCardServicos
+                        selecionado={props.servico.nome === props.servico.nome}
+                    >
+                        <ImgServicos source={{ uri: props.servico.imagem }} />
+                        <TituloServico selecionado={props.servico.nome === props.servico.nome}> {props.servico.nome} </TituloServico>
+                    </ContainerCardServicos>
+                )}
 
-            <Formik
-                initialValues={{ sintomas: '', descricao: '' }}
-                onSubmit={navigateAtendimento} >
-                {({ handleChange, handleBlur, handleSubmit }) => (<>
-                    <Label> Sintomas </Label>
-                    <Input
-                        placeholder="Digite seus sintomas"
-                        onChangeText={handleChange('sintomas')}
-                        onBlur={handleBlur('sintomas')}
-                        placeholderTextColor={colors.principal}
-                        style={{ marginBottom: 50 }} />
+                <Formik
+                    initialValues={{ sintomas: '', descricao: '' }}
+                    onSubmit={navigateAtendimento} >
+                    {({ handleChange, handleBlur, handleSubmit }) => (<>
+                        <Label> Sintomas </Label>
+                        <Input
+                            placeholder="Digite seus sintomas"
+                            onChangeText={handleChange('sintomas')}
+                            onBlur={handleBlur('sintomas')}
+                            placeholderTextColor={colors.principal}
+                            style={{ marginBottom: 50 }} />
 
-                    <Label> Descrição </Label>
-                    <Input
-                        style={{ height: 180, padding: 0 }}
-                        placeholder="Descreva o que você está sentindo"
-                        onChangeText={handleChange('descricao')}
-                        onBlur={handleBlur('descricao')}
-                        placeholderTextColor={colors.principal}
-                    />
-                    <ContainerBotaoCadastro>
-                        <Botao title="Próximo" funcExec={handleSubmit} />
-                    </ContainerBotaoCadastro>
-                    {/* </ScrollView> */}
-                </>)}
-            </Formik>
+                        <Label> Descrição </Label>
+                        <Input
+                            style={{ height: 180, padding: 0 }}
+                            placeholder="Descreva o que você está sentindo"
+                            onChangeText={handleChange('descricao')}
+                            onBlur={handleBlur('descricao')}
+                            placeholderTextColor={colors.principal}
+                        />
+                        <ContainerBotaoCadastro>
+                            <Botao title="Próximo" funcExec={handleSubmit} />
+                        </ContainerBotaoCadastro>
+                        {/* </ScrollView> */}
+                    </>)}
+                </Formik>
             </ScrollView>
         </ContainerForm>
     );
