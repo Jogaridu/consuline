@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { RadioButton } from "react-native-paper";
 
 import Container from "../../../Components/Container";
@@ -40,8 +40,7 @@ const Pagamento = ({ navigation, route }) => {
     return (
         <Container style={{ backgroundColor: colors.fundo }}>
             <ScrollView>
-                <TituloCadastro>Selecione a forma{"\n"}de pagamento: </TituloCadastro>
-                <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+                
                 <ContainerValor>
                     <TituloCadastro style={{ fontSize: 30, marginTop: 24 }}>
                         {" "}
@@ -53,6 +52,7 @@ const Pagamento = ({ navigation, route }) => {
                     </TituloCadastro>
                 </ContainerValor>
                 <ContainerRadioButton>
+                <Label style={{ fontSize: 20 }}>Selecione a forma de pagamento: </Label>  
                     <ItemRadioButton>
                         <RadioButton
                             value="first"
@@ -102,7 +102,8 @@ const Pagamento = ({ navigation, route }) => {
                             placeholder="Digite seus sintomas"
                             onChangeText={texto => setNumero(texto)}
                             value={numero}
-                            placeholderTextColor={colors.principal} />
+                            placeholderTextColor={colors.principal}
+                            style={styles.input} />
 
                         <Label style={{ fontSize: 20 }}> Data de vencimento </Label>
                         <TextInputMask
@@ -114,7 +115,8 @@ const Pagamento = ({ navigation, route }) => {
                             placeholder="Digite seus sintomas"
                             onChangeText={texto => setData(texto)}
                             value={data}
-                            placeholderTextColor={colors.principal} />
+                            placeholderTextColor={colors.principal}
+                            style={styles.input} />
 
                         <Label style={{ fontSize: 20 }}> Código de segurança </Label>
                         <Input
@@ -126,6 +128,8 @@ const Pagamento = ({ navigation, route }) => {
                             placeholderTextColor={colors.principal} />
 
                         <ContainerBotaoCadastro>
+                        <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+
                             <Botao title="Marcar consulta" funcExec={handleSubmit} />
                         </ContainerBotaoCadastro>
                     </>)}
@@ -136,5 +140,19 @@ const Pagamento = ({ navigation, route }) => {
         </Container>
     );
 };
+
+const styles = StyleSheet.create({
+    input: {
+        width: 288,
+        height: 45,
+        marginLeft: "auto",
+        marginRight: "auto",
+        padding: 10,
+        borderRadius: 5,
+        backgroundColor: colors.container,
+        borderColor: colors.principal,
+        borderWidth: 1,
+    }
+})
 
 export default Pagamento;

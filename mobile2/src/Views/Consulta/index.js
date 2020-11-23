@@ -10,7 +10,7 @@ import fundoConsulta from "../../Assets/fundoConsulta.jpg"
 
 const Consulta = ({ navigation }) => {
     const navigateServicos = () => {
-        navigation.navigate("Servicos")
+        navigation.navigate("Consulta")
     }
 
     return (

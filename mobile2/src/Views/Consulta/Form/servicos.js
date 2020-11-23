@@ -165,7 +165,8 @@ const CardServicos = ({ nome, imagem, servico, setServico, setView }) => {
             onPress={() => {
                 setServico({ nome: nome, imagem: imagem });
                 setView("form");
-            }}>
+            }}
+        >
             <ImgServicos source={{ uri: imagem }} />
             <TituloServico selecionado={servico === nome}> {nome} </TituloServico>
         </ContainerCardServicos>
@@ -197,12 +198,14 @@ const Servicos = ({ navigation }) => {
         pegarDados();
     }, []);
 
-
-
     return (
         <Container style={{ backgroundColor: colors.fundo }}>
             {view === "form" ? (
-                <ContainerFormulario setView={setView} servico={servico} navigation={navigation} />
+                <ContainerFormulario
+                    setView={setView}
+                    servico={servico}
+                    navigation={navigation}
+                />
             ) : (
                     <ContainerLista
                         setView={setView}

@@ -68,6 +68,22 @@ module.exports = {
                 return res.status(400).send({ error: "Já existe uma consulta com esse horario,data e profissional, por favor tente novamente" });
             }
 
+            consultaCriada = null;
+
+            consultaCriada = await Consulta.findOne({
+                where: {
+                    [Op.and]: [
+                        { data: data },
+                        { horario: horario },
+                        { PacienteId: PacienteId }
+                    ]
+                }
+            })
+
+            if (consultaCriada) {
+                return res.status(400).send({ error: "Já existe uma consulta com esse horario,data e paciente, por favor tente novamente" });
+            }
+
             const consulta = await Consulta.create({
                 valor,
                 desconto,
