@@ -1,12 +1,58 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 import './style.css';
 import '../../../Styles/globalStyle.css'
+
 import supermedico from '../../../Assets/supermedico.png'
 import medicoteste from '../../../Assets/medicoteste.png'
+
+import api from '../../../Services/api'
 import { getProfissional } from "../../../Services/security"
 
+const CardConsulta = ({consulta}) =>{
+    return(
+        <div className="card-previa">
+            <div className="foto-previa-card">
+                <img id="medicoteste" src={medicoteste} alt="Logoteste" /> 
+            </div>
+            <div className="nome-previa-card">
+                Bruno Gonçalves
+            </div>      
+            <div className="data-previa-card">
+                {consulta.data}
+            </div>
+            <div className="vermais-previa-card">
+                <div className="txtvermais-previa-card">
+                    Ver mais
+                </div>
+            </div>
+        </div>
+    )
+}
+ 
 function HomeConsulta(){
+
+    const [consulta, setConsulta] = useState([]);
+
+        useEffect(() => {
+            carregarConsultas();
+
+        }, []);
+
+    const carregarConsultas = async () => {
+        try {
+            const retorno = await api.get("/medico/3/consultas");
+            // console.log(retorno.data);
+            setConsulta(retorno.data);
+
+        } catch (error) {
+            console.log(error);
+           
+        }
+
+    }
 
     const medicoSessao = getProfissional();
 
@@ -38,54 +84,8 @@ function HomeConsulta(){
                     <h1>Consultas para hoje:</h1>
                 </div>
                 <div className="card-previa-consulta">
-                    <div className="card-previa">
-                        <div className="foto-previa-card">
-                        <img id="medicoteste" src={medicoteste} alt="Logoteste" /> 
-                        </div>
-                        <div className="nome-previa-card">
-                            Bruno Gonçalves
-                        </div>      
-                        <div className="data-previa-card">
-                            06/11, 15:00.
-                        </div>
-                        <div className="vermais-previa-card">
-                            <div className="txtvermais-previa-card">
-                                Ver mais
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card-previa">
-                        <div className="foto-previa-card">
-                        <img id="medicoteste" src={medicoteste} alt="Logoteste" /> 
-                        </div>
-                        <div className="nome-previa-card">
-                            Bruno Gonçalves
-                        </div>      
-                        <div className="data-previa-card">
-                            06/11, 15:00.
-                        </div>
-                        <div className="vermais-previa-card">
-                            <div className="txtvermais-previa-card">
-                                Ver mais
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card-previa">
-                        <div className="foto-previa-card">
-                        <img id="medicoteste" src={medicoteste} alt="Logoteste" /> 
-                        </div>
-                        <div className="nome-previa-card">
-                            Bruno Gonçalves
-                        </div>      
-                        <div className="data-previa-card">
-                            06/11, 15:00.
-                        </div>
-                        <div className="vermais-previa-card">
-                            <div className="txtvermais-previa-card">
-                                Ver mais
-                            </div>
-                        </div>
-                    </div>
+                    {consulta.map((consulta) => (
+                        <CardConsulta consulta={consulta} />))}
                 </div>       
             <div className="mais-consulta">
                     Mais Consultas +
