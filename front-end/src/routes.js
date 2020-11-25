@@ -1,33 +1,42 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
+import MenuCentral from "./Components/MenuCentral";
+import TituloPrincipal from "./Components/TituloPrincipal";
+
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import HomeCrud from "./Pages/Home-Crud";
 
-import ConsultaFilial from "./Pages/Filial/Consulta";
-import RegistrarFilial from "./Pages/Filial/Registrar";
-import ListagemFilial from "./Pages/Filial/Listar-Filiais";
-import EditarFilial from "./Pages/Filial/Editar/index";
-
-import RegistrarProfissional from "./Pages/Medico/Registrar";
-import Listar from "./Pages/Servicos/index";
-import RegistrarServico from "./Pages/Servicos/cadastrar";
-import EditarServico from "./Pages/Servicos/editar";
-import AreaMedico from "./Pages/trabalhoMedico";
-import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
+// Filial (CENTRAL)
 import EnderecoFilial from "./Pages/Filial/Registrar/Endereco";
 import ServicosFilial from "./Pages/Filial/Registrar/Servicos";
 import InformacoesFilial from "./Pages/Filial/Registrar/Informacoes";
-import MenuCentral from "./Components/MenuCentral";
-import TituloPrincipal from "./Components/TituloPrincipal";
-import user from "./Assets/user.png";
 import Consulta from "./Pages/Filial/Consulta";
-import Endereco from "./Pages/Filial/Registrar/Endereco";
-import Servicos from "./Pages/Filial/Registrar/Servicos";
-import Informacoes from "./Pages/Filial/Registrar/Informacoes";
-import { isSignIn } from "./Services/security";
+import ListagemFilial from "./Pages/Filial/Listar-Filiais";
+import EditarFilial from "./Pages/Filial/Editar/index";
 
+// Profissional (CENTRAL)
+import InformacoesMedico from "./Pages/Medico/Registrar/InfoPessoalMedico";
+import LocalizaoMedico from "./Pages/Medico/Registrar/infoLocalizacaoMedico";
+import LoginMedico from "./Pages/Medico/Registrar/infoLoginMedico";
+import EspecialidadeMedico from "./Pages/Medico/Registrar/InfoEspecialidade";
+import FilialMedico from "./Pages/Medico/Registrar/InfoFilial";
+
+import ListarProfissional from "./Pages/Medico/Registrar/listagemMedicos";
+
+// Serviços (CENTRAL)
+import Listar from "./Pages/Servicos/index";
+import RegistrarServico from "./Pages/Servicos/cadastrar";
+import EditarServico from "./Pages/Servicos/editar";
+
+// Profissional (MEDICOS)
+import AreaMedico from "./Pages/trabalhoMedico";
+
+import user from "./Assets/user.png";
+import add from "./Assets/add3.png";
+
+import { isSignIn } from "./Services/security";
 
 function RotaCadastroFilial({ children }) {
     return (
@@ -44,14 +53,19 @@ function RotaCadastroFilial({ children }) {
     )
 }
 
-// function MenuTalRoute({children}){
-//     return (
-//         <>
-//         <Menu></Menu>
-//         {children}
-//         </>
-//     )
-// }
+function RotaCadastroProfissional({ children }) {
+    console.log(children);
+    return (
+        <div className="container-central">
+            <MenuCentral />
+            <div className="container-conteudo-central">
+                <TituloPrincipal nome="Cadastro médicos" imagem={add} />
+
+                {children}
+            </div>
+        </div>
+    )
+}
 
 const PrivateRoute = ({ children, ...rest }) => {
     return (<Route {...rest}
@@ -94,9 +108,6 @@ function Routes() {
                 <RotaCadastroFilial path="/filial/endereco">
                     <EnderecoFilial />
                 </RotaCadastroFilial>
-                <PrivateRoute path="/filial">
-                    <RegistrarFilial />
-                </PrivateRoute>
 
                 <RotaCadastroFilial path="/filial/servicos">
                     <ServicosFilial />
@@ -110,15 +121,30 @@ function Routes() {
                     <InformacoesFilial />
                 </RotaCadastroFilial>
 
-
                 <PrivateRoute path="/filiais">
                     <ListagemFilial />
                 </PrivateRoute>
 
                 {/* Rotas de profissionais */}
 
+                <PrivateRoute path="/profissional-saude/endereco">
+                    <RotaCadastroProfissional children={LocalizaoMedico} />
+                </PrivateRoute>
+
+                <PrivateRoute path="/profissional-saude/login">
+                    <RotaCadastroProfissional children={LoginMedico} />
+                </PrivateRoute>
+
+                <PrivateRoute path="/profissional-saude/especialidade">
+                    <Route children={EspecialidadeMedico} />
+                </PrivateRoute>
+
+                <PrivateRoute path="/profissional-saude/filial">
+                    <Route children={FilialMedico} />
+                </PrivateRoute>
+
                 <PrivateRoute path="/profissional-saude">
-                    <RegistrarProfissional />
+                    <RotaCadastroProfissional children={InformacoesMedico} />
                 </PrivateRoute>
 
                 <PrivateRoute path="/profissionais-saude">

@@ -21,7 +21,7 @@ import api from "../../../Services/api";
 const CardMedico = (props) => {
 
     return (
-        <BtnMedicos onPress={() => props.navegacao.navigate("Agendamento", props.id)}>
+        <BtnMedicos onPress={() => props.navigateCalendar(props.id)}>
             <ContainerImgMedico>
                 <ImgMedico source={{ uri: props.imagem }} />
             </ContainerImgMedico>
@@ -47,7 +47,7 @@ const CardMedico = (props) => {
 const EscolhaMedicos = ({ navigation, route }) => {
     const [dadosMedico, setDadosMedico] = useState(null);
     const [loading, setLoading] = useState(true);
-    // let novaConsulta = route.params;
+    let novaConsulta = route.params;
 
     const pegarDados = async () => {
         const retorno = await api.get("/profissional");
@@ -56,18 +56,17 @@ const EscolhaMedicos = ({ navigation, route }) => {
         setLoading(false);
     };
 
-    // const navigateCalendar = (profissionalId) => {
+    const navigateCalendar = (profissionalId) => {
 
-    //     if (profissionalId !== "") {
-    //         novaConsulta = { ...novaConsulta, profissionalId };
+        if (profissionalId !== "") {
+            navigation.navigate("Agendamento", { ...novaConsulta, profissionalId });
 
-    //         props.navegacao.navigate("Atendimento", novaConsulta);
-    //     } else {
-    //         console.log("Erro, profissional sem ID");
+        } else {
+            console.log("Erro, profissional sem ID");
 
-    //     }
+        }
 
-    // };
+    };
 
     useEffect(() => {
         pegarDados();
@@ -79,13 +78,14 @@ const EscolhaMedicos = ({ navigation, route }) => {
             nome={item.profissional.dadosProfissional.nome}
             navegacao={navigation}
             imagem={item.profissional.dadosProfissional.foto}
-             />
+            navigateCalendar={navigateCalendar}
+        />
     );
 
     return (
         <Container style={{ backgroundColor: colors.fundo }}>
             {/* <ScrollView style={{ width: "100%" }}> */}
-            
+
             <Label>Escolha o médico que irá atendê-lo: </Label>
             {loading ? (
                 <Container>

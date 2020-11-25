@@ -9,7 +9,7 @@ const enviarArquivos = require("../../services/firebase");
 
 const autorizacaoMid = require("../../middlewares/autorizacao");
 
-routes.use(autorizacaoMid);
+// routes.use(autorizacaoMid);
 
 routes.post("/servico",
     Multer.single("imagem"),

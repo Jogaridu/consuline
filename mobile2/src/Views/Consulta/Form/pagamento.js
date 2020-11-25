@@ -25,12 +25,39 @@ const Pagamento = ({ navigation, route }) => {
     const [checked, setChecked] = useState("first");
     const [numero, setNumero] = useState("");
     const [data, setData] = useState("");
-    // let novaConsulta = route.params;
+    let novaConsulta = route.params;
 
     const cadastrarConsulta = async (values) => {
+
+        return console.log({
+            ...novaConsulta, pagamento: {
+                ...values,
+                numero,
+                data
+            },
+            valor: "R$100,00",
+            desconto: "R$0,00",
+            pacienteId: paciente.id
+        });
         try {
 
-            const retorno = await api.post(`/profisional/:id/consulta`);
+            const paciente = JSON.parse(
+                await AsyncStorage.getItem("@Consuline:paciente")
+            );
+
+            const retorno = await api.post(`/consulta`,
+                {
+                    ...novaConsulta, pagamento: {
+                        ...values,
+                        numero,
+                        data
+                    },
+                    valor: "R$100,00",
+                    desconto: "R$0,00",
+                    pacienteId: paciente.id
+                });
+
+            console.log(retorno.data);
 
         } catch (error) {
             console.log(error);
@@ -40,7 +67,7 @@ const Pagamento = ({ navigation, route }) => {
     return (
         <Container style={{ backgroundColor: colors.fundo }}>
             <ScrollView>
-                
+
                 <ContainerValor>
                     <TituloCadastro style={{ fontSize: 30, marginTop: 24 }}>
                         {" "}
@@ -52,7 +79,7 @@ const Pagamento = ({ navigation, route }) => {
                     </TituloCadastro>
                 </ContainerValor>
                 <ContainerRadioButton>
-                <Label style={{ fontSize: 20 }}>Selecione a forma de pagamento: </Label>  
+                    <Label style={{ fontSize: 20 }}>Selecione a forma de pagamento: </Label>
                     <ItemRadioButton>
                         <RadioButton
                             value="first"
@@ -128,7 +155,7 @@ const Pagamento = ({ navigation, route }) => {
                             placeholderTextColor={colors.principal} />
 
                         <ContainerBotaoCadastro>
-                        <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+                            <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
 
                             <Botao title="Marcar consulta" funcExec={handleSubmit} />
                         </ContainerBotaoCadastro>
@@ -153,6 +180,6 @@ const styles = StyleSheet.create({
         borderColor: colors.principal,
         borderWidth: 1,
     }
-})
+});
 
 export default Pagamento;

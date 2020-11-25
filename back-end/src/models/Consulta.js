@@ -23,6 +23,7 @@ class Consulta extends Model {
         this.belongsTo(models.Paciente);
         this.belongsTo(models.Filial);
         this.belongsTo(models.Servico);
+        this.belongsTo(models.Pagamento);
     }
 }
 
