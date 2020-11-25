@@ -33,8 +33,6 @@ const ContainerFormulario = (props) => {
         if (values.sintomas !== "" && props.servico !== undefined) {
             const dados = { sintomas: values.sintomas, servico: { ...props.servico } };
 
-            console.log(dados);
-
             props.navigation.navigate("Atendimento", dados);
 
         } else {
@@ -60,8 +58,7 @@ const ContainerFormulario = (props) => {
 
                 {props.servico && (
                     <ContainerCardServicos
-                        selecionado={props.servico.nome === props.servico.nome}
-                    >
+                        selecionado={props.servico.nome === props.servico.nome}>
                         <ImgServicos source={{ uri: props.servico.imagem }} />
                         <TituloServico selecionado={props.servico.nome === props.servico.nome}> {props.servico.nome} </TituloServico>
                     </ContainerCardServicos>
@@ -101,6 +98,7 @@ const ContainerFormulario = (props) => {
 const ContainerLista = (props) => {
     const renderItem = ({ item }) => (
         <CardServicos
+            id={item.id}
             nome={item.nome}
             imagem={item.imagem}
             servico={props.servico}
@@ -158,12 +156,12 @@ const ContainerLista = (props) => {
     );
 };
 
-const CardServicos = ({ nome, imagem, servico, setServico, setView }) => {
+const CardServicos = ({ id, nome, imagem, servico, setServico, setView }) => {
     return (
         <ContainerCardServicos
             selecionado={servico === nome}
             onPress={() => {
-                setServico({ nome: nome, imagem: imagem });
+                setServico({ nome: nome, imagem: imagem, id: id });
                 setView("form");
             }}
         >

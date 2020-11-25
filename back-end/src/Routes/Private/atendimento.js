@@ -6,7 +6,7 @@ const controller = require("../../controllers/atendimento");
 
 const autorizacaoMid = require("../../middlewares/autorizacao");
 
-routes.use(autorizacaoMid);
+// routes.use(autorizacaoMid);
 
 routes.post("/atendimento", controller.criar);
 

@@ -32,14 +32,14 @@ const ConsultaNavigation = () => {
       />
 
       <Stack.Screen
-        name="EscolhaMedicos"
-        component={EscolhaMedicos}
+        name="Atendimento"
+        component={Atendimento}
         options={{ headerShown: true }}
       />
 
       <Stack.Screen
-        name="Atendimento"
-        component={Atendimento}
+        name="EscolhaMedicos"
+        component={EscolhaMedicos}
         options={{ headerShown: true }}
       />
 

@@ -21,7 +21,7 @@ import api from "../../../Services/api";
 const CardMedico = (props) => {
 
     return (
-        <BtnMedicos onPress={() => props.navigateCalendar()}>
+        <BtnMedicos onPress={() => props.navigateCalendar(props.id)}>
             <ContainerImgMedico>
                 <ImgMedico source={{ uri: props.imagem }} />
             </ContainerImgMedico>
@@ -47,7 +47,7 @@ const CardMedico = (props) => {
 const EscolhaMedicos = ({ navigation, route }) => {
     const [dadosMedico, setDadosMedico] = useState(null);
     const [loading, setLoading] = useState(true);
-    // let novaConsulta = route.params;
+    let novaConsulta = route.params;
 
     const pegarDados = async () => {
         const retorno = await api.get("/profissional");
@@ -59,10 +59,8 @@ const EscolhaMedicos = ({ navigation, route }) => {
     const navigateCalendar = (profissionalId) => {
 
         if (profissionalId !== "") {
-            console.log(novaConsulta);
-            novaConsulta = { ...novaConsulta, profissionalId };
+            navigation.navigate("Agendamento", { ...novaConsulta, profissionalId });
 
-            props.navegacao.navigate("Atendimento", novaConsulta);
         } else {
             console.log("Erro, profissional sem ID");
 
@@ -87,7 +85,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
     return (
         <Container style={{ backgroundColor: colors.fundo }}>
             {/* <ScrollView style={{ width: "100%" }}> */}
-            
+
             <Label>Escolha o médico que irá atendê-lo: </Label>
             {loading ? (
                 <Container>

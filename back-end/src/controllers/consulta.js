@@ -390,9 +390,7 @@ module.exports = {
                     where: { ProfissionalDaSaudeId: idMedico },
                     order: [["horario", "ASC"]],
                     raw: true,
-                    attributes: ['data', 'horario', 'id']
-                }
-                , {
+                    attributes: ['data', 'horario', 'id'],
                     include: [{
                         association: "Paciente",
                         attributes: [
@@ -426,7 +424,7 @@ module.exports = {
 
 
                     ],
-                },
+                }
             );
 
             if (!consultas) {
