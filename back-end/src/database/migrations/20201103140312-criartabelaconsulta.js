@@ -72,6 +72,16 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
+      PagamentoId:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        refences: {
+          model: "tblpagamento",
+          key: "id"
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
       AtendimentoId: {
         type: Sequelize.INTEGER,
         allowNull: false,

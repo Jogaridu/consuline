@@ -88,7 +88,7 @@ module.exports = {
       //   "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
-      const token = jwt.sign({ idPaciente: paciente.id }, auth.secret);
+      const token = jwt.sign({ idPaciente: paciente.id, tipoPerfil:"paciente" }, auth.secret);
 
       return res.status(201).send({ paciente, token });
 
@@ -183,9 +183,19 @@ module.exports = {
   },
 
   async deletar(req, res) {
+
+    const {idPaciente, tipoPerfil} = req;
+
     const { id } = req.params;
 
+
     try {
+
+      if(idPaciente === id && tipoPerfil !== "paciente"){
+        return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+      }
+
+
       const paciente = await Paciente.findByPk(id);
 
       if (!paciente) {
@@ -211,11 +221,19 @@ module.exports = {
 
   async atualizar(req, res) {
 
+    const {idPaciente, tipoPerfil} = req;
+
     const { id } = req.params;
 
     const dados = req.body;
 
     try {
+
+      
+    if(idPaciente === id && tipoPerfil !== "paciente"){
+      return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+    }
+
       let paciente = await Paciente.findByPk(id);
 
       if (!paciente) {
@@ -275,7 +293,7 @@ module.exports = {
         return res.status(403).send({ error: "Usuário e/ou senha inválidos" });
       }
 
-      const token = jwt.sign({ idPaciente: pacienteBuscado.id }, auth.secret);
+      const token = jwt.sign({ idPaciente: pacienteBuscado.id, tipoPerfil:"paciente" }, auth.secret);
 
       const json = {
         paciente: {
@@ -307,6 +325,9 @@ module.exports = {
   },
 
   async cadastrarImagem(req, res) {
+
+    const {idPerfil, tipoPerfil} = req;
+    
     const { id } = req.params;
 
     const { firebaseUrl } = req.file ? req.file : "";
@@ -330,6 +351,10 @@ module.exports = {
     const { idPaciente } = req.params;
 
     try {
+
+      if(idPaciente === id && tipoPerfil !== "paciente"){
+        return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+      }
 
       const paciente = await Paciente.findByPk(idPaciente);
 
