@@ -8,7 +8,7 @@ routes.post("/medico/avaliacao", controller.criar);
 
 routes.delete("/medico/avaliacao/:id", controller.deletar);
 
-routes.get("/medico/avaliacao/:idMedico",controller.listarPorMedico);
+routes.get("/medico/avaliacao/:idMedico", controller.listarPorMedico);
 
 module.exports = routes;
 

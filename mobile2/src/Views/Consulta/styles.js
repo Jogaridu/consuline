@@ -15,7 +15,7 @@ export const ContainerListaServicos = styled.View`
     margin: 0 auto;
     margin-top: 80px;
     border-radius: 40px;
-`; 
+`;
 
 export const ContainerPassos = styled.View`
     width: 100%;
@@ -25,7 +25,7 @@ export const ContainerPassos = styled.View`
 export const ImgFundo = styled.ImageBackground`
     width: 100%;
     height: 100%;
-`; 
+`;
 
 export const Titulo = styled.Text`
     position: absolute;
@@ -58,7 +58,7 @@ export const Label = styled.Text`
     color: ${colors.corTitulo};
     font-weight: bold;
     margin: 10px 20px;
-`; 
+`;
 
 export const ContainerBotaoBusca = styled.TouchableOpacity`
     width: 80%;
@@ -262,7 +262,7 @@ export const ContainerHorarios = styled.View`
 export const Horarios = styled.TouchableOpacity`
     width: 85px;
     height: 45px;
-    background-color: ${props => props.horarioSelecionado ? colors.principal : colors.container};
+    background-color: ${props => props.horarioSelecionado === props.id ? colors.principal : colors.container};
     border-radius: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
