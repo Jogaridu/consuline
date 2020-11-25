@@ -231,7 +231,6 @@ module.exports = {
                     association: "ProfissionalDaSaude",
                     attributes: [
                         "nome",
-                        "avaliacao",
                         "dataNascimento",
                         "crm"
                     ]
@@ -357,7 +356,6 @@ module.exports = {
                         association: "ProfissionalDaSaude",
                         attributes: [
                             "nome",
-                            "avaliacao",
                             "dataNascimento",
                             "crm"
                         ]
