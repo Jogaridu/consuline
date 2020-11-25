@@ -264,9 +264,6 @@ module.exports = {
                 {
                     where: { ProfissionalDaSaudeId: idMedico },
                     order: [["data", "DESC"]],
-
-                }
-                , {
                     include: [{
                         association: "Paciente",
                         attributes: [
@@ -299,7 +296,7 @@ module.exports = {
 
 
 
-                    ],
+                    ]
                 },
             );
 
