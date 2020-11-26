@@ -7,14 +7,14 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
-const Stack = createStackNavigator();
-
 import Consulta from "../../Views/Consulta";
 import Servicos from "../../Views/Consulta/Form/servicos";
 import EscolhaMedicos from "../../Views/Consulta/Form/escolhaMedicos";
 import Atendimento from "../../Views/Consulta/Form/atendimento";
 import Agendamento from "../../Views/Consulta/Form/agendamento";
 import Pagamento from "../../Views/Consulta/Form/pagamento";
+
+const Stack = createStackNavigator();
 
 const ConsultaNavigation = () => {
   return (

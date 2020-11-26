@@ -12,9 +12,9 @@ module.exports = {
 
         const { idCentral, tipoPerfil } = req;
 
-        if (tipoPerfil !== "admin") {
-            return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
-        }
+        // if (tipoPerfil !== "admin") {
+        //     return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        // }
 
         if (endereco && telefones && dados && servicos) {
             try {
@@ -159,9 +159,9 @@ module.exports = {
 
         const { idCentral, tipoPerfil } = req;
 
-        if (tipoPerfil !== "admin") {
-            return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
-        }
+        // if (tipoPerfil !== "admin") {
+        //     return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        // }
 
         const { id } = req.params;
 
