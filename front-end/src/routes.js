@@ -17,7 +17,7 @@ import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import EditarFilial from "./Pages/Filial/Editar/index";
 
 // Profissional (CENTRAL)
-import InformacoesMedico from "./Pages/Medico/Registrar/InfoPessoalMedico";
+import InformacoesMedico from "./Pages/Medico/Registrar/InfoPessoalMedico/index";
 import LocalizaoMedico from "./Pages/Medico/Registrar/infoLocalizacaoMedico";
 import LoginMedico from "./Pages/Medico/Registrar/infoLoginMedico";
 import EspecialidadeMedico from "./Pages/Medico/Registrar/InfoEspecialidade";
