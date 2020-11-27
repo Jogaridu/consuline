@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './styles.css';
+import '../styles.css';
 import '../../../../Styles/globalStyle.css';
 
 import user from "../../../../Assets/user.png";

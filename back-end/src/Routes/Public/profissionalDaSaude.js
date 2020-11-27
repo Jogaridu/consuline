@@ -6,12 +6,15 @@ const controller = require("../../controllers/profissionalDaSaude");
 
 const enviarArquivos = require("../../services/firebase");
 
-
 const login = require("../../controllers/sessao");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 
+const autorizacaoMid = require("../../middlewares/autorizacao");
 
+routes.post("/profissional/login", login.logar);
+
+// routes.use(autorizacaoMid);
 
 routes.post(
   "/profissional",
@@ -19,8 +22,6 @@ routes.post(
   enviarArquivos,
   controller.cadastrar
 );
-
-routes.post("/profissional/login", login.logar);
 
 routes.get("/profissional", controller.listar);
 

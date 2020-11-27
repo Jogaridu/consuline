@@ -17,9 +17,9 @@ import RemoverMask from "../../../../Fixtures/RemoverMask";
 import api from "../../../../Services/api";
 
 
-function DadosMedico() {
+function InfoPessoalMedico() {
 
-    const history = useHistory();
+    // const history = useHistory();
 
     const validar = (values) => {
         const arrInputs = Array.from(document.querySelectorAll("form input"));
@@ -30,7 +30,7 @@ function DadosMedico() {
             const dataNascimentoEn = ValidarData(values.dataNascimento);
 
             if (dataNascimentoEn) {
-                history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn });
+                // history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn });
 
             }
         }
@@ -196,4 +196,4 @@ function DadosMedico() {
     );
 }
 
-export default DadosMedico;
+export default InfoPessoalMedico;

@@ -2,13 +2,12 @@ import React from 'react';
 import { Switch, Route } from "react-router-dom";
 
 import MenuCentral from "../../../Components/MenuCentral";
-import TituloPrincipal from "../../../Components/TituloPrincipal";
-import DadosMedico from "./infoPessoalMedico";
+import DadosMedico from "./InfoPessoalMedico";
 import DadosMedicoEndereco from "./infoLocalizacaoMedico";
 import DadosMedicoLogin from "./infoLoginMedico";
 import DadosMedicoEspecialidade from "./InfoEspecialidade";
+import DadosMedicoFilial from "./InfoFilial";
 
-import add from "../../../Assets/add3.png"
 
 function Medico() {
     return (
@@ -16,10 +15,9 @@ function Medico() {
             <MenuCentral />
             <div className="container-conteudo-central">
 
-                <TituloPrincipal nome="Cadastro médico" imagem={add} />
-
-
                 <Switch>
+                    <Route path="/profissinal-saude/filial" component={DadosMedicoFilial} />
+
                     <Route path="/profissional-saude/endereco" component={DadosMedicoEndereco} />
 
                     <Route path="/profissional-saude/login" component={DadosMedicoLogin} />

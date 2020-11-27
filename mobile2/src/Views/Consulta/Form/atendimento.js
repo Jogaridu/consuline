@@ -31,13 +31,13 @@ const LocalHospital = (props) => {
 
   const navigateEsolhaMedico = (filialId) => {
     if (filialId !== "") {
-      props.novaConsulta = {
+
+      props.navigation.navigate("EscolhaMedicos", {
         ...props.novaConsulta,
         AtendimentoId: "1",
         FilialId: filialId,
-      };
+      });
 
-      props.navigation.navigate("EscolhaMedicos");
     } else {
       console.log("Erro: filial desconhecida");
     }
@@ -164,8 +164,8 @@ const Atendimento = ({ navigation, route }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dadosHospital, setDadosHospital] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [tituloLabel, setTituloLabel] = useState("Eae");
-  var novaConsulta = 2;
+  const [tituloLabel, setTituloLabel] = useState("");
+  var novaConsulta = route.params;
 
   const pegarDados = async () => {
     const retorno = await api.get("/filiais");
@@ -185,7 +185,7 @@ const Atendimento = ({ navigation, route }) => {
         <ButtonGroup
           onPress={(e) => setSelectedIndex(e)}
           selectedIndex={selectedIndex}
-          buttons={[ "Presencial", "Teleconsulta" ]}
+          buttons={["Presencial", "Teleconsulta"]}
           selectedTextStyle={{ color: "#fff", fontWeight: "bold" }}
           selectedButtonStyle={{ backgroundColor: colors.principal }}
           containerStyle={{
@@ -195,7 +195,7 @@ const Atendimento = ({ navigation, route }) => {
             marginRight: "auto",
             borderRadius: 100,
           }}
-          textStyle={{  fontSize: 15, letterSpacing: 0.2 }}
+          textStyle={{ fontSize: 15, letterSpacing: 0.2 }}
           style={{ color: "orange" }}
         />
 
@@ -207,27 +207,27 @@ const Atendimento = ({ navigation, route }) => {
                 <Text> Carregando... </Text>
               </Container>
             ) : (
-              <>
-                {dadosHospital.map((hospital) => (
-                  <LocalHospital
-                    key={hospital.id}
-                    setTitulo={setTituloLabel}
-                    dados={{
-                      id: hospital.id,
-                      nome: hospital.nomeFantasia,
-                      cidade: hospital.EnderecoFilial.cidade,
-                      estado: hospital.EnderecoFilial.estado,
-                    }}
-                    navigation={navigation}
-                    novaConsulta={novaConsulta}
-                  />
-                ))}
-              </>
-            )}
+                <>
+                  {dadosHospital.map((hospital) => (
+                    <LocalHospital
+                      key={hospital.id}
+                      setTitulo={setTituloLabel}
+                      dados={{
+                        id: hospital.id,
+                        nome: hospital.nomeFantasia,
+                        cidade: hospital.EnderecoFilial.cidade,
+                        estado: hospital.EnderecoFilial.estado,
+                      }}
+                      navigation={navigation}
+                      novaConsulta={novaConsulta}
+                    />
+                  ))}
+                </>
+              )}
           </>
         ) : (
-          <Plataformas setTitulo={setTituloLabel} novaConsulta={novaConsulta} />
-        )}
+            <Plataformas setTitulo={setTituloLabel} novaConsulta={novaConsulta} />
+          )}
         <Passos cor1={true} cor2={true} cor3={true} />
       </ScrollView>
     </Container>

@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
 
     try {
         const retorno = jwt.verify(token, authConfig.secret);
-        req.idCentral = retorno.idCentral;
+        req.idPaciente = retorno.idPaciente;
         req.tipoPerfil = retorno.tipoPerfil;
         return next();
     } catch (error) {
