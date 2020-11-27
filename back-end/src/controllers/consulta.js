@@ -5,6 +5,10 @@ const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 const Atendimento = require("../models/Atendimento");
 const { Op } = require("sequelize");
+const Pagamento = require("../models/Pagamento");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const auth = require("../config/auth.json");
 
 
 module.exports = {
@@ -20,9 +24,9 @@ module.exports = {
             FilialId,
             ServicoId,
             AtendimentoId,
-            descricao
+            descricao,
+            pagamento
         } = req.body;
-
         try {
             const paciente = await Paciente.findByPk(PacienteId);
 
@@ -54,6 +58,19 @@ module.exports = {
                 return res.status(400).send({ error: "Atendimento não cadastrado" });
             }
 
+            const numeroCartaoCripto = await bcrypt.hash(pagamento.numero,10);
+
+            const codCripto = await bcrypt.hash(pagamento.cod,10);
+
+            const pagamentoCripto = {
+                cod:codCripto,
+                data: pagamento.data,
+                numero:numeroCartaoCripto,
+                nomeCompleto:pagamento.nomeCompleto
+            };
+
+            const pagamentoCriado = await Pagamento.create(pagamentoCripto);
+
             let consultaCriada = await Consulta.findOne({
                 where: {
                     [Op.and]: [
@@ -84,6 +101,8 @@ module.exports = {
                 return res.status(400).send({ error: "Já existe uma consulta com esse horario,data e paciente, por favor tente novamente" });
             }
 
+            const idPagamento = pagamentoCriado.id;
+
             const consulta = await Consulta.create({
                 valor,
                 desconto,
@@ -95,7 +114,8 @@ module.exports = {
                 ServicoId,
                 AtendimentoId,
                 descricao,
-                sintomas
+                sintomas,
+                PagamentoId: idPagamento
             });
 
             res.status(201).send(consulta);
@@ -264,9 +284,6 @@ module.exports = {
                 {
                     where: { ProfissionalDaSaudeId: idMedico },
                     order: [["data", "DESC"]],
-
-                }
-                , {
                     include: [{
                         association: "Paciente",
                         attributes: [
@@ -299,7 +316,7 @@ module.exports = {
 
 
 
-                    ],
+                    ]
                 },
             );
 
@@ -388,7 +405,9 @@ module.exports = {
                     where: { ProfissionalDaSaudeId: idMedico },
                     order: [["horario", "ASC"]],
                     raw: true,
-                    attributes: ['data', 'horario', 'id'],
+                    attributes: ['data', 'horario', 'id']
+                }
+                , {
                     include: [{
                         association: "Paciente",
                         attributes: [
@@ -422,7 +441,7 @@ module.exports = {
 
 
                     ],
-                }
+                },
             );
 
             if (!consultas) {
