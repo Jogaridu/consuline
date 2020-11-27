@@ -23,9 +23,13 @@ module.exports = {
 
   async loginProfissionalDaSaude(profissionalDaSaude) {
     const token = jwt.sign(
-      { idProfissional: dadosProfissional.id, tipoPerfil:"profissionalDaSaude" },
+      {
+        idProfissional: profissionalDaSaude.id,
+        tipoPerfil: "profissionalDaSaude",
+      },
       auth.secret
     );
+
 
     const profissionalDaSaudeJson = {
       profissionalDaSaude: {

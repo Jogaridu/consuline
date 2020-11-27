@@ -77,7 +77,6 @@ module.exports = {
 
   async listarPorMedico(req, res) {
     const { idProfissional, tipoPerfil } = req;
-    console.log(idProfissional);
 
     if (tipoPerfil !== "profissionalDaSaude") {
       return res
@@ -86,24 +85,20 @@ module.exports = {
     }
 
     try {
-      const avaliacoes = await Avaliacao.findAll(
-        {
-          where: { ProfissionalDaSaudeId: idProfissional },
-          order: [["id", "DESC"]],
-        },
-        {
-          include: [
-            {
-              association: "Paciente",
-              attributes: ["nome", "foto"],
-            },
-            {
-              association: "ProfissionalDaSaude",
-              attributes: ["nome", "foto"],
-            },
-          ],
-        }
-      );
+      const avaliacoes = await Avaliacao.findAll({
+        where: { ProfissionalDaSaudeId: idProfissional },
+        order: [["id", "DESC"]],
+        include: [
+          {
+            association: "Paciente",
+            attributes: ["nome", "foto"],
+          },
+          {
+            association: "ProfissionalDaSaude",
+            attributes: ["nome", "foto"],
+          },
+        ],
+      });
 
       if (!avaliacoes) {
         return res.status(400).send({ error: "Avalações não encontradas" });
