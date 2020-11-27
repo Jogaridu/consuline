@@ -88,7 +88,7 @@ module.exports = {
       }
 
       const token = jwt.sign(
-        { idProfissional: dadosProfissional.id },
+        { idProfissional: dadosProfissional.id, tipoPerfil:"profissionalDaSaude" },
         auth.secret
       );
 
