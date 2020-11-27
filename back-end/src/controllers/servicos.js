@@ -1,5 +1,6 @@
 const Servico = require("../models/Servico");
 const Filial = require("../models/Filial");
+const EnderecoFilial = require("../models/EnderecoFilial");
 
 module.exports = {
   async cadastrar(req, res) {
@@ -7,7 +8,7 @@ module.exports = {
     const { idCentral, tipoPerfil } = req;
 
     if (tipoPerfil !== "admin") {
-        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
     }
 
     const { nome, descricao } = req.body;
@@ -84,7 +85,7 @@ module.exports = {
     const { idCentral, tipoPerfil } = req;
 
     if (tipoPerfil !== "admin") {
-        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
     }
 
     const { id } = req.params;
@@ -108,7 +109,7 @@ module.exports = {
     const { idCentral, tipoPerfil } = req;
 
     if (tipoPerfil !== "admin") {
-        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
     }
 
     const { id } = req.params;
@@ -146,9 +147,9 @@ module.exports = {
 
     const { idCentral, tipoPerfil } = req;
 
-    if (tipoPerfil !== "admin") {
-        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
-    }
+    // if (tipoPerfil !== "admin") {
+    //     return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+    // }
 
     const { id } = req.params;
 
@@ -158,7 +159,9 @@ module.exports = {
           include: {
             model: Filial,
             through: { attributes: [] },
-            attributes: ["nomeFantasia"]
+            include: {
+              model: EnderecoFilial
+            }
           },
 
           attributes: []
@@ -180,7 +183,7 @@ module.exports = {
     const { idCentral, tipoPerfil } = req;
 
     if (tipoPerfil !== "admin") {
-        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
     }
 
     const { nome } = req.body;

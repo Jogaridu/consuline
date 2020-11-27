@@ -54,7 +54,6 @@ function RotaCadastroFilial({ children }) {
 }
 
 function RotaCadastroProfissional({ children }) {
-    console.log(children);
     return (
         <div className="container-central">
             <MenuCentral />
@@ -128,23 +127,33 @@ function Routes() {
                 {/* Rotas de profissionais */}
 
                 <PrivateRoute path="/profissional-saude/endereco">
-                    <RotaCadastroProfissional children={LocalizaoMedico} />
+                    <RotaCadastroProfissional>
+                        <LocalizaoMedico />
+                    </RotaCadastroProfissional>
                 </PrivateRoute>
 
                 <PrivateRoute path="/profissional-saude/login">
-                    <RotaCadastroProfissional children={LoginMedico} />
+                    <RotaCadastroProfissional>
+                        <LoginMedico />
+                    </RotaCadastroProfissional>
                 </PrivateRoute>
 
                 <PrivateRoute path="/profissional-saude/especialidade">
-                    <Route children={EspecialidadeMedico} />
+                    <RotaCadastroProfissional>
+                        <EspecialidadeMedico />
+                    </RotaCadastroProfissional>
                 </PrivateRoute>
 
                 <PrivateRoute path="/profissional-saude/filial">
-                    <Route children={FilialMedico} />
+                    <RotaCadastroProfissional>
+                        <FilialMedico />
+                    </RotaCadastroProfissional>
                 </PrivateRoute>
 
                 <PrivateRoute path="/profissional-saude">
-                    <RotaCadastroProfissional children={InformacoesMedico} />
+                    <RotaCadastroProfissional>
+                        <InformacoesMedico />
+                    </RotaCadastroProfissional>
                 </PrivateRoute>
 
                 <PrivateRoute path="/profissionais-saude">

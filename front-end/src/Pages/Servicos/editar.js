@@ -43,7 +43,7 @@ function EditarServico() {
 
   useEffect(() => {
     listarservicos();
-  }, []);
+  }, [listarservicos]);
 
   const handleForm = async (values) => {
     const dados = new FormData();
@@ -59,7 +59,6 @@ function EditarServico() {
         },
       });
 
-      alert("Serviço editado com sucesso!!!");
       history.push("/servicos");
     } catch (error) {
       console.log(error);
@@ -102,54 +101,54 @@ function EditarServico() {
                 <Lottie options={defaultOptions} height={200} width={200} />
               </div>
             ) : (
-              <Formik
-                initialValues={{
-                  nome: servicos.nome,
-                  descricao: servicos.descricao,
-                }}
-                onSubmit={(values) => handleForm(values)}
-                validationSchema={validarServico}
-              >
-                <Form>
-                  <Field name="nome" placeholder="Nome" id="nome" />
-                  <ErrorMessage className="mensagem-erro" component="span" name="nome" />
-                  <h3> Max: 230 </h3>
-                  <Field
-                    name="descricao"
-                    as="textarea"
-                    placeholder="Descrição"
-                    id="descricao"
-                  />
-                  <ErrorMessage className="mensagem-erro" component="span" name="descricao" />
-                  <div id="imagem-cadastro-servico">
-                    <label> Imagem </label>
-                    <label htmlFor="selecao-arquivo">
-                      {" "}
-                      Selecionar uma imagem{" "}
-                    </label>
+                <Formik
+                  initialValues={{
+                    nome: servicos.nome,
+                    descricao: servicos.descricao,
+                  }}
+                  onSubmit={(values) => handleForm(values)}
+                  validationSchema={validarServico}
+                >
+                  <Form>
+                    <Field name="nome" placeholder="Nome" id="nome" />
+                    <ErrorMessage className="mensagem-erro" component="span" name="nome" />
+                    <h3> Max: 230 </h3>
                     <Field
-                      id="selecao-arquivo"
-                      type="file"
-                      name="imagem"
-                      onChange={handleImage}
+                      name="descricao"
+                      as="textarea"
+                      placeholder="Descrição"
+                      id="descricao"
                     />
-                  </div>
+                    <ErrorMessage className="mensagem-erro" component="span" name="descricao" />
+                    <div id="imagem-cadastro-servico">
+                      <label> Imagem </label>
+                      <label htmlFor="selecao-arquivo">
+                        {" "}
+                      Selecionar uma imagem{" "}
+                      </label>
+                      <Field
+                        id="selecao-arquivo"
+                        type="file"
+                        name="imagem"
+                        onChange={handleImage}
+                      />
+                    </div>
 
-                  <div id="imgCadastroServico">
-                    <figure>
-                      <img alt="preview" ref={imgRef} />
-                    </figure>
-                  </div>
+                    <div id="imgCadastroServico">
+                      <figure>
+                        <img alt="preview" ref={imgRef} />
+                      </figure>
+                    </div>
 
-                  <div id="container-botoes-servicos">
-                    <Link to="/servicos">
-                      <BotaoSecundario titulo="Cancelar" />
-                    </Link>
-                    <BotaoPrincipal titulo="Atualizar" tipo="submit" />
-                  </div>
-                </Form>
-              </Formik>
-            )}
+                    <div id="container-botoes-servicos">
+                      <Link to="/servicos">
+                        <BotaoSecundario titulo="Cancelar" />
+                      </Link>
+                      <BotaoPrincipal titulo="Atualizar" tipo="submit" />
+                    </div>
+                  </Form>
+                </Formik>
+              )}
           </div>
         </div>
       </div>

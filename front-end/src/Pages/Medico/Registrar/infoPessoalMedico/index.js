@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import MaskedInput from "react-text-mask";
@@ -19,7 +19,9 @@ import api from "../../../../Services/api";
 
 function InfoPessoalMedico() {
 
-    // const history = useHistory();
+    const history = useHistory();
+    const [imagem, setImagem] = useState(null);
+    const imgRef = useRef();
 
     const validar = (values) => {
         const arrInputs = Array.from(document.querySelectorAll("form input"));
@@ -30,11 +32,24 @@ function InfoPessoalMedico() {
             const dataNascimentoEn = ValidarData(values.dataNascimento);
 
             if (dataNascimentoEn) {
-                // history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn });
+                history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn, imagem });
 
             }
         }
     }
+
+    const handleImage = (e) => {
+
+        if (e.target.files[0]) {
+            imgRef.current.src = URL.createObjectURL(e.target.files[0]);
+
+        } else {
+            imgRef.current.src = "";
+
+        }
+
+        setImagem(e.target.files[0]);
+    };
 
     return (
         <Formik
@@ -54,11 +69,12 @@ function InfoPessoalMedico() {
                 <div id="container-card1">
                     <div className="container-left-side1">
                         <div className="img-usuario">
-                            <img id="usuario" src={medico} alt="logo projeto" />
+                            <img id="usuario" src={medico} alt="logo projeto" ref={imgRef} />
                         </div>
-                        <div className="subtitulo-img">
-                            Cadastro Pessoal
-                        </div>
+                        <label htmlFor="foto" className="subtitulo-img">
+                            Escolha uma foto
+                            <input id="foto" type="file" onChange={handleImage} placeholder="" />
+                        </label>
                     </div>
 
                     <div className="container-right-side1 form">
