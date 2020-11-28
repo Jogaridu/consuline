@@ -6,9 +6,9 @@ module.exports = {
 
     username: "root",
 
-    password: "bd137",
+    password: "bcd127",
 
-    database: "bdConsuline",
+    database: process.env.NODE_ENV === "test"? "bdConsuline_test" : "bdConsuline",
 
     define: {
 

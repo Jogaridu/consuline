@@ -1,4 +1,4 @@
- const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
@@ -10,7 +10,6 @@ const auth = require("../config/auth.json");
 
 module.exports = {
   async cadastrar(req, res) {
-
     const {
       cpf,
       nome,
@@ -31,7 +30,6 @@ module.exports = {
     const telefoneJson = JSON.parse(telefone);
 
     try {
-
       const servico = await Servico.findByPk(ServicoId);
 
       if (!servico) {
@@ -72,7 +70,7 @@ module.exports = {
           email,
           dataNascimento,
           FilialId,
-          ServicoId
+          ServicoId,
         }
       );
 
@@ -88,7 +86,10 @@ module.exports = {
       }
 
       const token = jwt.sign(
-        { idProfissional: dadosProfissional.id },
+        {
+          idProfissional: dadosProfissional.id,
+          tipoPerfil: "profissionalDaSaude",
+        },
         auth.secret
       );
 

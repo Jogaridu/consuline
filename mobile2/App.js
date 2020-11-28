@@ -14,13 +14,14 @@ import Servico from "./src/Views/Consulta/Form/servicos";
 import Atendimento from "./src/Views/Consulta/Form/atendimento";
 import Profissional from "./src/Views/Consulta/Form/escolhaMedicos";
 import Pagamento from "./src/Views/Consulta/Form/pagamento";
+import Localizacao from "./src/Views/Geolocalizacao";
 
 import Routes from "./src/Navigation/routes";
 
 export default function App() {
   return (
     <>
-      <Routes />
+      <Localizacao />
     </>
   );
 }

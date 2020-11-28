@@ -8,6 +8,7 @@ import LoginNavigator from "./routes/LoginNavigator";
 import HomeNavigator from "./routes/HomeNavigation";
 import PerfilNavigator from "./routes/PerfilNavigation";
 import ConsultaNavigator from "./routes/ConsultaNavigation";
+import LocalizacaoNavigator from "./routes/LocalizacaoNavigation";
 
 const Routes = () => {
   return (
@@ -33,6 +34,11 @@ const Routes = () => {
         <Stack.Screen
           name="Consulta"
           component={ConsultaNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LocalizacaoNavigator"
+          component={LocalizacaoNavigator}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

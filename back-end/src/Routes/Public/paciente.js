@@ -14,7 +14,7 @@ routes.post("/paciente", controller.cadastrar);
 
 routes.post("/paciente/sessao", controller.autenticar);
 
-// routes.use(autorizacaoMid);
+routes.use(autorizacaoMid);
 
 routes.post("/paciente/:id/validacao-sms", controller.verificarSms);
 
@@ -26,9 +26,9 @@ routes.get("/paciente/:id", controller.buscarPorId);
 
 routes.get("/paciente", controller.listar);
 
-routes.delete("/paciente/:id", controller.deletar);
+routes.delete("/paciente", controller.deletar);
 
-routes.put("/paciente/:id", Multer.single("foto"), controller.atualizar);
+routes.put("/paciente", Multer.single("foto"), controller.atualizar);
 
 routes.post("/paciente/exame/:idPaciente", Multer.single("arquivo"), enviarArquivos, controller.enviarExame);
 

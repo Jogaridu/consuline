@@ -7,18 +7,15 @@ const { enviarSMS } = require("../services/sms");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
 const emailConsuline = require("../services/email");
-const nodemailer = require('nodemailer');
-const fs = require('fs');
-const smtpTransport = require("nodemailer-smtp-transport");
+const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: emailConsuline.email,
-    pass: emailConsuline.senha
+    pass: emailConsuline.senha,
   },
 });
-
 
 module.exports = {
   async cadastrar(req, res) {
@@ -37,7 +34,6 @@ module.exports = {
     const verificado = false;
 
     try {
-
       let pacienteCriado = await Paciente.findOne({
         where: {
           [Op.or]: [
@@ -88,14 +84,15 @@ module.exports = {
       //   "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
-      const token = jwt.sign({ idPaciente: paciente.id, tipoPerfil:"paciente" }, auth.secret);
+      const token = jwt.sign(
+        { idPaciente: paciente.id, tipoPerfil: "paciente" },
+        auth.secret
+      );
 
       return res.status(201).send({ paciente, token });
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return res.status(404).send({ erro: "Falha ao cadastrar o paciente" });
-
     }
   },
 
@@ -145,10 +142,7 @@ module.exports = {
       }
 
       res.status(200).send(paciente);
-
     } catch (error) {
-
-
       return res.status(500).send({
         erro:
           "Não foi possivel listar este paciente, por favor tente novamente",
@@ -183,33 +177,31 @@ module.exports = {
   },
 
   async deletar(req, res) {
-
-    const {idPaciente, tipoPerfil} = req;
-
-    const { id } = req.params;
-
+    const { idPaciente, tipoPerfil } = req;  
 
     try {
 
-      if(idPaciente === id && tipoPerfil !== "paciente"){
-        return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+      if (tipoPerfil !== 'paciente') {
+        return res
+          .status(401)
+          .send({ error: "Você não possui autorização para esta ação!!" });
       }
 
-
-      const paciente = await Paciente.findByPk(id);
+      const paciente = await Paciente.findByPk(idPaciente);
 
       if (!paciente) {
         return res.status(404).send({ error: "Paciente não encontrado" });
       }
 
-      const endereco = await EnderecoPaciente.findByPk(paciente.EnderecoPacienteId);
+      const endereco = await EnderecoPaciente.findByPk(
+        paciente.EnderecoPacienteId
+      );
 
       await endereco.destroy();
 
       await paciente.destroy();
 
       res.status(200).send({ sucesso: "Paciente apagado com sucesso" });
-
     } catch (error) {
       console.log(error);
       return res.status(500).send({
@@ -220,21 +212,18 @@ module.exports = {
   },
 
   async atualizar(req, res) {
-
-    const {idPaciente, tipoPerfil} = req;
-
-    const { id } = req.params;
+    const { idPaciente, tipoPerfil } = req;
 
     const dados = req.body;
 
     try {
+      if (tipoPerfil !== 'paciente') {
+        return res
+          .status(401)
+          .send({ error: "Você não possui autorização para esta ação!!" });
+      }
 
-      
-    if(idPaciente === id && tipoPerfil !== "paciente"){
-      return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
-    }
-
-      let paciente = await Paciente.findByPk(id);
+      let paciente = await Paciente.findByPk(idPaciente);
 
       if (!paciente) {
         return res
@@ -243,31 +232,28 @@ module.exports = {
       }
 
       if (dados.endereco) {
-        await EnderecoPaciente.update(dados.endereco, { where: { id: paciente.EnderecoPacienteId } });
-
+        await EnderecoPaciente.update(dados.endereco, {
+          where: { id: paciente.EnderecoPacienteId },
+        });
       }
 
       if (dados.senha) {
         const senhaCripto = bcrypt.hashSync(dados.senha, 10);
 
-        await Paciente.update({ ...dados, senha: senhaCripto },
+        await Paciente.update(
+          { ...dados, senha: senhaCripto },
           {
-            where: { id: id },
+            where: { id: idPaciente },
           }
         );
-
       } else {
-        await Paciente.update(dados,
-          {
-            where: { id: id },
-          }
-        );
+        await Paciente.update(dados, {
+          where: { id: idPaciente },
+        });
       }
 
       res.status(200).send({ sucesso: "Paciente atualizado com sucesso" });
-
     } catch (error) {
-
       console.error(error);
 
       return res.status(500).send({
@@ -293,15 +279,18 @@ module.exports = {
         return res.status(403).send({ error: "Usuário e/ou senha inválidos" });
       }
 
-      const token = jwt.sign({ idPaciente: pacienteBuscado.id, tipoPerfil:"paciente" }, auth.secret);
+      const token = jwt.sign(
+        { idPaciente: pacienteBuscado.id, tipoPerfil: "paciente" },
+        auth.secret
+      );
 
       const json = {
         paciente: {
           pacienteId: pacienteBuscado.id,
           nome: pacienteBuscado.nome,
         },
-        token
-      }
+        token,
+      };
 
       res.status(201).send(json);
     }
@@ -313,8 +302,8 @@ module.exports = {
     const { senhaAntiga } = req.body;
 
     const { senha } = await Paciente.findByPk(id, {
-      attributes: ['senha'],
-      raw: true
+      attributes: ["senha"],
+      raw: true,
     });
 
     if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
@@ -325,21 +314,25 @@ module.exports = {
   },
 
   async cadastrarImagem(req, res) {
+    const { idPerfil, tipoPerfil } = req;
 
-    const {idPerfil, tipoPerfil} = req;
-    
-    const { id } = req.params;
+    if (tipoPerfil !== 'paciente') {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     const { firebaseUrl } = req.file ? req.file : "";
 
     if (firebaseUrl !== "") {
-      await Paciente.update({ foto: firebaseUrl },
+      await Paciente.update(
+        { foto: firebaseUrl },
         {
           where: {
-            id: id
-          }
+            id: idPerfil,
+          },
         }
-      )
+      );
 
       return res.status(201).send({ foto: firebaseUrl });
     }
@@ -351,9 +344,10 @@ module.exports = {
     const { idPaciente } = req.params;
 
     try {
-
-      if(idPaciente === id && tipoPerfil !== "paciente"){
-        return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+      if (idPaciente === id && tipoPerfil !== "paciente") {
+        return res
+          .status(401)
+          .send({ error: "Você não possui autorização para esta ação!!" });
       }
 
       const paciente = await Paciente.findByPk(idPaciente);
@@ -367,26 +361,29 @@ module.exports = {
         to: paciente.email,
         attachments: [
           {
-            "path": firebaseUrl
-          }
+            path: firebaseUrl,
+          },
         ],
-        subject: 'Seu exame esta pronto!!!!',
+        subject: "Seu exame esta pronto!!!!",
         text: texto,
-        html: '<p>Abaixo está o resultado do seu exame, Consuline ltda.</p>'
+        html: "<p>Abaixo está o resultado do seu exame, Consuline ltda.</p>",
       };
 
       transporter.sendMail(mailOptions, function (err, info) {
-        if (err)
-          console.log(err)
-        else
-          console.log(info);
+        if (err) console.log(err);
+        else console.log(info);
       });
 
-      res.status(200).send({sucesso:"Resultado do exame enviado com sucesso"});
-
-
+      res
+        .status(200)
+        .send({ sucesso: "Resultado do exame enviado com sucesso" });
     } catch (error) {
-      return res.status(500).send({ error: "Não foi possivel enviar o resultado do exame, por favor tente novamente " });
+      return res
+        .status(500)
+        .send({
+          error:
+            "Não foi possivel enviar o resultado do exame, por favor tente novamente ",
+        });
     }
   },
 };

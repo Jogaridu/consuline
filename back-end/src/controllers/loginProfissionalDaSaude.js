@@ -3,10 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
 
-
 module.exports = {
-  
-async validaProfissional(login, senha) {
+  async validaProfissional(login, senha) {
     const profissionalDaSaude = await ProfissionalDaSaude.findOne({
       where: {
         login: login,
@@ -25,9 +23,13 @@ async validaProfissional(login, senha) {
 
   async loginProfissionalDaSaude(profissionalDaSaude) {
     const token = jwt.sign(
-      { idProfissionalDaSaude: profissionalDaSaude.id },
+      {
+        idProfissional: profissionalDaSaude.id,
+        tipoPerfil: "profissionalDaSaude",
+      },
       auth.secret
     );
+
 
     const profissionalDaSaudeJson = {
       profissionalDaSaude: {
@@ -40,4 +42,4 @@ async validaProfissional(login, senha) {
 
     return profissionalDaSaudeJson;
   },
-}
+};
