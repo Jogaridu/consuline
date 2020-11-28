@@ -16,9 +16,11 @@ import BotaoSecundario from "../../Components/BotaoSecundario";
 import animationLogin from "../../Assets/animationLogin.json";
 
 const Login = () => {
+
   const history = useHistory();
 
   const entrar = async (values) => {
+
     try {
       const response = await api.post("/login", values);
 
@@ -31,14 +33,19 @@ const Login = () => {
           return history.push("/consultas/home");
 
         }
+
       }
+
     } catch (error) {
+
       if (error.response) {
         return console.log(error);
       }
 
       alert("Algo deu errado, tente novamente.");
+
     }
+
   };
 
   const defaultOptions = {
