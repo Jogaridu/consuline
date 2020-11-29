@@ -39,6 +39,7 @@ module.exports = {
 
       } catch (error) {
 
+        console.log(error);
         return res.status(404).send({ erro: "Falha na criação do serviço" });
 
       }

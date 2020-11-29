@@ -17,7 +17,7 @@ import ListagemFilial from "./Pages/Filial/Listar-Filiais";
 import EditarFilial from "./Pages/Filial/Editar/index";
 
 // Profissional (CENTRAL)
-import InformacoesMedico from "./Pages/Medico/Registrar/infoPessoalMedico/index";
+import InformacoesMedico from "./Pages/Medico/Registrar/InfoPessoalMedico";
 import LocalizaoMedico from "./Pages/Medico/Registrar/infoLocalizacaoMedico";
 import LoginMedico from "./Pages/Medico/Registrar/infoLoginMedico";
 import EspecialidadeMedico from "./Pages/Medico/Registrar/InfoEspecialidade";
@@ -94,6 +94,7 @@ function Routes() {
                 <Route path="/login">
                     <Login />
                 </Route>
+
                 <PrivateRoute path="/home-central">
                     <HomeCrud />
                 </PrivateRoute>
@@ -104,21 +105,28 @@ function Routes() {
                     <EditarFilial />
                 </PrivateRoute>
 
-                <RotaCadastroFilial path="/filial/endereco">
-                    <EnderecoFilial />
-                </RotaCadastroFilial>
+                <PrivateRoute path="/filial/endereco">
+                    <RotaCadastroFilial >
+                        <EnderecoFilial />
+                    </RotaCadastroFilial>
+                </PrivateRoute>
 
-                <RotaCadastroFilial path="/filial/servicos">
-                    <ServicosFilial />
-                </RotaCadastroFilial>
+                <PrivateRoute path="/filial/servicos">
+                    <RotaCadastroFilial >
+                        <ServicosFilial />
+                    </RotaCadastroFilial>
+                </PrivateRoute>
 
-                <Route path="/filial/:id">
+                <PrivateRoute path="/filial/:id">
                     <Consulta />
-                </Route>
+                </PrivateRoute>
 
-                <RotaCadastroFilial path="/filial" exact>
-                    <InformacoesFilial />
-                </RotaCadastroFilial>
+                <PrivateRoute path="/filial" exact>
+                    <RotaCadastroFilial >
+                        <InformacoesFilial />
+                    </RotaCadastroFilial>
+                </PrivateRoute>
+
 
                 <PrivateRoute path="/filiais">
                     <ListagemFilial />

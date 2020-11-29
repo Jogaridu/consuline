@@ -4,7 +4,7 @@ import './styles.css';
 
 function BotaoSecundario(props) {
   return (
-    <button type="button" className="botao-secundario">
+    <button type="button" className="botao-secundario" onClick={() => props.onClick()}>
       {props.titulo}
     </button>
   );

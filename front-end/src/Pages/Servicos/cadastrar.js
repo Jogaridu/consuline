@@ -19,6 +19,7 @@ import api from "../../Services/api";
 import { Link, useHistory } from "react-router-dom";
 import { validarServico } from "../Filial/Registrar/ValidacaoInputSchema";
 import Swal from "sweetalert2";
+import MsgAntesVoltar from "../../Fixtures/MsgAntesVoltar";
 
 function CadastrarServicos() {
     const [imagem, setImagem] = useState(null);
@@ -34,7 +35,6 @@ function CadastrarServicos() {
         dados.append("imagem", imagem);
 
         try {
-
             await api.post("/servico", dados, {
                 headers: {
                     "Content-type": `multipart/form-data`,
@@ -108,14 +108,17 @@ function CadastrarServicos() {
 
                                 <label id="img-cadastro-servico" htmlFor="selecao-arquivo">
                                     <figure>
-                                        <img alt="preview" ref={imgRef} src={semFoto}/>
+                                        <img alt="preview" ref={imgRef} src={semFoto} />
                                     </figure>
                                 </label>
 
                                 <div id="container-botoes-servicos">
-                                    <Link to="/servicos">
-                                        <BotaoSecundario titulo="Voltar" />
-                                    </Link>
+                                    <BotaoSecundario titulo="Voltar" onClick={async () => {
+                                        if (await MsgAntesVoltar()) {
+                                            history.push("/servicos")
+                                        }
+                                    }} />
+
                                     <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
                                 </div>
                             </Form>

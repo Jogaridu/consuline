@@ -19,18 +19,26 @@ function InfoFilial() {
 
     const location = useLocation();
 
-    const novoMedico = location.state;
+    let novoMedico = location.state;
 
-    const validar = async ({ filialId }) => {
-        console.log(novoMedico);
-        if (filialId !== "") {
+    const validar = async ({ FilialId }) => {
+
+        if (FilialId !== "") {
             try {
+                novoMedico = { ...novoMedico, FilialId };
 
                 const dados = new FormData();
-                const chaves = Object.keys({ ...novoMedico, filialId });
+
+                const chaves = Object.keys(novoMedico);
 
                 chaves.forEach(chave => {
-                    dados.append(chave, novoMedico[chave]);
+                    if (chave === "endereco" || chave === "telefone") {
+                        dados.append(chave, JSON.stringify(novoMedico[chave]));
+
+                    } else {
+                        dados.append(chave, novoMedico[chave]);
+
+                    }
                 });
 
                 const retorno = await api.post("/profissional", dados);
@@ -57,11 +65,11 @@ function InfoFilial() {
 
     const CardFilial = ({ dados }) => {
         const [mostrarInfo, setMostrarInfo] = useState(false);
-        console.log(mostrarInfo);
+
         return (
             <label>
 
-                <Field type="radio" name="filialId" value={dados.id.toString()} />
+                <Field type="radio" name="FilialId" value={dados.id.toString()} />
                 <span>{dados.nomeFantasia}</span>
 
                 {mostrarInfo ? (
@@ -81,22 +89,26 @@ function InfoFilial() {
         );
     }
 
-    const pegarDados = async () => {
-        try {
-            const retorno = await api.get(`/servico/${novoMedico.servicoId}/filiais`);
 
-            setFilial(retorno.data);
 
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        const pegarDados = async () => {
+            try {
+                const retorno = await api.get(`/servico/${novoMedico.ServicoId}/filiais`);
+
+                setFilial(retorno.data);
+
+            } catch (error) {
+                console.log(error);
+            }
         }
-    }
 
-    useEffect(pegarDados, []);
+        pegarDados();
+    }, [novoMedico.ServicoId]);
 
     return (
         <Formik
-            initialValues={{ filialId: "" }}
+            initialValues={{ FilialId: "" }}
             onSubmit={validar}>
 
             <Form className="conteiner-entrada-dados-especialidade">

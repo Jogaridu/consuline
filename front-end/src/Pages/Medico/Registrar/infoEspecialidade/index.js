@@ -21,10 +21,10 @@ function InfoEspecialidade() {
 
     const novoMedico = location.state;
 
-    const validar = ({ servicoId }) => {
+    const validar = ({ ServicoId }) => {
 
-        if (servicoId !== "") {
-            history.push("/profissional-saude/filial", { ...novoMedico, servicoId })
+        if (ServicoId !== "") {
+            history.push("/profissional-saude/filial", { ...novoMedico, ServicoId })
 
         } else {
             Swal.fire("Oops...", "Escolha uma especilidade para o profissional", "warning");
@@ -33,22 +33,26 @@ function InfoEspecialidade() {
 
     console.log("entrou");
 
-    const pegarDados = async () => {
-        try {
-            const retorno = await api.get(`/servicos`);
 
-            setServicos(retorno.data);
 
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        const pegarDados = async () => {
+            try {
+                const retorno = await api.get(`/servicos`);
+
+                setServicos(retorno.data);
+
+            } catch (error) {
+                console.log(error);
+            }
         }
-    }
 
-    useEffect(pegarDados, [])
+        pegarDados();
+    }, [])
 
     return (
         <Formik
-            initialValues={{ servicoId: "" }}
+            initialValues={{ ServicoId: "" }}
             onSubmit={validar}>
 
             <Form className="conteiner-entrada-dados-especialidade">
@@ -60,7 +64,7 @@ function InfoEspecialidade() {
                 <label className="lista-servicos-medico">
                     {servicos.map(servico => (
                         <label id={servico.id}>
-                            <Field type="radio" name="servicoId" value={servico.id.toString()} />
+                            <Field type="radio" name="ServicoId" value={servico.id.toString()} />
                             <span>{servico.nome}</span>
                         </label>
                     ))}

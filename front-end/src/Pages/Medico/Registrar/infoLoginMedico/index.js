@@ -28,7 +28,7 @@ function DadosMedicoLogin() {
             , login: values.login,
             senha: values.senha,
             cpf: RemoverMask(novoMedico.cpf),
-            telefone: RemoverMask(novoMedico.telefone),
+            telefone: [RemoverMask(novoMedico.telefone)],
             endereco: {
                 ...novoMedico.endereco,
                 cep: RemoverMask(novoMedico.endereco.cep)

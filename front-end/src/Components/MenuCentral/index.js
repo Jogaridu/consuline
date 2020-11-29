@@ -5,6 +5,8 @@ import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
 import { Link, Redirect } from 'react-router-dom';
+import BotaoPrincipal from "../BotaoPrincipal";
+import { signOut } from "../../Services/security"
 
 function MenuCentral() {
 
@@ -55,7 +57,9 @@ function MenuCentral() {
             </div>
 
             <div className="desenvolvedor">
-                Desenvolvido por <br /> DS3-M | CONSULINE
+                <Link to="/" onClick={() => signOut()}>
+                    <BotaoPrincipal titulo="Deslogar" />
+                </Link>
             </div>
         </div >
     );

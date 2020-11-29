@@ -15,6 +15,7 @@ import '../../../../Styles/globalStyle.css';
 import medico from "../../../../Assets/medico.png";
 import RemoverMask from "../../../../Fixtures/RemoverMask";
 import api from "../../../../Services/api";
+import Swal from 'sweetalert2';
 
 
 function InfoPessoalMedico() {
@@ -32,7 +33,7 @@ function InfoPessoalMedico() {
             const dataNascimentoEn = ValidarData(values.dataNascimento);
 
             if (dataNascimentoEn) {
-                history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn, imagem });
+                history.push("/profissional-saude/endereco", { ...values, dataNascimento: dataNascimentoEn, foto: imagem });
 
             }
         }
@@ -73,7 +74,7 @@ function InfoPessoalMedico() {
                         </div>
                         <label htmlFor="foto" className="subtitulo-img">
                             Escolha uma foto
-                            <input id="foto" type="file" onChange={handleImage} placeholder="" />
+                            <input id="foto" type="file" onChange={handleImage} />
                         </label>
                     </div>
 
@@ -108,6 +109,23 @@ function InfoPessoalMedico() {
                             />
                             <ErrorMessage className="mensagem-erro" component="span" name="dataNascimento" />
                         </div>
+
+                        <div className="form-grupo-input" id="telefone">
+                            <Field
+                                name="telefone"
+                                render={({ field }) => (
+                                    <MaskedInput
+                                        {...field}
+                                        type="text"
+                                        mask={mascaras.telefone}
+                                        placeholder="Telefone"
+                                        onBlur={InputCorreta}
+                                        guide={false}
+                                    />
+                                )} />
+                            <ErrorMessage className="mensagem-erro" component="span" name="telefone" />
+                        </div>
+
                         <div className="form-grupo-input" id="crm">
                             <Field
                                 type="text"
@@ -184,25 +202,23 @@ function InfoPessoalMedico() {
                                 }} />
                             <ErrorMessage className="mensagem-erro" component="span" name="email" />
                         </div>
-                        <div className="form-grupo-input" id="telefone">
-                            <Field
-                                name="telefone"
-                                render={({ field }) => (
-                                    <MaskedInput
-                                        {...field}
-                                        type="text"
-                                        mask={mascaras.telefone}
-                                        placeholder="Telefone"
-                                        onBlur={InputCorreta}
-                                        guide={false}
-                                    />
-                                )} />
-                            <ErrorMessage className="mensagem-erro" component="span" name="telefone" />
-                        </div>
+
                         <div className="caixa-botoes">
                             <button style={{ opacity: 0 }} type="button" />
 
-                            <button type="submit">&rarr;</button>
+                            <button type="submit" onClick={() => {
+
+                                if (imagem === null) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Escolha uma foto',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                }
+
+                            }}>&rarr;</button>
                         </div>
                     </div>
 
