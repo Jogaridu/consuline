@@ -96,9 +96,7 @@ function Consulta() {
                         </div>
                         <div className="dado">
                             <span>Telefones: </span>
-                            <div className="dado-telefones">
-                                {dados.TelefoneFilials.map(tel => (<div>{tel.numero}</div>))}
-                            </div>
+                            {dados.TelefoneFilials.map(tel => (<div>{tel.numero}</div>))}
                         </div>
                     </div>
 

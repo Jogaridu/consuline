@@ -30,9 +30,12 @@ function Informacoes() {
 
         if (!arrayInputsVazias) {
             const dataAberturaEn = ValidarData(values.dataAbertura);
+            const telefones = [values.telefone];
+
+            delete values.telefone;
 
             if (dataAberturaEn) {
-                history.push("/filial/endereco", { ...values, dataAbertura: dataAberturaEn });
+                history.push("/filial/endereco", { ...values, dataAbertura: dataAberturaEn, telefones });
 
             }
         }
@@ -48,6 +51,7 @@ function Informacoes() {
                 ie: "",
                 email: "",
                 razaoSocial: "",
+                telefone: ""
             }}
             validationSchema={validarInformacoes}>
 
@@ -185,16 +189,21 @@ function Informacoes() {
                         <ErrorMessage className="mensagem-erro" component="span" name="email" />
                     </div>
 
-                    {/* <input
-              type="tel"
-              placeholder="Telefone"
-              name="telefone"
-              id="telefone"
-              value={novaFilial.telefone}
-              onChange={handlerInput}
-              required
-              maxLength="15"
-            /> */}
+                    <div className="form-grupo-input" id="telefone">
+                        <Field
+                            name="telefone"
+                            render={({ field }) => (
+                                <MaskedInput
+                                    {...field}
+                                    type="text"
+                                    mask={mascaras.telefone}
+                                    onBlur={InputCorreta}
+                                    placeholder="Telefone"
+                                    guide={false}
+                                />
+                            )} />
+                        <ErrorMessage className="mensagem-erro" component="span" name="telefone" />
+                    </div>
 
                     <div className="caixa-botoes">
                         <button style={{ opacity: 0 }} type="button" />

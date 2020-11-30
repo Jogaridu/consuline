@@ -4,7 +4,9 @@ import React from 'react';
 import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import BotaoPrincipal from "../BotaoPrincipal";
+import { signOut } from "../../Services/security"
 
 function MenuCentral() {
 
@@ -35,9 +37,11 @@ function MenuCentral() {
             </Link>
 
             <div className="topicosMenu">
-                <div className="itensMenu">
-                    Central
-                </div>
+                <Link to="/home-central">
+                    <div className="itensMenu">
+                        Home
+                    </div>
+                </Link>
                 <div className="itensMenu">
                     Medicos
                     <SubMenu itens={{ Adicionar: "/profissional-saude", Listar: "/profissionais-saude" }} />
@@ -49,12 +53,13 @@ function MenuCentral() {
                 <div className="itensMenu">
                     Serviços
                     <SubMenu itens={{ Adicionar: "/servico", Listar: "/servicos" }} />
-
                 </div>
             </div>
 
             <div className="desenvolvedor">
-                Desenvolvido por <br /> DS3-M | CONSULINE
+                <Link to="/" onClick={() => signOut()}>
+                    <BotaoPrincipal titulo="Deslogar" />
+                </Link>
             </div>
         </div >
     );

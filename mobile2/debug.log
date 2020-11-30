@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+[1124/125303.336:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+=======
 [0929/234245.361:ERROR:process_info.cc(329)] VirtualQueryEx: Acesso negado. (0x5)
 [0929/234245.363:ERROR:process_info.cc(556)] ReadMemoryInfo failed
 [0929/234245.363:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Tentou-se acessar um processo de saï¿½da. (0xc000010a)
@@ -255,6 +258,7 @@
 [1126/183959.326:ERROR:process_reader_win.cc(123)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido. (0xc0000022)
 [1126/183959.904:ERROR:exception_snapshot_win.cc(99)] thread ID 12184 not found in process
 [1127/082629.728:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+<<<<<<< HEAD
 [1128/152827.810:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1128/153827.996:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1128/153828.133:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
@@ -330,3 +334,6 @@
 [1129/232521.966:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1129/234022.059:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1130/074926.445:ERROR:crash_report_database_win.cc(457)] unexpected header
+=======
+>>>>>>> 306ea270380d161845649728b554bb31e4a03acc
+>>>>>>> 21c8c798cf0c4c53feae02ab5dd60e3cdce4d71a

@@ -40,16 +40,17 @@
 #nomeFantasia {grid-area: nome;}
 #dataAbertura {grid-area: data;}
 #email {grid-area: email;}
+#telefone {grid-area: telefone;}
 
 .form-informacao {
-    flex: 2;
+    flex: 1;
     height: 100%;
     display: grid;
     grid-template-areas:
         "cnpj cnpj cnpj ie"
         "social social social social"
         "nome nome nome data"
-        "email email email email"
+        "email email email telefone"
         "botoes botoes botoes botoes";
     column-gap: 20px;
     padding: 30px;

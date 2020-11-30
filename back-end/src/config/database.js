@@ -8,7 +8,7 @@ module.exports = {
 
     password: "bcd127",
 
-    database: process.env.NODE_ENV === "test"? "bdConsuline_test" : "bdConsuline",
+    database: process.env.NODE_ENV === "test" ? "bdConsuline_test" : "bdConsuline",
 
     define: {
 

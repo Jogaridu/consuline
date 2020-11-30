@@ -25,9 +25,10 @@ function DadosMedicoLogin() {
 
         const dados = {
             ...novoMedico
-            , ...values,
+            , login: values.login,
+            senha: values.senha,
             cpf: RemoverMask(novoMedico.cpf),
-            telefone: RemoverMask(novoMedico.telefone),
+            telefone: [RemoverMask(novoMedico.telefone)],
             endereco: {
                 ...novoMedico.endereco,
                 cep: RemoverMask(novoMedico.endereco.cep)
@@ -46,25 +47,6 @@ function DadosMedicoLogin() {
                 timer: 1000
             })
         }
-
-        // try {
-        //     const retorno = await api.post("/profissional", dados);
-
-        //     if (retorno.status === 201) {
-        //         Swal.fire({
-        //             position: 'center',
-        //             icon: 'success',
-        //             title: "Profissional cadastrado com sucesso",
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         }).then(() => history.push(`/home-central`));
-        //     }
-
-        // } catch (error) {
-        //     console.log(error);
-        //     MsgErroGenerico();
-
-        // }
     }
 
     return (

@@ -20,6 +20,10 @@
     flex-direction: column;  
 }
 
+.container-left-side1 input[type="file"] {
+    display: none;
+}
+
 #nome {grid-area: nome;}
 #dataNascimento {grid-area: dataNascimento;}
 #crm {grid-area: crm;}
@@ -48,7 +52,16 @@
     height: 180px;
     background-color: var(--principal);
     border-radius: 50%;
-    background-position: -15px -15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.img-usuario img{
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
 }
 
 #usuario {
@@ -73,7 +86,8 @@
       'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
     text-align: center;
-    font-size: 30px; 
+    font-size: 30px;
+    cursor: pointer;
 }
 
             /* ---------------------------- Container-right-side ---------------------------- */
