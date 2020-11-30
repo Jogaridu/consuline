@@ -6,8 +6,7 @@ import TituloPrincipal from '../../../Components/TituloPrincipal';
 import api from '../../../Services/api';
 
 import { HiPencilAlt } from "react-icons/hi";
-import { FaTrashAlt } from "react-icons/fa";
-import { RiAddCircleFill } from "react-icons/ri";
+import iconeConsulta from "../../../Assets/icone-filial-consulta.png";
 
 import './styles.css';
 import { useEffect } from 'react';
@@ -67,7 +66,7 @@ function Consulta() {
         <div className="container-central">
             <MenuCentral />
             <div className="container-conteudo-central">
-                <TituloPrincipal nome="Consulta cadastro" />
+                <TituloPrincipal nome="Consulta cadastro" imagem={iconeConsulta} />
                 <div className="consulta-cadastro">
                     <div className="conjunto-dados">
                         <div className="titulo-conjunto-dados">

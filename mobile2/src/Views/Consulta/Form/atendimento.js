@@ -34,7 +34,7 @@ const LocalHospital = (props) => {
 
       props.navigation.navigate("EscolhaMedicos", {
         ...props.novaConsulta,
-        AtendimentoId: "1",
+        AtendimentoId: 1,
         FilialId: filialId,
       });
 

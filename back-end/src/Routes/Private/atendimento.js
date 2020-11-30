@@ -4,7 +4,7 @@ const routes = express.Router();
 
 const controller = require("../../controllers/atendimento");
 
-const autorizacaoMid = require("../../middlewares/autorizacao");
+// const autorizacaoMid = require("../../middlewares/autorizacao");
 
 // routes.use(autorizacaoMid);
 

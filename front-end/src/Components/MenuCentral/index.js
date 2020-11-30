@@ -4,8 +4,7 @@ import React from 'react';
 import './styles.css';
 
 import logoConsuline from "../../Assets/logoprojeto1.png"
-import { Link, Redirect } from 'react-router-dom';
-import BotaoPrincipal from "../BotaoPrincipal";
+import { Link } from 'react-router-dom';
 import { signOut } from "../../Services/security"
 
 function MenuCentral() {

@@ -6,7 +6,6 @@ import "./styles.css";
 
 import "../../Styles/globalStyle.css";
 
-import logoprojeto2 from "../../Assets/logoprojeto2.png";
 import imagemCentral from "../../Assets/medico-central-home.png";
 import filais from "../../Assets/totalFiliaisCentral.png";
 import paciente from "../../Assets/totalPacientesCentral.png";
@@ -17,7 +16,6 @@ import logo from "../../Assets/logoCentral.png";
 import InputBusca from "../../Components/InputBusca";
 import BotaoPrincipal from "../../Components/BotaoPrincipal";
 import api from "../../Services/api";
-import { getCentral } from "../../Services/security";
 import { useEffect } from "react";
 import { useState } from "react";
 

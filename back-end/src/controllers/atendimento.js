@@ -3,6 +3,12 @@ const Atendimento = require("../models/Atendimento");
 module.exports = {
     async criar(req, res) {
 
+        const { idCentral, tipoPerfil } = req;
+
+        // if(tipoPerfil !== "admin"){
+        //     return res.status(401).send({error: "Você não possui autorização para esta ação!!"});
+        // }
+
         const { tipo } = req.body;
 
         try {
