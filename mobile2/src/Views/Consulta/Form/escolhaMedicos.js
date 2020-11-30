@@ -59,7 +59,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
     const navigateCalendar = (profissionalId) => {
 
         if (profissionalId !== "") {
-            navigation.navigate("Agendamento", { ...novaConsulta, profissionalId });
+            navigation.navigate("Agendamento", { ...novaConsulta, ProfissionalDaSaudeId: profissionalId });
 
         } else {
             console.log("Erro, profissional sem ID");

@@ -6,6 +6,7 @@ import {
   AsyncStorage,
   Text,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -153,9 +154,9 @@ const EditarInformacaoPessoal = ({navigation}) => {
 
   if (loading) {
     return (
-      <ContainerEditar>
-        <Text> Carregando... </Text>
-      </ContainerEditar>
+      <Container style={{backgroundColor: colors.fundo}}>
+        <ActivityIndicator size={40} color={colors.principal} />
+      </Container>
     );
   } else {
     return (

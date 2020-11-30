@@ -34,19 +34,33 @@ module.exports = {
     const verificado = false;
 
     try {
-      let pacienteCriado = await Paciente.findOne({
-        where: {
-          [Op.or]: [
-            { cpf: cpf },
-            { rg: rg },
-            { login: login },
-            { email: email },
-            { celular: celular },
-          ],
+        let pacienteCriado = await Paciente.findOne({
+            where: {
+            [Op.or]: [
+                { cpf: cpf },
+                { rg: rg },
+                { login: login },
+                { email: email },
+                { celular: celular },
+            ],
         },
       });
 
+    //   console.log(pacienteCriado.dataValues);
+      console.log({
+        nome,
+        celular,
+        login,
+        senha,
+        dataNascimento,
+        email,
+        rg,
+        cpf,
+        endereco,
+      })
+
       if (pacienteCriado) {
+        console.log("entrou");
         return res.status(400).send({
           erro:
             "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email, Celular",
@@ -177,11 +191,10 @@ module.exports = {
   },
 
   async deletar(req, res) {
-    const { idPaciente, tipoPerfil } = req;  
+    const { idPaciente, tipoPerfil } = req;
 
     try {
-
-      if (tipoPerfil !== 'paciente') {
+      if (tipoPerfil !== "paciente") {
         return res
           .status(401)
           .send({ error: "Você não possui autorização para esta ação!!" });
@@ -217,7 +230,7 @@ module.exports = {
     const dados = req.body;
 
     try {
-      if (tipoPerfil !== 'paciente') {
+      if (tipoPerfil !== "paciente") {
         return res
           .status(401)
           .send({ error: "Você não possui autorização para esta ação!!" });
@@ -314,13 +327,13 @@ module.exports = {
   },
 
   async cadastrarImagem(req, res) {
-    const { idPerfil, tipoPerfil } = req;
+    const { id } = req.params;
 
-    if (tipoPerfil !== 'paciente') {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== 'paciente') {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     const { firebaseUrl } = req.file ? req.file : "";
 
@@ -329,7 +342,7 @@ module.exports = {
         { foto: firebaseUrl },
         {
           where: {
-            id: idPerfil,
+            id,
           },
         }
       );
@@ -378,12 +391,10 @@ module.exports = {
         .status(200)
         .send({ sucesso: "Resultado do exame enviado com sucesso" });
     } catch (error) {
-      return res
-        .status(500)
-        .send({
-          error:
-            "Não foi possivel enviar o resultado do exame, por favor tente novamente ",
-        });
+      return res.status(500).send({
+        error:
+          "Não foi possivel enviar o resultado do exame, por favor tente novamente ",
+      });
     }
   },
 };

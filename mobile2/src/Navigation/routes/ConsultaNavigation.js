@@ -13,6 +13,7 @@ import EscolhaMedicos from "../../Views/Consulta/Form/escolhaMedicos";
 import Atendimento from "../../Views/Consulta/Form/atendimento";
 import Agendamento from "../../Views/Consulta/Form/agendamento";
 import Pagamento from "../../Views/Consulta/Form/pagamento";
+import Sucesso from "../../Views/Consulta/Form/sucesso";
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,11 @@ const ConsultaNavigation = () => {
         name="Pagamento"
         component={Pagamento}
         options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="Sucesso"
+        component={Sucesso}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
