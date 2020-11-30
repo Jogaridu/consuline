@@ -70,7 +70,7 @@ const Foto = ({ navigation, route }) => {
 
       navegarSucesso();
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
     }
   };
 

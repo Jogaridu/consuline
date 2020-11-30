@@ -11,8 +11,9 @@ export const ContainerColor = styled.View`
 `;
 
 export const ContainerConteudoHome = styled.View`
-  flex: 2;
+  flex: 5;
   width: 100%;
+  height: 100%;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   background: ${colors.container};
@@ -27,9 +28,10 @@ export const ContainerTextoBoasVindas = styled.View`
   padding-left: 15px;
 `;
 
-export const ContainerBtnTheme = styled.View`
+export const ContainerNotificacao = styled.View`
   flex: 1;
-  align-items: center;
+  align-items: flex-end;
+  padding-right: 30px;
   justify-content: center;
 `;
 
@@ -128,4 +130,48 @@ export const ContainerInfrmCardConsulta = styled.View`
   align-items: center;
   margin-bottom: 10px;
   margin-left: 18px;
+`;
+
+export const Notificacoes = styled.View`
+  width: 250px;
+  height: 160px;
+  background-color: ${colors.container};
+  border-radius: 20px;
+  align-items: center;
+  padding-top: 10px;
+  position: absolute;
+  top: 74%;
+  left: -50%;
+  z-index: 999;
+`;
+
+export const Notificacao = styled.TouchableOpacity`
+  width: 90%;
+  height: 65px;
+  background-color: ${colors.container};
+  border-radius: 10px;
+  margin-bottom: 10px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ContainerTextosNot = styled.View`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+export const TituloNotificacao = styled.Text`
+  font-size: 13px;
+  color: ${colors.principal};
+  font-weight: bold;
+  flex-direction: row;
+  flex-flow: wrap;
+`;
+
+export const TextoNotificacao = styled.Text`
+  font-size: 10px;
+  color: ${colors.corTituloSecundario};
+  /* align-self: flex-end; */
 `;

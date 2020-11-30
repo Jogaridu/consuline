@@ -23,6 +23,24 @@ function Servicos() {
     const [novoServico, setNovoServico] = useState([]);
 
     useEffect(() => {
+        const carragarServicos = async () => {
+            try {
+
+                const retorno = await api.get("/servicos");
+                console.log(retorno.data);
+
+                if (retorno.data) {
+                    setServicos(retorno.data);
+
+                } else {
+                    alert("Serviços não existem");
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         carragarServicos();
 
 
@@ -63,23 +81,6 @@ function Servicos() {
 
         }
 
-    }
-
-    const carragarServicos = async () => {
-        try {
-
-            const retorno = await api.get("/servicos");
-
-            if (retorno.data) {
-                setServicos(retorno.data);
-
-            } else {
-                alert("Serviços não existem");
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     const pegarServico = (evento, servicoId) => {

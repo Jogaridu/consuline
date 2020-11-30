@@ -19,6 +19,7 @@ body {
     font-family: "Roboto", sans-serif;
     font-weight: bold;
     font-size: 50px;
+    font-style: normal;
   }
 
   h2 {
@@ -90,7 +91,7 @@ a:visited {
 .form .mensagem-erro {
   color: rgb(255, 38, 38);
   font-weight: 500;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
 }

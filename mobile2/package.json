@@ -39,7 +39,9 @@
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.11.7",
     "styled-components": "^5.2.0",
-    "validate.js": "^0.13.1"
+    "validate.js": "^0.13.1",
+    "react-native-maps": "0.27.1",
+    "expo-linear-gradient": "~8.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

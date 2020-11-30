@@ -31,8 +31,9 @@ const ContainerFormulario = (props) => {
     const navigateAtendimento = (values) => {
 
         if (values.sintomas !== "" && props.servico !== undefined) {
-            const dados = { sintomas: values.sintomas, servico: { ...props.servico } };
+            const dados = { sintomas: values.sintomas, ServicoId: props.servico.id };
 
+            console.log(dados);
             props.navigation.navigate("Atendimento", dados);
 
         } else {

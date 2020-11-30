@@ -17,7 +17,7 @@ import { TextInputMask as Input } from "react-native-masked-text";
 import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
 import TextInput from "../../../Components/Input";
-import Botao from "../../../Components/Botao2";
+import Botao from "../../../Components/Botao3";
 import Passos from "../../../Components/Passos";
 
 import { validarInputMaskCorreta } from "../../../Fixtures/validarInputCorreta";

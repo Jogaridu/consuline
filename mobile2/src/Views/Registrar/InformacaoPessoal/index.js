@@ -216,7 +216,7 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 style={[styles.input]}
                 value={novoPaciente.nome}
                 onChangeText={maskNome}
-                placeholder="Nome Completo"
+                placeholder="Nome"
                 placeholderTextColor="#403e66"
                 ref={inputNome}
                 onBlur={() => validarInputCorreta(novoPaciente.nome, inputNome)}

@@ -7,10 +7,13 @@ import calendario from '../../../Assets/calendario.png'
 import medicoteste from '../../../Assets/medicoteste.png'
 
 
+
+
 function Agendadas () {
+   
 
-    
-
+      
+ 
     return(
      <div className="container-agendadas">
         <div className="header-consultas">
@@ -82,7 +85,7 @@ function Agendadas () {
                             Bruno Gonçalves 
                         </div>
                         <div className="idade-paciente-agendado">
-                            17 Anos
+                            {/* {anos} Anos */}
                         </div>
                     </div>
                 </div>
