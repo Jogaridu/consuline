@@ -5,8 +5,8 @@ const auth = require("../config/auth.json");
 
 
 module.exports = {
-  
-async validaProfissional(login, senha) {
+
+  async validaProfissional(login, senha) {
     const profissionalDaSaude = await ProfissionalDaSaude.findOne({
       where: {
         login: login,
@@ -25,7 +25,7 @@ async validaProfissional(login, senha) {
 
   async loginProfissionalDaSaude(profissionalDaSaude) {
     const token = jwt.sign(
-      { idProfissionalDaSaude: profissionalDaSaude.id },
+      { idProfissionalDaSaude: profissionalDaSaude.id, tipoPerfil: "profissional" },
       auth.secret
     );
 

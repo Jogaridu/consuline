@@ -88,7 +88,7 @@ module.exports = {
       //   "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
-      const token = jwt.sign({ idPaciente: paciente.id, tipoPerfil:"paciente" }, auth.secret);
+      const token = jwt.sign({ idPaciente: paciente.id, tipoPerfil: "paciente" }, auth.secret);
 
       return res.status(201).send({ paciente, token });
 
@@ -184,15 +184,15 @@ module.exports = {
 
   async deletar(req, res) {
 
-    const {idPaciente, tipoPerfil} = req;
+    const { idPaciente, tipoPerfil } = req;
 
     const { id } = req.params;
 
 
     try {
 
-      if(idPaciente === id && tipoPerfil !== "paciente"){
-        return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+      if (idPaciente === id && tipoPerfil !== "paciente") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
       }
 
 
@@ -221,20 +221,18 @@ module.exports = {
 
   async atualizar(req, res) {
 
-    const {idPaciente, tipoPerfil} = req;
-
-    const { id } = req.params;
+    const { idPaciente, tipoPerfil } = req;
 
     const dados = req.body;
 
     try {
 
-      
-    if(idPaciente === id && tipoPerfil !== "paciente"){
-      return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
-    }
 
-      let paciente = await Paciente.findByPk(id);
+      if (tipoPerfil !== "paciente") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+      }
+
+      let paciente = await Paciente.findByPk(idPaciente);
 
       if (!paciente) {
         return res
@@ -252,14 +250,14 @@ module.exports = {
 
         await Paciente.update({ ...dados, senha: senhaCripto },
           {
-            where: { id: id },
+            where: { id: idPaciente },
           }
         );
 
       } else {
         await Paciente.update(dados,
           {
-            where: { id: id },
+            where: { id: idPaciente },
           }
         );
       }
@@ -293,7 +291,7 @@ module.exports = {
         return res.status(403).send({ error: "Usuário e/ou senha inválidos" });
       }
 
-      const token = jwt.sign({ idPaciente: pacienteBuscado.id, tipoPerfil:"paciente" }, auth.secret);
+      const token = jwt.sign({ idPaciente: pacienteBuscado.id, tipoPerfil: "paciente" }, auth.secret);
 
       const json = {
         paciente: {
@@ -308,27 +306,37 @@ module.exports = {
   },
 
   async verificarSenha(req, res) {
-    const { id } = req.params;
+    const { idPaciente, tipoPerfil } = req;
 
-    const { senhaAntiga } = req.body;
-
-    const { senha } = await Paciente.findByPk(id, {
-      attributes: ['senha'],
-      raw: true
-    });
-
-    if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
-      return res.status(200).send("Sucesso");
+    if (tipoPerfil !== "paciente") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
     }
 
-    res.status(404).send({ erro: "Paciente não existe" });
+    try {
+      const { senhaAntiga } = req.body;
+
+      const { senha } = await Paciente.findByPk(idPaciente, {
+        attributes: ['senha'],
+        raw: true
+      });
+
+      if (bcrypt.compareSync(senhaAntiga, pacienteSenha)) {
+        return res.status(200).send("Sucesso");
+      }
+
+      res.status(404).send({ erro: "Paciente não existe" });
+    } catch (error) {
+      return res.status(500).send({ error: "Não foi possível verificar senha, por favor tente novamente" });
+    }
   },
 
   async cadastrarImagem(req, res) {
 
-    const {idPerfil, tipoPerfil} = req;
-    
-    const { id } = req.params;
+    const { idPaciente, tipoPerfil } = req;
+
+    if (tipoPerfil !== "paciente") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     const { firebaseUrl } = req.file ? req.file : "";
 
@@ -336,7 +344,7 @@ module.exports = {
       await Paciente.update({ foto: firebaseUrl },
         {
           where: {
-            id: id
+            id: idPaciente
           }
         }
       )
@@ -349,11 +357,12 @@ module.exports = {
     const { texto } = req.body;
     const { firebaseUrl } = req.file ? req.file : "";
     const { idPaciente } = req.params;
+    const { idProfissional, tipoPerfil } = req;
 
     try {
 
-      if(idPaciente === id && tipoPerfil !== "paciente"){
-        return res.status(401).send({error:"Você não possui autorização para esta ação!!"});
+      if (tipoPerfil !== "profissional") {
+        return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
       }
 
       const paciente = await Paciente.findByPk(idPaciente);
@@ -382,7 +391,7 @@ module.exports = {
           console.log(info);
       });
 
-      res.status(200).send({sucesso:"Resultado do exame enviado com sucesso"});
+      res.status(200).send({ sucesso: "Resultado do exame enviado com sucesso" });
 
 
     } catch (error) {

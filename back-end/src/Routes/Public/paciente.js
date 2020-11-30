@@ -5,6 +5,7 @@ const routes = express.Router();
 const controller = require("../../controllers/paciente");
 
 const autorizacaoMid = require("../../middlewares/autorizacaoDoPaciente");
+const autorizacaoMidProfissional = require("../../middlewares/autorizacaoProfissional");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 
@@ -18,9 +19,9 @@ routes.post("/paciente/sessao", controller.autenticar);
 
 routes.post("/paciente/:id/validacao-sms", controller.verificarSms);
 
-routes.post("/paciente/:id/verificar-senha", controller.verificarSenha);
+routes.post("/paciente/verificar-senha", controller.verificarSenha);
 
-routes.post("/paciente/:id/imagem", Multer.single("foto"), enviarArquivos, controller.cadastrarImagem);
+routes.post("/paciente/imagem", Multer.single("foto"), enviarArquivos, controller.cadastrarImagem);
 
 routes.get("/paciente/:id", controller.buscarPorId);
 
@@ -28,7 +29,9 @@ routes.get("/paciente", controller.listar);
 
 routes.delete("/paciente/:id", controller.deletar);
 
-routes.put("/paciente/:id", Multer.single("foto"), controller.atualizar);
+routes.put("/paciente", Multer.single("foto"), controller.atualizar); ~
+
+    // routes.use(autorizacaoMidProfissional);
 
 routes.post("/paciente/exame/:idPaciente", Multer.single("arquivo"), enviarArquivos, controller.enviarExame);
 

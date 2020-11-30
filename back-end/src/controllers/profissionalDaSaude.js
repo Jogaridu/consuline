@@ -88,7 +88,7 @@ module.exports = {
       }
 
       const token = jwt.sign(
-        { idProfissional: dadosProfissional.id },
+        { idProfissional: dadosProfissional.id, tipoPerfil:"profissional" },
         auth.secret
       );
 
@@ -143,10 +143,6 @@ module.exports = {
 
   async apagar(req, res) {
     const { id } = req.params;
-
-    // const token = req.headers.authorization;
-
-    // const [Bearer, created_aluno_id] = token.split(" ");
 
     let profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
     if (!profissionalDaSaude) {
