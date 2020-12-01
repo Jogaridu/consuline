@@ -1,16 +1,36 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, AsyncStorage } from "react-native";
 
 import Container from "../../../Components/Container";
 // import Botao from "../../../Components/Botao2";
 
 import { ContainerTextos, ContainerImgSucesso, ContainerBotao, ImgSucesso, Botao, TextoBotao } from "../styles";
+import { EventRegister } from 'react-native-event-listeners'
 
 import colors from "../../../Styles/colors";
+import api from "../../../Services/api";
 
 const Sucesso = ({ navigation, route }) => {
 
+  const [consultas, setConsultas] = useState();
+
+  const pegarConsultas = async () => {
+    const paciente = JSON.parse(
+      await AsyncStorage.getItem("@Consuline:paciente")
+    );
+
+    const retorno = await api.get(`paciente/${paciente.id}/consultas`);
+
+    setConsultas(retorno.data);
+  }
+
+  useEffect(() => {
+    pegarConsultas();
+  }, [])
+
   const navegarHome = () => {
+    EventRegister.emit("reloadHome", consultas);
+
     navigation.navigate("Home");
   }
 

@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { EventRegister } from "react-native-event-listeners";
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 import {
   ContainerColor,
   ContainerPerfil,

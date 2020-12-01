@@ -53,6 +53,7 @@ const Home = ({ navigation }) => {
   const [opacity] = useState(new Animated.Value(0));
   const [dadosConsulta, setDadosConsulta] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
@@ -61,6 +62,11 @@ const Home = ({ navigation }) => {
 
     const consultas = await api.get(`paciente/${paciente.id}/consultas`);
 
+    var consultaData = consultas.data[0].data;
+    var dataAlterada = consultaData.split("-");
+    var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
+
+    setDataConsulta(dataNova);
     setDadosConsulta(consultas.data);
     setNome(paciente.nome);
     setLoading(false);
@@ -72,6 +78,9 @@ const Home = ({ navigation }) => {
       await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
 
       setNome(dados.nome);
+    });
+    listener = EventRegister.addEventListener("reloadHome", (dados) => {
+      setDadosConsulta(dados);
     });
     pegarDados();
 
@@ -110,7 +119,7 @@ const Home = ({ navigation }) => {
                   {" "}
                   {consulta["ProfissionalDaSaude.nome"]}{" "}
                 </TitulosCardConsulta>
-                <TextoCardConsulta> 04/08, 15:00 </TextoCardConsulta>
+                <TextoCardConsulta> {dataConsulta}, {consulta["horario"]} </TextoCardConsulta>
               </ContainerTextosHeader>
             </HeaderCardConsulta>
             <InfrmCardConsulta>
@@ -215,7 +224,7 @@ const Home = ({ navigation }) => {
                   marginTop: -6,
                 }}
               >
-                {nome}
+              {nome}
               </Text>
             </ContainerTextoBoasVindas>
             <ContainerNotificacao>
