@@ -37,7 +37,7 @@ function ListarFiliais() {
 
             setFiliais(retorno.data);
 
-            setLoading(false)
+            setLoading(false);
 
         } catch (error) {
             console.log(error);

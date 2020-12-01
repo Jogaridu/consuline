@@ -4,10 +4,10 @@ h5{
 
 p{
   margin-bottom: 3em;
-  font-style: italic;
+  /* font-style: italic; */
 }
 h1{
-  font-style: italic;
+  /* font-style: italic; */
 }
 #medicoteste1{
   width: 60px;

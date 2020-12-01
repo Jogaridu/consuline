@@ -48,9 +48,9 @@ function Servicos() {
 
     const cadastrarFilial = async () => {
 
-        novaFilial.telefones = ["11912341234"]; // Provisório
         novaFilial["servicos"] = novoServico;
-
+        novaFilial["telefones"] = [RemoverMask(novaFilial.telefones[0])]
+        
         try {
 
             const dados = {

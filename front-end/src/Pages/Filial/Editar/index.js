@@ -21,12 +21,14 @@ function EditarFilial() {
 
     const { id } = useParams();
 
+
     const validar = async (values) => {
         const arrInputs = Array.from(document.querySelectorAll("form input"));
-
+        delete values.id
+        
         const arrayInputsVazias = ValidarInputVazia(arrInputs);
 
-        if (arrayInputsVazias) {
+        if (!arrayInputsVazias) {
             try {
 
                 Swal.fire({
@@ -49,7 +51,6 @@ function EditarFilial() {
             } catch (error) {
                 console.log(error);
             }
-            // history.push("/filiais");
 
         }
     }

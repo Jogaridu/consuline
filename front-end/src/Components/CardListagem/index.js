@@ -10,6 +10,7 @@ function CardListagem(props) {
     const { id, nome, cidade, estado, telefones, telaEditar, telaConsulta } = props;
 
     const telefone = telefones[0].numero;
+
     const ddd = telefone.slice(0, 2);
     const telefoneParte1 = telefone.slice(2, 7);
     const telefoneParte2 = telefone.slice(7, 11);
@@ -56,12 +57,12 @@ function CardListagem(props) {
                             }
 
                         } else {
-                            Swal.fire('Filial não apagada', '', 'info')
+                            Swal.fire('Filial não apagada', '', 'info');
                         }
                     })
 
                 }}>Excluir</li>
-            </ul >
+            </ul>
         );
     };
 
