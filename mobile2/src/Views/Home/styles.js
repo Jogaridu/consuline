@@ -11,13 +11,21 @@ export const ContainerColor = styled.View`
 `;
 
 export const ContainerConteudoHome = styled.View`
-  flex: 5;
+  flex: 30;
   width: 100%;
   height: 100%;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   background: ${colors.container};
   margin-top: -1px;
+  align-items: center;
+`;
+
+export const ContainerBotao = styled.View`
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 2%;
   align-items: center;
 `;
 

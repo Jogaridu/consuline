@@ -14,7 +14,7 @@ const autorizacaoMid = require("../../middlewares/autorizacao");
 
 routes.post("/profissional/login", login.logar);
 
-// routes.use(autorizacaoMid);
+routes.use(autorizacaoMid);
 
 routes.post(
   "/profissional",
