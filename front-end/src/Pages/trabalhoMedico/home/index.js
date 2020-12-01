@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 import Rating from '@material-ui/lab/Rating';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 import '../../../Styles/globalStyle.css'
@@ -15,14 +16,6 @@ import api from '../../../Services/api'
 import { getProfissional } from "../../../Services/security"
 
 const CardConsulta = ({ consulta }) => {
-    // const data = parseISO((consulta.data));
-
-    // const dataFormatada = format(
-    // data, 
-    //  "'Dia' dd 'de' MMMM', às ' HH:mm'h'"
-    // );
-    // console.log(dataFormatada)
-
     return (
         <div className="card-previa">
             <div className="foto-previa-card">
@@ -32,13 +25,16 @@ const CardConsulta = ({ consulta }) => {
                 {consulta.Paciente.nome}
             </div>
             <div className="data-previa-card">
-                {format(parseISO(consulta.data), 'dd/MM')} {consulta.horario}
+                {format(parseISO(consulta.data), 'dd/MM')} {consulta.horario.substr(0,consulta.horario.lastIndexOf(":"))}
             </div>
-            <div className="vermais-previa-card">
-                <div className="txtvermais-previa-card">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to={`/consultas/abrir-consulta/${consulta.id}`}>
+                <div className="vermais-previa-card">
+                    <div className="txtvermais-previa-card">
                     Ver mais
+                    </div>
                 </div>
-            </div>
+            </Link>
+            
         </div>
     )
 }
@@ -71,20 +67,20 @@ function HomeConsulta() {
     }, []);
 
     const carregarConsultas = async () => {
+
         const { idProfissionalDaSaude } = getProfissional();
 
         try {
             const retorno = await api.get(`/medico/${idProfissionalDaSaude}/consultas`);
-            console.log(retorno.data);
+            // console.log(retorno.data);
             setConsulta(retorno.data);
 
         } catch (error) {
             console.log(error);
-        
         }
-
     }
     
+
     const [avaliacao, setAvaliacao] = useState([]);
 
     useEffect(() => {
@@ -92,11 +88,10 @@ function HomeConsulta() {
     }, []);
 
     const carregarAvaliacao = async () => {
-        // const { idProfissionalDaSaude } = getProfissional();
 
         try {
             const retorno = await api.get('/medico/avaliacao');
-            console.log(retorno.data);
+            // console.log(retorno.data);
             setAvaliacao(retorno.data);
             
         } catch (error) {
@@ -175,9 +170,10 @@ function HomeConsulta() {
                     Avaliações
                </div>
                 <div className="mini-card-avaliacao">
-                    {consulta.map ((avaliacao) => (
-                        <ResumoAvaliacao avaliacao={avaliacao}/>
-                    ))}
+                    {avaliacao.map ((avaliacao, i) => {
+                        if(i >= 3) return 
+                        return <ResumoAvaliacao avaliacao={avaliacao}/>
+                    })}
                 </div>
 
                 <div className="vermais-card-avaliacoes">

@@ -1,21 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+import api from '../../../Services/api';
 import './style.css';
-import '../../../../Styles/globalStyle.css'
-import medicoteste from '../../../../Assets/medicoteste.png'
-import relogio from '../../../../Assets/relogio.png'
-import calendario from '../../../../Assets/calendario.png'
+import '../../../Styles/globalStyle.css'
+import medicoteste from '../../../Assets/medicoteste.png'
+import relogio from '../../../Assets/relogio.png'
+import calendario from '../../../Assets/calendario.png'
+import { useParams } from 'react-router-dom';
 
-
-
-function AbrirConsulta () {
+const ConsultaCompleta = ({consulta}) => {
     return(
-    <div className="container-consulta-completa">
-        <div className="header-consultas">
-            <div className="titulo-avaliacao">
-                Consulta
-            </div>
-        </div>
         <div className="card-consulta-aberta">
             <div className="dadospaciente">
                 <div className="imagem-paciente-consulta">
@@ -74,6 +68,35 @@ function AbrirConsulta () {
                 </div>
             </div>
         </div>
+    )
+}
+
+function AbrirConsulta () {
+    let { id } = useParams();
+
+    const [consulta, setConsulta] = useState([]);
+
+
+
+    const carregarConsulta = async () => {
+
+        try {
+            const retorno = await api.get(`/consulta/${id}`);
+            console.log(retorno.data);
+            setConsulta(retorno.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    return(
+    <div className="container-consulta-completa">
+        <div className="header-consultas">
+            <div className="titulo-avaliacao">
+                Consulta
+            </div>
+        </div>
+        <ConsultaCompleta/>
     </div>        
     );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, Image, AsyncStorage } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 
 import Container from "../../../Components/Container";
 
@@ -48,9 +49,21 @@ const ConsultaEditar = ({ navigation }) => {
 
   return (
     <Container>
-      <ContainerColor style={{ marginTop: -25 }} />
+      <ContainerColor style={{ marginTop: -25 }} >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={['#706DB3', '#403e66']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
+      </ContainerColor>
       <ContainerPerfil>
-        <FotoPerfil source={{uri: dados.foto}}/>
+        <FotoPerfil source={dados.foto === null ? require("../../../Assets/semFoto.png") : {uri: dados.foto}}/>
 
         <BtnEditar>{/* <Ionicons size={32} color={"black"} /> */}</BtnEditar>
         <ScrollView>

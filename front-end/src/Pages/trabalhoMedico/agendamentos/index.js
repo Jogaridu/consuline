@@ -6,7 +6,8 @@ import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
 import medicoteste from '../../../Assets/medicoteste.png'
 
-import { format, parseISO, formatRelative, formatDistance } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import pt from 'date-fns/locale/pt-BR';
 import { getProfissional } from "../../../Services/security"
 import api from '../../../Services/api';
@@ -42,14 +43,14 @@ const CardAgendado = ({ agendadas }) => {
                         <img id="calendario" src={calendario} alt="Logoteste" /> 
                     </div>
                     <div className="data">
-                        {format(parseISO(agendadas.data), 'dd, MMMM - yyy')}
+                        {format(parseISO(agendadas.data), 'dd, MMMM - yyy', {locale: ptBR})}
                         {/* 16, Janeiro - 2020 */}
                     </div>
                     <div className="img-relogio">
                         <img id="relogio" src={relogio} alt="Logoteste" /> 
                     </div>
                     <div className="hora">
-                        {agendadas.horario} AM
+                        {agendadas.horario.substr(0,agendadas.horario.lastIndexOf(":"))}
                     </div>
                 </div>
                     <div className="tipo-da-consulta">

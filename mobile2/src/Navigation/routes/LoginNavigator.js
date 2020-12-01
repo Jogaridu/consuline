@@ -20,6 +20,8 @@ import Sucesso from "../../Views/Registrar/Sucesso";
 import CadastroLoginSenha from "../../Views/Registrar/LoginSenha";
 
 import colors from "../../Styles/colors";
+import { isSignIn } from "../../Services/security";
+import HomeNavigation from "./HomeNavigation";
 
 const optionsHeader = {
   headerBackTitleVisible: false,
@@ -57,7 +59,7 @@ const closeConfig = {
 const LoginNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="TelaInicial"
+      initialRouteName={isSignIn() ? "HomeNavigation" : "TelaInicial"} 
       screenOptions={{
         gestureEnabled: true,
         gestureDirection: "horizontal",
@@ -132,6 +134,11 @@ const LoginNavigator = () => {
       <Stack.Screen
         name="RegistrarSucesso"
         component={Sucesso}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeNavigation"
+        component={HomeNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
