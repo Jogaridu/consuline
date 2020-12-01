@@ -254,3 +254,4 @@
 [1126/183748.449:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1126/183959.326:ERROR:process_reader_win.cc(123)] NtOpenThread: {Acesso Negado} Um processo solicitou acesso a um objeto, mas o direito de acesso não lhe foi concedido. (0xc0000022)
 [1126/183959.904:ERROR:exception_snapshot_win.cc(99)] thread ID 12184 not found in process
+[1127/111645.562:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
