@@ -26,6 +26,7 @@ import {
 } from "./styles";
 
 import api from "../../Services/api";
+import { signin } from "../../Services/security";
 
 const Login = ({ navigation }) => {
   YellowBox.ignoreWarnings([
@@ -113,18 +114,8 @@ const Login = ({ navigation }) => {
 
         delete dadosPaciente.senha;
 
-        // const dadosPaciente = JSON.stringify(resApiFBPK.data);
-
-        await AsyncStorage.setItem(
-          "@Consuline:paciente",
-          JSON.stringify(dadosPaciente)
-        );
-
-        // const paciente = JSON.parse((await AsyncStorage.getItem("@Consuline:paciente")));
-
-        // paciente.nome = "novo nome";
-
-        // await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(paciente));
+        console.log(dadosResposta);
+        signin(dadosResposta);
 
         return navigation.navigate("Home");
       } else {

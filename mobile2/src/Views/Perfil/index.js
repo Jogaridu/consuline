@@ -203,6 +203,7 @@ const Perfil = ({ navigation }) => {
                   </TextoInformacoes>
                 </ContainerTextosInformacoes>
               </ContainerInformacoes>
+              <Text onPress={() => navigation.navigate("Login")}>  </Text>
             </ContainerConteudoInformacoes>
           </ScrollView>
         </ContainerPerfil>

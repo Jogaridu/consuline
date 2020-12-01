@@ -18,7 +18,10 @@ export const signOut = async () => {
 export const isSignIn = async () => {
     const usuario = JSON.parse(await AsyncStorage.getItem(CHAVE_USUARIO));
 
+    console.log(usuario)
+
     if (usuario) {
+        console.log(usuario.token)
         api.defaults.headers.common['Authorization'] = `Bearer ${usuario.token}`;
 
     }
@@ -26,8 +29,8 @@ export const isSignIn = async () => {
     return usuario ? true : false;
 }
 
-export const getPaciente = () => {
-    const paciente = JSON.parse(AsyncStorage.getItem(CHAVE_USUARIO));
+export const getPaciente = async () => {
+    const paciente = JSON.parse(await AsyncStorage.getItem(CHAVE_USUARIO));
 
     return paciente;
 }
