@@ -11,6 +11,14 @@ const TelefoneProfissional = require("../models/TelefoneProfissional");
 
 module.exports = {
   async cadastrar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil != "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const {
       cpf,
       nome,
@@ -96,7 +104,6 @@ module.exports = {
       const profissional = { dadosProfissional, telefones, token };
 
       res.status(201).send({ profissional });
-
     } catch (error) {
       console.log(error);
       return res.status(500).send({
@@ -122,14 +129,13 @@ module.exports = {
             ],
           },
           {
-            model: TelefoneProfissional
-          }
+            model: TelefoneProfissional,
+          },
         ],
         order: [["createdAt", "DESC"]],
       });
 
       res.status(200).send(profissionais);
-
     } catch (error) {
       console.log(error);
       return res.status(500).send({
@@ -140,6 +146,14 @@ module.exports = {
   },
 
   async apagar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const { id } = req.params;
 
     let profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
@@ -169,6 +183,14 @@ module.exports = {
   },
 
   async atualizar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const { id } = req.params;
     const {
       cpf,
