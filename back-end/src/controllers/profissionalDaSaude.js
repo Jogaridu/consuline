@@ -29,21 +29,6 @@ module.exports = {
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
 
-    console.log({
-      cpf,
-      nome,
-      crm,
-      login,
-      senha,
-      email,
-      enderecoJson,
-      telefoneJson,
-      dataNascimento,
-      FilialId,
-      ServicoId,
-      firebaseUrl
-    });
-
     try {
       const servico = await Servico.findByPk(ServicoId);
 
@@ -101,14 +86,10 @@ module.exports = {
       }
 
       const token = jwt.sign(
-<<<<<<< HEAD
-        { idProfissional: dadosProfissional.id, tipoPerfil:"profissional" },
-=======
         {
           idProfissional: dadosProfissional.id,
           tipoPerfil: "profissionalDaSaude",
         },
->>>>>>> ba54426a1cd593bd07bb5b5d0d362a731ed7426a
         auth.secret
       );
 
