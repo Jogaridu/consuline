@@ -351,6 +351,7 @@ h1{
 }
 .ratingbar-cliente-avaliador{
   grid-area: ratingbar-cliente-avaliador;
+  margin-left: 8px;
   /* background-color: fuchsia; */
 }
 

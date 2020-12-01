@@ -2,10 +2,6 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import MaskedInput from 'react-text-mask';
 import BotaoPrincipal from "../../../../Components/BotaoPrincipal"
-import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
-
-import test from "../../../../Assets/add.png"
-import test2 from "../../../../Assets/add2.png"
 
 import { validarInformacoes } from "../../Registrar/ValidacaoInputSchema";
 import mascaras from "../../Registrar/Informacoes/mask";
@@ -40,7 +36,8 @@ function Informacoes({ validar }) {
                     ie,
                     razaoSocial,
                     nomeFantasia,
-                    dataAbertura } = retorno.data;
+                    dataAbertura,
+                    TelefoneFilials } = retorno.data;
 
                 setDados({
                     cnpj,
@@ -48,7 +45,8 @@ function Informacoes({ validar }) {
                     ie,
                     razaoSocial,
                     nomeFantasia,
-                    dataAbertura: converterDataBr(dataAbertura)
+                    dataAbertura: converterDataBr(dataAbertura),
+                    telefone: TelefoneFilials[0].numero
                 });
 
             } catch (error) {
@@ -156,7 +154,22 @@ function Informacoes({ validar }) {
                         <ErrorMessage className="mensagem-erro" component="span" name="email" />
                     </div>
 
-                    <div className="telefones-editar-filial">
+                    <div className="form-grupo-input" id="telefone">
+                        <Field
+                            name="telefone"
+                            render={({ field }) => (
+                                <MaskedInput
+                                    {...field}
+                                    type="text"
+                                    mask={mascaras.telefone}
+                                    placeholder="Telefone"
+                                    guide={false}
+                                />
+                            )} />
+                        <ErrorMessage className="mensagem-erro" component="span" name="telefone" />
+                    </div>
+
+                    {/* <div className="telefones-editar-filial">
                         <h2>Telefones</h2>
                         <div className="telefones">
                             <div>
@@ -178,7 +191,7 @@ function Informacoes({ validar }) {
                             </div>
 
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="caixa-botao">
                         <BotaoPrincipal titulo="Editar" tipo="submit" />

@@ -101,10 +101,14 @@ module.exports = {
       }
 
       const token = jwt.sign(
+<<<<<<< HEAD
+        { idProfissional: dadosProfissional.id, tipoPerfil:"profissional" },
+=======
         {
           idProfissional: dadosProfissional.id,
           tipoPerfil: "profissionalDaSaude",
         },
+>>>>>>> ba54426a1cd593bd07bb5b5d0d362a731ed7426a
         auth.secret
       );
 
@@ -156,10 +160,6 @@ module.exports = {
 
   async apagar(req, res) {
     const { id } = req.params;
-
-    // const token = req.headers.authorization;
-
-    // const [Bearer, created_aluno_id] = token.split(" ");
 
     let profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
     if (!profissionalDaSaude) {

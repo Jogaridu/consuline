@@ -4,9 +4,10 @@ const router = express.Router();
 
 
 // Rotas publicas
+const rotasPublicaSessao = require("./Public/sessao");
+
 const rotasPublicaPaciente = require("./Public/paciente");
 const rotasPublicaProfissional = require("./Public/profissionalDaSaude");
-const rotasPublicaSessao = require("./Public/sessao");
 
 // Rotas privadas
 const rotasServicos = require("./Private/servicos");
