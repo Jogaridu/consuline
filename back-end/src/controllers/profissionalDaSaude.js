@@ -145,6 +145,24 @@ module.exports = {
     }
   },
 
+  async liatarPorFilial(req, res) {
+    const { idFilial } = req.params;
+
+    try {
+      let profissionais = await ProfissionalDaSaude.findAll({
+        where: { FilialId: idFilial },
+        order: [["id", "ASC"]],
+      });
+      res.status(200).send(profissionais);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        error:
+          "Não foi possível listar todos os profissionais desta filial, por favor tente novamente ",
+      });
+    }
+  },
+
   async apagar(req, res) {
     const { idCentral, tipoPerfil } = req;
 

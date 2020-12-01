@@ -13,7 +13,13 @@ const enviarArquivos = require("../../services/firebase");
 
 routes.post("/paciente", controller.cadastrar);
 
-routes.post("/paciente/:id/imagem", Multer.single("foto"), enviarArquivos, controller.cadastrarImagem);
+
+routes.post(
+  "/paciente/:id/imagem",
+  Multer.single("foto"),
+  enviarArquivos,
+  controller.cadastrarImagem
+);
 
 routes.post("/paciente/sessao", controller.autenticar);
 
@@ -23,7 +29,12 @@ routes.post("/paciente/:id/validacao-sms", controller.verificarSms);
 
 routes.post("/paciente/verificar-senha", controller.verificarSenha);
 
-routes.post("/paciente/imagem", Multer.single("foto"), enviarArquivos, controller.cadastrarImagem);
+routes.post(
+  "/paciente/imagem",
+  Multer.single("foto"),
+  enviarArquivos,
+  controller.cadastrarImagem
+);
 
 routes.get("/paciente/:id", controller.buscarPorId);
 
@@ -33,9 +44,12 @@ routes.delete("/paciente", controller.deletar);
 
 routes.put("/paciente", Multer.single("foto"), controller.atualizar);
 
-    routes.use(autorizacaoMidProfissional);
+routes.use(autorizacaoMidProfissional);
 
-routes.post("/paciente/exame/:idPaciente", Multer.single("arquivo"), enviarArquivos, controller.enviarExame);
-
-
+routes.post(
+  "/paciente/exame/:idPaciente",
+  Multer.single("arquivo"),
+  enviarArquivos,
+  controller.enviarExame
+);
 module.exports = routes;

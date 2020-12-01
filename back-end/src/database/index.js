@@ -38,6 +38,9 @@ const Avaliacao = require("../models/Avaliacao");
 //Pagamento
 const Pagamento = require("../models/Pagamento");
 
+//Notificação
+const Notificacao = require("../models/Notificacao");
+
 const conexao = new Sequelize(dbConfig);
 
 // ----- INICIALIZAÇÃO -----
@@ -76,6 +79,9 @@ Avaliacao.init(conexao);
 //Pagamento
 Pagamento.init(conexao);
 
+// Notificação
+Notificacao.init(conexao);
+
 // ----- ASSOCIAÇÕES -----
 
 // Paciente
@@ -112,3 +118,5 @@ Avaliacao.associate(conexao.models);
 //Pagamento
 Pagamento.associate(conexao.models);
 
+// Notificação
+Notificacao.associate(conexao.models);

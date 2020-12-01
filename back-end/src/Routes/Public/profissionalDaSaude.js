@@ -29,6 +29,8 @@ routes.get("/profissional/:id", controller.buscarId);
 
 routes.delete("/profissional/:id", controller.apagar);
 
+routes.get("/profissional/filial/:idFilial", controller.liatarPorFilial);
+
 routes.put("/profissional/:id", Multer.single("foto"), controller.atualizar);
 
 routes.post("/profissional/verificar-nome", controller.verificarNome);
