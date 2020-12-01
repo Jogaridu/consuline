@@ -134,7 +134,7 @@ const Codigo = ({ navigation, route }) => {
       }
     } catch (error) {
       if (error.response) {
-        console.warn("Deu ruim");
+        console.log(error.response.data);
       }
     }
   };

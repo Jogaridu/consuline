@@ -21,7 +21,7 @@ import Routes from "./src/Navigation/routes";
 export default function App() {
   return (
     <>
-      <Localizacao />
+      <Routes />
     </>
   );
 }

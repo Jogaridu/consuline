@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, AsyncStorage, StatusBar } from "react-native";
+import { View, Text, Image, ScrollView, AsyncStorage, StatusBar, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { EventRegister } from "react-native-event-listeners";
+import { LinearGradient } from 'expo-linear-gradient';
 
 import {
   ContainerColor,
@@ -38,8 +39,6 @@ const Perfil = ({ navigation }) => {
     setDadosPaciente(paciente);
     setDataNascimento(dataNova);
     setLoading(false);
-
-    console.log(dadosPaciente);
   };
 
   useEffect(() => {
@@ -63,16 +62,29 @@ const Perfil = ({ navigation }) => {
 
   if (loading) {
     return (
-      <Container style={{backgroundColor: colors.principal}}>
-        <Text> Carregando... </Text>
+      <Container style={{backgroundColor: colors.fundo}}>
+        <ActivityIndicator size={40} color={colors.principal} />
       </Container>
     );
   } else {
     return (
-      <Container style={{backgroundColor: colors.principal}}>
-        <ContainerColor />
+      <Container style={{backgroundColor: "#706DB3"}}>
+        <ContainerColor>
+        <LinearGradient
+        // Background Linear Gradient
+        colors={['#706DB3', '#403e66']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
+        </ContainerColor>
+
         <ContainerPerfil>
-          <FotoPerfil source={{uri: dadosPaciente.foto}} />
+          <FotoPerfil source={dadosPaciente.foto === null ? require("../../Assets/semFoto.png") : {uri: dadosPaciente.foto}} />
 
           <BtnEditar onPress={navegarConsultaEditar}>
             <Icon name="account-edit" size={36} color={colors.principal} />

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
+import Rating from '@material-ui/lab/Rating';
 
 import './style.css';
 import '../../../Styles/globalStyle.css'
@@ -14,7 +15,14 @@ import api from '../../../Services/api'
 import { getProfissional } from "../../../Services/security"
 
 const CardConsulta = ({ consulta }) => {
-    
+    // const data = parseISO((consulta.data));
+
+    // const dataFormatada = format(
+    // data, 
+    //  "'Dia' dd 'de' MMMM', às ' HH:mm'h'"
+    // );
+    // console.log(dataFormatada)
+
     return (
         <div className="card-previa">
             <div className="foto-previa-card">
@@ -30,6 +38,24 @@ const CardConsulta = ({ consulta }) => {
                 <div className="txtvermais-previa-card">
                     Ver mais
                 </div>
+            </div>
+        </div>
+    )
+}
+
+const ResumoAvaliacao = ({avaliacao}) => {
+    return(
+        <div className="card-ratingbar">
+            <div className="img-cliente-avaliador">
+                <div className="caixa-ajuste-medico">
+                    <img id="medicoteste1" src={medicoteste} alt="" />
+                </div>
+            </div>
+            <div className="nome-cliente-avaliador">
+               {avaliacao.Paciente.nome}
+            </div>
+            <div className="ratingbar-cliente-avaliador">
+                <Rating name="estrelas" value={avaliacao.estrelas} readOnly />
             </div>
         </div>
     )
@@ -57,6 +83,25 @@ function HomeConsulta() {
         
         }
 
+    }
+    
+    const [avaliacao, setAvaliacao] = useState([]);
+
+    useEffect(() => {
+        carregarAvaliacao();
+    }, []);
+
+    const carregarAvaliacao = async () => {
+        // const { idProfissionalDaSaude } = getProfissional();
+
+        try {
+            const retorno = await api.get('/medico/avaliacao');
+            console.log(retorno.data);
+            setAvaliacao(retorno.data);
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const medicoSessao = getProfissional();
@@ -130,19 +175,9 @@ function HomeConsulta() {
                     Avaliações
                </div>
                 <div className="mini-card-avaliacao">
-                    <div className="card-ratingbar">
-                        <div className="img-cliente-avaliador">
-                            <div className="caixa-ajuste-medico">
-                                <img id="medicoteste1" src={medicoteste} alt="" />
-                            </div>
-                        </div>
-                        <div className="nome-cliente-avaliador">
-                            Bruno G. Menezes
-                        </div>
-                        <div className="ratingbar-cliente-avaliador">
-
-                        </div>
-                    </div>
+                    {consulta.map ((avaliacao) => (
+                        <ResumoAvaliacao avaliacao={avaliacao}/>
+                    ))}
                 </div>
 
                 <div className="vermais-card-avaliacoes">

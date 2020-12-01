@@ -6,7 +6,6 @@ import "./styles.css";
 
 import "../../Styles/globalStyle.css";
 
-import logoprojeto2 from "../../Assets/logoprojeto2.png";
 import imagemCentral from "../../Assets/medico-central-home.png";
 import filais from "../../Assets/totalFiliaisCentral.png";
 import paciente from "../../Assets/totalPacientesCentral.png";
@@ -16,8 +15,32 @@ import logo from "../../Assets/logoCentral.png";
 
 import InputBusca from "../../Components/InputBusca";
 import BotaoPrincipal from "../../Components/BotaoPrincipal";
+import api from "../../Services/api";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Home = () => {
+
+    const [profissionais, setProfissionais] = useState([]);
+
+    useEffect(() => {
+        const pegarMedicos = async () => {
+
+            try {
+                const retorno = await api.get("/profissional");
+                console.log(retorno.data);
+                setProfissionais(retorno.data);
+
+            } catch (error) {
+                console.log(error);
+
+            }
+        };
+
+        pegarMedicos()
+    }, [])
+
+
     return (
         <div className="container-central">
             <MenuCentral />
@@ -72,16 +95,19 @@ const Home = () => {
                         <BotaoPrincipal titulo="BUSCAR" />
                     </div>
                     <div className="lista-card-medicos">
-                        <div className="card-medico">
-                            <figure><img src={logoprojeto2} alt="" /></figure>
-                            <div>
-                                Nicolas Santos <br />
-                                <Rating name="read-only" value={3} readOnly />
+                        {profissionais.map(profissional => (
+                            <div className="card-medico">
+                                <figure><img src={profissional.foto} alt="Foto profissional" /></figure>
+                                <div>
+                                    {profissional.nome} <br />
+                                    <Rating name="read-only" value={5} readOnly />
+                                </div>
+                                <div className="visualizar-perfil">
+                                    Visualizar perfil
                             </div>
-                            <div className="visualizar-perfil">
-                                Visualizar perfil
                             </div>
-                        </div>
+                        ))}
+                        {/* */}
                     </div>
                 </div>
             </div>

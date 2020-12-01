@@ -4,6 +4,7 @@
 #nomeFantasia {grid-area: nome;}
 #dataAbertura {grid-area: data;}
 #email {grid-area: email;}
+#telefone {grid-area: telefone;}
 
 .form-editar-informacoes {
     flex: 5;
@@ -15,7 +16,7 @@
         "cnpj cnpj ie ie"
         "nome nome social social"
         "email email data data "
-        "telefones telefones telefones botao";
+        "telefone telefone botao botao";
 }
 
 .form-editar-informacoes .form-grupo-input input {

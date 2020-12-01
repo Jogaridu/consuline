@@ -44,6 +44,7 @@
   border-radius: 20px;
   padding-top: 25px;
   display: flex;
+  align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -222,8 +223,6 @@
 .titulo-card-cadastro-servicos figure {
   height: 200px;
   width: 100%;
-  /* background-color: green; */
-  /* border-radius: 50%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,7 +258,6 @@
 #img-cadastro-servico {
   width: 220px;
   height: 200px;
-  /* border: 1px solid var(--principal); */
   background-color: var(--fundo);
   margin: 20px auto;
   border-radius: 5px;
@@ -313,7 +311,6 @@ input[type="file"] {
 #container-botoes-servicos {
   width: 100%;
   height: auto;
-  /* background: pink; */
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
@@ -326,4 +323,8 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#selecao-arquivo {
+  display: none;
 }

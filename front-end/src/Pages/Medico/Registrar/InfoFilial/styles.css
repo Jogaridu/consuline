@@ -1,0 +1,63 @@
+.lista-filiais-medico {
+    width: 60vw;
+    height: 400px;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding-top: 50px;
+}
+
+.lista-filiais-medico label {
+    min-height: 60px;
+    height: auto;
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #C4C4C4;
+    transition: ease all 300ms;
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+
+.lista-filiais-medico label input[type="radio"] {
+    height: 30px;
+    width: 30px;
+    margin-right: 30px;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+
+.lista-filiais-medico label span {
+    width: 85%;
+    font-size: 1.1em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: var(--principal);
+}
+
+.mais-dados-filial {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    transition: 200ms ease all;
+}
+
+.dado-filial {
+    height: 50px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
