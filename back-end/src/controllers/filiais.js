@@ -164,6 +164,7 @@ module.exports = {
         // }
 
         const { id } = req.params;
+        console.log(req.params);
 
         try {
             const filialBuscado = await Filial.findByPk(id);
