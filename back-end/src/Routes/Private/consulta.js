@@ -4,21 +4,33 @@ const routes = express.Router();
 
 const controller = require("../../controllers/consulta");
 
+const autorizacaoMid = require("../../middlewares/autorizacao");
+
+const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente");
+
+const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
+
+routes.use(autorizacaoMid);
+
 routes.post("/consulta", controller.criar);
 
 routes.delete("/consulta/:id", controller.apagar);
 
-routes.put("/consulta/:id", controller.atualizar);
-
 routes.get("/consulta/:id", controller.listarId);
 
-routes.get("/medico/:idMedico/consultas", controller.listarIdMedico);
+routes.use(autorizacaoMidPaciente);
 
-routes.get("/medico/:idMedico/consultas/dias", controller.listarDia);
+routes.put("/consulta/:id", controller.atualizar);
 
-routes.get("/medico/:idMedico/consultas/proximas", controller.listarIdMedicoData);
+routes.get("/teste", controller.listarIdPaciente);
 
-routes.get("/paciente/:idPaciente/consultas", controller.listarIdPaciente);
+routes.use(autorizacaoMidProfissional);
+
+routes.get("/medico/consultas", controller.listarIdMedico);
+
+routes.get("/medico/consultas/dias", controller.listarDia);
+
+routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);
 
 routes.post("/paciente/:idPaciente/consulta/:idConsulta/iniciar", controller.iniciarConsulta);
 

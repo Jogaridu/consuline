@@ -12,6 +12,13 @@ const auth = require("../config/auth.json");
 const Notificacao = require("./notificacao");
 module.exports = {
   async criar(req, res) {
+
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil === "admin") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const {
       valor,
       desconto,
@@ -143,6 +150,12 @@ module.exports = {
   async apagar(req, res) {
     const { id } = req.params;
 
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil === "profissionalDaSaude") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     try {
       const consulta = await Consulta.findByPk(id);
 
@@ -163,6 +176,14 @@ module.exports = {
 
   async atualizar(req, res) {
     const { id } = req.params;
+
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil !== "paciente") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
+
     const {
       valor,
       desconto,
@@ -280,11 +301,15 @@ module.exports = {
   },
 
   async listarIdMedico(req, res) {
-    const { idMedico } = req.params;
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     try {
       const consultas = await Consulta.findAll({
-        where: { ProfissionalDaSaudeId: idMedico },
+        where: { ProfissionalDaSaudeId: idProfissional },
         order: [["data", "DESC"]],
         include: [
           {
@@ -298,10 +323,6 @@ module.exports = {
           {
             association: "Atendimento",
             attributes: ["tipo"],
-          },
-          {
-            association: "ProfissionalDaSaude",
-            attributes: ["nome", "dataNascimento", "crm"],
           },
         ],
       });
@@ -322,7 +343,13 @@ module.exports = {
   },
 
   async listarIdMedicoData(req, res) {
-    const { idMedico } = req.params;
+
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
 
     const { data } = req.query;
 
@@ -330,7 +357,7 @@ module.exports = {
       const consultas = await Consulta.findAll(
         {
           where: {
-            [Op.and]: [{ ProfissionalDaSaudeId: idMedico }, { data: data }],
+            [Op.and]: [{ ProfissionalDaSaudeId: idProfissional }, { data: data }],
           },
           order: [["horario", "ASC"]],
         },
@@ -372,12 +399,16 @@ module.exports = {
   },
 
   async listarDia(req, res) {
-    const { idMedico } = req.params;
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     try {
       const consultas = await Consulta.findAll(
         {
-          where: { ProfissionalDaSaudeId: idMedico },
+          where: { ProfissionalDaSaudeId: idProfissional },
           order: [["horario", "ASC"]],
           raw: true,
           attributes: ["data", "horario", "id"],
@@ -441,8 +472,12 @@ module.exports = {
   },
 
   async listarIdPaciente(req, res) {
-    const { idPaciente } = req.params;
+    const { idPaciente, tipoPerfil } = req;
 
+
+    if (tipoPerfil !== "paciente") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
     try {
       const consultas = await Consulta.findAll({
         where: { PacienteId: idPaciente },
@@ -489,6 +524,12 @@ module.exports = {
 
   async iniciarConsulta(req, res) {
     const { idPaciente, idConsulta } = req.params;
+
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     try {
       const consulta = await Consulta.findByPk(idConsulta);
