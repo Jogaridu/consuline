@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
 const emailConsuline = require("../services/email");
 const nodemailer = require("nodemailer");
-const CronJob = require("cron").CronJob;
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -48,17 +47,7 @@ module.exports = {
       });
 
       //   console.log(pacienteCriado.dataValues);
-      console.log({
-        nome,
-        celular,
-        login,
-        senha,
-        dataNascimento,
-        email,
-        rg,
-        cpf,
-        endereco,
-      });
+    
 
       if (pacienteCriado) {
         console.log("entrou");

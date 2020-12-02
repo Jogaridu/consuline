@@ -127,11 +127,9 @@ module.exports = {
 
       const dataTexto = data + " " + horario;
 
-      console.log("----", dataTexto)
-
       const dataNotificacao = new Date(dataTexto);
 
-      Notificacao.inserir(dataNotificacao);
+      Notificacao.inserir(dataNotificacao, consulta.id, consulta.PacienteId);
 
       res.status(201).send(consulta);
     } catch (error) {

@@ -95,12 +95,10 @@ module.exports = {
 
       const token = jwt.sign(
         {
-          idProfissional: dadosProfissional.id,
           tipoPerfil: "profissionalDaSaude",
         },
         auth.secret
       );
-
       const profissional = { dadosProfissional, telefones, token };
 
       res.status(201).send({ profissional });
