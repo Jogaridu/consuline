@@ -11,6 +11,14 @@ const TelefoneProfissional = require("../models/TelefoneProfissional");
 
 module.exports = {
   async cadastrar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil != "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const {
       cpf,
       nome,
@@ -28,21 +36,6 @@ module.exports = {
 
     const enderecoJson = JSON.parse(endereco);
     const telefoneJson = JSON.parse(telefone);
-
-    console.log({
-      cpf,
-      nome,
-      crm,
-      login,
-      senha,
-      email,
-      enderecoJson,
-      telefoneJson,
-      dataNascimento,
-      FilialId,
-      ServicoId,
-      firebaseUrl
-    });
 
     try {
       const servico = await Servico.findByPk(ServicoId);
@@ -109,7 +102,6 @@ module.exports = {
       const profissional = { dadosProfissional, telefones, token };
 
       res.status(201).send({ profissional });
-
     } catch (error) {
       console.log(error);
       return res.status(500).send({
@@ -135,14 +127,13 @@ module.exports = {
             ],
           },
           {
-            model: TelefoneProfissional
-          }
+            model: TelefoneProfissional,
+          },
         ],
         order: [["createdAt", "DESC"]],
       });
 
       res.status(200).send(profissionais);
-
     } catch (error) {
       console.log(error);
       return res.status(500).send({
@@ -152,7 +143,33 @@ module.exports = {
     }
   },
 
+  async liatarPorFilial(req, res) {
+    const { idFilial } = req.params;
+
+    try {
+      let profissionais = await ProfissionalDaSaude.findAll({
+        where: { FilialId: idFilial },
+        order: [["id", "ASC"]],
+      });
+      res.status(200).send(profissionais);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        error:
+          "Não foi possível listar todos os profissionais desta filial, por favor tente novamente ",
+      });
+    }
+  },
+
   async apagar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const { id } = req.params;
 
     let profissionalDaSaude = await ProfissionalDaSaude.findByPk(id);
@@ -182,6 +199,14 @@ module.exports = {
   },
 
   async atualizar(req, res) {
+    const { idCentral, tipoPerfil } = req;
+
+    if (tipoPerfil !== "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const { id } = req.params;
     const {
       cpf,

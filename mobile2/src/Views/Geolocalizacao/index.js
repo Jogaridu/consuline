@@ -66,6 +66,7 @@ const Filial = ({
     <BotaoHospital
       selecionado={selecionado}
       onPress={() => {
+        console.log(filialSelecionada)
         setFilialSelecionada({
           ...filialSelecionada,
           id,

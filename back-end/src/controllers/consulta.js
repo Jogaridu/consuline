@@ -9,7 +9,7 @@ const Pagamento = require("../models/Pagamento");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
-
+const Notificacao = require("./notificacao");
 module.exports = {
   async criar(req, res) {
     const {
@@ -83,12 +83,10 @@ module.exports = {
       });
 
       if (consultaCriada) {
-        return res
-          .status(400)
-          .send({
-            error:
-              "Já existe uma consulta com esse horario,data e profissional, por favor tente novamente",
-          });
+        return res.status(400).send({
+          error:
+            "Já existe uma consulta com esse horario,data e profissional, por favor tente novamente",
+        });
       }
 
       consultaCriada = null;
@@ -104,12 +102,10 @@ module.exports = {
       });
 
       if (consultaCriada) {
-        return res
-          .status(400)
-          .send({
-            error:
-              "Já existe uma consulta com esse horario,data e paciente, por favor tente novamente",
-          });
+        return res.status(400).send({
+          error:
+            "Já existe uma consulta com esse horario,data e paciente, por favor tente novamente",
+        });
       }
 
       const idPagamento = pagamentoCriado.id;
@@ -129,14 +125,20 @@ module.exports = {
         PagamentoId: idPagamento,
       });
 
+      const dataTexto = data + " " + horario;
+
+      console.log("----", dataTexto)
+
+      const dataNotificacao = new Date(dataTexto);
+
+      Notificacao.inserir(dataNotificacao);
+
       res.status(201).send(consulta);
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error: "Erro ao agendar consulta, por favor tente novamente ",
-        });
+      return res.status(500).send({
+        error: "Erro ao agendar consulta, por favor tente novamente ",
+      });
     }
   },
 
@@ -155,11 +157,9 @@ module.exports = {
       res.status(200).send({ sucesso: "Consulta deletada com sucesso" });
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error: "Não foi possível deletar consulta, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error: "Não foi possível deletar consulta, por favor tente novamente",
+      });
     }
   },
 
@@ -235,12 +235,10 @@ module.exports = {
 
       res.status(200).send({ sucesso: " Consulta editada com sucesso" });
     } catch (error) {
-      return res
-        .status(500)
-        .send({
-          error:
-            "Não foi possivel editar essa consulta, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error:
+          "Não foi possivel editar essa consulta, por favor tente novamente",
+      });
     }
   },
 
@@ -276,12 +274,10 @@ module.exports = {
       res.status(200).send(consulta);
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error:
-            "Não foi possivel listar esta consulta, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error:
+          "Não foi possivel listar esta consulta, por favor tente novamente",
+      });
     }
   },
 
@@ -321,11 +317,9 @@ module.exports = {
       res.status(200).send(consultas);
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error: "Não foi possivel listar consultas, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error: "Não foi possivel listar consultas, por favor tente novamente",
+      });
     }
   },
 
@@ -373,11 +367,9 @@ module.exports = {
       res.status(200).send(consultas);
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error: "Não foi possivel listar consultas, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error: "Não foi possivel listar consultas, por favor tente novamente",
+      });
     }
   },
 
@@ -444,11 +436,9 @@ module.exports = {
       res.status(200).send(arrayConsultas);
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error: "Não foi possivel listar consultas, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error: "Não foi possivel listar consultas, por favor tente novamente",
+      });
     }
   },
 
@@ -493,11 +483,9 @@ module.exports = {
       res.status(200).send(dados);
     } catch (error) {
       console.log(error);
-      return res
-        .status(500)
-        .send({
-          error: "Não foi possivel listar consultas, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error: "Não foi possivel listar consultas, por favor tente novamente",
+      });
     }
   },
 
@@ -533,12 +521,9 @@ module.exports = {
 
       res.status(200).send({ whatsapp });
     } catch (error) {
-      return res
-        .status(500)
-        .send({
-          error:
-            "Não foi possivel iniciar a consulta, por favor tente novamente",
-        });
+      return res.status(500).send({
+        error: "Não foi possivel iniciar a consulta, por favor tente novamente",
+      });
     }
   },
 };

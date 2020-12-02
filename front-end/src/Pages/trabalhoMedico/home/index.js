@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
+import Rating from '@material-ui/lab/Rating';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 import '../../../Styles/globalStyle.css'
@@ -14,7 +16,6 @@ import api from '../../../Services/api'
 import { getProfissional } from "../../../Services/security"
 
 const CardConsulta = ({ consulta }) => {
-    
     return (
         <div className="card-previa">
             <div className="foto-previa-card">
@@ -24,12 +25,33 @@ const CardConsulta = ({ consulta }) => {
                 {consulta.Paciente.nome}
             </div>
             <div className="data-previa-card">
-                {format(parseISO(consulta.data), 'dd/MM')} {consulta.horario}
+                {format(parseISO(consulta.data), 'dd/MM')} {consulta.horario.substr(0,consulta.horario.lastIndexOf(":"))}
             </div>
-            <div className="vermais-previa-card">
-                <div className="txtvermais-previa-card">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to={`/consultas/abrir-consulta/${consulta.id}`}>
+                <div className="vermais-previa-card">
+                    <div className="txtvermais-previa-card">
                     Ver mais
+                    </div>
                 </div>
+            </Link>
+            
+        </div>
+    )
+}
+
+const ResumoAvaliacao = ({avaliacao}) => {
+    return(
+        <div className="card-ratingbar">
+            <div className="img-cliente-avaliador">
+                <div className="caixa-ajuste-medico">
+                    <img id="medicoteste1" src={medicoteste} alt="" />
+                </div>
+            </div>
+            <div className="nome-cliente-avaliador">
+               {avaliacao.Paciente.nome}
+            </div>
+            <div className="ratingbar-cliente-avaliador">
+                <Rating name="estrelas" value={avaliacao.estrelas} readOnly />
             </div>
         </div>
     )
@@ -45,18 +67,36 @@ function HomeConsulta() {
     }, []);
 
     const carregarConsultas = async () => {
+
         const { idProfissionalDaSaude } = getProfissional();
 
         try {
             const retorno = await api.get(`/medico/${idProfissionalDaSaude}/consultas`);
-            console.log(retorno.data);
+            // console.log(retorno.data);
             setConsulta(retorno.data);
 
         } catch (error) {
             console.log(error);
-        
         }
+    }
+    
 
+    const [avaliacao, setAvaliacao] = useState([]);
+
+    useEffect(() => {
+        carregarAvaliacao();
+    }, []);
+
+    const carregarAvaliacao = async () => {
+
+        try {
+            const retorno = await api.get('/medico/avaliacao');
+            // console.log(retorno.data);
+            setAvaliacao(retorno.data);
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const medicoSessao = getProfissional();
@@ -130,19 +170,10 @@ function HomeConsulta() {
                     Avaliações
                </div>
                 <div className="mini-card-avaliacao">
-                    <div className="card-ratingbar">
-                        <div className="img-cliente-avaliador">
-                            <div className="caixa-ajuste-medico">
-                                <img id="medicoteste1" src={medicoteste} alt="" />
-                            </div>
-                        </div>
-                        <div className="nome-cliente-avaliador">
-                            Bruno G. Menezes
-                        </div>
-                        <div className="ratingbar-cliente-avaliador">
-
-                        </div>
-                    </div>
+                    {avaliacao.map ((avaliacao, i) => {
+                        if(i >= 3) return 
+                        return <ResumoAvaliacao avaliacao={avaliacao}/>
+                    })}
                 </div>
 
                 <div className="vermais-card-avaliacoes">

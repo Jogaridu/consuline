@@ -14,7 +14,7 @@ const autorizacaoMid = require("../../middlewares/autorizacao");
 
 routes.post("/profissional/login", login.logar);
 
-// routes.use(autorizacaoMid);
+routes.use(autorizacaoMid);
 
 routes.post(
   "/profissional",
@@ -28,6 +28,8 @@ routes.get("/profissional", controller.listar);
 routes.get("/profissional/:id", controller.buscarId);
 
 routes.delete("/profissional/:id", controller.apagar);
+
+routes.get("/profissional/filial/:idFilial", controller.liatarPorFilial);
 
 routes.put("/profissional/:id", Multer.single("foto"), controller.atualizar);
 

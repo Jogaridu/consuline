@@ -35,10 +35,34 @@
     border-top: 2px solid var(--principal);
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    /* font-style: oblique; */
     font-size: 18px;
     justify-self: center;
+}
+
+.desenvolvedor span {
+    height: 70px;
     padding-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.desenvolvedor:hover span {
+    background-color: var(--principal);
+    /* transition: 200ms ease all; */
+    animation: crescer 400ms forwards;
+    color: white;
+}
+
+@keyframes crescer {
+    from {
+        height: 0px;
+    }
+
+    to {
+        height: 60px;
+
+    }
 }
 
 .itensMenu {

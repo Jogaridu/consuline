@@ -173,7 +173,7 @@ module.exports = {
                 const { servicos, endereco, telefones, ...dados } = req.body;
 
                 if (endereco) {
-                    const enderecoAtualizado = await enderecoFilial.atualizar(endereco, endereco.id);
+                    await enderecoFilial.atualizar(endereco, endereco.id);
 
                 }
 

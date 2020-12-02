@@ -41,7 +41,7 @@ const CardServicos = (props) => {
                     if (retorno.status === 200) {
                         await Swal.fire('Serviço apagado com sucesso', '', 'success');
 
-                        const arr = Array.from(document.querySelectorAll(".card-servico-servicos"));
+                        const arr = Array.from(document.querySelectorAll(".card-servico-listar"));
 
                         const escolhido = arr.filter(element => element.getAttribute("id") === props.id.toString());
 
@@ -49,6 +49,7 @@ const CardServicos = (props) => {
                     }
 
                 } catch (error) {
+                    console.log(error);
                     Swal.fire('Falha ao apagar o serviço', '', 'error');
 
                 }
@@ -65,50 +66,68 @@ const CardServicos = (props) => {
     };
 
     const SubMenu = () => {
+        // <ul className="menu-config-servicos">
+        //         <li>
+        //             <h2>Ver mais</h2>
+        //         </li>
+        //         <li>
+        //             <h2 onClick={() => {
+        //                 history.replace(`/servicos/${props.id}`);
+        //                 props.setmostrarHospitais(!props.mostrarHospitais);
+        //             }}>
+        //                 Ver Hospitais
+        //             </h2>
+        //         </li>
+        //         <li>
+        //             <h2 onClick={() => editar()}>Editar</h2>
+        //         </li>
+        //         <li>
+        //             <h2 style={{ color: "#e70011" }} onClick={() => excluir()}>
+        //                 Excluir
+        //             </h2>
+        //         </li>
+        //     </ul>
         return (
-            <ul className="menu-config-servicos">
-                <li>
-                    <h2>Ver mais</h2>
-                </li>
-                <li>
-                    <h2 onClick={() => {
-                        history.replace(`/servicos/${props.id}`);
-                        props.setmostrarHospitais(!props.mostrarHospitais);
-                    }}>
-                        Ver Hospitais
-                    </h2>
-                </li>
-                <li>
-                    <h2 onClick={() => editar()}>Editar</h2>
-                </li>
-                <li>
-                    <h2 style={{ color: "#e70011" }} onClick={() => excluir()}>
-                        Excluir
-                    </h2>
-                </li>
+            <ul className="sub-menu">
+                <li onClick={() => editar()}>Editar</li>
+                <li onClick={() => {
+                    history.replace(`/servicos/${props.id}`);
+                    props.setmostrarHospitais(!props.mostrarHospitais);
+                }}>Ver Hospitais</li>
+                <li onClick={() => excluir()}>Excluir</li>
             </ul>
         );
     };
 
     return (
-        <div className="card-servico-servicos" id={props.id}>
-            <FiMoreHorizontal
-                size={30}
-                className="configuracoes-servicos"
+        <div className="card-servico-listar" id={props.id}>
+            <div
+                className="mais-opcoes"
                 onClick={() => {
                     setMostrarSubMenu(!mostrarSubMenu);
-                }}
-            />
-            {mostrarSubMenu && <SubMenu />}
-            <input type="checkbox" className="ver-mais" />
-            <h1 className="card-titulo"> {props.nome} </h1>
-            <figure className="card-imagem-servicos">
-                <img src={props.imagem} alt="Imagem do serviço" />
-            </figure>
-            <div className="btn-descricao">+</div>
+                    setTimeout(() => {
+                        setMostrarSubMenu(false);
+                    }, 10000);
+                }}>
+                ...
+            </div>
 
-            <div className="card-descricao">
-                <p>{props.descricao}</p>
+            {mostrarSubMenu && <SubMenu />}
+
+            <div className="card-servico-conteudo">
+                <input type="checkbox" className="ver-mais" onClick={() => setMostrarSubMenu(false)} />
+
+                <h1 className="card-titulo"> {props.nome} </h1>
+
+                <figure className="card-imagem-servicos">
+                    <img src={props.imagem} alt="Imagem do serviço" />
+                </figure>
+
+                <div className="btn-descricao">+</div>
+
+                <div className="card-descricao">
+                    <p>{props.descricao}</p>
+                </div>
             </div>
         </div>
     );
@@ -122,25 +141,27 @@ const VerHospitais = (props) => {
     const [nomeServico, setNomeServico] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const buscarHospitais = async () => {
-        try {
-            const retornoHospitais = await api.get(`/servico/${id}/filiais`);
-
+    useEffect(() => {
+        const buscarHospitais = async () => {
             try {
-                const retornoServico = await api.get(`/servico/${id}`);
+                const retornoHospitais = await api.get(`/servico/${id}/filiais`);
 
-                setNomeServico(retornoServico.data.nome);
-                setHospitais(retornoHospitais.data);
-                setLoading(false);
+                try {
+                    const retornoServico = await api.get(`/servico/${id}`);
+
+                    setNomeServico(retornoServico.data.nome);
+                    setHospitais(retornoHospitais.data);
+                    setLoading(false);
+                } catch (error) {
+                    console.log(error);
+                }
             } catch (error) {
                 console.log(error);
             }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+        };
 
-    useEffect(buscarHospitais, []);
+        buscarHospitais();
+    }, [id]);
 
     const defaultOptions = {
         loop: true,

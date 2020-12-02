@@ -10,8 +10,10 @@ import './styles.css';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import api from '../../../../Services/api';
+import ValidarInputVazia from "../../../../Fixtures/Inputs/ValidarInputVazia";
+import Swal from "sweetalert2";
 
-function Endereco({ validar }) {
+function Endereco() {
     const { id } = useParams();
     const history = useHistory();
     const [dados, setDados] = useState({
@@ -21,8 +23,41 @@ function Endereco({ validar }) {
         cep: "",
         cidade: "",
         estado: "",
-        complemento: ""
+        complemento: "",
+        id: ""
     });
+
+    const validar = async (values) => {
+        const arrInputs = Array.from(document.querySelectorAll("form input"));
+
+        const arrayInputsVazias = ValidarInputVazia(arrInputs);
+
+        if (!arrayInputsVazias) {
+            try {
+
+                Swal.fire({
+                    title: 'Quer salvar essas mudanças?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: `Salvar`,
+                    denyButtonText: `Não salvar`,
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        Swal.fire('Salvo com sucesso!', '', 'success');
+                        await api.put(`/filial/${id}`, { endereco: values });
+
+
+                    } else if (result.isDenied) {
+                        Swal.fire('Mudanças não salvas', '', 'info')
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+    }
 
     const viaCep = async (cep) => {
 
@@ -126,17 +161,7 @@ function Endereco({ validar }) {
                         <Field
                             type="text"
                             name="numero"
-                            render={({ field }) => (
-                                <MaskedInput
-                                    {...field}
-                                    type="text"
-                                    mask={mascaras.numero}
-                                    // onBlur={InputCorreta}
-                                    placeholder="Numero"
-
-                                />
-                            )
-                            }
+                            placeholder="Número"
                         />
                         <ErrorMessage className="mensagem-erro" component="span" name="numero" />
                     </div>
@@ -185,7 +210,7 @@ function Endereco({ validar }) {
                     </div>
 
                     <div className="caixa-botao" style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <BotaoPrincipal titulo="Editar" tipo="submit" />
+                        <BotaoPrincipal titulo="Editar" tipo="submit" loading={true} />
                     </div>
                 </Form>
             </Formik>

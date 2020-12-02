@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, FlatList, Animated } from "react-native";
+import { View, Text, ScrollView, FlatList, Animated, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 
 import Container from "../../../Components/Container";
@@ -144,7 +144,7 @@ const ContainerLista = (props) => {
             </ContainerInputBusca>
             {props.loading ? (
                 <Container style={{ backgroundColor: colors.fundo }}>
-                    <Text> Carregando... </Text>
+                    <ActivityIndicator size={40} color={colors.principal} />
                 </Container>
             ) : (
                     <FlatList

@@ -57,7 +57,7 @@ function MenuCentral() {
 
             <div className="desenvolvedor">
                 <Link to="/" onClick={() => signOut()} style={{ color: "rgb(222, 0, 0)" }}>
-                    Logout
+                    <span>Logout</span>
                 </Link>
             </div>
         </div >

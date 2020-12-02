@@ -42,6 +42,7 @@ import {
   TextoNotificacao,
   TituloNotificacao,
   ContainerTextosNot,
+  ContainerBotao
 } from "./styles";
 
 import colors from "../../Styles/colors";
@@ -53,6 +54,7 @@ const Home = ({ navigation }) => {
   const [opacity] = useState(new Animated.Value(0));
   const [dadosConsulta, setDadosConsulta] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
@@ -60,6 +62,15 @@ const Home = ({ navigation }) => {
     );
 
     const consultas = await api.get(`paciente/${paciente.id}/consultas`);
+
+    console.log(consultas.data);
+    if (!consultas.data) {
+      var consultaData = consultas.data[0].data;
+      var dataAlterada = consultaData.split("-");
+      var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
+
+      setDataConsulta(dataNova);
+    }
 
     setDadosConsulta(consultas.data);
     setNome(paciente.nome);
@@ -73,6 +84,9 @@ const Home = ({ navigation }) => {
 
       setNome(dados.nome);
     });
+    // listener = EventRegister.addEventListener("reloadHome", (dados) => {
+    //   setDadosConsulta(dados);
+    // });
     pegarDados();
 
     Animated.parallel([
@@ -95,71 +109,84 @@ const Home = ({ navigation }) => {
   }, []);
 
   const navegarConsulta = () => {
-    navigation.navigate("Consulta");
+    navigation.navigate("Agendar");
   };
 
   const Consultas = () => {
-    return (
-      <>
-        {dadosConsulta.map((consulta) => (
-          <CardConsulta style={{ elevation: 2 }} key={consulta.id}>
-            <HeaderCardConsulta>
-              <ImgMedico source={require("../../Assets/fotoMedico.png")} />
-              <ContainerTextosHeader>
-                <TitulosCardConsulta>
-                  {" "}
-                  {consulta["ProfissionalDaSaude.nome"]}{" "}
-                </TitulosCardConsulta>
-                <TextoCardConsulta> 04/08, 15:00 </TextoCardConsulta>
-              </ContainerTextosHeader>
-            </HeaderCardConsulta>
-            <InfrmCardConsulta>
-              <ContainerInfrmCardConsulta>
-                <TitulosCardConsulta style={{ fontSize: 15 }}>
-                  {" "}
-                  Serviço:{" "}
-                </TitulosCardConsulta>
-                <TextoCardConsulta>
-                  {" "}
-                  {consulta["Servico.nome"]}{" "}
-                </TextoCardConsulta>
-              </ContainerInfrmCardConsulta>
-              <ContainerInfrmCardConsulta>
-                <TitulosCardConsulta style={{ fontSize: 15 }}>
-                  {" "}
-                  Atendimento:{" "}
-                </TitulosCardConsulta>
-                <TextoCardConsulta>
-                  {" "}
-                  {consulta["Atendimento.tipo"]}{" "}
-                </TextoCardConsulta>
-              </ContainerInfrmCardConsulta>
-              <ContainerInfrmCardConsulta>
-                <TitulosCardConsulta style={{ fontSize: 15 }}>
-                  {" "}
-                  Local:{" "}
-                </TitulosCardConsulta>
-                <TextoCardConsulta>
-                  {" "}
-                  {consulta["Filial.nomeFantasia"]}{" "}
-                </TextoCardConsulta>
-              </ContainerInfrmCardConsulta>
-              <ContainerInfrmCardConsulta
-                style={{ justifyContent: "flex-end" }}
-              >
-                <TitulosCardConsulta style={{ fontSize: 15 }}>
-                  {" "}
-                  Valor:{" "}
-                </TitulosCardConsulta>
-                <TextoCardConsulta style={{ color: "green", paddingRight: 10 }}>
-                  {consulta.valor}
-                </TextoCardConsulta>
-              </ContainerInfrmCardConsulta>
-            </InfrmCardConsulta>
-          </CardConsulta>
-        ))}
-      </>
-    );
+
+    if (!dadosConsulta == []) {
+      return (
+        <Text style={{ marginTop: 40, alignSelf: "flex-start", marginLeft: 40 }}> Nenhuma consulta agendada... </Text>
+      );
+    } else {
+      return (
+        <>
+          {dadosConsulta.map((consulta) => {
+            (
+              <CardConsulta style={{ elevation: 2 }} key={consulta.id}>
+                <HeaderCardConsulta>
+                  <ImgMedico source={require("../../Assets/fotoMedico.png")} />
+                  <ContainerTextosHeader>
+                    <TitulosCardConsulta>
+                      {" "}
+                      {consulta["ProfissionalDaSaude.nome"]}{" "}
+                    </TitulosCardConsulta>
+                    <TextoCardConsulta> {dataConsulta}, {consulta["horario"]} </TextoCardConsulta>
+                  </ContainerTextosHeader>
+                </HeaderCardConsulta>
+                <InfrmCardConsulta>
+                  <ContainerInfrmCardConsulta>
+                    <TitulosCardConsulta style={{ fontSize: 15 }}>
+                      {" "}
+                        Serviço:{" "}
+                    </TitulosCardConsulta>
+                    <TextoCardConsulta>
+                      {" "}
+                      {consulta["Servico.nome"]}{" "}
+                    </TextoCardConsulta>
+                  </ContainerInfrmCardConsulta>
+                  <ContainerInfrmCardConsulta>
+                    <TitulosCardConsulta style={{ fontSize: 15 }}>
+                      {" "}
+                        Atendimento:{" "}
+                    </TitulosCardConsulta>
+                    <TextoCardConsulta>
+                      {" "}
+                      {consulta["Atendimento.tipo"]}{" "}
+                    </TextoCardConsulta>
+                  </ContainerInfrmCardConsulta>
+                  <ContainerInfrmCardConsulta>
+                    <TitulosCardConsulta style={{ fontSize: 15 }}>
+                      {" "}
+                        Local:{" "}
+                    </TitulosCardConsulta>
+                    <TextoCardConsulta>
+                      {" "}
+                      {consulta["Filial.nomeFantasia"]}{" "}
+                    </TextoCardConsulta>
+                  </ContainerInfrmCardConsulta>
+                  <ContainerInfrmCardConsulta
+                    style={{ justifyContent: "flex-end" }}
+                  >
+                    <TitulosCardConsulta style={{ fontSize: 15 }}>
+                      {" "}
+                        Valor:{" "}
+                    </TitulosCardConsulta>
+                    <TextoCardConsulta style={{ color: "green", paddingRight: 10 }}>
+                      {consulta.valor}
+                    </TextoCardConsulta>
+                  </ContainerInfrmCardConsulta>
+                </InfrmCardConsulta>
+              </CardConsulta>
+            )
+          }
+
+          )}
+        </>
+      );
+    }
+
+
   };
 
   const NotificacoesContainer = () => {
@@ -178,7 +205,7 @@ const Home = ({ navigation }) => {
           </ContainerTextosNot>
         </Notificacao>
         <Notificacao style={{ elevation: 2 }}>
-          <IconAntDesign name="star" size={42} color="yellow" style={{paddingLeft: 3, paddingRight: 3}} />
+          <IconAntDesign name="star" size={42} color="yellow" style={{ paddingLeft: 3, paddingRight: 3 }} />
           <ContainerTextosNot>
             <TituloNotificacao>Avalie nosso atendimento!</TituloNotificacao>
             <TextoNotificacao>
@@ -192,14 +219,14 @@ const Home = ({ navigation }) => {
 
   if (loading) {
     return (
-      <Container style={{backgroundColor: colors.fundo}}>
+      <Container style={{ backgroundColor: colors.fundo }}>
         <ActivityIndicator size={40} color={colors.principal} />
       </Container>
     );
   } else {
     return (
       <Container style={{ backgroundColor: colors.fundo }}>
-        <ScrollView style={{ width: "100%" }}>
+        <ScrollView style={{ width: "100%" }} contentContainerStyle={{ flexGrow: 1 }} >
           <ContainerColor>
             <ContainerTextoBoasVindas>
               <Text style={{ fontSize: 25, color: colors.principal }}>
@@ -265,9 +292,11 @@ const Home = ({ navigation }) => {
 
             <Consultas />
 
-            <Botao2 title="Marcar consulta +" />
           </ContainerConteudoHome>
         </ScrollView>
+        <ContainerBotao>
+          <Botao2 title="Marcar consulta +" funcExec={navegarConsulta} />
+        </ContainerBotao>
       </Container>
     );
   }

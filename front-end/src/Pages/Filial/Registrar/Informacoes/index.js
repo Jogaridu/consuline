@@ -143,12 +143,12 @@ function Informacoes() {
                             maxLength="30"
                             validate={async value => {
                                 try {
-                                    const nomeFantasia = RemoverMask(value);
 
-                                    const retorno = await api.post(`/filial/verificar-nome-fantasia`, { nomeFantasia });
+                                    const retorno = await api.post(`/filial/verificar-nome-fantasia`, { nomeFantasia: value });
 
+                                    console.log(retorno.status);
                                     if (retorno.status === 200) {
-                                        return "I.E já cadastrado"
+                                        return "Nome fantasia já cadastrado"
                                     }
 
                                 } catch (error) {

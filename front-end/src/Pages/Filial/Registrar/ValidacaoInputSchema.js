@@ -9,6 +9,7 @@ const validarInformacoes = yup.object().shape({
     nomeFantasia: yup.string().trim().max(30, "Máximo de caracteres é 30").required(mensagemObrigatoria),
     dataAbertura: yup.string().trim().required(mensagemObrigatoria),
     email: yup.string().email().trim().required(mensagemObrigatoria),
+    telefone: yup.string().trim().required(mensagemObrigatoria),
 });
 
 const validarEndereco = yup.object().shape({

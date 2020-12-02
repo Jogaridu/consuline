@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, Picker, Image } from "react-native";
+import { View, Text, ScrollView, Picker, Image, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { RectButton } from "react-native-gesture-handler";
 import { ButtonGroup } from "react-native-elements";
@@ -203,8 +203,8 @@ const Atendimento = ({ navigation, route }) => {
         {selectedIndex === 0 ? (
           <>
             {loading ? (
-              <Container>
-                <Text> Carregando... </Text>
+              <Container style={{backgroundColor: colors.fundo}}>
+                <ActivityIndicator size={40} color={colors.principal} />
               </Container>
             ) : (
                 <>
