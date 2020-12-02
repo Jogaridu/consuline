@@ -58,6 +58,18 @@ function Home() {
   };
 
   useEffect(() => {
+    const carregarFiliais = async () => {
+      try {
+        const filiais = await api.get("/filiais");
+        console.log(filiais.data);
+        setFiliais(filiais.data);
+      } catch (error) {
+
+        console.log(error);
+
+      }
+    };
+
     tamanhoTela();
     carregarFiliais();
     scrollNav();
@@ -102,18 +114,6 @@ function Home() {
     } else {
       setDisplay("none");
       menu.style.display = `${display}`;
-    }
-  };
-
-  const carregarFiliais = async () => {
-    try {
-      const filiais = await api.get("/filiais");
-
-      setFiliais(filiais.data);
-    } catch (error) {
-
-      console.log(error);
-
     }
   };
 

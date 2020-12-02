@@ -17,13 +17,13 @@ const rotasConsulta = require("./Private/consulta");
 const rotasAvaliacao = require("./Private/avaliacao");
 
 
+router.use(rotasFiliais);
 
 router.use(rotasPublicaSessao);
 router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
 
 router.use(rotasServicos);
-router.use(rotasFiliais);
 router.use(rotaAtendimento);
 router.use(rotasConsulta);
 router.use(rotasAvaliacao);

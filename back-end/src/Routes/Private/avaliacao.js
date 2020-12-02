@@ -18,7 +18,7 @@ routes.use(autorizacaoMidCentral);
 
 routes.delete("/medico/avaliacao/:id", controller.deletar);
 
-routes.use(autorizacaoMidProfissional);
+// routes.use(autorizacaoMidProfissional);
 
 routes.get("/medico/avaliacao", controller.listarPorMedico);
 
