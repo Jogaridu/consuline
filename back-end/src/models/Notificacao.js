@@ -15,7 +15,9 @@ class Notificacao extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Consulta);
+    this.belongsTo(models.Consulta, {
+      foreignKey: "ConsultaId"
+    });
     this.belongsTo(models.Paciente);
   }
 }
