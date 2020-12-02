@@ -25,7 +25,9 @@ class Consulta extends Model {
     this.belongsTo(models.Filial);
     this.belongsTo(models.Servico);
     this.belongsTo(models.Pagamento);
-    this.hasOne(models.Notificacao);
+    this.hasOne(models.Notificacao,{
+      foreignKey:"ConsultaId"
+    });
   }
 }
 
