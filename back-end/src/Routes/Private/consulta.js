@@ -23,7 +23,7 @@ routes.use(autorizacaoMidPaciente);
 routes.put("/consulta/:id", controller.atualizar);
 
 routes.get("/teste", controller.listarIdPaciente);
-
+ 
 routes.use(autorizacaoMidProfissional);
 
 routes.get("/medico/consultas", controller.listarIdMedico);

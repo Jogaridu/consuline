@@ -476,7 +476,7 @@ module.exports = {
 
 
     if (tipoPerfil !== "paciente") {
-      return res.status(401).send({ error: "Você não possui autorização para esta ação!!" });
+      return res.status(401).send({ error:  "Você não possui autorização para esta ação!!" });
     }
     try {
       const consultas = await Consulta.findAll({
