@@ -13,7 +13,7 @@ module.exports = {
         allowNull: true,
       },
       ConsultaId: {
-        ype: Sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblconsulta",
@@ -28,6 +28,7 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },

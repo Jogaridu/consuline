@@ -30,7 +30,7 @@ module.exports = {
       },
       sintomas: {
         type: Sequelize.STRING,
-        allownull: false
+        allownull: true
       },
       PacienteId: {
         type: Sequelize.INTEGER,
@@ -72,7 +72,7 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      PagamentoId:{
+      PagamentoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {

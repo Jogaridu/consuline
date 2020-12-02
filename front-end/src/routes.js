@@ -14,10 +14,12 @@ import ServicosFilial from "./Pages/Filial/Registrar/Servicos";
 import InformacoesFilial from "./Pages/Filial/Registrar/Informacoes";
 import Consulta from "./Pages/Filial/Consulta";
 import ListagemFilial from "./Pages/Filial/Listar-Filiais";
-import EditarFilial from "./Pages/Filial/Editar/index";
+import EditarFilialInformacoes from "./Pages/Filial/Editar/Informacoes";
+import EditarFilialEndereco from "./Pages/Filial/Editar/Endereco";
+import EditarFilialServicos from "./Pages/Filial/Editar/Servicos";
 
 // Profissional (CENTRAL)
-import InformacoesMedico from "./Pages/Medico/Registrar/infoPessoalMedico";
+import InformacoesMedico from "./Pages/Medico/Registrar/InfoPessoalMedico";
 import LocalizaoMedico from "./Pages/Medico/Registrar/infoLocalizacaoMedico";
 import LoginMedico from "./Pages/Medico/Registrar/infoLoginMedico";
 import EspecialidadeMedico from "./Pages/Medico/Registrar/InfoEspecialidade";
@@ -66,6 +68,19 @@ function RotaCadastroProfissional({ children }) {
     )
 }
 
+function RotaEditarFilial({ children }) {
+
+    return (
+        <div className="container-central">
+            <MenuCentral />
+
+            <div className="container-conteudo-central">
+                {children}
+            </div>
+        </div>
+    )
+}
+
 const PrivateRoute = ({ children, ...rest }) => {
     return (<Route {...rest}
         render={({ location }) =>
@@ -101,8 +116,22 @@ function Routes() {
 
                 {/* Rota de filiais */}
 
+                <PrivateRoute path="/filial/editar/endereco/:id">
+                    <RotaEditarFilial>
+                        <EditarFilialEndereco />
+                    </RotaEditarFilial>
+                </PrivateRoute>
+
+                <PrivateRoute path="/filial/editar/servico/:id">
+                    <RotaEditarFilial>
+                        <EditarFilialServicos />
+                    </RotaEditarFilial>
+                </PrivateRoute>
+
                 <PrivateRoute path="/filial/editar/:id">
-                    <EditarFilial />
+                    <RotaEditarFilial>
+                        <EditarFilialInformacoes />
+                    </RotaEditarFilial>
                 </PrivateRoute>
 
                 <PrivateRoute path="/filial/endereco">
