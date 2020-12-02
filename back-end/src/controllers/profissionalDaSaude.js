@@ -72,7 +72,7 @@ module.exports = {
           cpf,
           nome,
           crm,
-          login,
+          login, 
           senha: senhaCripto,
           foto: firebaseUrl,
           email,
