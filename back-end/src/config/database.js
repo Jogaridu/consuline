@@ -16,7 +16,11 @@ module.exports = {
 
   // host: "localhost",
 
+<<<<<<< HEAD
   // username: "root",
+=======
+    password: "bcd127",
+>>>>>>> bee8d2cdfbda6ce7d203e160a41e6bdc6c9f5a9b
 
   // password: "bcd127",
 

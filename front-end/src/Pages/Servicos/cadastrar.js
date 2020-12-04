@@ -106,8 +106,8 @@ function CadastrarServicos() {
                                     />
                                 </div>
 
-                                <label id="img-cadastro-servico" htmlFor="selecao-arquivo">
-                                    <figure>
+                                <label htmlFor="selecao-arquivo">
+                                    <figure id="img-cadastro-servico">
                                         <img alt="preview" ref={imgRef} src={semFoto} />
                                     </figure>
                                 </label>
@@ -119,7 +119,7 @@ function CadastrarServicos() {
                                         }
                                     }} />
 
-                                    <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
+                                    <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} />
                                 </div>
                             </Form>
                         </Formik>

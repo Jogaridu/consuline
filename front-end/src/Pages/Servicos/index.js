@@ -41,7 +41,7 @@ const CardServicos = (props) => {
                     if (retorno.status === 200) {
                         await Swal.fire('Serviço apagado com sucesso', '', 'success');
 
-                        const arr = Array.from(document.querySelectorAll(".card-servico-servicos"));
+                        const arr = Array.from(document.querySelectorAll(".card-servico-listar"));
 
                         const escolhido = arr.filter(element => element.getAttribute("id") === props.id.toString());
 
@@ -49,6 +49,7 @@ const CardServicos = (props) => {
                     }
 
                 } catch (error) {
+                    console.log(error);
                     Swal.fire('Falha ao apagar o serviço', '', 'error');
 
                 }
@@ -90,16 +91,16 @@ const CardServicos = (props) => {
             <ul className="sub-menu">
                 <li onClick={() => editar()}>Editar</li>
                 <li onClick={() => {
-                        history.replace(`/servicos/${props.id}`);
-                        props.setmostrarHospitais(!props.mostrarHospitais);
-                    }}>Ver Hospitais</li>
+                    history.replace(`/servicos/${props.id}`);
+                    props.setmostrarHospitais(!props.mostrarHospitais);
+                }}>Ver Hospitais</li>
                 <li onClick={() => excluir()}>Excluir</li>
             </ul>
         );
     };
 
     return (
-        <div className="card-servico-listar">
+        <div className="card-servico-listar" id={props.id}>
             <div
                 className="mais-opcoes"
                 onClick={() => {
@@ -108,13 +109,13 @@ const CardServicos = (props) => {
                         setMostrarSubMenu(false);
                     }, 10000);
                 }}>
-                    ...
+                ...
             </div>
 
             {mostrarSubMenu && <SubMenu />}
 
-            <div className="card-servico-conteudo" id={props.id}>
-                <input type="checkbox" className="ver-mais" onClick={() => setMostrarSubMenu(false)}/>
+            <div className="card-servico-conteudo">
+                <input type="checkbox" className="ver-mais" onClick={() => setMostrarSubMenu(false)} />
 
                 <h1 className="card-titulo"> {props.nome} </h1>
 
@@ -144,10 +145,10 @@ const VerHospitais = (props) => {
         const buscarHospitais = async () => {
             try {
                 const retornoHospitais = await api.get(`/servico/${id}/filiais`);
-    
+
                 try {
                     const retornoServico = await api.get(`/servico/${id}`);
-    
+
                     setNomeServico(retornoServico.data.nome);
                     setHospitais(retornoHospitais.data);
                     setLoading(false);
@@ -160,7 +161,7 @@ const VerHospitais = (props) => {
         };
 
         buscarHospitais();
-    }, []);
+    }, [id]);
 
     const defaultOptions = {
         loop: true,

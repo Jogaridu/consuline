@@ -4,7 +4,8 @@ class Notificacao extends Model {
   static init(sequelize) {
     super.init(
       {
-        data: DataTypes.DATEONLY,
+        data: DataTypes.DATE,
+        mensagem: DataTypes.STRING
       },
       {
         sequelize,
@@ -14,7 +15,10 @@ class Notificacao extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Consulta);
+    this.belongsTo(models.Consulta, {
+      foreignKey: "ConsultaId"
+    });
+    this.belongsTo(models.Paciente);
   }
 }
 

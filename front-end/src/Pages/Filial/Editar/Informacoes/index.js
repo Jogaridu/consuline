@@ -7,12 +7,15 @@ import { validarInformacoes } from "../../Registrar/ValidacaoInputSchema";
 import mascaras from "../../Registrar/Informacoes/mask";
 
 import './styles.css';
+import '../styles.css';
 import ValidarData, { converterDataBr } from '../../../../Fixtures/ValidarData';
 
 import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../../Services/api';
+import ValidarInputVazia from "../../../../Fixtures/Inputs/ValidarInputVazia";
+import Swal from "sweetalert2";
 
-function Informacoes({ validar }) {
+function Informacoes() {
 
     const { id } = useParams();
     const history = useHistory();
@@ -25,6 +28,39 @@ function Informacoes({ validar }) {
         dataAbertura: ""
 
     });
+
+    const validar = async (values) => {
+        const arrInputs = Array.from(document.querySelectorAll("form input"));
+        delete values.id
+
+        const arrayInputsVazias = ValidarInputVazia(arrInputs);
+
+        if (!arrayInputsVazias) {
+            try {
+
+                Swal.fire({
+                    title: 'Quer salvar essas mudanças?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: `Salvar`,
+                    denyButtonText: `Não salvar`,
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        Swal.fire('Salvo com sucesso!', '', 'success');
+                        await api.put(`/filial/${id}`, values);
+
+
+                    } else if (result.isDenied) {
+                        Swal.fire('Mudanças não salvas', '', 'info')
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+    }
 
     useEffect(() => {
         const carregarDados = async () => {
@@ -169,32 +205,8 @@ function Informacoes({ validar }) {
                         <ErrorMessage className="mensagem-erro" component="span" name="telefone" />
                     </div>
 
-                    {/* <div className="telefones-editar-filial">
-                        <h2>Telefones</h2>
-                        <div className="telefones">
-                            <div>
-                                <MaskedInput
-                                    mask={mascaras.telefone}
-                                    type="text"
-                                    guide={false}
-                                    disabled
-                                    onBlur={(evento) => evento.target.disabled = true} />
-                                <figure>
-                                    <img src={test} alt="Editar" onClick={(evento) => {
-                                        const input = evento.target.parentNode.parentNode.firstChild
-                                        // input.setAttribute("disabled", true);
-                                        input.disabled = false;
-                                        input.focus();
-                                    }} />
-                                    <img src={test2} alt="Apagar" />
-                                </figure>
-                            </div>
-
-                        </div>
-                    </div> */}
-
                     <div className="caixa-botao">
-                        <BotaoPrincipal titulo="Editar" tipo="submit" />
+                        <BotaoPrincipal titulo="Editar" tipo="submit" loading={true} />
                     </div>
                 </Form>
             </Formik>

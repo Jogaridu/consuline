@@ -124,7 +124,7 @@ function InfoFilial() {
                     ))}
                 </div>
 
-                <BotaoPrincipal titulo="Cadastrar" tipo="submit" />
+                <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} />
             </Form>
 
         </Formik >

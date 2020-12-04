@@ -10,6 +10,7 @@ import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import Swal from "sweetalert2";
 import RemoverMask from '../../../../Fixtures/RemoverMask';
 import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
+import BotaoPrincipal from "../../../../Components/BotaoPrincipal";
 
 function Servicos() {
 
@@ -50,7 +51,7 @@ function Servicos() {
 
         novaFilial["servicos"] = novoServico;
         novaFilial["telefones"] = [RemoverMask(novaFilial.telefones[0])]
-        
+
         try {
 
             const dados = {
@@ -148,7 +149,7 @@ function Servicos() {
                 }} type="button">&larr;</button>
 
 
-                <button style={{ width: "180px", fontSize: "1.1em" }} type="submit" onClick={cadastrarFilial}>Cadastrar</button>
+                <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} funcExec={cadastrarFilial} />
 
             </div>
         </div>

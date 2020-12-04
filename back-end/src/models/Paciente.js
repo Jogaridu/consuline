@@ -34,6 +34,10 @@ class Paciente extends Model {
       foreignKey: "PacienteId"
     });
 
+    this.hasMany(models.Notificacao, {
+      foreignKey: "PacienteId"
+    })
+
   }
 }
 

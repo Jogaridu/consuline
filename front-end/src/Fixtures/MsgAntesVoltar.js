@@ -9,8 +9,8 @@ const MsgAntesVoltar = async () => {
         text: "Todos os dados adicionados/modificados serão apagados",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#bbb',
-        cancelButtonColor: '#403E66',
+        confirmButtonColor: '#403E66',
+        cancelButtonColor: '#ccc',
         confirmButtonText: 'Sim, quero voltar',
         cancelButtonText: "Cancelar"
     }).then((result) => {
