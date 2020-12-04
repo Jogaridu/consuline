@@ -10,6 +10,5 @@ module.exports = {
       true,
       "America/Sao_Paulo"
     );
-    console.log(job)
   },
 };

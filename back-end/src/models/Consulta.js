@@ -10,6 +10,7 @@ class Consulta extends Model {
         horario: DataTypes.TIME,
         descricao: DataTypes.TEXT,
         sintomas: DataTypes.STRING,
+        atendida: DataTypes.BOOLEAN,
       },
       {
         sequelize,

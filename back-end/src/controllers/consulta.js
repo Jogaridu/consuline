@@ -123,11 +123,10 @@ module.exports = {
         descricao,
         sintomas,
         PagamentoId: idPagamento,
+        atendida: false,
       });
 
       const dataTexto = data + " " + horario;
-
-      console.log("----", dataTexto)
 
       const dataNotificacao = new Date(dataTexto);
 
@@ -523,6 +522,42 @@ module.exports = {
     } catch (error) {
       return res.status(500).send({
         error: "Não foi possivel iniciar a consulta, por favor tente novamente",
+      });
+    }
+  },
+  async consultaAtendida(req, res) {
+    const { idPaciente, tipoPerfil } = req;
+
+    const { idConsulta } = req.params;
+
+    try {
+      if (req) {
+        const paciente = await Paciente.findByPk(idPaciente);
+
+        if (!paciente) {
+          return res.status(400).send({ error: "Paciente não cadastrado" });
+        }
+
+        const consulta = await Consulta.findByPk(idConsulta);
+
+        if (!consulta) {
+          return res.status(400).send({ error: "Consulta não cadastrada" });
+        }
+
+        await Consulta.update(
+          {
+            atendida: true,
+          },
+          {
+            where: { id: idConsulta },
+          }
+        );
+        return res.status(200).send({sucesso:"Consulta marcada como atendida com sucesso"})
+      }
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não possivel marcar consulta como atendida, por favor tente novamente",
       });
     }
   },

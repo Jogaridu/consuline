@@ -16,12 +16,18 @@ routes.get("/medico/:idMedico/consultas", controller.listarIdMedico);
 
 routes.get("/medico/:idMedico/consultas/dias", controller.listarDia);
 
-routes.get("/medico/:idMedico/consultas/proximas", controller.listarIdMedicoData);
+routes.get(
+  "/medico/:idMedico/consultas/proximas",
+  controller.listarIdMedicoData
+);
 
 routes.get("/paciente/:idPaciente/consultas", controller.listarIdPaciente);
 
-routes.post("/paciente/:idPaciente/consulta/:idConsulta/iniciar", controller.iniciarConsulta);
+routes.post(
+  "/paciente/:idPaciente/consulta/:idConsulta/iniciar",
+  controller.iniciarConsulta
+);
 
-
+routes.post("/consulta/atendda", controller.consultaAtendida);
 
 module.exports = routes;

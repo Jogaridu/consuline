@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -10,34 +10,38 @@ module.exports = {
       },
       valor: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       desconto: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       data: {
         type: Sequelize.DATEONLY,
-        allowNull: false
+        allowNull: false,
+      },
+      atendida: {
+        tyoe: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       horario: {
         type: Sequelize.TIME,
-        allowNull: false
+        allowNull: false,
       },
       descricao: {
         type: Sequelize.TEXT,
-        allownull: false
+        allownull: false,
       },
       sintomas: {
         type: Sequelize.STRING,
-        allownull: false
+        allownull: false,
       },
       PacienteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblPaciente",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -47,7 +51,7 @@ module.exports = {
         allowNull: false,
         refences: {
           model: "tblProfissional",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -57,7 +61,7 @@ module.exports = {
         allowNull: true,
         refences: {
           model: "tblfilial",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -67,17 +71,17 @@ module.exports = {
         allowNull: false,
         refences: {
           model: "tblservico",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      PagamentoId:{
+      PagamentoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblpagamento",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -87,7 +91,7 @@ module.exports = {
         allowNull: false,
         refences: {
           model: "tblatendimento",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -99,10 +103,10 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
       },
-    })
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable("tblconsulta");
-  }
+  },
 };
