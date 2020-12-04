@@ -36,7 +36,7 @@ routes.post(
   "/paciente/:idPaciente/consulta/:idConsulta/iniciar",
   controller.iniciarConsulta
 );
-
+ 
 routes.post("/consulta/:idConsulta/atendida", controller.consultaAtendida);
 
 routes.get("/medico/consultas/pendentes",controller.listarIdMedicoPendente);

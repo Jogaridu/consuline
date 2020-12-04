@@ -652,7 +652,7 @@ module.exports = {
         ],
       });
 
-      if (!consultas) {
+      if (!consultas) { 
         return res
           .status(400)
           .send({ error: "Profissional não encontrado(a)" });

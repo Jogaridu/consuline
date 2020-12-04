@@ -10,7 +10,7 @@ admin.initializeApp({
       ? {
           type: "service_account",
           project_id: "consuline",
-          private_key_id: "420156e43a96ab6c5c89a664dde9c72613a056b8",
+          private_key_id: "420156e43a96ab6c5c89a664dde9c72613a056b8", 
           private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
           client_email: process.env.FIREBASE_CLIENTE_EMAIL,
           client_id: "107540955869457917562",
