@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
       },
       atendida: {
-        tyoe: Sequelize.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       horario: {
@@ -34,11 +34,7 @@ module.exports = {
       },
       sintomas: {
         type: Sequelize.STRING,
-<<<<<<< HEAD
-        allownull: false,
-=======
         allownull: true
->>>>>>> bee8d2cdfbda6ce7d203e160a41e6bdc6c9f5a9b
       },
       PacienteId: {
         type: Sequelize.INTEGER,

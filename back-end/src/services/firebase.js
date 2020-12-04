@@ -23,6 +23,7 @@ admin.initializeApp({
         }
       : contaServico
   ),
+  storageBucket: BUCKET, 
 });
 
 const bucket = admin.storage().bucket();

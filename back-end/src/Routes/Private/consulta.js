@@ -23,19 +23,12 @@ routes.use(autorizacaoMidPaciente);
 routes.put("/consulta/:id", controller.atualizar);
 
 routes.get("/teste", controller.listarIdPaciente);
- 
+
 routes.use(autorizacaoMidProfissional);
 
 routes.get("/medico/consultas", controller.listarIdMedico);
 
-<<<<<<< HEAD
-routes.get(
-  "/medico/:idMedico/consultas/proximas",
-  controller.listarIdMedicoData
-);
-=======
 routes.get("/medico/consultas/dias", controller.listarDia);
->>>>>>> bee8d2cdfbda6ce7d203e160a41e6bdc6c9f5a9b
 
 routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);
 
@@ -44,6 +37,8 @@ routes.post(
   controller.iniciarConsulta
 );
 
-routes.post("/consulta/atendda", controller.consultaAtendida);
+routes.post("/consulta/:idConsulta/atendida", controller.consultaAtendida);
+
+routes.get("/medico/consultas/pendentes",controller.listarIdMedicoPendente);
 
 module.exports = routes;

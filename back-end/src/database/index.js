@@ -41,7 +41,7 @@ const Pagamento = require("../models/Pagamento");
 //Notificação
 const Notificacao = require("../models/Notificacao");
 
-const conexao = new Sequelize(dbConfig.url, dbConfig.config);
+const conexao = new Sequelize(dbConfig);
 
 // ----- INICIALIZAÇÃO -----
 
