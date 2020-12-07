@@ -49,6 +49,7 @@ export default HomeNavigator = () => {
         activeTintColor: colors.secundaria,
         inactiveTintColor: colors.corTitulo,
       }}
+      initialRouteName="Home"
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Agendar" component={Consulta}/>

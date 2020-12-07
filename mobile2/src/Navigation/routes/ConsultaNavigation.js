@@ -14,6 +14,7 @@ import Atendimento from "../../Views/Consulta/Form/atendimento";
 import Agendamento from "../../Views/Consulta/Form/agendamento";
 import Pagamento from "../../Views/Consulta/Form/pagamento";
 import Sucesso from "../../Views/Consulta/Form/sucesso";
+import HomeNavigation from "./HomeNavigation";
 
 const Stack = createStackNavigator();
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, StyleSheet, AsyncStorage } from "react-native";
 import { RadioButton } from "react-native-paper";
+import { EventRegister } from 'react-native-event-listeners'
 
 import Container from "../../../Components/Container";
 import colors from "../../../Styles/colors";
@@ -54,21 +55,13 @@ const Pagamento = ({ navigation, route }) => {
 
       console.log("funcionou");
 
+      EventRegister.emit("reloadHome", retorno.data);
+
       navigation.navigate("Sucesso");
     } catch (error) {
       console.log(error.response.data);
     }
 
-    // return console.log({
-    //     ...novaConsulta, pagamento: {
-    //         ...values,
-    //         numero,
-    //         data
-    //     },
-    //     valor: "R$100,00",
-    //     desconto: "R$0,00",
-    //     pacienteId: paciente.id
-    // });
   };
 
   return (

@@ -12,25 +12,7 @@ import api from "../../../Services/api";
 
 const Sucesso = ({ navigation, route }) => {
 
-  const [consultas, setConsultas] = useState();
-
-  const pegarConsultas = async () => {
-    const paciente = JSON.parse(
-      await AsyncStorage.getItem("@Consuline:paciente")
-    );
-
-    const retorno = await api.get(`paciente/${paciente.id}/consultas`);
-
-    setConsultas(retorno.data);
-  }
-
-  useEffect(() => {
-    pegarConsultas();
-  }, [])
-
   const navegarHome = () => {
-    EventRegister.emit("reloadHome", consultas);
-
     navigation.navigate("Home");
   }
 

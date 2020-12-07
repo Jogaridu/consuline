@@ -112,9 +112,10 @@ const Plataformas = (props) => {
   props.setTitulo("Plataforma");
 
   const navigateEsolhaMedico = () => {
-    props.novaConsulta = { ...props.novaConsulta, AtendimentoId: "2" };
-
-    props.navigation.navigate("EscolhaMedicos", props.novaConsulta);
+    props.navigation.navigate("EscolhaMedicos", {
+      ...props.novaConsulta,
+      AtendimentoId: 2,
+    });
   };
 
   return (
@@ -168,7 +169,7 @@ const Atendimento = ({ navigation, route }) => {
   var novaConsulta = route.params;
 
   const pegarDados = async () => {
-    const retorno = await api.get("/filiais");
+    const retorno = await api.get(`servico/${novaConsulta.ServicoId}/filiais`);
 
     setDadosHospital(retorno.data);
     setLoading(false);
@@ -226,7 +227,7 @@ const Atendimento = ({ navigation, route }) => {
               )}
           </>
         ) : (
-            <Plataformas setTitulo={setTituloLabel} novaConsulta={novaConsulta} />
+            <Plataformas setTitulo={setTituloLabel} novaConsulta={novaConsulta} navigation={navigation} />
           )}
         <Passos cor1={true} cor2={true} cor3={true} />
       </ScrollView>

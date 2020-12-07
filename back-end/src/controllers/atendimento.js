@@ -19,5 +19,17 @@ module.exports = {
             console.log(error);
             return res.status(500).send({ error: "Não foi possivel cadastrar este atendimento" })
         }
+    },
+
+    async listar(req, res) {
+        try {
+            let atendimentos = await Atendimento.findAll({
+                attributes: ["id", "tipo"]
+            });
+
+            return res.status(200).send(atendimentos);
+        } catch (error) {
+            return res.status(404).send({erro: "Erro ao listar os atendimentos no sistema"})
+        }
     }
 }

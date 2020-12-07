@@ -126,8 +126,11 @@ const Telefone = ({ navigation, route }) => {
         const retorno = await api.post("/paciente", novoPaciente);
 
         if (retorno.status === 201) {
-
-          navigation.navigate("RegistrarCodigo", retorno.data.paciente.id);
+          console.log(retorno.data.token);
+          navigation.navigate("RegistrarCodigo", {
+            id: retorno.data.paciente.id,
+            token: retorno.data.token,
+          });
 
         }
       } catch (error) {

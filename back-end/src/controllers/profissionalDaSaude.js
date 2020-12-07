@@ -13,11 +13,11 @@ module.exports = {
   async cadastrar(req, res) {
     const { idCentral, tipoPerfil } = req;
 
-    if (tipoPerfil != "admin") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil != "admin") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     const {
       cpf,
@@ -145,7 +145,7 @@ module.exports = {
     }
   },
 
-  async liatarPorFilial(req, res) {
+  async listarPorFilial(req, res) {
     const { idFilial } = req.params;
 
     try {
@@ -159,6 +159,25 @@ module.exports = {
       return res.status(500).send({
         error:
           "Não foi possível listar todos os profissionais desta filial, por favor tente novamente ",
+      });
+    }
+  },
+
+  async listarPorFilialEServico(req, res) {
+    const { idFilial, idServico } = req.params;
+
+    try {
+      let profissionais = await ProfissionalDaSaude.findAll({
+        where: {FilialId: idFilial, ServicoId: idServico},
+        order: [["id", "ASC"]],
+      });
+
+      return res.status(200).send(profissionais);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        error:
+          "Não foi possível listar todos os profissionais desta filial e serviço, por favor tente novamente ",
       });
     }
   },
