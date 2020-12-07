@@ -5,7 +5,7 @@ const telefoneProfissionalController = require("./telefoneProfissionalDaSaude");
 const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken"); 
 const auth = require("../config/auth.json");
 const TelefoneProfissional = require("../models/TelefoneProfissional");
 
