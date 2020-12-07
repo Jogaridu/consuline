@@ -12,7 +12,7 @@ const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente"
 
 const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
 
-routes.use(autorizacaoMid);
+// routes.use(autorizacaoMid);
 
 routes.post("/consulta", controller.criar);
 
