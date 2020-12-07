@@ -72,7 +72,7 @@ module.exports = {
           cpf,
           nome,
           crm,
-          login,
+          login, 
           senha: senhaCripto,
           foto: firebaseUrl,
           email,
@@ -100,7 +100,6 @@ module.exports = {
         },
         auth.secret
       );
-
       const profissional = { dadosProfissional, telefones, token };
 
       res.status(201).send({ profissional });

@@ -135,11 +135,13 @@ function EditarServico() {
                                             />
                                         </div>
 
-                                        <div id="imgCadastroServico">
-                                            <figure>
+
+                                        <label htmlFor="selecao-arquivo">
+                                            <figure id="img-cadastro-servico">
                                                 <img alt="preview" ref={imgRef} />
                                             </figure>
-                                        </div>
+                                        </label>
+
 
                                         <div id="container-botoes-servicos">
 
@@ -149,7 +151,7 @@ function EditarServico() {
                                                 }
                                             }} />
 
-                                            <BotaoPrincipal titulo="Atualizar" tipo="submit" />
+                                            <BotaoPrincipal titulo="Atualizar" tipo="submit" loading={true} />
                                         </div>
                                     </Form>
                                 </Formik>

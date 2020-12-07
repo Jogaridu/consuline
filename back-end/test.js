@@ -1,6 +1,7 @@
 const CronJob = require("cron").CronJob;
 
-const data = new Date("2020-12-01 10:13:00");
+const data = new Date("2020-12-01 14:57:00");
+console.log(data);
 
 const job = new CronJob(
   data,

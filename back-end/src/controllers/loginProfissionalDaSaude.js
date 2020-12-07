@@ -10,7 +10,7 @@ module.exports = {
         login: login,
       },
     });
-
+ 
     if (
       profissionalDaSaude &&
       (await bcrypt.compare(senha, profissionalDaSaude.senha))

@@ -10,6 +10,7 @@ class Consulta extends Model {
         horario: DataTypes.TIME,
         descricao: DataTypes.TEXT,
         sintomas: DataTypes.STRING,
+        atendida: DataTypes.BOOLEAN,
       },
       {
         sequelize,
@@ -25,7 +26,9 @@ class Consulta extends Model {
     this.belongsTo(models.Filial);
     this.belongsTo(models.Servico);
     this.belongsTo(models.Pagamento);
-    this.hasOne(models.Notificacao);
+    this.hasOne(models.Notificacao,{
+      foreignKey:"ConsultaId"
+    });
   }
 }
 

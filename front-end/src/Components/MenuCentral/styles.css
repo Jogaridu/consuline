@@ -45,6 +45,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    transition: 400ms ease all;
 }
 
 .desenvolvedor:hover span {

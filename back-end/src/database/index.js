@@ -42,7 +42,7 @@ const Pagamento = require("../models/Pagamento");
 const Notificacao = require("../models/Notificacao");
 
 const conexao = new Sequelize(dbConfig);
-
+ 
 // ----- INICIALIZAÇÃO -----
 
 //Paciente

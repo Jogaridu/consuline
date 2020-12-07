@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.createTable("tblavaliacao", {
+    return queryInterface.createTable("tblnotificacao", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
       },
-      estrelas: {
-        type: Sequelize.INTEGER,
-        allowNull: true
+      estrelas:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
       },
-      comentario: {
-        type: Sequelize.STRING,
-        allowNull: false
+      comentario:{
+        type:Sequelize.TEXT,
+        allowNull:false
       },
       PacienteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
           model: "tblPaciente",
-          key: "id"
+          key: "id",
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -31,10 +31,8 @@ module.exports = {
         allowNull: false,
         refences: {
           model: "tblProfissional",
-          key: "id"
+          key: "id",
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -43,10 +41,10 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
       },
-    })
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblavaliacao");
-  }
+    return queryInterface.dropTable("tblnotificacao");
+  },
 };

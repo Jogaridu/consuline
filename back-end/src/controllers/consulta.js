@@ -12,6 +12,14 @@ const auth = require("../config/auth.json");
 const Notificacao = require("./notificacao");
 module.exports = {
   async criar(req, res) {
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil === "admin") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const {
       valor,
       desconto,
@@ -123,15 +131,14 @@ module.exports = {
         descricao,
         sintomas,
         PagamentoId: idPagamento,
+        atendida: false,
       });
 
       const dataTexto = data + " " + horario;
 
-      console.log("----", dataTexto)
-
       const dataNotificacao = new Date(dataTexto);
 
-      Notificacao.inserir(dataNotificacao);
+      Notificacao.inserir(dataNotificacao, consulta.id, consulta.PacienteId);
 
       res.status(201).send(consulta);
     } catch (error) {
@@ -144,6 +151,14 @@ module.exports = {
 
   async apagar(req, res) {
     const { id } = req.params;
+
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil === "profissionalDaSaude") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     try {
       const consulta = await Consulta.findByPk(id);
@@ -165,6 +180,15 @@ module.exports = {
 
   async atualizar(req, res) {
     const { id } = req.params;
+
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil !== "paciente") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     const {
       valor,
       desconto,
@@ -282,11 +306,17 @@ module.exports = {
   },
 
   async listarIdMedico(req, res) {
-    const { idMedico } = req.params;
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     try {
       const consultas = await Consulta.findAll({
-        where: { ProfissionalDaSaudeId: idMedico },
+        where: { ProfissionalDaSaudeId: idProfissional },
         order: [["data", "DESC"]],
         include: [
           {
@@ -300,10 +330,6 @@ module.exports = {
           {
             association: "Atendimento",
             attributes: ["tipo"],
-          },
-          {
-            association: "ProfissionalDaSaude",
-            attributes: ["nome", "dataNascimento", "crm"],
           },
         ],
       });
@@ -324,7 +350,13 @@ module.exports = {
   },
 
   async listarIdMedicoData(req, res) {
-    const { idMedico } = req.params;
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     const { data } = req.query;
 
@@ -332,7 +364,10 @@ module.exports = {
       const consultas = await Consulta.findAll(
         {
           where: {
-            [Op.and]: [{ ProfissionalDaSaudeId: idMedico }, { data: data }],
+            [Op.and]: [
+              { ProfissionalDaSaudeId: idProfissional },
+              { data: data },
+            ],
           },
           order: [["horario", "ASC"]],
         },
@@ -374,12 +409,18 @@ module.exports = {
   },
 
   async listarDia(req, res) {
-    const { idMedico } = req.params;
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
     try {
       const consultas = await Consulta.findAll(
         {
-          where: { ProfissionalDaSaudeId: idMedico },
+          where: { ProfissionalDaSaudeId: idProfissional },
           order: [["horario", "ASC"]],
           raw: true,
           attributes: ["data", "horario", "id"],
@@ -443,8 +484,13 @@ module.exports = {
   },
 
   async listarIdPaciente(req, res) {
-    const { idPaciente } = req.params;
+    const { idPaciente, tipoPerfil } = req;
 
+    if (tipoPerfil !== "paciente") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
     try {
       const consultas = await Consulta.findAll({
         where: { PacienteId: idPaciente },
@@ -492,6 +538,14 @@ module.exports = {
   async iniciarConsulta(req, res) {
     const { idPaciente, idConsulta } = req.params;
 
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
     try {
       const consulta = await Consulta.findByPk(idConsulta);
 
@@ -523,6 +577,92 @@ module.exports = {
     } catch (error) {
       return res.status(500).send({
         error: "Não foi possivel iniciar a consulta, por favor tente novamente",
+      });
+    }
+  },
+  async consultaAtendida(req, res) {
+    const { tipoPerfil } = req;
+
+    if (tipoPerfil === "paciente") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
+    const { idConsulta } = req.params;
+
+    try {
+      if (req) {
+        const consulta = await Consulta.findByPk(idConsulta);
+
+        if (!consulta) {
+          return res.status(400).send({ error: "Consulta não cadastrada" });
+        }
+
+        await Consulta.update(
+          {
+            atendida: true,
+          },
+          {
+            where: { id: idConsulta },
+          }
+        );
+        return res
+          .status(200)
+          .send({ sucesso: "Consulta marcada como atendida com sucesso" });
+      }
+    } catch (error) {
+      return res.status(500).send({
+        error:
+          "Não possivel marcar consulta como atendida, por favor tente novamente",
+      });
+    }
+  },
+  async listarIdMedicoPendente(req, res) {
+    const { idProfissional, tipoPerfil } = req;
+
+    if (tipoPerfil !== "profissionalDaSaude") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
+
+    try {
+      const consultas = await Consulta.findAll({
+        where: {
+          [Op.and]: [
+            { ProfissionalDaSaudeId: idProfissional },
+            { atendida: false },
+          ],
+        },
+        order: [["data", "DESC"]],
+        include: [
+          {
+            association: "Paciente",
+            attributes: ["nome", "dataNascimento", "cpf"],
+          },
+          {
+            association: "Filial",
+            attributes: ["nomeFantasia", "razaoSocial"],
+          },
+          {
+            association: "Atendimento",
+            attributes: ["tipo"],
+          },
+        ],
+      });
+
+      if (!consultas) { 
+        return res
+          .status(400)
+          .send({ error: "Profissional não encontrado(a)" });
+      }
+
+      res.status(200).send(consultas);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        error: "Não foi possivel listar consultas, por favor tente novamente",
       });
     }
   },
