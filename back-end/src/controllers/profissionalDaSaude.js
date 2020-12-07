@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
-const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
+const telefoneProfissionalController = require("./telefoneProfissionalDaSaude");
 const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 const bcrypt = require("bcryptjs");
