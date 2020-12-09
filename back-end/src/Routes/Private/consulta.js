@@ -6,11 +6,13 @@ const routes = express.Router();
 
 const controller = require("../../controllers/consulta");
 
-const autorizacaoMid = require("../../middlewares/autorizacao");
+// const autorizacaoMid = require("../../middlewares/autorizacao");
 
-const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente");
+// const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente");
 
-const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
+// const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
+
+routes.get("/medico/:idProfissional/consultas/dias", controller.listarDia);
 
 // routes.use(autorizacaoMid);
 
@@ -20,18 +22,19 @@ routes.delete("/consulta/:id", controller.apagar);
 
 routes.get("/consulta/:id", controller.listarId);
 
-routes.use(autorizacaoMidPaciente);
+
+// routes.use(autorizacaoMidPaciente);
 
 routes.put("/consulta/:id", controller.atualizar);
 
 routes.get("/teste", controller.listarIdPaciente);
 
-routes.use(autorizacaoMidProfissional);
+
+// routes.use(autorizacaoMidProfissional);
 
 routes.get("/medico/consultas", controller.listarIdMedico);
 
 routes.get("/paciente/:idPaciente/consultas", /*autorizacao,*/ controller.listarIdPaciente);
-routes.get("/medico/consultas/dias", controller.listarDia);
 
 routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);
 

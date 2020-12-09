@@ -17,16 +17,17 @@ const rotasConsulta =  require("./Private/consulta");
 const rotasAvaliacao = require("./Private/avaliacao");
 const rotasNotificacao = require("./Private/notificacao");
 
+router.use(rotasConsulta);
+router.use(rotaAtendimento);
+
+router.use(rotasPublicaSessao);
+router.use(rotasPublicaPaciente);   
 
 router.use(rotasFiliais);
 
-router.use(rotasPublicaSessao);
-router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
 
 router.use(rotasServicos);
-router.use(rotaAtendimento);
-router.use(rotasConsulta);
 router.use(rotasAvaliacao);
 router.use(rotasNotificacao);
 

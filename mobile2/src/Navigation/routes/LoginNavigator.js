@@ -59,7 +59,6 @@ const closeConfig = {
 const LoginNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={/*isSignIn() ? "HomeNavigation" :*/ "TelaInicial"} 
       screenOptions={{
         gestureEnabled: true,
         gestureDirection: "horizontal",
@@ -136,11 +135,11 @@ const LoginNavigator = () => {
         component={Sucesso}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="HomeNavigation"
         component={HomeNavigation}
         options={{ headerShown: false }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

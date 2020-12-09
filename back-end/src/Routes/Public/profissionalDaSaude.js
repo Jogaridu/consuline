@@ -10,11 +10,11 @@ const login = require("../../controllers/sessao");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 
-// const autorizacaoMid = require("../../middlewares/autorizacao");
+const autorizacaoMid = require("../../middlewares/autorizacao");
 
 routes.post("/profissional/login", login.logar);
 
-// routes.use(autorizacaoMid);
+routes.use(autorizacaoMid);
 
 routes.post(
   "/profissional",

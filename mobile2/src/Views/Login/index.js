@@ -104,28 +104,21 @@ const Login = ({ navigation }) => {
     try {
       const resApi = await api.post("/paciente/sessao", pacienteLogin);
       const dadosResposta = resApi.data;
-      console.log(dadosResposta.token);
-      const id = dadosResposta.paciente.pacienteId;
 
-      const resApiFBPK = await api.get(`/paciente/${id}`);
-      
-      if (resApiFBPK.data.verificado) {
-        const dadosPaciente = resApiFBPK.data;
+      await signin(dadosResposta);
 
-        delete dadosPaciente.senha;
-
-        console.log(dadosResposta);
-        await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dadosPaciente));
-
-        return navigation.navigate("Home");
-      } else {
-        Alert.alert(
-          "Você precisa inserir o código de verificação para logar!!!"
-        );
-        return navigation.navigate("RegistrarCodigo", resApiFBPK.data.id);
-      }
+      return navigation.navigate("Home");
     } catch (error) {
-      Alert.alert("Usuário ou Senha incorreto!!!");
+      if (error.response) {
+        if (error.response.status === 401) {
+          Alert.alert(
+            "Você precisa inserir o código de verificação para logar!!!"
+          );
+          return navigation.navigate("RegistrarCodigo", resApiFBPK.data.id);
+        } else {
+          Alert.alert("Usuário ou Senha incorreto!!!");
+        }
+      }
     }
   };
 

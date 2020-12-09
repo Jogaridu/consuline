@@ -78,11 +78,16 @@ const Agendamento = ({ navigation, route }) => {
   let novaConsulta = route.params;
 
   const pegarDados = async () => {
-    const retorno = await api.get(
-      `/medico/${novaConsulta.ProfissionalDaSaudeId}/consultas/dias`
-    );
 
-    setDia(retorno.data);
+    try {
+      const retorno = await api.get(
+        `/medico/${novaConsulta.ProfissionalDaSaudeId}/consultas/dias`
+      );
+
+      setDia(retorno.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   useEffect(() => {

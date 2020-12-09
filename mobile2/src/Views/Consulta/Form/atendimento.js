@@ -169,10 +169,15 @@ const Atendimento = ({ navigation, route }) => {
   var novaConsulta = route.params;
 
   const pegarDados = async () => {
-    const retorno = await api.get(`servico/${novaConsulta.ServicoId}/filiais`);
+    try {
+      const retornoFiliais = await api.get(`servico/${novaConsulta.ServicoId}/filiais`);
+      
+      setDadosHospital(retornoFiliais.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
 
-    setDadosHospital(retorno.data);
-    setLoading(false);
   };
 
   useEffect(() => {

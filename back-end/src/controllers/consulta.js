@@ -14,11 +14,11 @@ module.exports = {
   async criar(req, res) {
     const { tipoPerfil } = req;
 
-    if (tipoPerfil === "admin") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil === "admin") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     const {
       valor,
@@ -183,11 +183,11 @@ module.exports = {
 
     const { tipoPerfil } = req;
 
-    if (tipoPerfil !== "paciente") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "paciente") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     const {
       valor,
@@ -308,11 +308,11 @@ module.exports = {
   async listarIdMedico(req, res) {
     const { idProfissional, tipoPerfil } = req;
 
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "profissionalDaSaude") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     try {
       const consultas = await Consulta.findAll({
@@ -411,11 +411,11 @@ module.exports = {
   async listarDia(req, res) {
     const { idProfissional, tipoPerfil } = req;
 
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "profissionalDaSaude") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     try {
       const consultas = await Consulta.findAll(
@@ -484,13 +484,13 @@ module.exports = {
   },
 
   async listarIdPaciente(req, res) {
-    const { idPaciente, tipoPerfil } = req;
+    const {idPaciente, tipoPerfil} = req;
 
-    if (tipoPerfil !== "paciente") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "paciente") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
     try {
       const consultas = await Consulta.findAll({
         where: { PacienteId: idPaciente },
@@ -540,11 +540,11 @@ module.exports = {
 
     const { idProfissional, tipoPerfil } = req;
 
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "profissionalDaSaude") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     try {
       const consulta = await Consulta.findByPk(idConsulta);
@@ -583,11 +583,11 @@ module.exports = {
   async consultaAtendida(req, res) {
     const { tipoPerfil } = req;
 
-    if (tipoPerfil === "paciente") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil === "paciente") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     const { idConsulta } = req.params;
 
@@ -621,11 +621,11 @@ module.exports = {
   async listarIdMedicoPendente(req, res) {
     const { idProfissional, tipoPerfil } = req;
 
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "profissionalDaSaude") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     try {
       const consultas = await Consulta.findAll({

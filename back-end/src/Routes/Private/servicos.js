@@ -7,9 +7,9 @@ const controllerServico = require("../../controllers/servicos");
 const Multer = require("../../fixtures/manipulacaoForm");
 const enviarArquivos = require("../../services/firebase");
 
-// const autorizacaoMid = require("../../middlewares/autorizacao");
+const autorizacaoMid = require("../../middlewares/autorizacao");
 
-// routes.use(autorizacaoMid);
+routes.use(autorizacaoMid);
 
 routes.post("/servico",
     Multer.single("imagem"),

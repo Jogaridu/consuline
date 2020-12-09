@@ -26,7 +26,7 @@ const Sucesso = ({ navigation, route }) => {
         <Text style={{ fontSize: 40, textAlign: "center", fontWeight: "bold", color: "#FFF" }}> Sucesso!!! </Text>
         <Text style={{ fontSize: 18, textAlign: "center", color: "#FFF" }}>
           {" "}
-          Registro efetuado com sucesso{" "}
+          Consulta agendada com sucesso{" "}
         </Text>
       </ContainerTextos>
       <ContainerBotao>

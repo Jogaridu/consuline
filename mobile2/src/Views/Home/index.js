@@ -220,19 +220,23 @@ const Home = ({ navigation }) => {
       await AsyncStorage.getItem("@Consuline:paciente")
     );
 
-    const consultas = await api.get(`paciente/${paciente.id}/consultas`);
+    try {
+      const consultas = await api.get(`paciente/${paciente.id}/consultas`);
 
-    if (!consultas.data) {
-      var consultaData = consultas.data[0].data;
-      var dataAlterada = consultaData.split("-");
-      var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
+      if (!consultas.data) {
+        var consultaData = consultas.data[0].data;
+        var dataAlterada = consultaData.split("-");
+        var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
 
-      setDataConsulta(dataNova);
+        setDataConsulta(dataNova);
+      }
+
+      setDadosConsulta(consultas.data);
+      setNome(paciente.nome);
+      setLoading(false);
+    } catch (error) {
+      console.log(error.response.data);
     }
-
-    setDadosConsulta(consultas.data);
-    setNome(paciente.nome);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -451,7 +455,10 @@ const Home = ({ navigation }) => {
           </ContainerConteudoHome>
         </ScrollView>
         <ContainerBotao>
-          <Botao2 title="Marcar consulta +" funcExec={navegarConsulta} />
+          <Botao2
+            title="Marcar consulta +"
+            funcExec={() => console.log(consultas)}
+          />
         </ContainerBotao>
       </Container>
     );

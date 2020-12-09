@@ -88,10 +88,10 @@ module.exports = {
       //   "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
       // });
 
-      // const token = jwt.sign(
-      //   { idPaciente: paciente.id, tipoPerfil: "paciente" },
-      //   auth.secret
-      // );
+      const token = jwt.sign(
+        { idPaciente: paciente.id, tipoPerfil: "paciente" },
+        auth.secret
+      );
 
       return res.status(201).send({ paciente, token });
     } catch (error) {
@@ -281,6 +281,9 @@ module.exports = {
       ) {
         return res.status(403).send({ error: "Usuário e/ou senha inválidos" });
       }
+
+      if(!pacienteBuscado.verificado)
+        return res.status(401).send({ error: "Usuário não verificado" });
 
       const token = jwt.sign(
         { idPaciente: pacienteBuscado.id, tipoPerfil: "paciente" },

@@ -228,7 +228,12 @@ const Perfil = ({ navigation }) => {
                 </ContainerTextosInformacoes>
               </ContainerInformacoes>
               <ContainerBtnLogout>
-                <BtnLogout>
+                <BtnLogout
+                  onPress={() => {
+                    signOut();
+                    navigation.replace("Login");
+                  }}
+                >
                   <Text
                     style={{
                       fontSize: 16,
