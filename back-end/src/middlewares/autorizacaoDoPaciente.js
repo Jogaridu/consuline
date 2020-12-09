@@ -4,11 +4,12 @@ const authConfig = require("../config/auth.json");
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
 
+
     if (!authorization) {
         res.status(401).send({ error: "Token não informado" });
     }
 
-    // const [Bearer, token] = authorization.split(" ");
+    const [Bearer, token] = authorization.split(" ");
 
     if (!token) {
         res.status(401).send({ error: "Token mal formatado" });
