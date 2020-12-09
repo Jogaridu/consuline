@@ -35,6 +35,8 @@ routes.get("/paciente/:idPaciente/consultas-pendentes", autorizacao, controller.
 
 routes.get("/medico/consultas/dias", controller.listarDia);
 
+routes.get("/medico/:idProfissional/consultas/dias", controller.listarDia);
+
 routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);
 
 routes.post(
