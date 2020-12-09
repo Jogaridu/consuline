@@ -16,7 +16,7 @@ import semFoto from "../../Assets/sem-foto.jpg";
 
 import api from "../../Services/api";
 
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { validarServico } from "../Filial/Registrar/ValidacaoInputSchema";
 import Swal from "sweetalert2";
 import MsgAntesVoltar from "../../Fixtures/MsgAntesVoltar";
