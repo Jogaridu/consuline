@@ -14,11 +14,20 @@ import {
   ContainerBotaoCadastro,
 } from "../styles";
 
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar, CalendarList, Agenda, LocaleConfig } from "react-native-calendars";
 
 import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
+
+LocaleConfig.locales['pt-br'] = {
+  monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+  monthNamesShort: ['Jan.','Fev.','Mar.','Abril.','Mai.','Junho.','Julho.','Agos.','Set.','Out.','Nov.','Dezem.'],
+  dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+  dayNamesShort: ['Dom.','Seg.','Ter.','Quar.','Quin.','Sex.','Sab.'],
+  today: 'Aujourd\'hui'
+};
+LocaleConfig.defaultLocale = 'pt-br';
 
 const CardHorarios = ({ dia, diaSelecionado, setHorario }) => {
   const [todasDatas, setTodasDatas] = useState();
@@ -27,8 +36,6 @@ const CardHorarios = ({ dia, diaSelecionado, setHorario }) => {
 
   const iniciarHorarios = () => {
     var horarios = [];
-
-    // console.log(diaSelecionado);
 
     for (let i = "8"; i <= 17; i++) {
       if (!diaSelecionado || !diaSelecionado.horario.includes(`${i}:00`)) {
@@ -47,11 +54,11 @@ const CardHorarios = ({ dia, diaSelecionado, setHorario }) => {
     <>
       {horariosDisponiveis.map((horario, index) => (
         <Horarios
-          id={index}
-          horarioSelecionado={horarioSelecionado}
+          key={index}
+          // horarioSelecionado={horarioSelecionado}
           onPress={() => {
             setHorarioSelecionado(index);
-
+            console.log(index)
             setHorario(horario);
           }}
         >
@@ -101,8 +108,8 @@ const Agendamento = ({ navigation, route }) => {
           current={new Date()}
           minDate={new Date()}
           maxDate={"2021-01-30"}
+          style={{width: "90%", marginLeft: "auto", marginRight: "auto", borderRadius: 10}}
           onDayPress={(day) => {
-
             const [diaSel] = dia.filter((d) => {
             console.log(d);
               return d.data === day.dateString;

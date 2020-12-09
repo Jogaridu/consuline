@@ -4,8 +4,8 @@ const routes = express.Router();
 
 const controller = require("../../controllers/paciente");
 
-const autorizacaoMid = require("../../middlewares/autorizacaoDoPaciente");
-const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
+// const autorizacaoMid = require("../../middlewares/autorizacaoDoPaciente");
+// const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 

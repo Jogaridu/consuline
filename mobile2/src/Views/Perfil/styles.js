@@ -144,3 +144,21 @@ export const Input = styled.TextInput`
   margin-bottom: 15px;
 `;
 
+export const ContainerBtnLogout = styled.View`
+  width: 88%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: flex-start;
+  margin-bottom: 20px;
+`;
+
+export const BtnLogout = styled.TouchableOpacity`
+  width: 120px;
+  height: 50px;
+  background-color: ${colors.container};
+  border-radius: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;

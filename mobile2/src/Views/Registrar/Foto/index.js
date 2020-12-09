@@ -30,15 +30,22 @@ const Foto = ({ navigation, route }) => {
     nao: "Não",
   });
 
-  const pacienteId = route.params;
-
-  const pegarDados = async () => {
-    const retorno = await api.get(`/paciente/${pacienteId}`);
-
-    setPaciente(retorno.data);
-  };
+  const pacienteId = route.params.id;
+  const token = route.params.token;
 
   useEffect(() => {
+    const pegarDados = async () => {
+      try {
+        // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  
+        const retorno = await api.get(`/paciente/${pacienteId}`);
+  
+        setPaciente(retorno.data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+
     pegarDados();
   }, []);
 
@@ -56,8 +63,11 @@ const Foto = ({ navigation, route }) => {
       name: nome,
       type: "image/" + type,
     });
-
+    
+    //console.log(pacienteId, "\n", token);
     try {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       const retorno = await api.post(
         `/paciente/${pacienteId}/imagem`,
         formData,
@@ -67,10 +77,11 @@ const Foto = ({ navigation, route }) => {
           },
         }
       );
-
+      console.log("passou por aqui")
       navegarSucesso();
     } catch (error) {
-      console.error(error.response.data);
+      console.log("veio aqui")
+      console.log(error.response.data);
     }
   };
 

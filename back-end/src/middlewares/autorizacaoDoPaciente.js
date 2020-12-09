@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
         res.status(401).send({ error: "Token não informado" });
     }
 
-    const [Bearer, token] = authorization.split(" ");
+    // const [Bearer, token] = authorization.split(" ");
 
     if (!token) {
         res.status(401).send({ error: "Token mal formatado" });

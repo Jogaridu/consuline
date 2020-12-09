@@ -104,18 +104,18 @@ const Login = ({ navigation }) => {
     try {
       const resApi = await api.post("/paciente/sessao", pacienteLogin);
       const dadosResposta = resApi.data;
-
+      console.log(dadosResposta.token);
       const id = dadosResposta.paciente.pacienteId;
 
       const resApiFBPK = await api.get(`/paciente/${id}`);
-
+      
       if (resApiFBPK.data.verificado) {
         const dadosPaciente = resApiFBPK.data;
 
         delete dadosPaciente.senha;
 
         console.log(dadosResposta);
-        signin(dadosResposta);
+        await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dadosPaciente));
 
         return navigation.navigate("Home");
       } else {

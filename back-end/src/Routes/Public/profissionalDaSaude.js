@@ -10,11 +10,11 @@ const login = require("../../controllers/sessao");
 
 const Multer = require("../../fixtures/manipulacaoForm");
 
-const autorizacaoMid = require("../../middlewares/autorizacao");
+// const autorizacaoMid = require("../../middlewares/autorizacao");
 
 routes.post("/profissional/login", login.logar);
 
-routes.use(autorizacaoMid);
+// routes.use(autorizacaoMid);
 
 routes.post(
   "/profissional",
@@ -29,7 +29,9 @@ routes.get("/profissional/:id", controller.buscarId);
 
 routes.delete("/profissional/:id", controller.apagar);
 
-routes.get("/profissional/filial/:idFilial", controller.liatarPorFilial);
+routes.get("/profissional/filial/:idFilial", controller.listarPorFilial);
+
+routes.get("/profissional/filial/:idFilial/servico/:idServico", controller.listarPorFilialEServico);
 
 routes.put("/profissional/:id", Multer.single("foto"), controller.atualizar);
 

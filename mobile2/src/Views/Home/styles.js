@@ -77,20 +77,20 @@ export const TextoInfrmCardCovid = styled.Text`
 
 export const TituloHome = styled.Text`
   width: 88%;
-  margin-top: 34px;
+  margin-top: 30px;
+  margin-bottom: 10px;
   font-weight: bold;
   font-size: 26px;
-  color: ${colors.corTitulo};
+  color: ${colors.principal};
   text-align: left;
 `;
 
-export const CardConsulta = styled.View`
+export const CardConsulta = styled.TouchableOpacity`
   width: 85%;
-  height: 215px;
+  height: 112px;
   background-color: ${colors.container};
   border: 1px solid ${colors.principal};
-  border-radius: 20px;
-  margin-top: 20px;
+  border-radius: 10px;
   margin-bottom: 10px;
 `;
 
@@ -100,27 +100,32 @@ export const HeaderCardConsulta = styled.View`
 `;
 
 export const InfrmCardConsulta = styled.View`
-  flex: 2;
-  padding-top: 20px;
+  flex: 1;
+  padding-top: 45px;
+  padding-left: 20px;
+  flex-direction: row;
+  /* background-color: pink; */
 `;
 
 export const ImgMedico = styled.Image`
-  width: 53px;
-  height: 53px;
+  width: 44px;
+  height: 44px;
   margin: 15px 18px;
+  margin-top: 8px;
   border-radius: 100px;
 `;
 
 export const ContainerTextosHeader = styled.View`
   width: auto;
   height: 100%;
-  margin-left: -7px;
+  margin-left: -10px;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 15px;
+  /* background-color: blue; */
 `;
 
 export const TitulosCardConsulta = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: ${colors.principal};
   font-weight: bold;
 `;
@@ -128,16 +133,34 @@ export const TitulosCardConsulta = styled.Text`
 export const TextoCardConsulta = styled.Text`
   font-size: 14px;
   color: ${colors.corTituloSecundario};
-  font-weight: bold;
+  /* font-weight: bold; */
 `;
 
-export const ContainerInfrmCardConsulta = styled.View`
-  width: auto;
+export const TextoVisualizarConsuta = styled.Text`
+  font-size: 20px;
+  color: ${colors.corTituloSecundario};
+  font-weight: 500;
+  text-align: center;
+`;
+
+export const ContainerHorariosCard = styled.View`
+  width: 50%;
   height: auto;
   flex-direction: row;
+  justify-content: center;
+`;
+
+export const ContainerBtnCardAvaliar = styled.View`
+  width: 50%;
+  height: auto;
+  align-items: flex-end;
+  padding-right: 10px;
+`;
+
+export const ContainerInfrmVisualizarConsulta = styled.View`
+  width: 100%;
   align-items: center;
-  margin-bottom: 10px;
-  margin-left: 18px;
+  height: auto;
 `;
 
 export const Notificacoes = styled.View`
@@ -182,4 +205,21 @@ export const TextoNotificacao = styled.Text`
   font-size: 10px;
   color: ${colors.corTituloSecundario};
   /* align-self: flex-end; */
+`;
+
+export const ContainerModal = styled.View`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalAvaliacao = styled.View`
+  width: 90%;
+  height: 550px;
+  background-color: ${colors.container};
+  border-radius: 20px;
+  align-items: center;
+  justify-content: space-between;
 `;

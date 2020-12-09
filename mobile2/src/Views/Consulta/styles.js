@@ -22,27 +22,11 @@ export const ContainerPassos = styled.View`
     height: auto;
 `;
 
-export const ImgFundo = styled.ImageBackground`
-    width: 100%;
-    height: 100%;
-`;
-
-export const Titulo = styled.Text`
-    position: absolute;
-    font-size: 34px;
-    font-weight: bold;
-    text-align: left;
-    color: ${colors.container};
-    top: 14%;
-    left: 6%;
-`;
-
 export const ContainerBotao = styled.View`
     width: 100%;
     height: auto;
-    position: absolute;
     align-items: center;
-    bottom: 6%;
+
 `;
 
 export const TituloCadastro = styled.Text`
@@ -262,7 +246,7 @@ export const ContainerHorarios = styled.View`
 export const Horarios = styled.TouchableOpacity`
     width: 85px;
     height: 45px;
-    background-color: ${props => props.horarioSelecionado === props.id ? colors.principal : colors.container};
+    background-color: ${colors.container};
     border-radius: 20px;
     margin-right: 20px;
     margin-bottom: 20px;

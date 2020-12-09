@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, FlatList, Button, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
 import Container from "../../../Components/Container";
@@ -50,9 +57,16 @@ const EscolhaMedicos = ({ navigation, route }) => {
   let novaConsulta = route.params;
 
   const pegarDados = async () => {
-    try {
-      const retorno = await api.get("/profissional");
+    var retorno = null;
 
+    try {
+      if (novaConsulta.FilialId) {
+        retorno = await api.get(
+          `/profissional/filial/${novaConsulta.FilialId}/servico/${novaConsulta.ServicoId}`
+        );
+      } else {
+        retorno = await api.get(`/profissional`);
+      }
       setDadosMedico(retorno.data);
       setLoading(false);
     } catch (error) {
@@ -77,11 +91,11 @@ const EscolhaMedicos = ({ navigation, route }) => {
 
   const renderItem = ({ item }) => (
     <CardMedico
-        id={item.id}
-        nome={item.nome}
-        navegacao={navigation}
-        imagem={item.foto}
-        navigateCalendar={navigateCalendar}
+      id={item.id}
+      nome={item.nome}
+      navegacao={navigation}
+      imagem={item.foto}
+      navigateCalendar={navigateCalendar}
     />
   );
 
@@ -89,7 +103,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
     <Container style={{ backgroundColor: colors.fundo }}>
       <Label>Escolha o médico que irá atendê-lo: </Label>
       {loading ? (
-        <Container style={{backgroundColor: colors.fundo}}>
+        <Container style={{ backgroundColor: colors.fundo }}>
           <ActivityIndicator size={40} color={colors.principal} />
         </Container>
       ) : (

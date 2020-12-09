@@ -1,3 +1,5 @@
+// const autorizacao = require("../../middlewares/autorizacaoDoPaciente");
+
 const express = require("express");
 
 const routes = express.Router();
@@ -10,7 +12,7 @@ const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente"
 
 const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
 
-routes.use(autorizacaoMid);
+// routes.use(autorizacaoMid);
 
 routes.post("/consulta", controller.criar);
 
@@ -28,6 +30,7 @@ routes.use(autorizacaoMidProfissional);
 
 routes.get("/medico/consultas", controller.listarIdMedico);
 
+routes.get("/paciente/:idPaciente/consultas", /*autorizacao,*/ controller.listarIdPaciente);
 routes.get("/medico/consultas/dias", controller.listarDia);
 
 routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);

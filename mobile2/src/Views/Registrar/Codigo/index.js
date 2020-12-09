@@ -90,7 +90,8 @@ const Codigo = ({ navigation, route }) => {
     ]).start();
   }
 
-  const pacienteId = route.params;
+  const pacienteId = route.params.id;
+  const token = route.params.token;
 
   const { height, width } = Dimensions.get("window");
 
@@ -125,6 +126,8 @@ const Codigo = ({ navigation, route }) => {
 
   const verificarCodigo = async () => {
     try {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, {
         codigo,
       });
@@ -141,7 +144,10 @@ const Codigo = ({ navigation, route }) => {
 
   const navegarFoto = async () => {
     if ((await verificarCodigo()) == true) {
-      navigation.navigate("RegistrarFoto", pacienteId);
+      navigation.navigate("RegistrarFoto", {
+        id: pacienteId,
+        token
+      });
     } else {
       Alert.alert("Código inválido");
     }
