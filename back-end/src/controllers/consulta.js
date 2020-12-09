@@ -409,13 +409,7 @@ module.exports = {
   },
 
   async listarDia(req, res) {
-    const { idProfissional, tipoPerfil } = req;
-
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    const { idProfissional } = req.params;
 
     try {
       const consultas = await Consulta.findAll(

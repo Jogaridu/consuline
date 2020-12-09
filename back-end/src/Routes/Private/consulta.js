@@ -31,7 +31,7 @@ routes.use(autorizacaoMidProfissional);
 routes.get("/medico/consultas", controller.listarIdMedico);
 
 routes.get("/paciente/:idPaciente/consultas", /*autorizacao,*/ controller.listarIdPaciente);
-routes.get("/medico/consultas/dias", controller.listarDia);
+routes.get("/medico/:idProfissional/consultas/dias", controller.listarDia);
 
 routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);
 

@@ -18,6 +18,7 @@ const rotasNotificacao = require("./Private/notificacao");
 
 
 router.use(rotasPublicaSessao);
+
 router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
 
