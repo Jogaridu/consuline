@@ -12,6 +12,7 @@ import {
   Modal,
   Alert,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import LottieView from "lottie-react-native";
 import { EventRegister } from "react-native-event-listeners";
@@ -22,6 +23,7 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 import { Tab, Tabs, TabHeading } from "native-base";
 import { RectButton } from "react-native-gesture-handler";
 
+import TabAgendadas from "./tabAgendadas";
 import Container from "../../Components/Container";
 import { Botao1 } from "../../Components/Botao1";
 import Botao2 from "../../Components/Botao2";
@@ -32,19 +34,7 @@ import {
   ContainerConteudoHome,
   ContainerTextoBoasVindas,
   ContainerNotificacao,
-  ContainerCardCovid,
-  ContainerImgMedico,
-  ContainerInfrmCardCovid,
-  TextoInfrmCardCovid,
   TituloHome,
-  CardConsulta,
-  HeaderCardConsulta,
-  InfrmCardConsulta,
-  ImgMedico,
-  ContainerTextosHeader,
-  TitulosCardConsulta,
-  TextoCardConsulta,
-  ContainerInfrmCardConsulta,
   Notificacoes,
   Notificacao,
   TextoNotificacao,
@@ -53,10 +43,6 @@ import {
   ContainerBotao,
   ContainerModal,
   ModalAvaliacao,
-  ContainerBtnCardAvaliar,
-  ContainerHorariosCard,
-  ContainerInfrmVisualizarConsulta,
-  TextoVisualizarConsuta,
 } from "./styles";
 
 import colors from "../../Styles/colors";
@@ -68,149 +54,12 @@ const TabRealizadas = () => (
   </Container>
 );
 
-const TabAgendadas = ({ opacity, offset, setModalAvaliacao }) => {
-  const [visualizarConsulta, setVisualizarConsulta] = useState(false);
-
-  return (
-    <Container style={{ justifyContent: "flex-start" }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={visualizarConsulta}
-      >
-        <ContainerModal>
-          <ModalAvaliacao style={{ height: 590 }}>
-            <IconMaterialC
-              name="close"
-              size={42}
-              color="red"
-              style={{
-                alignSelf: "flex-end",
-                marginRight: 10,
-                marginTop: 10,
-              }}
-              onPress={() => setVisualizarConsulta(false)}
-            />
-            <Image
-              source={require("../../Assets/fotoMedico.png")}
-              style={{ width: 108, height: 108, borderRadius: 100 }}
-            />
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Médico:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>Dr. Alvez Cabral</TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Tipo:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>Clinico Geral</TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Atendimento:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>Presencial</TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Local:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>
-                Hospital Cardoso silva
-              </TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Valor:</TitulosCardConsulta>
-              <TextoVisualizarConsuta
-                style={{
-                  color: "green",
-                  marginBottom: 20,
-                }}
-              >
-                R$100,00
-              </TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
-          </ModalAvaliacao>
-        </ContainerModal>
-      </Modal>
-
-      <CardConsulta
-        style={{ elevation: 2 }}
-        onLongPress={() => setVisualizarConsulta(true)}
-      >
-        <HeaderCardConsulta>
-          <ImgMedico source={require("../../Assets/fotoMedico.png")} />
-          <ContainerTextosHeader>
-            <TitulosCardConsulta> Patrick Silva </TitulosCardConsulta>
-            <TextoCardConsulta> Clinico geral </TextoCardConsulta>
-          </ContainerTextosHeader>
-        </HeaderCardConsulta>
-        <InfrmCardConsulta>
-          <ContainerHorariosCard>
-            <IconMaterialC
-              name="clock-outline"
-              size={24}
-              color={colors.corTitulo}
-            />
-            <Text
-              style={{
-                color: colors.corTitulo,
-                marginTop: 2,
-                fontWeight: "600",
-              }}
-            >
-              {" "}
-              10/12 ás 15:00{" "}
-            </Text>
-          </ContainerHorariosCard>
-
-          <ContainerBtnCardAvaliar>
-            <RectButton
-              style={styless.botao}
-              onPress={() => setModalAvaliacao(true)}
-            >
-              <IconAntDesign
-                name="star"
-                size={20}
-                color={colors.principal}
-                style={{ marginRight: 5 }}
-              />
-              <Text
-                style={{
-                  color: colors.principal,
-                  fontWeight: "bold",
-                  fontSize: 15,
-                }}
-              >
-                Avaliar
-              </Text>
-            </RectButton>
-          </ContainerBtnCardAvaliar>
-        </InfrmCardConsulta>
-      </CardConsulta>
-      {/* <ContainerCardCovid
-      style={[
-        {
-          opacity: opacity,
-          transform: [{ translateY: offset.y }],
-          marginLeft: "auto",
-          marginRight: "auto",
-        },
-      ]}
-    >
-      <ContainerImgMedico source={require("../../Assets/icone-medico.png")} />
-      <ContainerInfrmCardCovid>
-        <TextoInfrmCardCovid>Faça suas consultas </TextoInfrmCardCovid>
-        <TextoInfrmCardCovid style={{ marginBottom: 15 }}>
-          online ou presencial.
-        </TextoInfrmCardCovid>
-        <Botao1 title="Saiba mais" width={116} height={39} fontSize={16} />
-      </ContainerInfrmCardCovid>
-    </ContainerCardCovid> */}
-    </Container>
-  );
-};
-
 const Home = ({ navigation }) => {
   const [nome, setNome] = useState("");
   const [loading, setLoading] = useState(true);
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 250 }));
   const [opacity] = useState(new Animated.Value(0));
-  const [dadosConsulta, setDadosConsulta] = useState();
+  const [consultasPendentes, setConsultasPendentes] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [modalAvaliacao, setModalAvaliacao] = useState(false);
@@ -221,21 +70,23 @@ const Home = ({ navigation }) => {
     );
 
     try {
-      const consultas = await api.get(`paciente/${paciente.id}/consultas`);
+      const retornoPendentes = await api.get(
+        `/paciente/${paciente.id}/consultas-pendentes`
+      );
 
-      if (!consultas.data) {
-        var consultaData = consultas.data[0].data;
+      if (!retornoPendentes.data) {
+        var consultaData = retornoPendentes.data[0].data;
         var dataAlterada = consultaData.split("-");
         var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
 
         setDataConsulta(dataNova);
       }
 
-      setDadosConsulta(consultas.data);
+      setConsultasPendentes(retornoPendentes.data);
       setNome(paciente.nome);
       setLoading(false);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
     }
   };
 
@@ -247,7 +98,7 @@ const Home = ({ navigation }) => {
       setNome(dados.nome);
     });
     listener = EventRegister.addEventListener("reloadHome", (dados) => {
-      setDadosConsulta(dados);
+      setConsultasPendentes(dados);
     });
     pegarDados();
 
@@ -274,6 +125,18 @@ const Home = ({ navigation }) => {
     navigation.navigate("Agendar");
   };
 
+  const renderItemPendentes = ({ item }) => (
+    <TabAgendadas
+    setModalAvaliacao={setModalAvaliacao}
+      nomeMedico={item["ProfissionalDaSaude.nome"]}
+      fotoMedico={item["ProfissionalDaSaude.foto"]}
+      servico={item["Servico.nome"]}
+      horario={item.horario}
+      atendimento={item["Atendimento.tipo"]}
+      local={item["Filial.nomeFantasia"]}
+      valor={item.valor}
+    />
+  );
   const NotificacoesContainer = () => {
     return (
       <Notificacoes>
@@ -436,10 +299,10 @@ const Home = ({ navigation }) => {
                   </TabHeading>
                 }
               >
-                <TabAgendadas
-                  opacity={opacity}
-                  offset={offset}
-                  setModalAvaliacao={setModalAvaliacao}
+                <FlatList
+                  data={consultasPendentes}
+                  renderItem={renderItemPendentes}
+                  keyExtractor={(item) => item.id.toString()}
                 />
               </Tab>
               <Tab
@@ -457,25 +320,12 @@ const Home = ({ navigation }) => {
         <ContainerBotao>
           <Botao2
             title="Marcar consulta +"
-            funcExec={() => console.log(consultas)}
+            funcExec={() => console.log(consultasPendentes)}
           />
         </ContainerBotao>
       </Container>
     );
   }
 };
-
-const styless = StyleSheet.create({
-  botao: {
-    width: 110,
-    height: 38,
-    backgroundColor: "#FFE600",
-    borderRadius: 20,
-    marginTop: -12,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-});
 
 export default Home;

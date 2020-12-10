@@ -4,6 +4,7 @@ const authConfig = require("../config/auth.json");
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
 
+
     if (!authorization) {
         res.status(401).send({ error: "Token não informado" });
     }

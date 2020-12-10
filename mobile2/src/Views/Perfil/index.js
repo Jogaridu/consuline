@@ -47,8 +47,6 @@ const Perfil = ({ navigation }) => {
         await AsyncStorage.getItem("@Consuline:paciente")
       );
 
-      console.log(paciente);
-
       var dataNasc = paciente.dataNascimento;
       var dataNascBR = dataNasc.split("-");
       var dataNova = dataNascBR[2] + "/" + dataNascBR[1] + "/" + dataNascBR[0];

@@ -44,6 +44,8 @@ const Filial = ({
   localizacao,
   setLocalizacao,
 }) => {
+  const [selecionado, setSelecionado] = useState(false);
+
   const apiMaps = async () => {
     try {
       const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=AIzaSyBzmNMwR_8Qz-ca3R-T4nKVC9xJnCawjhc`;
@@ -67,10 +69,13 @@ const Filial = ({
 
   return (
     <BotaoHospital
+    selecionado={selecionado}
       onPress={() => {
+        setSelecionado(true);
         setListaHospitais(!listaHospitais);
         apiMaps();
       }}
+      
     >
       <TextoBotaoHospital>{nome}</TextoBotaoHospital>
     </BotaoHospital>

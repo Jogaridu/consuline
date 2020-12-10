@@ -85,7 +85,7 @@ export const TituloHome = styled.Text`
   text-align: left;
 `;
 
-export const CardConsulta = styled.TouchableOpacity`
+export const CardConsulta = styled.View`
   width: 85%;
   height: 112px;
   background-color: ${colors.container};
@@ -147,7 +147,7 @@ export const ContainerHorariosCard = styled.View`
   width: 50%;
   height: auto;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const ContainerBtnCardAvaliar = styled.View`

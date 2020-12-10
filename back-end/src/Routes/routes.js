@@ -5,7 +5,6 @@ const router = express.Router();
 
 // Rotas publicas
 const rotasPublicaSessao = require("./Public/sessao");
-
 const rotasPublicaPaciente = require("./Public/paciente");
 const rotasPublicaProfissional = require("./Public/profissionalDaSaude");
 
@@ -23,10 +22,12 @@ router.use(rotaAtendimento);
 router.use(rotasPublicaSessao);
 router.use(rotasPublicaPaciente);   
 
-router.use(rotasFiliais);
+router.use(rotasPublicaSessao);
 
+router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
 
+router.use(rotasFiliais);
 router.use(rotasServicos);
 router.use(rotasAvaliacao);
 router.use(rotasNotificacao);

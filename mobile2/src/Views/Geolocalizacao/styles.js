@@ -54,28 +54,24 @@ export const ContainerListaHospitais = styled.View`
 export const ContainerConteudoInfmr = styled.View`
     width: 100%;
     height: auto;
-    padding-left: 20px;
     padding-top: 20px;
 `;
 
 export const ContainerLocalizacao = styled.View`
     width: 100%;
     height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* background-color: lightblue; */
+    align-items: center;
 `;
 
 export const ContainerContatos = styled.View`
     width: 100%;
     height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
     /* background-color: pink; */
+    align-items: center;
 `;
 
 export const TitulosInfmr = styled.Text`
-    font-weight: bold;
+    font-weight: 500;
     font-size: 25px;
     color: ${colors.corTitulo};
     margin-bottom: 11px;
@@ -87,6 +83,7 @@ export const TextosInfrm = styled.Text`
     font-weight: 500;
     margin-bottom: 5px;
     color: ${colors.corTituloSecundario};
+    text-align: center;
 `;
 
 export const BotaoHospital = styled.TouchableOpacity`
