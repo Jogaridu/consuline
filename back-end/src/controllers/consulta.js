@@ -49,12 +49,6 @@ module.exports = {
           .send({ error: "Profissional não encontrado(a)" });
       }
 
-      const filial = await Filial.findByPk(FilialId);
-
-      if (!filial) {
-        return res.status(400).send({ error: "Filial não cadastrada" });
-      }
-
       const servico = await Servico.findByPk(ServicoId);
 
       if (!servico) {
@@ -65,6 +59,12 @@ module.exports = {
 
       if (!atendimento) {
         return res.status(400).send({ error: "Atendimento não cadastrado" });
+      }
+
+      const filial = await Filial.findByPk(FilialId);
+
+      if (!filial  && atendimento.tipo != "remoto") {
+        return res.status(400).send({ error: "Filial não cadastrada" });
       }
 
       const numeroCartaoCripto = await bcrypt.hash(pagamento.numero, 10);
