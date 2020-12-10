@@ -10,6 +10,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
 const Notificacao = require("./notificacao");
+
 module.exports = {
     async criar(req, res) {
         const { tipoPerfil } = req;
