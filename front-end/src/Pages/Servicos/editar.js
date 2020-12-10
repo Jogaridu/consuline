@@ -7,18 +7,18 @@ import BotaoPrincipal from "../../Components/BotaoPrincipal";
 import BotaoSecundario from "../../Components/BotaoSecundario";
 import Swal from "sweetalert2";
 
-// import InputCorreta from '../../../../Fixtures/Inputs/InputCorreta';
+import icone from "../../Assets/icone-servico.png";
+
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
 import "./styles.css";
 
-import mapa from "../../Assets/mapa.png";
 import servico from "../../Assets/7774.jpg";
 import loader from "../../Assets/loader.json";
 
 import api from "../../Services/api";
 
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { validarServico } from "../Filial/Registrar/ValidacaoInputSchema";
 import MsgAntesVoltar from "../../Fixtures/MsgAntesVoltar";
 
@@ -31,21 +31,21 @@ function EditarServico() {
 
     const imgRef = useRef();
 
-    const listarservicos = async () => {
-        try {
-            const retorno = await api.get(`/servico/${location.state}`);
-
-            setServicos(retorno.data);
-            setLoading(false);
-            imgRef.current.src = retorno.data.imagem;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     useEffect(() => {
+        const listarservicos = async () => {
+            try {
+                const retorno = await api.get(`/servico/${location.state}`);
+
+                setServicos(retorno.data);
+                setLoading(false);
+                imgRef.current.src = retorno.data.imagem;
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         listarservicos();
-    }, [listarservicos]);
+    }, [location.state]);
 
     const handleForm = async (values) => {
         const dados = new FormData();
@@ -89,7 +89,7 @@ function EditarServico() {
         <div className="container-central">
             <Menu />
             <div className="container-conteudo-central">
-                <Titulo nome="Editar serviço" />
+                <Titulo nome="Editar serviço" imagem={icone} />
                 <div id="container-conteudo-cms">
                     <div className="titulo-card-cadastro-servicos">
                         <figure>
