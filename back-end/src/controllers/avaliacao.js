@@ -6,11 +6,11 @@ module.exports = {
   async criar(req, res) {
     const { idPaciente, tipoPerfil } = req;
 
-    if (tipoPerfil !== "paciente") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+    // if (tipoPerfil !== "paciente") {
+    //   return res
+    //     .status(401)
+    //     .send({ error: "Você não possui autorização para esta ação!!" });
+    // }
 
     const { estrelas, comentario, ProfissionalDaSaudeId } = req.body;
 
