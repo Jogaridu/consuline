@@ -21,7 +21,6 @@ import IconAntDesign from "react-native-vector-icons/AntDesign";
 import IconMaterialC from "react-native-vector-icons/MaterialCommunityIcons";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { Tab, Tabs, TabHeading } from "native-base";
-import { RectButton } from "react-native-gesture-handler";
 
 import TabAgendadas from "./tabAgendadas";
 import Container from "../../Components/Container";
@@ -47,12 +46,7 @@ import {
 
 import colors from "../../Styles/colors";
 import styles from "../../Components/Container/styles";
-
-const TabRealizadas = () => (
-  <Container>
-    <Text> Consultas REALIZADAS </Text>
-  </Container>
-);
+import TabRealizadas from "./tabRealizadas";
 
 const Home = ({ navigation }) => {
   const [nome, setNome] = useState("");
@@ -60,9 +54,11 @@ const Home = ({ navigation }) => {
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 250 }));
   const [opacity] = useState(new Animated.Value(0));
   const [consultasPendentes, setConsultasPendentes] = useState();
+  const [consultasRealizadas, setConsultasRealizadas] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [modalAvaliacao, setModalAvaliacao] = useState(false);
+  const [avaliacao, setAvaliacao] = useState();
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
@@ -70,19 +66,18 @@ const Home = ({ navigation }) => {
     );
 
     try {
-      const retornoPendentes = await api.get(
-        `/paciente/${paciente.id}/consultas-pendentes`
-      );
+      const retorno = await api.get(`/paciente/${paciente.id}/consultas`);
 
-      if (!retornoPendentes.data) {
-        var consultaData = retornoPendentes.data[0].data;
+      if (!retorno.data) {
+        var consultaData = retorno.data[0].data;
         var dataAlterada = consultaData.split("-");
         var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
 
         setDataConsulta(dataNova);
       }
 
-      setConsultasPendentes(retornoPendentes.data);
+      setConsultasPendentes(retorno.data.pendentes);
+      setConsultasRealizadas(retorno.data.realizadas);
       setNome(paciente.nome);
       setLoading(false);
     } catch (error) {
@@ -127,7 +122,20 @@ const Home = ({ navigation }) => {
 
   const renderItemPendentes = ({ item }) => (
     <TabAgendadas
-    setModalAvaliacao={setModalAvaliacao}
+      setModalAvaliacao={setModalAvaliacao}
+      nomeMedico={item["ProfissionalDaSaude.nome"]}
+      fotoMedico={item["ProfissionalDaSaude.foto"]}
+      servico={item["Servico.nome"]}
+      horario={item.horario}
+      atendimento={item["Atendimento.tipo"]}
+      local={item["Filial.nomeFantasia"]}
+      valor={item.valor}
+    />
+  );
+
+  const renderItemRealizadas = ({ item }) => (
+    <TabRealizadas
+      setModalAvaliacao={setModalAvaliacao}
       nomeMedico={item["ProfissionalDaSaude.nome"]}
       fotoMedico={item["ProfissionalDaSaude.foto"]}
       servico={item["Servico.nome"]}
@@ -172,6 +180,14 @@ const Home = ({ navigation }) => {
       </Notificacoes>
     );
   };
+
+  const avaliacaoMedico = async () => {
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
 
   if (loading) {
     return (
@@ -236,7 +252,7 @@ const Home = ({ navigation }) => {
                   imageSize={38}
                   startingValue={0}
                   style={{ marginTop: 10, marginBottom: 20 }}
-                />
+                  onFinishRating={(rating) => setAvaliacao(rating)}                />
                 <Input
                   placeholder="Comentários, críticas ou sugestões"
                   placeholderTextColor={colors.principal}
@@ -251,7 +267,7 @@ const Home = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Botao2 title="Enviar" width={"80%"} height={50} />
+                  <Botao2 title="Enviar" width={"80%"} height={50} funcExec={avaliacaoMedico} />
                 </View>
               </ModalAvaliacao>
             </ContainerModal>
@@ -291,6 +307,7 @@ const Home = ({ navigation }) => {
               tabBarBackgroundColor={colors.principal}
               tabBarUnderlineStyle={{ backgroundColor: colors.principal }}
               tabContainerStyle={{ elevation: 0 }}
+              activeTextStyle={{color: colors.container}}
             >
               <Tab
                 heading={
@@ -312,7 +329,11 @@ const Home = ({ navigation }) => {
                   </TabHeading>
                 }
               >
-                <TabRealizadas />
+                <FlatList
+                  data={consultasRealizadas}
+                  renderItem={renderItemRealizadas}
+                  keyExtractor={(item) => item.id.toString()}
+                />
               </Tab>
             </Tabs>
           </ContainerConteudoHome>
@@ -320,7 +341,7 @@ const Home = ({ navigation }) => {
         <ContainerBotao>
           <Botao2
             title="Marcar consulta +"
-            funcExec={() => console.log(consultasPendentes)}
+            funcExec={() => console.log(consultasRealizadas)}
           />
         </ContainerBotao>
       </Container>

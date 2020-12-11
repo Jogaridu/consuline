@@ -105,7 +105,7 @@ module.exports = {
                     {
                         model: EnderecoFilial,
                         attributes: [
-                            "id", "estado", "cidade", "cep", "numero"
+                            "id", "rua", "estado", "cidade", "cep", "numero"
                         ]
 
                     },
@@ -115,13 +115,12 @@ module.exports = {
                     }
                 ],
 
-                attributes: ["id", "nomeFantasia"]
+                attributes: ["id", "nomeFantasia"],
             });
 
             return res.status(200).send(filialTodos);
 
         } catch (error) {
-            console.log(error);
             return res.status(404).send({ erro: "Falha ao buscar todos os serviços" });
 
         }

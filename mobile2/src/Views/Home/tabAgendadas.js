@@ -79,7 +79,7 @@ const TabAgendadas = ({
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Local:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>{local}</TextoVisualizarConsuta>
+              <TextoVisualizarConsuta>{!local ? "Whatsapp" : local}</TextoVisualizarConsuta>
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Valor:</TitulosCardConsulta>
@@ -128,28 +128,7 @@ const TabAgendadas = ({
               </Text>
             </ContainerHorariosCard>
 
-            <ContainerBtnCardAvaliar>
-              <RectButton
-                style={styless.botao}
-                onPress={() => setModalAvaliacao(true)}
-              >
-                <IconAntDesign
-                  name="star"
-                  size={20}
-                  color={colors.container}
-                  style={{ marginRight: 5 }}
-                />
-                <Text
-                  style={{
-                    color: colors.container,
-                    fontWeight: "bold",
-                    fontSize: 15,
-                  }}
-                >
-                  Avaliar
-                </Text>
-              </RectButton>
-            </ContainerBtnCardAvaliar>
+           
           </InfrmCardConsulta>
         </RectButton>
       </CardConsulta>

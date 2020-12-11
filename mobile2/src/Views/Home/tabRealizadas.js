@@ -79,7 +79,7 @@ const TabRealizadas = ({
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Local:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>{local}</TextoVisualizarConsuta>
+              <TextoVisualizarConsuta>{!local ? "Whatsapp" : local}</TextoVisualizarConsuta>
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Valor:</TitulosCardConsulta>
@@ -96,7 +96,7 @@ const TabRealizadas = ({
         </ContainerModal>
       </Modal>
 
-      <CardConsulta style={{ elevation: 2 }}>
+      <CardConsulta style={{ elevation: 2, borderColor: "green" }}>
         <RectButton
           onPress={() => setVisualizarConsulta(true)}
           style={styless.btnCardConsulta}
@@ -195,4 +195,4 @@ const styless = StyleSheet.create({
   },
 });
 
-export default TabAgendadas;
+export default TabRealizadas;
