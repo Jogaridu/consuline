@@ -20,7 +20,7 @@ function BotaoPrincipal(props) {
             if (props.funcExec !== undefined) {
                 props.funcExec();
             }
-        }}>
+        }} style={props.desabilitado ? { backgroundColor: "#ccc", pointerEvents: "none" } : {}}>
             {effectLoading && loading !== undefined && loading !== false ? (<CircularProgress size={30} style={{ color: "#fff" }} />) : (props.titulo)}
         </button>
     );

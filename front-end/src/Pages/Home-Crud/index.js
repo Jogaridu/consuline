@@ -22,13 +22,14 @@ import { useState } from "react";
 const Home = () => {
 
     const [profissionais, setProfissionais] = useState([]);
+    const [dados, setDados] = useState([]);
 
     useEffect(() => {
         const pegarMedicos = async () => {
 
             try {
                 const retorno = await api.get("/profissional");
-                console.log(retorno.data);
+
                 setProfissionais(retorno.data);
 
             } catch (error) {
@@ -37,7 +38,18 @@ const Home = () => {
             }
         };
 
-        pegarMedicos()
+        const pegarDados = async () => {
+            try {
+                const retorno = await api.get("/dados-home");
+
+                setDados(retorno.data);
+            } catch (error) {
+
+            }
+        }
+
+        pegarDados();
+        pegarMedicos();
     }, [])
 
 
@@ -60,7 +72,7 @@ const Home = () => {
                             <img src={filais} alt="Total filiais imagem" />
                         </figure>
                         <p>Total de Filiais</p>
-                        <span>730</span>
+                        <span>{dados.filiais}</span>
                     </div>
 
                     <div className="card-informacoes">
@@ -68,7 +80,7 @@ const Home = () => {
                             <img src={paciente} alt="Total paciente imagem" />
                         </figure>
                         <p>Total de Pacientes</p>
-                        <span>2000</span>
+                        <span>{dados.pacientes}</span>
                     </div>
 
                     <div className="card-informacoes">
@@ -76,14 +88,14 @@ const Home = () => {
                             <img src={medicos} alt="Total médicos imagem" />
                         </figure>
                         <p>Total de Médicos</p>
-                        <span>500</span>
+                        <span>{dados.profissionais}</span>
                     </div>
                     <div className="card-informacoes">
                         <figure style={{ borderColor: "#32BEA6" }}>
                             <img src={consultas} alt="Total consultas imagem" />
                         </figure>
                         <p>Total de Consultas</p>
-                        <span>1000</span>
+                        <span>{dados.consultas}</span>
                     </div>
 
                 </div>

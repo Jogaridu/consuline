@@ -15,7 +15,9 @@ const rotaAtendimento = require("./Private/atendimento");
 const rotasConsulta = require("./Private/consulta");
 const rotasAvaliacao = require("./Private/avaliacao");
 const rotasNotificacao = require("./Private/notificacao");
+const rotasDadosHome = require("./Private/dadosHome");
 
+router.use(rotasDadosHome);
 
 router.use(rotasPublicaPaciente);
 router.use(rotasAvaliacao);

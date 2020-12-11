@@ -6,11 +6,13 @@ import teste from "../../../../Assets/c.jpg"
 import api from "../../../../Services/api";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import Swal from "sweetalert2";
 import RemoverMask from '../../../../Fixtures/RemoverMask';
 import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
 import BotaoPrincipal from "../../../../Components/BotaoPrincipal";
+import Lottie from 'react-lottie';
+import search from "../../../../Assets/no-search.json";
 
 function Servicos() {
 
@@ -22,6 +24,15 @@ function Servicos() {
 
     const [servicos, setServicos] = useState([]);
     const [novoServico, setNovoServico] = useState([]);
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: search,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
 
     useEffect(() => {
         const carragarServicos = async () => {
@@ -123,11 +134,19 @@ function Servicos() {
         <div className="conteiner-entrada-servicos">
 
             <div className="container-card-servicos">
-                {servicos === [] ? "Sem nenhum serviço cadastrado" : servicos.map(servico => (<CardServico
+                {!servicos.length === 0 ? servicos.map(servico => (<CardServico
                     id={servico.id}
                     nome={servico.nome}
                     descricao={servico.descricao} />)
-                )}
+                ) : (
+                        <div className="msg-sem-dados">
+                            <Lottie options={defaultOptions} height={200} width={200} />
+                            <h2>Sem serviços cadastrados</h2>
+                            <Link to="/servico">
+                                <BotaoPrincipal titulo="Adicionar serviço" />
+                            </Link>
+                        </div>
+                    )}
             </div>
 
             <div className="caixa-botoes">
@@ -149,7 +168,7 @@ function Servicos() {
                 }} type="button">&larr;</button>
 
 
-                <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} funcExec={cadastrarFilial} />
+                <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} funcExec={cadastrarFilial} desabilitado={true} />
 
             </div>
         </div>
