@@ -4,6 +4,7 @@ const Profissional = require("../models/ProfissionalDaSaude");
 const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 const Atendimento = require("../models/Atendimento");
+const Avaliacao = require("../models/Avaliacao");
 const { Op } = require("sequelize");
 const Pagamento = require("../models/Pagamento");
 const bcrypt = require("bcryptjs");
@@ -507,6 +508,13 @@ module.exports = {
                     {
                         association: "ProfissionalDaSaude",
                         attributes: ["nome", "foto"],
+                        include: {
+                            model: Avaliacao,
+                            attributes: ["estrelas", "id"],
+                            where: {
+                                pacienteId: idPaciente
+                            }
+                        }
                     },
                 ],
                 raw: true,

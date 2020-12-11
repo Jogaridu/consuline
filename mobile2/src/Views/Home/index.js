@@ -81,7 +81,7 @@ const Home = ({ navigation }) => {
       setNome(paciente.nome);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
     }
   };
 
@@ -182,11 +182,11 @@ const Home = ({ navigation }) => {
   };
 
   const avaliacaoMedico = async () => {
-    try {
+    // try {
       
-    } catch (error) {
-      
-    }
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   if (loading) {

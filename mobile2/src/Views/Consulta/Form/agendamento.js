@@ -55,10 +55,10 @@ const CardHorarios = ({ dia, diaSelecionado, setHorario }) => {
       {horariosDisponiveis.map((horario, index) => (
         <Horarios
           key={index}
-          // horarioSelecionado={horarioSelecionado}
+          horarioSelecionado={horarioSelecionado}
           onPress={() => {
-            setHorarioSelecionado(index);
-            console.log(index)
+            setHorarioSelecionado(horario);
+            console.log(horario)
             setHorario(horario);
           }}
         >

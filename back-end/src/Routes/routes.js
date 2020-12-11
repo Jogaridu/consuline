@@ -22,10 +22,11 @@ router.use(rotaAtendimento);
 router.use(rotasPublicaSessao);
 router.use(rotasPublicaPaciente);   
 
+router.use(rotasPublicaPaciente);
+router.use(rotasAvaliacao);
 router.use(rotasPublicaSessao);
 router.use(rotasFiliais);
 
-router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
 
 router.use(rotasServicos);

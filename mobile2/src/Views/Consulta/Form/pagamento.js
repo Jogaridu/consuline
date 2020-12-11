@@ -29,6 +29,8 @@ const Pagamento = ({ navigation, route }) => {
   let novaConsulta = route.params;
 
   const cadastrarConsulta = async (values) => {
+    console.log("ta aqui");
+
     try {
       const paciente = JSON.parse(
         await AsyncStorage.getItem("@Consuline:paciente")

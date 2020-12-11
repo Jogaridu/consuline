@@ -135,7 +135,7 @@ const Telefone = ({ navigation, route }) => {
         }
       } catch (error) {
         if (error.response) {
-          return console.log(error);
+          return console.log(error.response.data);
         }
 
         console.log(error);
