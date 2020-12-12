@@ -3,7 +3,7 @@ import { Dimensions, Text, Image, Alert, ScrollView } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import Container from "../../../Components/Container";
-import Botao2 from "../../../Components/Botao2";
+import Botao3 from "../../../Components/Botao3";
 import { Botao1 } from "../../../Components/Botao1";
 import Titulo from "../../../Components/TituloCadastro";
 import Passos from "../../../Components/Passos";
@@ -156,7 +156,7 @@ const Foto = ({ navigation, route }) => {
           </ContainerPassos>
 
           <ContainerBotao>
-            <Botao2
+            <Botao3
               bottom={15}
               title={tituloBotao.sim}
               funcExec={

@@ -188,7 +188,7 @@ function Servicos() {
     const [loading, setLoading] = useState(true);
     const [mostrarHospitais, setmostrarHospitais] = useState(false);
 
-    console.log(servicos.length === 0);
+    console.log(servicos.length !== 0);
 
     const defaultOptions = {
         loop: true,
@@ -199,20 +199,22 @@ function Servicos() {
         },
     };
 
-    const listarservicos = async () => {
-        try {
-            const retorno = await api.get("/servicos");
 
-            setServicos(retorno.data);
-            setLoading(false);
-        } catch (error) {
-
-            console.log(error);
-            MsgErroGenerico();
-        }
-    };
 
     useEffect(() => {
+        const listarservicos = async () => {
+            try {
+                const retorno = await api.get("/servicos");
+
+                setServicos(retorno.data);
+                setLoading(false);
+            } catch (error) {
+
+                console.log(error);
+                MsgErroGenerico();
+            }
+        };
+
         listarservicos();
     }, []);
 
@@ -240,7 +242,7 @@ function Servicos() {
                         </div>
                     ) : (
                             <div id="container-card-servicos">
-                                {!servicos.length === 0 ? servicos.map((servico) => (
+                                {!(servicos.length === 0) ? servicos.map((servico) => (
                                     <CardServicos
                                         id={servico.id}
                                         nome={servico.nome}

@@ -56,8 +56,6 @@ const Home = ({ navigation }) => {
   const [consultasPendentes, setConsultasPendentes] = useState();
   const [consultasRealizadas, setConsultasRealizadas] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
-  const [dataConsulta, setDataConsulta] = useState();
-  
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
@@ -67,13 +65,7 @@ const Home = ({ navigation }) => {
     try {
       const retorno = await api.get(`/paciente/${paciente.id}/consultas`);
 
-      if (!retorno.data) {
-        var consultaData = retorno.data[0].data;
-        var dataAlterada = consultaData.split("-");
-        var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
-
-        setDataConsulta(dataNova);
-      }
+      console.log(retorno.data);
 
       setConsultasPendentes(retorno.data.pendentes);
       setConsultasRealizadas(retorno.data.realizadas);
@@ -115,36 +107,39 @@ const Home = ({ navigation }) => {
     };
   }, []);
 
-  const navegarConsulta = () => {
-    navigation.navigate("Agendar");
-  };
-
   const renderItemPendentes = ({ item }) => (
     <TabAgendadas
       nomeMedico={item["ProfissionalDaSaude.nome"]}
-      fotoMedico={item["ProfissionalDaSaude.foto"]}
+      fotoServico={item["Servico.imagem"]}
       servico={item["Servico.nome"]}
       horario={item.horario}
       atendimento={item["Atendimento.tipo"]}
       local={item["Filial.nomeFantasia"]}
       valor={item.valor}
+      data={item.data}
     />
   );
 
   const renderItemRealizadas = ({ item }) => (
     <TabRealizadas
       nomeMedico={item["ProfissionalDaSaude.nome"]}
-      fotoMedico={item["ProfissionalDaSaude.foto"]}
+      fotoServico={item["Servico.imagem"]}
       servico={item["Servico.nome"]}
       horario={item.horario}
       atendimento={item["Atendimento.tipo"]}
       local={item["Filial.nomeFantasia"]}
       valor={item.valor}
-      idPaciente={item.PacienteId}
+      idConsulta={item.id}
       idMedico={item.ProfissionalDaSaudeId}
+      data={item.data}
+      notaProfissional={item.notaProfissional}
     />
   );
-  
+
+  const navegarConsulta = () => {
+    navigation.navigate("Agendar");
+  };
+
   const NotificacoesContainer = () => {
     return (
       <Notificacoes>
@@ -194,7 +189,6 @@ const Home = ({ navigation }) => {
           style={{ width: "100%" }}
           contentContainerStyle={{ flexGrow: 1 }}
         >
-          
           <ContainerColor>
             <ContainerTextoBoasVindas>
               <Text style={{ fontSize: 25, color: colors.principal }}>
@@ -230,7 +224,7 @@ const Home = ({ navigation }) => {
               tabBarBackgroundColor={colors.principal}
               tabBarUnderlineStyle={{ backgroundColor: colors.principal }}
               tabContainerStyle={{ elevation: 0 }}
-              activeTextStyle={{color: colors.container}}
+              activeTextStyle={{ color: colors.container }}
             >
               <Tab
                 heading={
@@ -239,6 +233,13 @@ const Home = ({ navigation }) => {
                   </TabHeading>
                 }
               >
+                {/* <ContainerBotao>
+                  <Botao2
+                    title="Marcar consulta"
+                    funcExec={() => navegarConsulta}
+                  />
+                </ContainerBotao> */}
+
                 <FlatList
                   data={consultasPendentes}
                   renderItem={renderItemPendentes}
@@ -261,12 +262,6 @@ const Home = ({ navigation }) => {
             </Tabs>
           </ContainerConteudoHome>
         </ScrollView>
-        <ContainerBotao>
-          <Botao2
-            title="Marcar consulta +"
-            funcExec={() => console.log(consultasRealizadas)}
-          />
-        </ContainerBotao>
       </Container>
     );
   }

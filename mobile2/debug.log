@@ -638,3 +638,29 @@
 [1212/000239.850:ERROR:crash_report_database_win.cc(455)] unexpected header
 [1212/001740.017:ERROR:crash_report_database_win.cc(455)] unexpected header
 [1212/003240.019:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/004740.021:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/010240.191:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/011740.305:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/013240.335:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/014740.387:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/100526.288:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/101526.303:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/101526.334:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1212/101526.334:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/101526.334:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/102026.391:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/103526.392:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/105026.410:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/110526.468:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/112026.474:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/113526.487:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/115026.489:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/120526.510:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/122026.516:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/123526.518:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/143533.982:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/144534.116:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/144534.191:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+[1212/144534.193:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/144534.193:ERROR:crash_report_database_win.cc(455)] unexpected header
+[1212/145034.101:ERROR:crash_report_database_win.cc(455)] unexpected header

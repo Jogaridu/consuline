@@ -134,7 +134,7 @@ function Servicos() {
         <div className="conteiner-entrada-servicos">
 
             <div className="container-card-servicos">
-                {!servicos.length === 0 ? servicos.map(servico => (<CardServico
+                {!(servicos.length === 0) ? servicos.map(servico => (<CardServico
                     id={servico.id}
                     nome={servico.nome}
                     descricao={servico.descricao} />)
@@ -168,7 +168,7 @@ function Servicos() {
                 }} type="button">&larr;</button>
 
 
-                <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} funcExec={cadastrarFilial} desabilitado={true} />
+                <BotaoPrincipal titulo="Cadastrar" tipo="submit" loading={true} funcExec={cadastrarFilial} desabilitado={(servicos.length === 0)} />
 
             </div>
         </div>

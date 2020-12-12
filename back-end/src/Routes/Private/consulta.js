@@ -6,11 +6,11 @@ const routes = express.Router();
 
 const controller = require("../../controllers/consulta");
 
-// const autorizacaoMid = require("../../middlewares/autorizacao");
+const autorizacaoMid = require("../../middlewares/autorizacao");
 
-// const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente");
+const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente");
 
-// const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
+const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
 
 routes.get("/medico/:idProfissional/consultas/dias", controller.listarDia);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Modal, Image, StyleSheet } from "react-native";
 
 import IconMaterialC from "react-native-vector-icons/MaterialCommunityIcons";
@@ -67,24 +67,35 @@ const Sucesso = (props) => (
 
 const TabRealizadas = ({
   nomeMedico,
-  fotoMedico,
+  fotoServico,
   servico,
   horario,
   atendimento,
   local,
   valor,
-  idPaciente,
+  idConsulta,
   idMedico,
+  data,
+  notaProfissional,
 }) => {
   const [visualizarConsulta, setVisualizarConsulta] = useState(false);
   const [modalAvaliacao, setModalAvaliacao] = useState(false);
   const [dadosAvaliacao, setDadosAvaliacao] = useState({
     estrelas: 0,
     comentario: "",
-    PacienteId: idPaciente,
+    consultaId: idConsulta,
     ProfissionalDaSaudeId: idMedico,
   });
   const [sucesso, setSucesso] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
+
+  useEffect(() => {
+    var consultaData = data;
+    var dataAlterada = consultaData.split("-");
+    var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
+
+    setDataConsulta(dataNova);
+  }, []);
 
   const avaliacaoMedico = async () => {
     try {
@@ -198,17 +209,18 @@ const TabRealizadas = ({
               onPress={() => setVisualizarConsulta(false)}
             />
             <Image
-              source={{ uri: fotoMedico }}
+              source={{ uri: fotoServico }}
               style={{ width: 108, height: 108, borderRadius: 100 }}
             />
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Médico:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>{nomeMedico}</TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Tipo:</TitulosCardConsulta>
               <TextoVisualizarConsuta>{servico}</TextoVisualizarConsuta>
             </ContainerInfrmVisualizarConsulta>
+            <ContainerInfrmVisualizarConsulta>
+              <TitulosCardConsulta>Médico:</TitulosCardConsulta>
+              <TextoVisualizarConsuta>{nomeMedico}</TextoVisualizarConsuta>
+            </ContainerInfrmVisualizarConsulta>
+            
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Atendimento:</TitulosCardConsulta>
               <TextoVisualizarConsuta>{atendimento}</TextoVisualizarConsuta>
@@ -240,10 +252,10 @@ const TabRealizadas = ({
           style={styless.btnCardConsulta}
         >
           <HeaderCardConsulta>
-            <ImgMedico source={{ uri: fotoMedico }} />
+            <ImgMedico source={{ uri: fotoServico }} />
             <ContainerTextosHeader>
-              <TitulosCardConsulta> {nomeMedico} </TitulosCardConsulta>
-              <TextoCardConsulta> {servico} </TextoCardConsulta>
+              <TitulosCardConsulta> {servico} </TitulosCardConsulta>
+              <TextoCardConsulta> {nomeMedico} </TextoCardConsulta>
             </ContainerTextosHeader>
           </HeaderCardConsulta>
           <InfrmCardConsulta>
@@ -261,12 +273,13 @@ const TabRealizadas = ({
                 }}
               >
                 {" "}
-                {horario + " horas"}{" "}
+                {" " + dataConsulta + " " + horario}{" "}
               </Text>
             </ContainerHorariosCard>
 
             <ContainerBtnCardAvaliar>
-              <RectButton
+              {notaProfissional === null ? (
+                <RectButton
                 style={styless.botao}
                 onPress={() => setModalAvaliacao(true)}
               >
@@ -286,6 +299,21 @@ const TabRealizadas = ({
                   Avaliar
                 </Text>
               </RectButton>
+              ) : (
+                <Rating
+                startingValue={notaProfissional}
+                  imageSize={20}
+                  readonly
+                />
+              )}
+{/* 
+  -notificação
+  -bug do editar
+  -buscar serviço
+  -mudar a cor da fonte dos horarios
+
+ */}
+              
             </ContainerBtnCardAvaliar>
           </InfrmCardConsulta>
         </RectButton>

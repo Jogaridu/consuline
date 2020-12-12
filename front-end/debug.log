@@ -73,3 +73,4 @@
 =======
 [1211/100238.271:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
 >>>>>>> 5da7fb60bef84ec77cd589aeaa834971748cb54a
+[1212/014351.887:ERROR:crash_report_database_win.cc(455)] unexpected header

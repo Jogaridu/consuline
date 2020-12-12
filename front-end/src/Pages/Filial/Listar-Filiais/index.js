@@ -60,7 +60,7 @@ function ListarFiliais() {
                         <Lottie options={defaultOptions} height={200} width={200} />
                     ) : (
                             <>
-                                {!filiais.length === 0 ? filiais.map(filial => (<CardListagem
+                                {!(filiais.length === 0) ? filiais.map(filial => (<CardListagem
                                     id={filial.id}
                                     nome={filial.nomeFantasia}
                                     estado={filial.EnderecoFilial.estado}

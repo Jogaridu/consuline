@@ -28,6 +28,7 @@ import {
   TituloPerfil,
   BtnLogout,
   ContainerBtnLogout,
+  ContainerBotaoEditar,
 } from "./styles";
 
 import Container from "../../Components/Container";
@@ -105,10 +106,6 @@ const Perfil = ({ navigation }) => {
                 : { uri: dadosPaciente.foto }
             }
           />
-
-          <BtnEditar onPress={navegarConsultaEditar}>
-            <Icon name="account-edit" size={36} color={colors.principal} />
-          </BtnEditar>
           <ScrollView>
             <Text
               style={{
@@ -133,6 +130,21 @@ const Perfil = ({ navigation }) => {
                 ", " +
                 dadosPaciente.EnderecoPaciente.estado}
             </Text>
+
+            <ContainerBotaoEditar>
+              <BtnEditar onPress={navegarConsultaEditar}>
+                <Icon name="account-edit" size={32} color={colors.container} />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    color: colors.container,
+                  }}
+                >
+                {" "}Editar Perfil
+                </Text>
+              </BtnEditar>
+            </ContainerBotaoEditar>
 
             <ContainerConteudoInformacoes>
               <TituloPerfil>Informações</TituloPerfil>
