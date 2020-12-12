@@ -10,9 +10,7 @@ const autorizacaoMidCentral = require("../../middlewares/autorizacao");
 
 const controller = require("../../controllers/avaliacao");
 
-routes.use(autorizacaoMidPaciente);
-
-routes.post("/medico/avaliacao", controller.criar);
+routes.post("/medico/avaliacao", autorizacaoMidPaciente, controller.avaliar);
 
 routes.use(autorizacaoMidCentral);
 

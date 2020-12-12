@@ -16,6 +16,7 @@ class Avaliacao extends Model {
     static associate(models) {
         this.belongsTo(models.Paciente);
         this.belongsTo(models.ProfissionalDaSaude);
+        // this.hasMany(models.Consulta)
     }
 }
 

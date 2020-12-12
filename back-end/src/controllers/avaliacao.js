@@ -1,18 +1,19 @@
 const Avaliacao = require("../models/Avaliacao");
+const Consulta = require("../models/Consulta");
 const Paciente = require("../models/Paciente");
 const Profissional = require("../models/ProfissionalDaSaude");
 
 module.exports = {
-  async criar(req, res) {
+  async avaliar(req, res) {
     const { idPaciente, tipoPerfil } = req;
 
-    // if (tipoPerfil !== "paciente") {
-    //   return res
-    //     .status(401)
-    //     .send({ error: "Você não possui autorização para esta ação!!" });
-    // }
+    if (tipoPerfil !== "paciente") {
+      return res
+        .status(401)
+        .send({ error: "Você não possui autorização para esta ação!!" });
+    }
 
-    const { estrelas, comentario, ProfissionalDaSaudeId } = req.body;
+    const { estrelas, comentario, ProfissionalDaSaudeId, consultaId } = req.body;
 
     try {
       const paciente = await Paciente.findByPk(idPaciente);
@@ -35,6 +36,10 @@ module.exports = {
         PacienteId: idPaciente,
         ProfissionalDaSaudeId,
       });
+
+      await Consulta.update({
+        notaProfissional: Number(estrelas)
+      }, { where: { id: consultaId } });
 
       res.status(200).send(avaliacao);
     } catch (error) {

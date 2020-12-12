@@ -53,10 +53,6 @@ module.exports = {
 
             const filial = await Filial.findByPk(FilialId);
 
-            if (!filial) {
-                return res.status(400).send({ error: "Filial não cadastrada" });
-            }
-
             const servico = await Servico.findByPk(ServicoId);
 
             if (!servico) {
@@ -482,16 +478,17 @@ module.exports = {
     async listarIdPaciente(req, res) {
         const { idPaciente, tipoPerfil } = req;
 
-        // if (tipoPerfil !== "paciente") {
-        //   return res
-        //     .status(401)
-        //     .send({ error: "Você não possui autorização para esta ação!!" });
-        // }
+        if (tipoPerfil !== "paciente") {
+            return res
+                .status(401)
+                .send({ error: "Você não possui autorização para esta ação!!" });
+        }
 
         try {
             const consultas = await Consulta.findAll({
                 where: { PacienteId: idPaciente },
                 order: [["data", "DESC"]],
+                raw: true,
                 include: [
                     {
                         association: "Filial",
@@ -499,25 +496,17 @@ module.exports = {
                     },
                     {
                         association: "Servico",
-                        attributes: ["nome"],
+                        attributes: ["nome", "imagem"],
                     },
                     {
                         association: "Atendimento",
                         attributes: ["tipo"],
                     },
                     {
-                        model: Profissional,
+                        association: "ProfissionalDaSaude",
                         attributes: ["nome", "foto"],
-                        include: {
-                            model: Avaliacao,
-                            attributes: ["estrelas", "id"],
-                            where: {
-                                pacienteId: idPaciente
-                            }
-                        }
                     },
                 ],
-                raw: true,
             });
 
             if (!consultas) {
