@@ -113,10 +113,10 @@
     position: absolute;
   }
 
-  .txtSlider h1,
+  .txtSlider h1, .txtSlider span,
   .txtSlider2 h1 {
     font-family: "Red Hat Display", sans-serif;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: 500;
     text-align: center;
     margin-left: 100px;
@@ -124,6 +124,10 @@
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: #403e66;
     animation: animationTxtSlider linear 1s;
+  }
+
+  .txtSlider span{
+    font-size: 60px;
   }
 
   .txtSlider2 h1 {
@@ -559,7 +563,7 @@
 
   #sobre {
     width: 100%;
-    height: 500px;
+    height: 570px;
     display: flex;
     flex-direction: row;
   }
@@ -583,6 +587,8 @@
   #infrm-sobre p {
     text-align: justify;
     padding: 10px 20px;
+    text-indent: 15px;
+    margin-bottom: 50px;
   }
 
   #infrm-sobre h1 {
@@ -603,10 +609,11 @@
 
   .card-sobre {
     width: 190px;
-    height: 100%;
+    height: 230px;
     background-color: var(--principal);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     border-radius: 36px 0px 36px 0px;
   }
 
@@ -627,11 +634,11 @@
 
   #texto {
     width: 100%;
-    height: 75px;
+    min-height: 75px;
+    height: auto;
     font-family: "Roboto Slab", serif;
     font-size: 15px;
     color: var(--fundo);
-    /*  */
     line-height: 20px;
     margin-top: -10px;
     overflow: hidden;

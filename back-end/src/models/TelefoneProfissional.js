@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 
 class TelefoneProfissional extends Model {
   static init(sequelize) {
@@ -9,7 +9,6 @@ class TelefoneProfissional extends Model {
       {
         sequelize,
         tableName: "tblTelefoneProfissional",
-        timestamps: false,
       }
     );
   }

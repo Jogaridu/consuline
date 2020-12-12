@@ -1,0 +1,60 @@
+.conteiner-entrada-dados {
+    width: 95%;
+    height: 100%;
+    background-color: var(--container);
+    box-sizing: border-box;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+}
+  
+.titulo-card-cadastro {
+    flex: 2.5;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.titulo-card-cadastro figure {
+    height: 200px;
+    width: 200px;
+    background-color: var(--secundaria);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.titulo-card-cadastro figure img {
+    height: 150px;
+    width: 150px;
+}
+
+#cnpj {grid-area: cnpj;}
+#ie {grid-area: ie;}
+#razaoSocial {grid-area: social;}
+#nomeFantasia {grid-area: nome;}
+#dataAbertura {grid-area: data;}
+#email {grid-area: email;}
+#telefone {grid-area: telefone;}
+
+.form-informacao {
+    flex: 1;
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+        "cnpj cnpj cnpj ie"
+        "social social social social"
+        "nome nome nome data"
+        "email email email telefone"
+        "botoes botoes botoes botoes";
+    column-gap: 20px;
+    padding: 30px;
+}
+
+
+

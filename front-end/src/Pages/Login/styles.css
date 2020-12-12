@@ -1,125 +1,118 @@
-body{
-    /* width: 1300px; */
-    height: auto;
-    background-color: var(--fundo);
-    border: 2px solid var(--fundo);
-}
 /**************************** CONTAINER PRINCIPAL ****************************/
-.container {
+.container-principal-login{
     height: 100vh;
+    width: 100%;
     display: flex;
+    flex-direction: row;
+}
+
+#container-login-central{
+    width: 40vw;
+    height: 100vh;
+    background-color: var(--fundo);
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-.container-principal{
-    min-height: 630px;
-    height: auto;
-    width: 1100px;
-    border: 2px solid var(--principal);
-    /* margin: 0 auto; */
-    /* margin-left: 120px;   */
-    box-sizing: border-box;
-    border-radius: 30px;
-    /* margin-top: 10px; */
-    box-shadow: -30px 20px 20px rgba(0, 0, 0, 0.1);
     
+}
+
+#container-imagem-login-central{
+    width: 60vw;
+    height: 100vh;
+    background-color: var(--fundo);
+    display: flex;
+    align-items: center;
+}
+
+#container-conteudo-login-central{
+    width: 80%;
+    height: 90%;
+    background-color: var(--container);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    border-radius: 40px 40px 40px 40px;
+    animation: animationDiv linear 0.5s;
+}
+
+@keyframes animationDiv {
+    from{
+        margin-top: -1000px;
+        opacity: 0;
+    }
+
+    to{
+        margin-top: 0px;
+        opacity: 1;
+    }
+}
+
+#titulo-login{
+    font-size: 1.8em;
+    color: var(--principal);
+    font-weight: bold;
+    font-style: normal;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin: 20px 0;
 }
 
 /**************************** IMAGEM ****************************/
 
-#imgLogoLogin{
-    height: 320px;
-    width: 320px;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+#logo-login-central {
+    width: auto;
+    height: auto;
+    margin-top: -30px;
 }
+
+#logo-login-central img{
+    width: 170px;
+    height: 170px;
+}
+
 /**************************** BOTOES ****************************/
-.conteiner-botoes{
-    width: 400px;
-    height: 100px;
+.container-botoes {
+    width: 90%;
+    min-height: 60px;
+    height: auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
+    flex-wrap: wrap;
+    margin: 20px auto;
 }
 
 /**************************** FORMULARIO ****************************/
-.box{
-    width: 600px;
-    min-height: 250px;
-    max-height: auto;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-     box-sizing: border-box;
-     
-}
-
-form{
-    width: 80%;
-    height: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-}
-
-div input{
-    margin-top: 30px;
-}
-
-input{
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    /* margin-bottom: 30px; */
+.box {
     width: 100%;
-    box-sizing: border-box;
-    box-shadow: none;
-    outline: none;
-    border: none;
-    border-bottom: 2px solid var(--estbtn);
-    color: black;
-    background-color: var(--fundo);
-    
+    height: auto;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.box input [type="submit"]{
-    border-bottom: none;
-    cursor: pointer;
-    text-transform: uppercase;
+#container-botoes-login{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 80px;
+    padding-bottom: 10px;
 }
 
-.box form div{
-    position: relative;
+#form-login{
+    width: 80%;
 }
 
-.box form div label{
-    position: absolute;
-    top: 10px;
-    pointer-events: none;
-    left: 0;
-    color: var(--estbtn);
-    transition: .5s;
+.input-login{
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
-.box input:focus ~ label,
-.box input:valid ~ label
-{
-    top: -12px;
-    left: 0;
-    color:  var(--principal);
-    font-size: 12px;
-    font-weight: bold;
+.input-field-login{
+    background-color: var(--container);
 }
-
-.box input:focus
-{
-    border-bottom: 2px solid var(--principal);
-}
-

@@ -1,0 +1,191 @@
+.container-consulta-completa{
+    width: 1050px;
+    height: 97%;
+     /* background-color: red;  */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-consulta-aberta{
+    width: 800px;
+    height: 500px;
+    border-radius: 20px;
+    margin-top: -80px;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 25% auto 15%;
+    grid-template-areas: 
+    "dadospaciente dadospaciente"
+    "informacoes-consulta informacoes-consulta"
+    "data-hora-consulta btn-realizar-consulta";
+}
+
+.dadospaciente{
+    grid-area: dadospaciente;
+    display: flex;
+    flex-direction: row;
+}
+
+                        /* ************ Divs card-consulta-aberta ************ */
+.informacoes-consulta{
+    grid-area: informacoes-consulta;
+    /* background-color: yellow; */
+}
+
+.data-hora-consulta{
+    grid-area: data-hora-consulta;
+    /* background-color: fuchsia; */
+}
+
+.btn-realizar-consulta{
+    grid-area: btn-realizar-consulta;
+    /* background-color: black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+                        /* ************ Divs dadospaciente ************ */
+
+.imagem-paciente-consulta{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.nome-endereco-paciente-consulta{
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.nome-paciente-consulta{
+    width: auto;
+    height: 35px;
+    font-size: 25px;
+    font-weight: bold;
+}
+.endereco-paciente-consulta{
+    width: auto;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--estbtn);
+}
+
+#imgpaciente-teste{
+    width: 100px;
+    height: 100px;
+}
+
+                        /* ************ Divs informacoes-consulta ************ */
+.status-consulta{
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: row;
+    color: var(--estbtn);
+}
+.tipo-consulta{
+    width: auto;
+    height: auto;
+    margin-bottom: 30px;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: row;
+    color: var(--estbtn);
+}
+.sintomas-consulta{
+    width: auto;
+    height: auto;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: row;
+    color: var(--estbtn);
+}
+
+.txt-fixo{
+    width: auto;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 30px;
+    font-weight: bold;
+    color: var(--principal);
+     /* background: red;  */
+}
+
+                        /* ************ Divs data-hora-consulta ************ */
+
+.data-hora{
+    width: 250px;
+    height: 65px;
+    /* background-color: green;  */
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: 20% auto;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: 
+    "img-calendario data"
+    "img-relogio hora";
+}
+
+.img-calendario{
+    grid-area: img-calendario ;
+    /* background: black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data{
+    grid-area: data ;
+    /* background: yellow; */
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.img-relogio{
+    grid-area: img-relogio;
+    /* background: wheat; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hora{
+    grid-area: hora ;
+    /* background: red; */
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+}
+
+                        /* ************ Divs btn-realizar-consulta ************ */
+.btn-est-realizar{
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: var(--principal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.txt-btn-realizar{
+    width: 205px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 25px;
+    /* background: red; */
+    color: var(--container);
+}

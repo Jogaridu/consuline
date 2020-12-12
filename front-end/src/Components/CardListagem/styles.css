@@ -1,0 +1,121 @@
+.card-listagem {
+    height: 310px;
+    width: 260px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: "Roboto", sans-serif;
+    margin: 20px;
+}
+
+.imagem-card-listagem, 
+.imagem-card-listagem img{
+    height: 100px;
+    width: 110px;
+}
+
+.titulo-card-listagem {
+    width: 90%;
+    font-size: 1.7em;
+    font-weight: 700;
+    text-align: center;
+}
+
+.local-card-listagem {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.telefone-card-listagem {
+    font-size: 1.3em;
+}
+
+.mais-opcoes {
+    height: 20px;
+    width: 45px;
+    position: absolute;
+    z-index: 999;
+    top: 10px;
+    right: 10px;
+    font-size: 2.0em;
+    text-align: center;
+    line-height: 0px;
+    cursor: pointer;
+    border-radius: 5px;
+    overflow-y: hidden;
+}
+
+.mais-opcoes:hover {
+    background-color: var(--principal);
+    color: white;
+    transition: 200ms all ease;
+}
+
+.sub-menu {
+    min-height: 115px;
+    height: auto;
+    width: 150px;
+    background-color: var(--fundo);
+    list-style: none;
+    position: absolute;
+    top: 35px;
+    right: -100px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    border-radius: 5px;
+    animation: aparecerSuave 200ms;
+    transition: 200ms;
+    box-shadow: 0px 0px 5px black;
+    z-index: 999;
+}
+
+@keyframes aparecerSuave {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+
+.sub-menu li {
+    height: 35px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 0px;
+}
+
+.sub-menu li:hover {
+    transition: 500ms;
+    color: white;
+}
+
+.sub-menu li::before {
+    content: "";
+    transition: 500ms all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    background-color: var(--principal);
+    border-radius: 5px;
+}
+
+.sub-menu li:hover::before {
+    transition: 500ms all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}

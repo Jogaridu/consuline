@@ -1,147 +1,128 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import MenuCentral from "../../Components/MenuCentral";
+import { Rating } from '@material-ui/lab';
 
 import "./styles.css";
 
 import "../../Styles/globalStyle.css";
 
-import logoprojeto2 from "../../Assets/logoprojeto2.png";
-import book from "../../Assets/book.png";
-import add from "../../Assets/add.png";
-import trespontos from "../../Assets/3pontos.png";
-import lupa from "../../Assets/lupa.png";
-import { Card } from "react-bootstrap";
+import imagemCentral from "../../Assets/medico-central-home.png";
+import filais from "../../Assets/totalFiliaisCentral.png";
+import paciente from "../../Assets/totalPacientesCentral.png";
+import medicos from "../../Assets/totalMedicosCentral.png";
+import consultas from "../../Assets/totalConsultasCentral.png";
+import logo from "../../Assets/logoCentral.png";
 
-const Menu = () => {
-  return (
-    <div className="menu">
-      <figure>
-        <img src={logoprojeto2} alt="Logo Consuline" />
-      </figure>
-      <div className="menu-pesquisar">
-        <img src={lupa} alt="Lupa" />
-        <h3>BUSCAR</h3>
-      </div>
-      <div className="menu-itens">
-        <h3>CENTRAL</h3>
-        <div className="subMenu">
-          <div className="subMenu-itens">
-            <h5>ADICIONAR</h5>
-            <img src={add} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-        </div>
-      </div>
-      <div className="menu-itens">
-        <h3>MÉDICOS </h3>
-        <div className="subMenu">
-          <div className="subMenu-itens">
-            <h5>ADICIONAR</h5>
-            <img src={add} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-        </div>
-      </div>
-      <div className="menu-itens">
-        <h3>FILIAIS</h3>
-        <div className="subMenu">
-          <div className="subMenu-itens">
-            <h5>ADICIONAR</h5>
-            <img src={add} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-        </div>
-      </div>
-      <div className="menu-itens">
-        <h3>SERVIÇOS</h3>
-        <div className="subMenu">
-          <div className="subMenu-itens">
-            <h5>ADICIONAR</h5>
-            <img src={add} alt="Logo adicionar" />
-          </div>
-          <div className="subMenu-itens">
-            <h5>LISTAR</h5>
-            <img src={book} alt="Logo adicionar" />
-          </div>
-        </div>
-      </div>
-      <div className="direitos">
-        <h5>DESENVOLVIDO POR DS3-M | CONSULINE</h5>
-      </div>
-    </div>
-  );
-};
+import InputBusca from "../../Components/InputBusca";
+import BotaoPrincipal from "../../Components/BotaoPrincipal";
+import api from "../../Services/api";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const CardMedico = () => {
-  return (
-    <div className="cardInformativo">
-      <img src={logoprojeto2} alt="Imagem ilustrativa" />
-      <div>
-        <h3>2550</h3>
-        <p>Total de médicos</p>
-      </div>
-    </div>
-  );
-};
-
-const CardPaciente = () => {
-  return (
-    <div className="cardInformativo">
-      <img src={logoprojeto2} alt="Imagem ilustrativa" />
-      <div>
-        <h3>2550</h3>
-        <p>Total de paciente</p>
-      </div>
-    </div>
-  );
-};
-const CardConsultas = () => {
-  return (
-    <div className="cardInformativo">
-      <img src={logoprojeto2} alt="Imagem ilustrativa" />
-      <div>
-        <h3>2550</h3>
-        <p>Total de consultas relizadas</p>
-      </div>
-    </div>
-  );
-};
-const CardFilial = () => {
-  return (
-    <div className="cardInformativo">
-      <img src={logoprojeto2} alt="Imagem ilustrativa" />
-      <div>
-        <h3>2550</h3>
-        <p>Total de filiais</p>
-      </div>
-    </div>
-  );
-};
-
-const DadosInformativos = () => {
-  return (
-    <div className="main">
-      <CardMedico />
-      <CardPaciente/>
-      <CardConsultas/>
-      <CardFilial/>
-    </div>
-  );
-};
 const Home = () => {
+
+  const [profissionais, setProfissionais] = useState([]);
+  const [dados, setDados] = useState([]);
+
+  useEffect(() => {
+    const pegarMedicos = async () => {
+
+      try {
+        const retorno = await api.get("/profissional");
+
+        setProfissionais(retorno.data);
+
+      } catch (error) {
+        console.log(error);
+
+      }
+    };
+
+    const pegarDados = async () => {
+      try {
+        const retorno = await api.get("/dados-home");
+
+        setDados(retorno.data);
+      } catch (error) {
+
+      }
+    }
+
+    pegarDados();
+    pegarMedicos();
+  }, [])
+
+
   return (
     <div className="container-central">
-      <Menu />
-      <DadosInformativos />
+      <MenuCentral />
+
+      <div className="container-conteudo-central" style={{ padding: "30px" }}>
+        <div className="cabecalho-dashboard">
+          <figure>
+            <img src={imagemCentral} alt="" />
+          </figure>
+          <p>Bem vindo a central da</p>
+          <img src={logo} alt="Logo consuline" className="logo-central" />
+        </div>
+
+        <div className="informacoes-dashboard">
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#E17F85" }}>
+              <img src={filais} alt="Total filiais imagem" />
+            </figure>
+            <p>Total de Filiais</p>
+            <span>{dados.filiais}</span>
+          </div>
+
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#312F66" }}>
+              <img src={paciente} alt="Total paciente imagem" />
+            </figure>
+            <p>Total de Pacientes</p>
+            <span>{dados.pacientes}</span>
+          </div>
+
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#FFDD7B" }}>
+              <img src={medicos} alt="Total médicos imagem" />
+            </figure>
+            <p>Total de Médicos</p>
+            <span>{dados.profissionais}</span>
+          </div>
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#32BEA6" }}>
+              <img src={consultas} alt="Total consultas imagem" />
+            </figure>
+            <p>Total de Consultas</p>
+            <span>{dados.consultas}</span>
+          </div>
+
+        </div>
+
+        <div className="medicos-dashboard">
+          <h2>Avaliações dos médicos</h2>
+          <div className="pesquisa">
+            <InputBusca texto="Buscar" />
+            <BotaoPrincipal titulo="BUSCAR" />
+          </div>
+          <div className="lista-card-medicos">
+            {profissionais.map(profissional => (
+              <div className="card-medico">
+                <figure><img src={profissional.foto} alt="Foto profissional" /></figure>
+                <div>
+                  {profissional.nome} <br />
+                  <Rating name="read-only" value={5} readOnly />
+                </div>
+                <div className="visualizar-perfil">
+                  Visualizar perfil
+                            </div>
+              </div>
+            ))}
+            {/* */}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

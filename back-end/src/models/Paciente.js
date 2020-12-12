@@ -1,4 +1,4 @@
-const { Sequellize, DataTypes, Model } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 
 class Paciente extends Model {
   static init(sequelize) {
@@ -8,12 +8,13 @@ class Paciente extends Model {
         celular: DataTypes.STRING,
         login: DataTypes.STRING,
         senha: DataTypes.TEXT,
-        dataNascimento: DataTypes.DATE,
+        dataNascimento: DataTypes.DATEONLY,
         email: DataTypes.STRING,
         rg: DataTypes.STRING,
         cpf: DataTypes.STRING,
         foto: DataTypes.STRING,
-        emailValidado: DataTypes.BOOLEAN,
+        codigoVerificacao: DataTypes.STRING,
+        verificado: DataTypes.BOOLEAN
       },
       {
         sequelize,
@@ -23,10 +24,20 @@ class Paciente extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.EnderecoPaciente, {
-      foreignKey: "EnderecoPacienteId",
+    this.belongsTo(models.EnderecoPaciente);
+    this.belongsTo(models.PlanoDeSaude);
+    this.hasMany(models.Consulta, {
+      foreignKey: "PacienteId"
     });
-    this.belongsTo(models.PlanoDeSaude, { foreignKey: "PlanoDeSaudeId" });
+
+    this.hasMany(models.Avaliacao, {
+      foreignKey: "PacienteId"
+    });
+
+    this.hasMany(models.Notificacao, {
+      foreignKey: "PacienteId"
+    })
+
   }
 }
 

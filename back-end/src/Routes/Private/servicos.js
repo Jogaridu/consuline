@@ -4,14 +4,31 @@ const routes = express.Router();
 
 const controllerServico = require("../../controllers/servicos");
 
-routes.post("/servicos", controllerServico.cadastrar);
+const Multer = require("../../fixtures/manipulacaoForm");
+const enviarArquivos = require("../../services/firebase");
 
-routes.get("/servico/:id", controllerServico.buscarPorId);
+const autorizacaoMid = require("../../middlewares/autorizacao");
 
-routes.get("/servicos", controllerServico.listar);
+routes.post("/servico",
+    autorizacaoMid,
+    Multer.single("imagem"),
+    enviarArquivos,
+    controllerServico.cadastrar);
 
-routes.delete("/servico/:id", controllerServico.deletar);
+routes.get("/servico/:id", autorizacaoMid, controllerServico.buscarPorId);
 
-routes.put("/servico/:id", controllerServico.atualizar);
+routes.get("/servicos", autorizacaoMid, controllerServico.listar);
+
+routes.delete("/servico/:id", autorizacaoMid, controllerServico.deletar);
+
+routes.put("/servico/:id",
+    autorizacaoMid,
+    Multer.single("imagem"),
+    enviarArquivos,
+    controllerServico.atualizar);
+
+routes.get("/servico/:id/filiais", controllerServico.pegarFiliais);
+
+routes.post("/servico/verificar-nome", autorizacaoMid, controllerServico.verificarNome);
 
 module.exports = routes;
