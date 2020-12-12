@@ -65,7 +65,6 @@ const ConsultaEditar = ({ navigation }) => {
       <ContainerPerfil>
         <FotoPerfil source={dados.foto === null ? require("../../../Assets/semFoto.png") : {uri: dados.foto}}/>
 
-        <BtnEditar>{/* <Ionicons size={32} color={"black"} /> */}</BtnEditar>
         <ScrollView>
           <Text
             style={{

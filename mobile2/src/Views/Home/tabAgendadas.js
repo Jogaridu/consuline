@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Modal, Image, StyleSheet } from "react-native";
 
 import IconMaterialC from "react-native-vector-icons/MaterialCommunityIcons";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 
 import { RectButton } from "react-native-gesture-handler";
+import Botao2 from "../../Components/Botao2";
 
 import Container from "../../Components/Container";
 
@@ -32,13 +33,24 @@ const TabAgendadas = ({
   setModalAvaliacao,
   nomeMedico,
   fotoMedico,
+  fotoServico,
   servico,
   horario,
   atendimento,
   local,
   valor,
+  data,
 }) => {
   const [visualizarConsulta, setVisualizarConsulta] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
+
+  useEffect(() => {
+    var consultaData = data;
+    var dataAlterada = consultaData.split("-");
+    var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
+
+    setDataConsulta(dataNova);
+  }, []);
 
   return (
     <Container style={{ justifyContent: "flex-start" }}>
@@ -61,16 +73,17 @@ const TabAgendadas = ({
               onPress={() => setVisualizarConsulta(false)}
             />
             <Image
-              source={{ uri: fotoMedico }}
+              source={{ uri: fotoServico }}
               style={{ width: 108, height: 108, borderRadius: 100 }}
             />
-            <ContainerInfrmVisualizarConsulta>
-              <TitulosCardConsulta>Médico:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>{nomeMedico}</TextoVisualizarConsuta>
-            </ContainerInfrmVisualizarConsulta>
+
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Tipo:</TitulosCardConsulta>
               <TextoVisualizarConsuta>{servico}</TextoVisualizarConsuta>
+            </ContainerInfrmVisualizarConsulta>
+            <ContainerInfrmVisualizarConsulta>
+              <TitulosCardConsulta>Médico:</TitulosCardConsulta>
+              <TextoVisualizarConsuta>{nomeMedico}</TextoVisualizarConsuta>
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Atendimento:</TitulosCardConsulta>
@@ -78,7 +91,9 @@ const TabAgendadas = ({
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Local:</TitulosCardConsulta>
-              <TextoVisualizarConsuta>{!local ? "Whatsapp" : local}</TextoVisualizarConsuta>
+              <TextoVisualizarConsuta>
+                {!local ? "Whatsapp" : local}
+              </TextoVisualizarConsuta>
             </ContainerInfrmVisualizarConsulta>
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Valor:</TitulosCardConsulta>
@@ -94,18 +109,17 @@ const TabAgendadas = ({
           </ModalAvaliacao>
         </ContainerModal>
       </Modal>
-
-
+      
       <CardConsulta style={{ elevation: 2 }}>
         <RectButton
           onPress={() => setVisualizarConsulta(true)}
           style={styless.btnCardConsulta}
         >
           <HeaderCardConsulta>
-            <ImgMedico source={{ uri: fotoMedico }} />
+            <ImgMedico source={{ uri: fotoServico }} />
             <ContainerTextosHeader>
-              <TitulosCardConsulta> {nomeMedico} </TitulosCardConsulta>
-              <TextoCardConsulta> {servico} </TextoCardConsulta>
+              <TitulosCardConsulta> {servico} </TitulosCardConsulta>
+              <TextoCardConsulta> {nomeMedico} </TextoCardConsulta>
             </ContainerTextosHeader>
           </HeaderCardConsulta>
           <InfrmCardConsulta>
@@ -123,11 +137,9 @@ const TabAgendadas = ({
                 }}
               >
                 {" "}
-                {horario + " horas"}{" "}
+                {" " +dataConsulta + "  " + horario}{" "}
               </Text>
             </ContainerHorariosCard>
-
-
           </InfrmCardConsulta>
         </RectButton>
       </CardConsulta>
@@ -170,7 +182,7 @@ const styless = StyleSheet.create({
     width: "100%",
     height: "100%",
     backgroundColor: colors.container,
-    borderRadius: 10
+    borderRadius: 10,
   },
 });
 

@@ -56,9 +56,6 @@ const Home = ({ navigation }) => {
   const [consultasPendentes, setConsultasPendentes] = useState();
   const [consultasRealizadas, setConsultasRealizadas] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
-  const [dataConsulta, setDataConsulta] = useState();
-  const [modalAvaliacao, setModalAvaliacao] = useState(false);
-  const [avaliacao, setAvaliacao] = useState();
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
@@ -69,13 +66,6 @@ const Home = ({ navigation }) => {
       const retorno = await api.get(`/paciente/${paciente.id}/consultas`);
 
       console.log(retorno.data);
-      if (!retorno.data) {
-        var consultaData = retorno.data[0].data;
-        var dataAlterada = consultaData.split("-");
-        var dataNova = dataAlterada[2] + "/" + dataAlterada[1];
-
-        setDataConsulta(dataNova);
-      }
 
       setConsultasPendentes(retorno.data.pendentes);
       setConsultasRealizadas(retorno.data.realizadas);
@@ -117,35 +107,39 @@ const Home = ({ navigation }) => {
     };
   }, []);
 
-  const navegarConsulta = () => {
-    navigation.navigate("Agendar");
-  };
-
   const renderItemPendentes = ({ item }) => (
     <TabAgendadas
-      setModalAvaliacao={setModalAvaliacao}
       nomeMedico={item["ProfissionalDaSaude.nome"]}
-      fotoMedico={item["ProfissionalDaSaude.foto"]}
+      fotoServico={item["Servico.imagem"]}
       servico={item["Servico.nome"]}
       horario={item.horario}
       atendimento={item["Atendimento.tipo"]}
       local={item["Filial.nomeFantasia"]}
       valor={item.valor}
+      data={item.data}
     />
   );
 
   const renderItemRealizadas = ({ item }) => (
     <TabRealizadas
-      setModalAvaliacao={setModalAvaliacao}
       nomeMedico={item["ProfissionalDaSaude.nome"]}
-      fotoMedico={item["ProfissionalDaSaude.foto"]}
+      fotoServico={item["Servico.imagem"]}
       servico={item["Servico.nome"]}
       horario={item.horario}
       atendimento={item["Atendimento.tipo"]}
       local={item["Filial.nomeFantasia"]}
       valor={item.valor}
+      idConsulta={item.id}
+      idMedico={item.ProfissionalDaSaudeId}
+      data={item.data}
+      notaProfissional={item.notaProfissional}
     />
   );
+
+  const navegarConsulta = () => {
+    navigation.navigate("Agendar");
+  };
+
   const NotificacoesContainer = () => {
     return (
       <Notificacoes>
@@ -182,14 +176,6 @@ const Home = ({ navigation }) => {
     );
   };
 
-  const avaliacaoMedico = async () => {
-    // try {
-
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  }
-
   if (loading) {
     return (
       <Container style={{ backgroundColor: colors.fundo }}>
@@ -203,76 +189,6 @@ const Home = ({ navigation }) => {
           style={{ width: "100%" }}
           contentContainerStyle={{ flexGrow: 1 }}
         >
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalAvaliacao}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            <ContainerModal
-              style={{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-            >
-              <ModalAvaliacao>
-                <IconMaterialC
-                  name="close"
-                  size={42}
-                  color="red"
-                  style={{
-                    alignSelf: "flex-end",
-                    marginRight: 10,
-                    marginTop: 10,
-                  }}
-                  onPress={() => setModalAvaliacao(false)}
-                />
-                <Image
-                  source={require("../../Assets/avaliacao.jpg")}
-                  style={{ width: 190, height: 190 }}
-                />
-                <Text
-                  style={{
-                    fontSize: 22,
-                    fontWeight: "bold",
-                    color: colors.corTitulo,
-                    textAlign: "center",
-                  }}
-                >
-                  Avalie o atendimento do{"\n"}médico:
-                </Text>
-                <Rating
-                  imageSize={38}
-                  startingValue={0}
-                  style={{ marginTop: 10, marginBottom: 20 }}
-                  onFinishRating={(rating) => setAvaliacao(rating)} />
-                <Input
-                  placeholder="Comentários, críticas ou sugestões"
-                  placeholderTextColor={colors.principal}
-                  style={{ height: 100, width: "80%" }}
-                />
-                <View
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    marginBottom: 20,
-                    marginTop: 20,
-                    alignItems: "center",
-                  }}
-                >
-                  <Botao2 title="Enviar" width={"80%"} height={50} funcExec={avaliacaoMedico} />
-                </View>
-              </ModalAvaliacao>
-            </ContainerModal>
-          </Modal>
           <ContainerColor>
             <ContainerTextoBoasVindas>
               <Text style={{ fontSize: 25, color: colors.principal }}>
@@ -317,6 +233,13 @@ const Home = ({ navigation }) => {
                   </TabHeading>
                 }
               >
+                {/* <ContainerBotao>
+                  <Botao2
+                    title="Marcar consulta"
+                    funcExec={() => navegarConsulta}
+                  />
+                </ContainerBotao> */}
+
                 <FlatList
                   data={consultasPendentes}
                   renderItem={renderItemPendentes}
@@ -339,12 +262,6 @@ const Home = ({ navigation }) => {
             </Tabs>
           </ContainerConteudoHome>
         </ScrollView>
-        <ContainerBotao>
-          <Botao2
-            title="Marcar consulta +"
-            funcExec={() => console.log(consultasRealizadas)}
-          />
-        </ContainerBotao>
       </Container>
     );
   }

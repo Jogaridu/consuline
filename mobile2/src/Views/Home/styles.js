@@ -24,9 +24,8 @@ export const ContainerConteudoHome = styled.View`
 export const ContainerBotao = styled.View`
   width: 100%;
   height: auto;
-  position: absolute;
-  bottom: 2%;
   align-items: center;
+  margin-top: 20px;
 `;
 
 export const ContainerTextoBoasVindas = styled.View`
@@ -86,12 +85,12 @@ export const TituloHome = styled.Text`
 `;
 
 export const CardConsulta = styled.View`
-  width: 85%;
-  height: 112px;
+  width: 88%;
+  height: 105px;
   background-color: ${colors.container};
   border: 1px solid ${colors.principal};
   border-radius: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 5px; */
 `;
 
 export const HeaderCardConsulta = styled.View`
@@ -108,10 +107,10 @@ export const InfrmCardConsulta = styled.View`
 `;
 
 export const ImgMedico = styled.Image`
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   margin: 15px 18px;
-  margin-top: 8px;
+  margin-top: 10px;
   border-radius: 100px;
 `;
 
@@ -120,18 +119,18 @@ export const ContainerTextosHeader = styled.View`
   height: 100%;
   margin-left: -10px;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 18px;
   /* background-color: blue; */
 `;
 
 export const TitulosCardConsulta = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   color: ${colors.principal};
   font-weight: bold;
 `;
 
 export const TextoCardConsulta = styled.Text`
-  font-size: 14px;
+  font-size: 13px;
   color: ${colors.corTituloSecundario};
   /* font-weight: bold; */
 `;
