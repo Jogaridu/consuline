@@ -5,7 +5,6 @@ import IconMaterialC from "react-native-vector-icons/MaterialCommunityIcons";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 
 import { RectButton } from "react-native-gesture-handler";
-import { Button } from 'react-native-paper';
 
 import Container from "../../Components/Container";
 
@@ -128,7 +127,7 @@ const TabAgendadas = ({
               </Text>
             </ContainerHorariosCard>
 
-           
+
           </InfrmCardConsulta>
         </RectButton>
       </CardConsulta>

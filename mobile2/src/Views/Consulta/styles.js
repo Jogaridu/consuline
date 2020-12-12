@@ -246,7 +246,7 @@ export const ContainerHorarios = styled.View`
 export const Horarios = styled.TouchableOpacity`
     width: 85px;
     height: 45px;
-    background-color: ${(props) => props.horarioSelecionado ? colors.principal : colors.fundo};
+    background-color: ${(props) => props.horarioSelecionado === props.id ? colors.principal : colors.fundo};
     border-radius: 20px;
     margin-right: 20px;
     margin-bottom: 20px;

@@ -21,10 +21,10 @@ import colors from "../../../Styles/colors";
 import api from "../../../Services/api";
 
 LocaleConfig.locales['pt-br'] = {
-  monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-  monthNamesShort: ['Jan.','Fev.','Mar.','Abril.','Mai.','Junho.','Julho.','Agos.','Set.','Out.','Nov.','Dezem.'],
-  dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-  dayNamesShort: ['Dom.','Seg.','Ter.','Quar.','Quin.','Sex.','Sab.'],
+  monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+  monthNamesShort: ['Jan.', 'Fev.', 'Mar.', 'Abril.', 'Mai.', 'Junho.', 'Julho.', 'Agos.', 'Set.', 'Out.', 'Nov.', 'Dezem.'],
+  dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+  dayNamesShort: ['Dom.', 'Seg.', 'Ter.', 'Quar.', 'Quin.', 'Sex.', 'Sab.'],
   today: 'Aujourd\'hui'
 };
 LocaleConfig.defaultLocale = 'pt-br';
@@ -55,10 +55,10 @@ const CardHorarios = ({ dia, diaSelecionado, setHorario }) => {
       {horariosDisponiveis.map((horario, index) => (
         <Horarios
           key={index}
+          id={index}
           horarioSelecionado={horarioSelecionado}
           onPress={() => {
-            setHorarioSelecionado(horario);
-            console.log(horario)
+            setHorarioSelecionado(index);
             setHorario(horario);
           }}
         >
@@ -113,10 +113,10 @@ const Agendamento = ({ navigation, route }) => {
           current={new Date()}
           minDate={new Date()}
           maxDate={"2021-01-30"}
-          style={{width: "90%", marginLeft: "auto", marginRight: "auto", borderRadius: 10}}
+          style={{ width: "90%", marginLeft: "auto", marginRight: "auto", borderRadius: 10 }}
           onDayPress={(day) => {
             const [diaSel] = dia.filter((d) => {
-            console.log(d);
+              console.log(d);
               return d.data === day.dateString;
             });
 
@@ -148,12 +148,12 @@ const Agendamento = ({ navigation, route }) => {
                 setHorario={setHorario}
               />
             ) : (
-              <Container style={{ backgroundColor: colors.fundo }}>
-                <Text>
-                  Selecione um dia no calendário para {"\n"} ver os horários
+                <Container style={{ backgroundColor: colors.fundo }}>
+                  <Text>
+                    Selecione um dia no calendário para {"\n"} ver os horários
                 </Text>
-              </Container>
-            )}
+                </Container>
+              )}
           </ScrollView>
         </ContainerHorarios>
 

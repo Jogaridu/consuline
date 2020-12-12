@@ -68,6 +68,7 @@ const Home = ({ navigation }) => {
     try {
       const retorno = await api.get(`/paciente/${paciente.id}/consultas`);
 
+      console.log(retorno.data);
       if (!retorno.data) {
         var consultaData = retorno.data[0].data;
         var dataAlterada = consultaData.split("-");
@@ -183,7 +184,7 @@ const Home = ({ navigation }) => {
 
   const avaliacaoMedico = async () => {
     // try {
-      
+
     // } catch (error) {
     //   console.log(error)
     // }
@@ -252,7 +253,7 @@ const Home = ({ navigation }) => {
                   imageSize={38}
                   startingValue={0}
                   style={{ marginTop: 10, marginBottom: 20 }}
-                  onFinishRating={(rating) => setAvaliacao(rating)}                />
+                  onFinishRating={(rating) => setAvaliacao(rating)} />
                 <Input
                   placeholder="Comentários, críticas ou sugestões"
                   placeholderTextColor={colors.principal}
@@ -307,7 +308,7 @@ const Home = ({ navigation }) => {
               tabBarBackgroundColor={colors.principal}
               tabBarUnderlineStyle={{ backgroundColor: colors.principal }}
               tabContainerStyle={{ elevation: 0 }}
-              activeTextStyle={{color: colors.container}}
+              activeTextStyle={{ color: colors.container }}
             >
               <Tab
                 heading={
