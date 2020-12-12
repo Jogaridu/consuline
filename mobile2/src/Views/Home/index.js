@@ -57,8 +57,7 @@ const Home = ({ navigation }) => {
   const [consultasRealizadas, setConsultasRealizadas] = useState();
   const [nomeIcone, setNomeIcone] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
-  const [modalAvaliacao, setModalAvaliacao] = useState(false);
-  const [avaliacao, setAvaliacao] = useState();
+  
 
   const pegarDados = async () => {
     const paciente = JSON.parse(
@@ -122,7 +121,6 @@ const Home = ({ navigation }) => {
 
   const renderItemPendentes = ({ item }) => (
     <TabAgendadas
-      setModalAvaliacao={setModalAvaliacao}
       nomeMedico={item["ProfissionalDaSaude.nome"]}
       fotoMedico={item["ProfissionalDaSaude.foto"]}
       servico={item["Servico.nome"]}
@@ -135,7 +133,6 @@ const Home = ({ navigation }) => {
 
   const renderItemRealizadas = ({ item }) => (
     <TabRealizadas
-      setModalAvaliacao={setModalAvaliacao}
       nomeMedico={item["ProfissionalDaSaude.nome"]}
       fotoMedico={item["ProfissionalDaSaude.foto"]}
       servico={item["Servico.nome"]}
@@ -143,8 +140,11 @@ const Home = ({ navigation }) => {
       atendimento={item["Atendimento.tipo"]}
       local={item["Filial.nomeFantasia"]}
       valor={item.valor}
+      idPaciente={item.PacienteId}
+      idMedico={item.ProfissionalDaSaudeId}
     />
   );
+  
   const NotificacoesContainer = () => {
     return (
       <Notificacoes>
@@ -181,14 +181,6 @@ const Home = ({ navigation }) => {
     );
   };
 
-  const avaliacaoMedico = async () => {
-    // try {
-      
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  }
-
   if (loading) {
     return (
       <Container style={{ backgroundColor: colors.fundo }}>
@@ -202,76 +194,7 @@ const Home = ({ navigation }) => {
           style={{ width: "100%" }}
           contentContainerStyle={{ flexGrow: 1 }}
         >
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalAvaliacao}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            <ContainerModal
-              style={{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
-            >
-              <ModalAvaliacao>
-                <IconMaterialC
-                  name="close"
-                  size={42}
-                  color="red"
-                  style={{
-                    alignSelf: "flex-end",
-                    marginRight: 10,
-                    marginTop: 10,
-                  }}
-                  onPress={() => setModalAvaliacao(false)}
-                />
-                <Image
-                  source={require("../../Assets/avaliacao.jpg")}
-                  style={{ width: 190, height: 190 }}
-                />
-                <Text
-                  style={{
-                    fontSize: 22,
-                    fontWeight: "bold",
-                    color: colors.corTitulo,
-                    textAlign: "center",
-                  }}
-                >
-                  Avalie o atendimento do{"\n"}médico:
-                </Text>
-                <Rating
-                  imageSize={38}
-                  startingValue={0}
-                  style={{ marginTop: 10, marginBottom: 20 }}
-                  onFinishRating={(rating) => setAvaliacao(rating)}                />
-                <Input
-                  placeholder="Comentários, críticas ou sugestões"
-                  placeholderTextColor={colors.principal}
-                  style={{ height: 100, width: "80%" }}
-                />
-                <View
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    marginBottom: 20,
-                    marginTop: 20,
-                    alignItems: "center",
-                  }}
-                >
-                  <Botao2 title="Enviar" width={"80%"} height={50} funcExec={avaliacaoMedico} />
-                </View>
-              </ModalAvaliacao>
-            </ContainerModal>
-          </Modal>
+          
           <ContainerColor>
             <ContainerTextoBoasVindas>
               <Text style={{ fontSize: 25, color: colors.principal }}>

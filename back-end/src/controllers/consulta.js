@@ -53,10 +53,6 @@ module.exports = {
 
             const filial = await Filial.findByPk(FilialId);
 
-            if (!filial) {
-                return res.status(400).send({ error: "Filial não cadastrada" });
-            }
-
             const servico = await Servico.findByPk(ServicoId);
 
             if (!servico) {
