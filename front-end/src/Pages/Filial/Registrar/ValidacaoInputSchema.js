@@ -14,7 +14,6 @@ const validarInformacoes = yup.object().shape({
 
 const validarEndereco = yup.object().shape({
     numero: yup.string().required(mensagemObrigatoria),
-    complemento: yup.string().required(mensagemObrigatoria),
     cep: yup.string().required("Informe seu CEP para autopreencher os campos abaixo"),
 });
 

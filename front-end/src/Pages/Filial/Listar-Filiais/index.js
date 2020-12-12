@@ -7,10 +7,13 @@ import TituloPrincipal from '../../../Components/TituloPrincipal';
 import api from '../../../Services/api';
 import MsgErroGenerico from "../../../Fixtures/MsgErroGenerico";
 import Lottie from "react-lottie";
-import loader from "../../../Assets/loader.json";
+import search from "../../../Assets/no-search.json";
 import iconeFilial from "../../../Assets/icone-filial.png";
+import BotaoPrincipal from "../../../Components/BotaoPrincipal";
 
 import './styles.css';
+import '../../../Styles/globalStyle.css';
+import { Link } from 'react-router-dom';
 
 function ListarFiliais() {
 
@@ -20,7 +23,7 @@ function ListarFiliais() {
     const defaultOptions = {
         loop: true,
         autoplay: true,
-        animationData: loader,
+        animationData: search,
         rendererSettings: {
             preserveAspectRatio: "xMidYMid slice",
         },
@@ -47,7 +50,6 @@ function ListarFiliais() {
 
     }
 
-
     return (
         <div className="container-central">
             <MenuCentral />
@@ -58,7 +60,7 @@ function ListarFiliais() {
                         <Lottie options={defaultOptions} height={200} width={200} />
                     ) : (
                             <>
-                                {filiais.map(filial => (<CardListagem
+                                {!filiais.length === 0 ? filiais.map(filial => (<CardListagem
                                     id={filial.id}
                                     nome={filial.nomeFantasia}
                                     estado={filial.EnderecoFilial.estado}
@@ -67,7 +69,15 @@ function ListarFiliais() {
                                     telaEditar={`/filial/editar/${filial.id}`}
                                     telaConsulta={`/filial/${filial.id}`}
                                 />)
-                                )}
+                                ) : (
+                                        <div className="msg-sem-dados">
+                                            <Lottie options={defaultOptions} height={200} width={200} />
+                                            <h2>Sem filiais cadastradas</h2>
+                                            <Link to="/filial">
+                                                <BotaoPrincipal titulo="Adicionar filial" />
+                                            </Link>
+                                        </div>
+                                    )}
                             </>
                         )}
 

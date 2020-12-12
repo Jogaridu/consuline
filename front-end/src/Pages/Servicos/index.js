@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Lottie from "react-lottie";
 
-import loader from "../../Assets/loader.json";
+import search from "../../Assets/no-search.json";
 import icone from "../../Assets/icone-servico.png";
 
 import "./styles.css";
@@ -16,6 +16,7 @@ import Titulo from "../../Components/TituloPrincipal";
 import api from "../../Services/api";
 import Swal from "sweetalert2";
 import MsgErroGenerico from "../../Fixtures/MsgErroGenerico";
+import BotaoPrincipal from "../../Components/BotaoPrincipal";
 
 const CardServicos = (props) => {
     const [mostrarSubMenu, setMostrarSubMenu] = useState(false);
@@ -66,27 +67,6 @@ const CardServicos = (props) => {
     };
 
     const SubMenu = () => {
-        // <ul className="menu-config-servicos">
-        //         <li>
-        //             <h2>Ver mais</h2>
-        //         </li>
-        //         <li>
-        //             <h2 onClick={() => {
-        //                 history.replace(`/servicos/${props.id}`);
-        //                 props.setmostrarHospitais(!props.mostrarHospitais);
-        //             }}>
-        //                 Ver Hospitais
-        //             </h2>
-        //         </li>
-        //         <li>
-        //             <h2 onClick={() => editar()}>Editar</h2>
-        //         </li>
-        //         <li>
-        //             <h2 style={{ color: "#e70011" }} onClick={() => excluir()}>
-        //                 Excluir
-        //             </h2>
-        //         </li>
-        //     </ul>
         return (
             <ul className="sub-menu">
                 <li onClick={() => editar()}>Editar</li>
@@ -166,7 +146,7 @@ const VerHospitais = (props) => {
     const defaultOptions = {
         loop: true,
         autoplay: true,
-        animationData: loader,
+        animationData: search,
         rendererSettings: {
             preserveAspectRatio: "xMidYMid slice",
         },
@@ -204,14 +184,16 @@ const VerHospitais = (props) => {
 // ********************************************************************************
 
 function Servicos() {
-    const [servicos, setServicos] = useState(null);
+    const [servicos, setServicos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [mostrarHospitais, setmostrarHospitais] = useState(false);
+
+    console.log(servicos.length === 0);
 
     const defaultOptions = {
         loop: true,
         autoplay: true,
-        animationData: loader,
+        animationData: search,
         rendererSettings: {
             preserveAspectRatio: "xMidYMid slice",
         },
@@ -258,7 +240,7 @@ function Servicos() {
                         </div>
                     ) : (
                             <div id="container-card-servicos">
-                                {servicos.map((servico) => (
+                                {!servicos.length === 0 ? servicos.map((servico) => (
                                     <CardServicos
                                         id={servico.id}
                                         nome={servico.nome}
@@ -267,7 +249,12 @@ function Servicos() {
                                         setmostrarHospitais={setmostrarHospitais}
                                         mostrarHospitais={mostrarHospitais}
                                     />
-                                ))}
+                                )) : (
+                                        <div className="msg-sem-dados" style={{ height: "250px", marginTop: "0px" }}>
+                                            <Lottie options={defaultOptions} height={200} width={200} />
+                                            <h2>Sem serviços cadastrados</h2>
+                                        </div>
+                                    )}
                             </div>
                         )}
                 </div>

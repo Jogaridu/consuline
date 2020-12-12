@@ -506,7 +506,7 @@ module.exports = {
                         attributes: ["tipo"],
                     },
                     {
-                        association: "ProfissionalDaSaude",
+                        model: Profissional,
                         attributes: ["nome", "foto"],
                         include: {
                             model: Avaliacao,
