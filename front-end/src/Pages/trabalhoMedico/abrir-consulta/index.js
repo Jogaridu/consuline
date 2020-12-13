@@ -8,8 +8,40 @@ import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
 import { useParams } from 'react-router-dom';
 
-const ConsultaCompleta = ({consulta}) => {
+
+
+function AbrirConsulta () {
+    let { id } = useParams();
+
+    const [consulta, setConsulta] = useState([]);
+
+    useEffect(() =>{
+        carregarConsulta();
+
+    }, [])
+
+    const carregarConsulta = async () => {
+
+        try {
+            const retorno = await api.get(`/consulta/${id}`);
+            console.log(retorno.data);
+            setConsulta(retorno.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    var data_atual = new Date();
+    var data_nascimento = new Date (consulta.Paciente?.dataNascimento);
+    var anos = data_atual.getFullYear() - data_nascimento.getFullYear();
+
     return(
+    <div className="container-consulta-completa">
+        <div className="header-consultas">
+            <div className="titulo-avaliacao">
+                Consulta
+            </div>
+        </div>
         <div className="card-consulta-aberta">
             <div className="dadospaciente">
                 <div className="imagem-paciente-consulta">
@@ -17,31 +49,31 @@ const ConsultaCompleta = ({consulta}) => {
                 </div>
                 <div className="nome-endereco-paciente-consulta">
                     <div className="nome-paciente-consulta">
-                        Bruno Gonçalves
+                        {consulta.Paciente?.nome}
                     </div>
                     <div className="endereco-paciente-consulta">
-                        17 anos | Barueri-SP
+                        {anos} anos | Barueri-SP
                     </div>
                 </div>
             </div>
             <div className="informacoes-consulta">
                 <div className="status-consulta">
                     <div className="txt-fixo">
-                        Status: 
+                        Tipo: 
                     </div> 
-                    Em andamento
+                    {consulta.Atendimento?.tipo}
                 </div> 
                 <div className="tipo-consulta">
                     <div className="txt-fixo">
-                       Tipo:
+                        Sintomas:
                     </div> 
-                    Presencial
+                    {consulta.sintomas}
                 </div> 
                 <div className="sintomas-consulta">
                     <div className="txt-fixo">
-                        Sintomas:
+                        Descrição:
                     </div> 
-                    Dores de cabeça febre, vomito etc etc...
+                    {consulta.descricao}
                 </div> 
             </div>
             <div className="data-hora-consulta">
@@ -68,35 +100,6 @@ const ConsultaCompleta = ({consulta}) => {
                 </div>
             </div>
         </div>
-    )
-}
-
-function AbrirConsulta () {
-    let { id } = useParams();
-
-    const [consulta, setConsulta] = useState([]);
-
-
-
-    const carregarConsulta = async () => {
-
-        try {
-            const retorno = await api.get(`/consulta/${id}`);
-            console.log(retorno.data);
-            setConsulta(retorno.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    return(
-    <div className="container-consulta-completa">
-        <div className="header-consultas">
-            <div className="titulo-avaliacao">
-                Consulta
-            </div>
-        </div>
-        <ConsultaCompleta/>
     </div>        
     );
 };
