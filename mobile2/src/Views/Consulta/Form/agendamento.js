@@ -60,9 +60,11 @@ const CardHorarios = ({ dia, diaSelecionado, setHorario }) => {
           onPress={() => {
             setHorarioSelecionado(index);
             setHorario(horario);
-          }}
-        >
-          <TextoHorario> {horario} </TextoHorario>
+          }}>
+
+          <TextoHorario
+            id={index}
+            horarioSelecionado={horarioSelecionado}> {horario} </TextoHorario>
         </Horarios>
       ))}
     </>

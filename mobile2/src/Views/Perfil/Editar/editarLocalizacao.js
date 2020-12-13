@@ -166,6 +166,7 @@ const EditarLocalizacao = ({ navigation }) => {
 
   const editar = async () => {
     try {
+      return console.log(endereco);
       const retorno = await api.put(`/paciente/${id}`, { endereco: endereco });
 
       if (retorno.status === 200) {
@@ -173,8 +174,6 @@ const EditarLocalizacao = ({ navigation }) => {
 
         //dispara um evento com o nome realoadUsuario
         EventRegister.emit("reloadPerfil", dadosPaciente);
-        console.log("Dados da entrada: ----- ENTRDA -----");
-        console.log(dadosPaciente);
 
         return navigation.navigate("Perfil");
       }

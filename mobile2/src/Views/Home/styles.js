@@ -164,7 +164,7 @@ export const ContainerInfrmVisualizarConsulta = styled.View`
 
 export const Notificacoes = styled.View`
   width: 250px;
-  height: 160px;
+  height: 100px;
   background-color: ${colors.container};
   border-radius: 20px;
   align-items: center;

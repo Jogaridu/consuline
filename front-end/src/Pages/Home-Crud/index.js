@@ -21,110 +21,110 @@ import { useState } from "react";
 
 const Home = () => {
 
-    const [profissionais, setProfissionais] = useState([]);
-    const [dados, setDados] = useState([]);
+  const [profissionais, setProfissionais] = useState([]);
+  const [dados, setDados] = useState([]);
 
-    useEffect(() => {
-        const pegarMedicos = async () => {
+  useEffect(() => {
+    const pegarMedicos = async () => {
 
-            try {
-                const retorno = await api.get("/profissional");
+      try {
+        const retorno = await api.get("/profissional");
 
-                setProfissionais(retorno.data);
+        setProfissionais(retorno.data);
 
-            } catch (error) {
-                console.log(error);
+      } catch (error) {
+        console.log(error);
 
-            }
-        };
+      }
+    };
 
-        const pegarDados = async () => {
-            try {
-                const retorno = await api.get("/dados-home");
+    const pegarDados = async () => {
+      try {
+        const retorno = await api.get("/dados-home");
 
-                setDados(retorno.data);
-            } catch (error) {
+        setDados(retorno.data);
+      } catch (error) {
 
-            }
-        }
+      }
+    }
 
-        pegarDados();
-        pegarMedicos();
-    }, [])
+    pegarDados();
+    pegarMedicos();
+  }, [])
 
 
-    return (
-        <div className="container-central">
-            <MenuCentral />
+  return (
+    <div className="container-central">
+      <MenuCentral />
 
-            <div className="container-conteudo-central" style={{ padding: "30px" }}>
-                <div className="cabecalho-dashboard">
-                    <figure>
-                        <img src={imagemCentral} alt="" />
-                    </figure>
-                    <p>Bem vindo a central da</p>
-                    <img src={logo} alt="Logo consuline" className="logo-central" />
-                </div>
-
-                <div className="informacoes-dashboard">
-                    <div className="card-informacoes">
-                        <figure style={{ borderColor: "#E17F85" }}>
-                            <img src={filais} alt="Total filiais imagem" />
-                        </figure>
-                        <p>Total de Filiais</p>
-                        <span>{dados.filiais}</span>
-                    </div>
-
-                    <div className="card-informacoes">
-                        <figure style={{ borderColor: "#312F66" }}>
-                            <img src={paciente} alt="Total paciente imagem" />
-                        </figure>
-                        <p>Total de Pacientes</p>
-                        <span>{dados.pacientes}</span>
-                    </div>
-
-                    <div className="card-informacoes">
-                        <figure style={{ borderColor: "#FFDD7B" }}>
-                            <img src={medicos} alt="Total médicos imagem" />
-                        </figure>
-                        <p>Total de Médicos</p>
-                        <span>{dados.profissionais}</span>
-                    </div>
-                    <div className="card-informacoes">
-                        <figure style={{ borderColor: "#32BEA6" }}>
-                            <img src={consultas} alt="Total consultas imagem" />
-                        </figure>
-                        <p>Total de Consultas</p>
-                        <span>{dados.consultas}</span>
-                    </div>
-
-                </div>
-
-                <div className="medicos-dashboard">
-                    <h2>Avaliações dos médicos</h2>
-                    <div className="pesquisa">
-                        <InputBusca texto="Buscar" />
-                        <BotaoPrincipal titulo="BUSCAR" />
-                    </div>
-                    <div className="lista-card-medicos">
-                        {profissionais.map(profissional => (
-                            <div className="card-medico">
-                                <figure><img src={profissional.foto} alt="Foto profissional" /></figure>
-                                <div>
-                                    {profissional.nome} <br />
-                                    <Rating name="read-only" value={5} readOnly />
-                                </div>
-                                <div className="visualizar-perfil">
-                                    Visualizar perfil
-                            </div>
-                            </div>
-                        ))}
-                        {/* */}
-                    </div>
-                </div>
-            </div>
+      <div className="container-conteudo-central" style={{ padding: "30px" }}>
+        <div className="cabecalho-dashboard">
+          <figure>
+            <img src={imagemCentral} alt="" />
+          </figure>
+          <p>Bem vindo a central da</p>
+          <img src={logo} alt="Logo consuline" className="logo-central" />
         </div>
-    );
+
+        <div className="informacoes-dashboard">
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#E17F85" }}>
+              <img src={filais} alt="Total filiais imagem" />
+            </figure>
+            <p>Total de Filiais</p>
+            <span>{dados.filiais}</span>
+          </div>
+
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#312F66" }}>
+              <img src={paciente} alt="Total paciente imagem" />
+            </figure>
+            <p>Total de Pacientes</p>
+            <span>{dados.pacientes}</span>
+          </div>
+
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#FFDD7B" }}>
+              <img src={medicos} alt="Total médicos imagem" />
+            </figure>
+            <p>Total de Médicos</p>
+            <span>{dados.profissionais}</span>
+          </div>
+          <div className="card-informacoes">
+            <figure style={{ borderColor: "#32BEA6" }}>
+              <img src={consultas} alt="Total consultas imagem" />
+            </figure>
+            <p>Total de Consultas</p>
+            <span>{dados.consultas}</span>
+          </div>
+
+        </div>
+
+        <div className="medicos-dashboard">
+          <h2>Avaliações dos médicos</h2>
+          <div className="pesquisa">
+            <InputBusca texto="Buscar" />
+            <BotaoPrincipal titulo="BUSCAR" />
+          </div>
+          <div className="lista-card-medicos">
+            {profissionais.map(profissional => (
+              <div className="card-medico">
+                <figure><img src={profissional.foto} alt="Foto profissional" /></figure>
+                <div>
+                  {profissional.nome} <br />
+                  <Rating name="read-only" value={5} readOnly />
+                </div>
+                <div className="visualizar-perfil">
+                  Visualizar perfil
+                            </div>
+              </div>
+            ))}
+            {/* */}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
