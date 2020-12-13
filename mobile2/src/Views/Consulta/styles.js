@@ -258,7 +258,7 @@ export const Horarios = styled.TouchableOpacity`
 export const TextoHorario = styled.Text`
   font-size: 16px;
   color: ${(props) =>
-    props.horarioSelecionado === props.id ? colors.principal : colors.fundo};
+    props.horarioSelecionado === props.id ? colors.container : colors.principal};
   font-weight: 500;
 `;
 

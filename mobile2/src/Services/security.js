@@ -15,6 +15,8 @@ export const signin = async (usuario) => {
         `/paciente/${usuario.paciente.pacienteId}`
       );
 
+      delete response.senha;
+
       await AsyncStorage.setItem(CHAVE_PACIENTE, JSON.stringify(response.data));
 
       resolve();
