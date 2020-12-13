@@ -57,7 +57,7 @@ const Pagamento = ({ navigation, route }) => {
 
       console.log("funcionou");
 
-      EventRegister.emit("reloadHome", retorno.data);
+      EventRegister.emit("reloadHome");
 
       navigation.navigate("Sucesso");
     } catch (error) {

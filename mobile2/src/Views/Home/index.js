@@ -65,10 +65,10 @@ const Home = ({ navigation }) => {
     try {
       const retorno = await api.get(`/paciente/${paciente.id}/consultas`);
 
-      console.log(retorno.data);
-
       setConsultasPendentes(retorno.data.pendentes);
       setConsultasRealizadas(retorno.data.realizadas);
+      console.log(consultasRealizadas);
+
       setNome(paciente.nome);
       setLoading(false);
     } catch (error) {
@@ -83,8 +83,8 @@ const Home = ({ navigation }) => {
 
       setNome(dados.nome);
     });
-    listener = EventRegister.addEventListener("reloadHome", (dados) => {
-      setConsultasPendentes(dados);
+    listener = EventRegister.addEventListener("reloadHome", () => {
+      pegarDados();
     });
     pegarDados();
 
@@ -133,6 +133,7 @@ const Home = ({ navigation }) => {
       idMedico={item.ProfissionalDaSaudeId}
       data={item.data}
       notaProfissional={item.notaProfissional}
+      pegarDados={pegarDados}
     />
   );
 

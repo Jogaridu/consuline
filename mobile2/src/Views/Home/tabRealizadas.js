@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Modal, Image, StyleSheet } from "react-native";
+import { View, Text, Modal, Image, StyleSheet, ActivityIndicator } from "react-native";
 
 import IconMaterialC from "react-native-vector-icons/MaterialCommunityIcons";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
@@ -31,6 +31,7 @@ import {
 import colors from "../../Styles/colors";
 import styles from "../../Components/Container/styles";
 import api from "../../Services/api";
+import { EventRegister } from "react-native-event-listeners";
 
 const Sucesso = (props) => (
   <Container>
@@ -61,7 +62,10 @@ const Sucesso = (props) => (
     >
       Obrigado pela sua avaliação
     </Text>
-    <Botao2 title="Fechar" funcExec={() => props.setModalAvaliacao(false)} />
+    <Botao2 title="Fechar" funcExec={() => {
+      props.pegarDados();
+      props.setModalAvaliacao(false);
+      }} />
   </Container>
 );
 
@@ -77,6 +81,7 @@ const TabRealizadas = ({
   idMedico,
   data,
   notaProfissional,
+  pegarDados,
 }) => {
   const [visualizarConsulta, setVisualizarConsulta] = useState(false);
   const [modalAvaliacao, setModalAvaliacao] = useState(false);
@@ -101,7 +106,7 @@ const TabRealizadas = ({
     try {
       const retorno = api.post("/medico/avaliacao", dadosAvaliacao);
 
-      setSucesso(true)
+      setSucesso(true);
     } catch (error) {
       console.log(error);
     }
@@ -124,7 +129,7 @@ const TabRealizadas = ({
         >
           <ModalAvaliacao>
             {sucesso ? (
-              <Sucesso setModalAvaliacao={setModalAvaliacao} />
+              <Sucesso setModalAvaliacao={setModalAvaliacao} pegarDados={pegarDados} />
             ) : (
               <>
                 <IconMaterialC
@@ -220,7 +225,7 @@ const TabRealizadas = ({
               <TitulosCardConsulta>Médico:</TitulosCardConsulta>
               <TextoVisualizarConsuta>{nomeMedico}</TextoVisualizarConsuta>
             </ContainerInfrmVisualizarConsulta>
-            
+
             <ContainerInfrmVisualizarConsulta>
               <TitulosCardConsulta>Atendimento:</TitulosCardConsulta>
               <TextoVisualizarConsuta>{atendimento}</TextoVisualizarConsuta>
@@ -280,40 +285,32 @@ const TabRealizadas = ({
             <ContainerBtnCardAvaliar>
               {notaProfissional === null ? (
                 <RectButton
-                style={styless.botao}
-                onPress={() => setModalAvaliacao(true)}
-              >
-                <IconAntDesign
-                  name="star"
-                  size={20}
-                  color={colors.container}
-                  style={{ marginRight: 5 }}
-                />
-                <Text
-                  style={{
-                    color: colors.container,
-                    fontWeight: "bold",
-                    fontSize: 15,
-                  }}
+                  style={styless.botao}
+                  onPress={() => setModalAvaliacao(true)}
                 >
-                  Avaliar
-                </Text>
-              </RectButton>
+                  <IconAntDesign
+                    name="star"
+                    size={20}
+                    color={colors.container}
+                    style={{ marginRight: 5 }}
+                  />
+                  <Text
+                    style={{
+                      color: colors.container,
+                      fontWeight: "bold",
+                      fontSize: 15,
+                    }}
+                  >
+                    Avaliar
+                  </Text>
+                </RectButton>
               ) : (
                 <Rating
-                startingValue={notaProfissional}
+                  startingValue={notaProfissional}
                   imageSize={20}
                   readonly
                 />
               )}
-{/* 
-  -notificação
-  -bug do editar
-  -buscar serviço
-  -mudar a cor da fonte dos horarios
-
- */}
-              
             </ContainerBtnCardAvaliar>
           </InfrmCardConsulta>
         </RectButton>
