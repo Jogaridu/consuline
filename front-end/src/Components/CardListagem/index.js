@@ -31,8 +31,8 @@ function CardListagem(props) {
                         text: "Não há como reverter isso",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#aaa',
+                        confirmButtonColor: '#403E66',
+                        cancelButtonColor: '#ccc',
                         cancelButtonText: "Cancelar",
                         confirmButtonText: 'Sim, quero apagar'
 

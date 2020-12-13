@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 [1029/001712.988:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema nï¿½o pode encontrar o caminho especificado. (0x3)
 [1103/195731.951:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema nï¿½o pode encontrar o caminho especificado. (0x3)
@@ -56,3 +57,5 @@
 [1201/182726.553:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
 [1207/075935.227:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
 [1209/211940.886:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
+=======
+>>>>>>> 21f01e30af198f36c72b1937b38ea5d50a49ade0

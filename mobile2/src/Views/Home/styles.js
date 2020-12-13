@@ -24,9 +24,8 @@ export const ContainerConteudoHome = styled.View`
 export const ContainerBotao = styled.View`
   width: 100%;
   height: auto;
-  position: absolute;
-  bottom: 2%;
   align-items: center;
+  margin-top: 20px;
 `;
 
 export const ContainerTextoBoasVindas = styled.View`
@@ -85,13 +84,13 @@ export const TituloHome = styled.Text`
   text-align: left;
 `;
 
-export const CardConsulta = styled.TouchableOpacity`
-  width: 85%;
-  height: 112px;
+export const CardConsulta = styled.View`
+  width: 88%;
+  height: 105px;
   background-color: ${colors.container};
   border: 1px solid ${colors.principal};
   border-radius: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 5px; */
 `;
 
 export const HeaderCardConsulta = styled.View`
@@ -108,10 +107,10 @@ export const InfrmCardConsulta = styled.View`
 `;
 
 export const ImgMedico = styled.Image`
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   margin: 15px 18px;
-  margin-top: 8px;
+  margin-top: 10px;
   border-radius: 100px;
 `;
 
@@ -120,18 +119,18 @@ export const ContainerTextosHeader = styled.View`
   height: 100%;
   margin-left: -10px;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 18px;
   /* background-color: blue; */
 `;
 
 export const TitulosCardConsulta = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   color: ${colors.principal};
   font-weight: bold;
 `;
 
 export const TextoCardConsulta = styled.Text`
-  font-size: 14px;
+  font-size: 13px;
   color: ${colors.corTituloSecundario};
   /* font-weight: bold; */
 `;
@@ -147,7 +146,7 @@ export const ContainerHorariosCard = styled.View`
   width: 50%;
   height: auto;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const ContainerBtnCardAvaliar = styled.View`
@@ -165,7 +164,7 @@ export const ContainerInfrmVisualizarConsulta = styled.View`
 
 export const Notificacoes = styled.View`
   width: 250px;
-  height: 160px;
+  height: 100px;
   background-color: ${colors.container};
   border-radius: 20px;
   align-items: center;

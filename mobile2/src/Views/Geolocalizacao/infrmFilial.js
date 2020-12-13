@@ -6,6 +6,7 @@ import {
   Image,
   Button,
   AsyncStorage,
+  ActivityIndicator,
 } from "react-native";
 
 import Container from "../../Components/Container";
@@ -19,6 +20,7 @@ import {
 } from "./styles";
 
 import api from "../../Services/api";
+import colors from "../../Styles/colors";
 
 const InfrmFilial = () => {
   const [dadosFilial, setDadosFilial] = useState({});
@@ -46,37 +48,60 @@ const InfrmFilial = () => {
   return (
     <Container>
       {loading ? (
-        <Text>Carregando...</Text>
+        <Container>
+          <ActivityIndicator size={40} color={colors.principal} />
+        </Container>
       ) : (
         <ContainerConteudoInfmr>
           <ScrollView style={{ height: "100%" }}>
-            <TitulosInfmr style={{ fontSize: 32, marginBottom: 53 }}>
+            <TitulosInfmr
+              style={{
+                fontSize: 34,
+                marginBottom: 40,
+                textAlign: "center",
+                fontWeight: "500",
+                color: colors.principal,
+              }}
+            >
               {dadosFilial.nomeFantasia}
             </TitulosInfmr>
-            <ContainerLocalizacao>
-              <TitulosInfmr style={{ fontWeight: "700" }}>
-                Localização
-              </TitulosInfmr>
+            <ContainerLocalizacao
+              style={{
+                borderColor: colors.principal,
+                borderBottomWidth: 1,
+                marginBottom: 20,
+              }}
+            >
               <Image
                 source={require("../../Assets/iconeMaps.png")}
-                style={{ width: 42, height: 42, marginLeft: 40 }}
+                style={{ width: 42, height: 42, marginBottom: 10 }}
               />
+              <TitulosInfmr style={{ fontWeight: "600" }}>
+                Localização
+              </TitulosInfmr>
+
               <TextosInfrm>Cep: {dadosFilial.EnderecoFilial.cep}</TextosInfrm>
-              <TextosInfrm>Endereço: {dadosFilial.EnderecoFilial.rua}</TextosInfrm>
+              <TextosInfrm>
+                Endereço: {dadosFilial.EnderecoFilial.rua}
+              </TextosInfrm>
               <TextosInfrm>N°: {dadosFilial.EnderecoFilial.numero}</TextosInfrm>
-              <TextosInfrm style={{ marginBottom: 40 }}>
-              {dadosFilial.EnderecoFilial.estado} - {dadosFilial.EnderecoFilial.cidade}
+              <TextosInfrm style={{ marginBottom: 20 }}>
+                {dadosFilial.EnderecoFilial.estado} -{" "}
+                {dadosFilial.EnderecoFilial.cidade}
               </TextosInfrm>
             </ContainerLocalizacao>
             <ContainerContatos>
-              <TitulosInfmr style={{ fontWeight: "700" }}>
-                Contatos
-              </TitulosInfmr>
               <Image
                 source={require("../../Assets/iconeContato.png")}
-                style={{ width: 42, height: 42, marginLeft: 70 }}
+                style={{ width: 42, height: 42, marginBottom: 10 }}
               />
-              <TextosInfrm>Telefone: {dadosFilial.TelefoneFilials[0].numero}</TextosInfrm>
+              <TitulosInfmr style={{ fontWeight: "600" }}>
+                Contatos
+              </TitulosInfmr>
+
+              <TextosInfrm>
+                Telefone: {dadosFilial.TelefoneFilials[0].numero}
+              </TextosInfrm>
               <TextosInfrm>Email: {dadosFilial.email}</TextosInfrm>
             </ContainerContatos>
             {/* <Button title="teste" onPress={() => console.log(dadosFilial)} /> */}

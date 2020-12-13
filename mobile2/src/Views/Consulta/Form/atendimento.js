@@ -169,10 +169,15 @@ const Atendimento = ({ navigation, route }) => {
   var novaConsulta = route.params;
 
   const pegarDados = async () => {
-    const retorno = await api.get(`servico/${novaConsulta.ServicoId}/filiais`);
+    try {
+      const retornoFiliais = await api.get(`servico/${novaConsulta.ServicoId}/filiais`);
+      
+      setDadosHospital(retornoFiliais.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
 
-    setDadosHospital(retorno.data);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -229,7 +234,7 @@ const Atendimento = ({ navigation, route }) => {
         ) : (
             <Plataformas setTitulo={setTituloLabel} novaConsulta={novaConsulta} navigation={navigation} />
           )}
-        <Passos cor1={true} cor2={true} cor3={true} />
+        <Passos cor1={true} cor2={true} />
       </ScrollView>
     </Container>
   );

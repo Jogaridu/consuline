@@ -12,6 +12,8 @@ const autorizacaoMidPaciente = require("../../middlewares/autorizacaoDoPaciente"
 
 const autorizacaoMidProfissional = require("../../middlewares/autorizacaoDoProfissional");
 
+routes.get("/medico/:idProfissional/consultas/dias", controller.listarDia);
+
 // routes.use(autorizacaoMid);
 
 routes.post("/consulta", controller.criar);
@@ -30,8 +32,7 @@ routes.put("/consulta/:id", controller.atualizar);
 
 routes.get("/medico/consultas", controller.listarIdMedico);
 
-routes.get("/paciente/:idPaciente/consultas-atendidas", autorizacao, controller.listarIdPacienteRealizadas);
-routes.get("/paciente/:idPaciente/consultas-pendentes", autorizacao, controller.listarIdPacientePendentes);
+routes.get("/paciente/:idPaciente/consultas", autorizacao, controller.listarIdPaciente);
 
 routes.get("/medico/consultas/dias", controller.listarDia);
 

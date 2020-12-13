@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Alert,
   FlatList,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import IconFeather from "react-native-vector-icons/Feather";
@@ -47,16 +48,20 @@ const Filial = ({
 
   const apiMaps = async () => {
     try {
-      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${filialSelecionada.cep}&key=AIzaSyBzmNMwR_8Qz-ca3R-T4nKVC9xJnCawjhc`;
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=AIzaSyBzmNMwR_8Qz-ca3R-T4nKVC9xJnCawjhc`;
       const retorno = await fetch(url);
       const localizacaoFilial = await retorno.json();
-
+      setFilialSelecionada({
+        ...filialSelecionada,
+        id: id,
+        nome: nome,
+        cep: cep,
+      });
       setLocalizacao({
         ...localizacao,
         lat: localizacaoFilial.results[0].geometry.location.lat,
         long: localizacaoFilial.results[0].geometry.location.lng,
       });
-      console.log(localizacao);
     } catch (error) {
       console.log(error);
     }
@@ -64,19 +69,13 @@ const Filial = ({
 
   return (
     <BotaoHospital
-      selecionado={selecionado}
+    selecionado={selecionado}
       onPress={() => {
-        console.log(filialSelecionada)
-        setFilialSelecionada({
-          ...filialSelecionada,
-          id,
-          nome,
-          cep,
-        });
-        apiMaps();
-        setListaHospitais(!listaHospitais);
         setSelecionado(true);
+        setListaHospitais(!listaHospitais);
+        apiMaps();
       }}
+      
     >
       <TextoBotaoHospital>{nome}</TextoBotaoHospital>
     </BotaoHospital>
@@ -128,7 +127,8 @@ const Geolocalizacao = ({ navigation }) => {
 
   const navegarInfrmFilial = async () => {
     await AsyncStorage.setItem(
-      "@Consuline:filialId", JSON.stringify(filialSelecionada.id)
+      "@Consuline:filialId",
+      JSON.stringify(filialSelecionada.id)
     );
 
     navigation.navigate("LocalizacaoNavigator");
@@ -208,12 +208,18 @@ const Geolocalizacao = ({ navigation }) => {
 
         {listaHospitais && (
           <ContainerListaHospitais>
-            <FlatList
-              data={filiais}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id.toString()}
-              style={{ width: "100%" }}
-            />
+            {filiais === [""] ? (
+              <Container style={{ backgroundColor: colors.fundo }}>
+                <ActivityIndicator size={40} color={colors.principal} />
+              </Container>
+            ) : (
+              <FlatList
+                data={filiais}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id.toString()}
+                style={{ width: "100%" }}
+              />
+            )}
           </ContainerListaHospitais>
         )}
       </ContainerHospitais>

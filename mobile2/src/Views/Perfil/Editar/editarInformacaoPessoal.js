@@ -33,7 +33,7 @@ import colors from "../../../Styles/colors";
 
 import api from "../../../Services/api";
 
-const EditarInformacaoPessoal = ({navigation}) => {
+const EditarInformacaoPessoal = ({ navigation }) => {
   const [dados, setDados] = useState({
     nome: "",
     dataNascimento: "",
@@ -45,16 +45,16 @@ const EditarInformacaoPessoal = ({navigation}) => {
   const [id, setId] = useState();
   const [loading, setLoading] = useState(true);
 
-  const pegarDados = async () => {
-    const paciente = JSON.parse(
-      await AsyncStorage.getItem("@Consuline:paciente")
-    );
-    setDados(paciente);
-    setId(paciente.id);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const pegarDados = async () => {
+      const paciente = JSON.parse(
+        await AsyncStorage.getItem("@Consuline:paciente")
+      );
+      setDados(paciente);
+      setId(paciente.id);
+      setLoading(false);
+    };
+
     pegarDados();
   }, []);
 
@@ -137,6 +137,7 @@ const EditarInformacaoPessoal = ({navigation}) => {
 
   const editar = async () => {
     try {
+      return console.log(dados);
       const retorno = await api.put(`/paciente/${id}`, dados);
 
       if (retorno.status === 200) {
@@ -144,23 +145,23 @@ const EditarInformacaoPessoal = ({navigation}) => {
 
         //dispara um evento com o nome realoadUsuario
         EventRegister.emit("reloadPerfil", dados);
-        
-        return(navigation.navigate("Perfil"));
+
+        return (navigation.navigate("Perfil"));
       }
     } catch (error) {
-      return console.log(error);
+      console.log(error);
     }
   };
 
   if (loading) {
     return (
-      <Container style={{backgroundColor: colors.fundo}}>
+      <Container style={{ backgroundColor: colors.fundo }}>
         <ActivityIndicator size={40} color={colors.principal} />
       </Container>
     );
   } else {
     return (
-      <Container style={{backgroundColor: colors.fundo}}>
+      <Container style={{ backgroundColor: colors.fundo }}>
         <FecharEditar onPress={() => navigation.navigate("ConsultaEditar")}>
           <Icon name="close" size={42} color="#911" />
         </FecharEditar>

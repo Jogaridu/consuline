@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import $ from "jquery";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { Carousel, Button, Form, Card } from "react-bootstrap";
+import { Carousel, Form, Card } from "react-bootstrap";
 import "./styles.css";
 import "./responsive.css";
 import AOS from "aos";
@@ -14,9 +14,9 @@ import "aos/dist/aos.css";
 import slider1 from "../../Assets/slider1.jpg";
 import slider2 from "../../Assets/slider2.jpg";
 import logo from "../../Assets/logoprojeto1.png";
-import imgClinico from "../../Assets/a.jpg";
-import imgCardiologia from "../../Assets/b.jpg";
-import imgFisioterapia from "../../Assets/c.jpg";
+// import imgClinico from "../../Assets/a.jpg";
+// import imgCardiologia from "../../Assets/b.jpg";
+// import imgFisioterapia from "../../Assets/c.jpg";
 import seta from "../../Assets/next.png";
 import iconeAgendamento from "../../Assets/icone-agendamento.png";
 import iconeMedico from "../../Assets/icone-medico.png";
@@ -60,9 +60,10 @@ function Home() {
   useEffect(() => {
     const carregarFiliais = async () => {
       try {
-        const filiais = await api.get("/filiais");
-        console.log(filiais.data);
-        setFiliais(filiais.data);
+        const retorno = await api.get("/filiais");
+
+        setFiliais(retorno.data);
+
       } catch (error) {
 
         console.log(error);
@@ -74,6 +75,8 @@ function Home() {
     carregarFiliais();
     scrollNav();
   }, []);
+
+  console.log(servicosFilial);
 
   const settings = {
     dots: true,
@@ -470,106 +473,26 @@ function Home() {
               data-aos="fade-right"
               data-aos-delay="80"
               data-aos-duration="900"
-              id="containerEnderecos"
-            >
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
-              <div className="enderecos">
-                <span> Rua Teste Alvez da Silva </span>
-                <img id="seta" src={seta} alt="seta" />
-                <div id="informacao">
-                  <h3>
-                    Horário: <br />
-                    7:00 às 20:00
-                  </h3>
-                  <h3>
-                    Telefone: <br />
-                    (11) 4002-8922
-                  </h3>
-                </div>
-              </div>
+              id="containerEnderecos">
+              {filiais != [] ? filiais.map(filial => {
+                return (
+                  <div className="enderecos" key={filial.id}>
+                    <span> {filial.EnderecoFilial.rua}, {filial.EnderecoFilial.numero} </span>
+                    <img id="seta" src={seta} alt="seta" />
+                    <div id="informacao">
+                      <h3>
+                        Local: <br />
+                        {filial.EnderecoFilial.cidade} / {filial.EnderecoFilial.estado}
+                      </h3>
+
+                      <h3>
+                        Telefone: <br />
+                        {filial.TelefoneFilials[0].numero}
+                      </h3>
+                    </div>
+                  </div>);
+              }) : (<h3 style={{ color: "#fff", textAlign: "center" }}>Sem filiais cadastradas</h3>)}
+
             </div>
           </div>
           <div id="container-mapa">
@@ -675,17 +598,9 @@ function Home() {
               data-aos-duration="1000"
               data-aos-offset="100"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              enim eveniet, harum labore quia quibusdam saepe aut laborum
-              asperiores dicta aliquam tempora eaque ut voluptatibus ex velit
-              dolore laudantium tenetur! Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Inventore corrupti ex alias, temporibus
-              accusantium dolorum nulla commodi enim veniam, placeat voluptates?
-              Neque expedita quibusdam tenetur atque iste a, corporis corrupti!
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo,
-              laborum animi error provident omnis recusandae deserunt deleniti
-              aut molestiae exercitationem perspiciatis nulla sit! In similique
-              omnis repudiandae magni nulla! Commodi.
+              Devido aos acontecimentos no ano de 2020 com o surgimento do novo vírus do COVID-19 a realidade do mundo foi alterada drasticamente. Ficar em casa se tornou algo obrigatório para evitar a propagação com a aglomeração de pessoas em um mesmo local. Os leitos de hospitais ficaram escassos e se tornaram pouco acessíveis para pacientes com o próprio vírus devido a demanda, e realizar o atendimento de outras pessoas se torna algo muito arriscado.
+              E com a aprovação da lei n° 13.989/2020 pelo atual presidente Jair Messias Bolsonaro o uso da teleconsultas foi definido como parte da medicina. Diante disso surgiu a Consuline. Trata-se de um projeto que visa atender e ajudar na demanda de pacientes com enfermidades que podem ser controladas a distância por um profissional.
+
             </p>
             <div
               data-aos="fade-down"
@@ -698,21 +613,21 @@ function Home() {
                 <img src={iconeMissao} alt="Icone Sobre" />
                 <h1>Missão</h1>
                 <div id="texto">
-                  <p>Hello World n similique omnis repudiassae magni.</p>
+                  <p>Contribuir para praticidade, rapidez e menor tempo de espera nas consultas.</p>
                 </div>
               </div>
               <div className="card-sobre">
                 <img src={iconeVisao} alt="Icone Sobre" />
                 <h1>Visão</h1>
                 <div id="texto">
-                  <p>Hello World n similique omnis repudiassae magni.</p>
+                  <p>Tornar-se referencia em consultas on-line e agendamento de consultas no país.</p>
                 </div>
               </div>
               <div className="card-sobre">
                 <img src={iconeValores} alt="Icone Sobre" />
                 <h1>Valores</h1>
                 <div id="texto">
-                  <p>Hello World n similique omnis repudiassae magni.</p>
+                  <p>Excelência, zelo pelos nossos clientes, inovação, respeito à vida, responsabilidade legal e social. </p>
                 </div>
               </div>
             </div>

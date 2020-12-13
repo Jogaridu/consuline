@@ -9,11 +9,12 @@ import HomeNavigator from "./routes/HomeNavigation";
 import PerfilNavigator from "./routes/PerfilNavigation";
 import ConsultaNavigator from "./routes/ConsultaNavigation";
 import LocalizacaoNavigator from "./routes/LocalizacaoNavigation";
+import { isSignIn } from "../Services/security";
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName={!isSignIn() ? "Home" : "Login"}>
         <Stack.Screen
           name="Login"
           component={LoginNavigator}
@@ -27,10 +28,7 @@ const Routes = () => {
           component={HomeNavigator}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="PerfilEditar"
-          component={PerfilNavigator}
-        />
+        <Stack.Screen name="PerfilEditar" component={PerfilNavigator} />
         <Stack.Screen
           name="Consulta"
           component={ConsultaNavigator}

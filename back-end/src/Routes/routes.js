@@ -12,21 +12,28 @@ const rotasPublicaProfissional = require("./Public/profissionalDaSaude");
 const rotasServicos = require("./Private/servicos");
 const rotasFiliais = require("./Private/filiais");
 const rotaAtendimento = require("./Private/atendimento");
-const rotasConsulta =  require("./Private/consulta");
+const rotasConsulta = require("./Private/consulta");
 const rotasAvaliacao = require("./Private/avaliacao");
 const rotasNotificacao = require("./Private/notificacao");
+const rotasDadosHome = require("./Private/dadosHome");
 
+router.use(rotasConsulta);
+router.use(rotaAtendimento);
 
-router.use(rotasPublicaSessao);
-
-router.use(rotasPublicaPaciente);
-router.use(rotasPublicaProfissional);
+router.use(rotasDadosHome);
 
 router.use(rotasFiliais);
+router.use(rotasAvaliacao);
+router.use(rotasPublicaSessao);
+
+
 router.use(rotasServicos);
-router.use(rotaAtendimento);
-router.use(rotasConsulta);
 router.use(rotasAvaliacao);
 router.use(rotasNotificacao);
+
+router.use(rotasPublicaPaciente);
+router.use(rotasPublicaSessao);
+router.use(rotasPublicaPaciente);
+router.use(rotasPublicaProfissional);
 
 module.exports = router;

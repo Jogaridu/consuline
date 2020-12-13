@@ -150,17 +150,8 @@ function Endereco() {
             <Field
               type="text"
               name="numero"
-              render={({ field }) => (
-                <MaskedInput
-                  {...field}
-                  type="text"
-                  mask={mascaras.numero}
-                  // onBlur={InputCorreta}
-                  placeholder="Numero"
-
-                />
-              )
-              }
+              placeholder="Número"
+              maxLength="5"
             />
             <ErrorMessage className="mensagem-erro" component="span" name="numero" />
           </div>

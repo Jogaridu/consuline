@@ -24,6 +24,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      notaProfissional: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       horario: {
         type: Sequelize.TIME,
         allowNull: false,

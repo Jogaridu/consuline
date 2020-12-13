@@ -1,25 +1,25 @@
-// const jwt = require("jsonwebtoken");
-// const authConfig = require("../config/auth.json");
+const jwt = require("jsonwebtoken");
+const authConfig = require("../config/auth.json");
 
-// module.exports = (req, res, next) => {
-//     const { authorization } = req.headers;
+module.exports = (req, res, next) => {
+    const { authorization } = req.headers;
 
-//     if (!authorization) {
-//         res.status(401).send({ error: "Token não informado" });
-//     }
+    if (!authorization) {
+        res.status(401).send({ error: "Token não informado" });
+    }
 
-//     const [Bearer, token] = authorization.split(" ");
+    const [Bearer, token] = authorization.split(" ");
 
-//     if (!token) {
-//         res.status(401).send({ error: "Token mal formatado" });
-//     }
+    if (!token) {
+        res.status(401).send({ error: "Token mal formatado" });
+    }
 
-//     try {
-//         const retorno = jwt.verify(token, authConfig.secret);
-//         req.idCentral = retorno.idCentral;
-//         req.tipoPerfil = retorno.tipoPerfil;
-//         return next();
-//     } catch (error) {
-//         res.status(401).send({ error: "Token Inválido" });
-//     }
-// };
+    try {
+        const retorno = jwt.verify(token, authConfig.secret);
+        req.idCentral = retorno.idCentral;
+        req.tipoPerfil = retorno.tipoPerfil;
+        return next();
+    } catch (error) {
+        res.status(401).send({ error: "Token Inválido" });
+    }
+};

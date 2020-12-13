@@ -11,6 +11,7 @@ class Consulta extends Model {
         descricao: DataTypes.TEXT,
         sintomas: DataTypes.STRING,
         atendida: DataTypes.BOOLEAN,
+        notaProfissional: DataTypes.INTEGER
       },
       {
         sequelize,
@@ -18,7 +19,7 @@ class Consulta extends Model {
       }
     );
   }
-
+  // ProfissionalDaSaudeId
   static associate(models) {
     this.belongsTo(models.Atendimento);
     this.belongsTo(models.ProfissionalDaSaude);
@@ -26,8 +27,9 @@ class Consulta extends Model {
     this.belongsTo(models.Filial);
     this.belongsTo(models.Servico);
     this.belongsTo(models.Pagamento);
-    this.hasOne(models.Notificacao,{
-      foreignKey:"ConsultaId"
+    // this.belongsTo(models.Avaliacao);
+    this.hasOne(models.Notificacao, {
+      foreignKey: "ConsultaId"
     });
   }
 }

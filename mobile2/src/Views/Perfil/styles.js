@@ -26,14 +26,21 @@ export const FotoPerfil = styled.Image`
   margin-top: -80px;
 `;
 
-export const BtnEditar = styled.TouchableOpacity`
-  width: 55px;
-  height: 35px;
-  left: 75%;
-  margin-top: -30px;
-  border-radius: 10px;
+export const ContainerBotaoEditar = styled.View`
+  width: 100%;
+  height: auto;
   align-items: center;
-  margin-left: 15px;
+  margin-top: 10px;
+`;
+
+export const BtnEditar = styled.TouchableOpacity`
+  width: 152px;
+  height: 45px;
+  border-radius: 30px;
+  background-color: ${colors.principal};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerConteudoInformacoes = styled.View`
@@ -60,7 +67,6 @@ export const TituloPerfil = styled.Text`
   font-size: 22px;
   font-weight: bold;
   text-align: center;
-  margin-top: 8px;
   margin-bottom: 18px;
   border-bottom-end-radius: 1px;
   border-bottom-width: 2px;

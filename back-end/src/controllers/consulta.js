@@ -4,713 +4,673 @@ const Profissional = require("../models/ProfissionalDaSaude");
 const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 const Atendimento = require("../models/Atendimento");
+const Avaliacao = require("../models/Avaliacao");
 const { Op } = require("sequelize");
 const Pagamento = require("../models/Pagamento");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
 const Notificacao = require("./notificacao");
+
 module.exports = {
-  async criar(req, res) {
-    const { tipoPerfil } = req;
+    async criar(req, res) {
+        const { tipoPerfil } = req;
 
-    if (tipoPerfil === "admin") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+        // if (tipoPerfil === "admin") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
 
-    const {
-      valor,
-      desconto,
-      sintomas,
-      data,
-      horario,
-      PacienteId,
-      ProfissionalDaSaudeId,
-      FilialId,
-      ServicoId,
-      AtendimentoId,
-      descricao,
-      pagamento,
-    } = req.body;
-    try {
-      const paciente = await Paciente.findByPk(PacienteId);
+        const {
+            valor,
+            desconto,
+            sintomas,
+            data,
+            horario,
+            PacienteId,
+            ProfissionalDaSaudeId,
+            FilialId,
+            ServicoId,
+            AtendimentoId,
+            descricao,
+            pagamento,
+        } = req.body;
+        try {
+            const paciente = await Paciente.findByPk(PacienteId);
 
-      if (!paciente) {
-        return res.status(400).send({ error: "Paciente não encontrado(a)" });
-      }
+            if (!paciente) {
+                return res.status(400).send({ error: "Paciente não encontrado(a)" });
+            }
 
-      const profissional = await Profissional.findByPk(ProfissionalDaSaudeId);
+            const profissional = await Profissional.findByPk(ProfissionalDaSaudeId);
 
-      if (!profissional) {
-        return res
-          .status(400)
-          .send({ error: "Profissional não encontrado(a)" });
-      }
+            if (!profissional) {
+                return res
+                    .status(400)
+                    .send({ error: "Profissional não encontrado(a)" });
+            }
 
-      const filial = await Filial.findByPk(FilialId);
+            const filial = await Filial.findByPk(FilialId);
 
-      if (!filial) {
-        return res.status(400).send({ error: "Filial não cadastrada" });
-      }
+            const servico = await Servico.findByPk(ServicoId);
 
-      const servico = await Servico.findByPk(ServicoId);
+            if (!servico) {
+                return res.status(400).send({ error: "Serviço não cadastrado" });
+            }
 
-      if (!servico) {
-        return res.status(400).send({ error: "Serviço não cadastrado" });
-      }
+            const atendimento = await Atendimento.findByPk(AtendimentoId);
 
-      const atendimento = await Atendimento.findByPk(AtendimentoId);
+            if (!atendimento) {
+                return res.status(400).send({ error: "Atendimento não cadastrado" });
+            }
 
-      if (!atendimento) {
-        return res.status(400).send({ error: "Atendimento não cadastrado" });
-      }
+            const numeroCartaoCripto = await bcrypt.hash(pagamento.numero, 10);
 
-      const numeroCartaoCripto = await bcrypt.hash(pagamento.numero, 10);
+            const codCripto = await bcrypt.hash(pagamento.cod, 10);
 
-      const codCripto = await bcrypt.hash(pagamento.cod, 10);
+            const pagamentoCripto = {
+                cod: codCripto,
+                data: pagamento.data,
+                numero: numeroCartaoCripto,
+                nomeCompleto: pagamento.nomeCompleto,
+            };
 
-      const pagamentoCripto = {
-        cod: codCripto,
-        data: pagamento.data,
-        numero: numeroCartaoCripto,
-        nomeCompleto: pagamento.nomeCompleto,
-      };
+            const pagamentoCriado = await Pagamento.create(pagamentoCripto);
 
-      const pagamentoCriado = await Pagamento.create(pagamentoCripto);
+            let consultaCriada = await Consulta.findOne({
+                where: {
+                    [Op.and]: [
+                        { data: data },
+                        { horario: horario },
+                        { ProfissionalDaSaudeId: ProfissionalDaSaudeId },
+                    ],
+                },
+            });
 
-      let consultaCriada = await Consulta.findOne({
-        where: {
-          [Op.and]: [
-            { data: data },
-            { horario: horario },
-            { ProfissionalDaSaudeId: ProfissionalDaSaudeId },
-          ],
-        },
-      });
+            if (consultaCriada) {
+                return res.status(400).send({
+                    error:
+                        "Já existe uma consulta com esse horario,data e profissional, por favor tente novamente",
+                });
+            }
 
-      if (consultaCriada) {
-        return res.status(400).send({
-          error:
-            "Já existe uma consulta com esse horario,data e profissional, por favor tente novamente",
-        });
-      }
+            consultaCriada = null;
 
-      consultaCriada = null;
+            consultaCriada = await Consulta.findOne({
+                where: {
+                    [Op.and]: [
+                        { data: data },
+                        { horario: horario },
+                        { PacienteId: PacienteId },
+                    ],
+                },
+            });
 
-      consultaCriada = await Consulta.findOne({
-        where: {
-          [Op.and]: [
-            { data: data },
-            { horario: horario },
-            { PacienteId: PacienteId },
-          ],
-        },
-      });
+            if (consultaCriada) {
+                return res.status(400).send({
+                    error:
+                        "Já existe uma consulta com esse horario,data e paciente, por favor tente novamente",
+                });
+            }
 
-      if (consultaCriada) {
-        return res.status(400).send({
-          error:
-            "Já existe uma consulta com esse horario,data e paciente, por favor tente novamente",
-        });
-      }
+            const idPagamento = pagamentoCriado.id;
 
-      const idPagamento = pagamentoCriado.id;
+            const consulta = await Consulta.create({
+                valor,
+                desconto,
+                data,
+                horario,
+                PacienteId,
+                ProfissionalDaSaudeId,
+                FilialId,
+                ServicoId,
+                AtendimentoId,
+                descricao,
+                sintomas,
+                PagamentoId: idPagamento,
+                atendida: false,
+            });
 
-      const consulta = await Consulta.create({
-        valor,
-        desconto,
-        data,
-        horario,
-        PacienteId,
-        ProfissionalDaSaudeId,
-        FilialId,
-        ServicoId,
-        AtendimentoId,
-        descricao,
-        sintomas,
-        PagamentoId: idPagamento,
-        atendida: false,
-      });
+            const dataTexto = data + " " + horario;
 
-      const dataTexto = data + " " + horario;
+            const dataNotificacao = new Date(dataTexto);
 
-      const dataNotificacao = new Date(dataTexto);
+            Notificacao.inserir(dataNotificacao, consulta.id, consulta.PacienteId);
 
-      Notificacao.inserir(dataNotificacao, consulta.id, consulta.PacienteId);
-
-      res.status(201).send(consulta);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Erro ao agendar consulta, por favor tente novamente ",
-      });
-    }
-  },
-
-  async apagar(req, res) {
-    const { id } = req.params;
-
-    const { tipoPerfil } = req;
-
-    if (tipoPerfil === "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
-
-    try {
-      const consulta = await Consulta.findByPk(id);
-
-      if (!consulta) {
-        return res.status(400).send({ error: "Consulta não cadastrada " });
-      }
-
-      await consulta.destroy();
-
-      res.status(200).send({ sucesso: "Consulta deletada com sucesso" });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possível deletar consulta, por favor tente novamente",
-      });
-    }
-  },
-
-  async atualizar(req, res) {
-    const { id } = req.params;
-
-    const { tipoPerfil } = req;
-
-    if (tipoPerfil !== "paciente") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
-
-    const {
-      valor,
-      desconto,
-      data,
-      horario,
-      PacienteId,
-      ProfissionalDaSaudeId,
-      FilialId,
-      ServicoId,
-      AtendimentoId,
-    } = req.body;
-
-    try {
-      const consulta = await Consulta.findByPk(id);
-
-      if (!consulta) {
-        return res.status(400).send({ error: "Consulta não encontrada" });
-      }
-
-      const paciente = await Paciente.findByPk(PacienteId);
-
-      if (!paciente) {
-        return res.status(400).send({ error: "Paciente não encontrado(a)" });
-      }
-
-      const profissional = await Profissional.findByPk(ProfissionalDaSaudeId);
-
-      if (!profissional) {
-        return res
-          .status(400)
-          .send({ error: "Profissional não encontrado(a)" });
-      }
-
-      const filial = await Filial.findByPk(FilialId);
-
-      if (!filial) {
-        return res.status(400).send({ error: "Filial não cadastrada" });
-      }
-
-      const servico = await Servico.findByPk(ServicoId);
-
-      if (!servico) {
-        return res.status(400).send({ error: "Serviço não cadastrado" });
-      }
-
-      const atendimento = await Atendimento.findByPk(AtendimentoId);
-
-      if (!atendimento) {
-        return res.status(400).send({ error: "Atendimento não cadastrado" });
-      }
-
-      await consulta.update(
-        {
-          valor,
-          desconto,
-          data,
-          horario,
-          PacienteId,
-          ProfissionalDaSaudeId,
-          FilialId,
-          ServicoId,
-          AtendimentoId,
-        },
-        {
-          where: { id: id },
+            res.status(201).send(consulta);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Erro ao agendar consulta, por favor tente novamente ",
+            });
         }
-      );
+    },
 
-      res.status(200).send({ sucesso: " Consulta editada com sucesso" });
-    } catch (error) {
-      return res.status(500).send({
-        error:
-          "Não foi possivel editar essa consulta, por favor tente novamente",
-      });
-    }
-  },
+    async apagar(req, res) {
+        const { id } = req.params;
 
-  async listarId(req, res) {
-    const { id } = req.params;
+        const { tipoPerfil } = req;
 
-    try {
-      const consulta = await Consulta.findByPk(id, {
-        include: [
-          {
-            association: "Paciente",
-            attributes: ["nome", "dataNascimento", "cpf"],
-          },
-          {
-            association: "Filial",
-            attributes: ["nomeFantasia", "razaoSocial"],
-          },
-          {
-            association: "Atendimento",
-            attributes: ["tipo"],
-          },
-          {
-            association: "ProfissionalDaSaude",
-            attributes: ["nome", "dataNascimento", "crm"],
-          },
-        ],
-      });
+        // if (tipoPerfil === "profissionalDaSaude") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
 
-      if (!consulta) {
-        return res.status(400).send({ error: "Cosnulta não encontrada" });
-      }
+        try {
+            const consulta = await Consulta.findByPk(id);
 
-      res.status(200).send(consulta);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error:
-          "Não foi possivel listar esta consulta, por favor tente novamente",
-      });
-    }
-  },
+            if (!consulta) {
+                return res.status(400).send({ error: "Consulta não cadastrada " });
+            }
 
-  async listarIdMedico(req, res) {
-    const { idProfissional, tipoPerfil } = req;
+            await consulta.destroy();
 
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
-
-    try {
-      const consultas = await Consulta.findAll({
-        where: { ProfissionalDaSaudeId: idProfissional },
-        order: [["data", "DESC"]],
-        include: [
-          {
-            association: "Paciente",
-            attributes: ["nome", "dataNascimento", "cpf"],
-          },
-          {
-            association: "Filial",
-            attributes: ["nomeFantasia", "razaoSocial"],
-          },
-          {
-            association: "Atendimento",
-            attributes: ["tipo"],
-          },
-        ],
-      });
-
-      if (!consultas) {
-        return res
-          .status(400)
-          .send({ error: "Profissional não encontrado(a)" });
-      }
-
-      res.status(200).send(consultas);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possivel listar consultas, por favor tente novamente",
-      });
-    }
-  },
-
-  async listarIdMedicoData(req, res) {
-    const { idProfissional, tipoPerfil } = req;
-
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
-
-    const { data } = req.query;
-
-    try {
-      const consultas = await Consulta.findAll(
-        {
-          where: {
-            [Op.and]: [
-              { ProfissionalDaSaudeId: idProfissional },
-              { data: data },
-            ],
-          },
-          order: [["horario", "ASC"]],
-        },
-        {
-          include: [
-            {
-              association: "Paciente",
-              attributes: ["nome", "dataNascimento", "cpf"],
-            },
-            {
-              association: "Filial",
-              attributes: ["nomeFantasia", "razaoSocial"],
-            },
-            {
-              association: "Atendimento",
-              attributes: ["tipo"],
-            },
-            {
-              association: "ProfissionalDaSaude",
-              attributes: ["nome", "dataNascimento", "crm"],
-            },
-          ],
+            res.status(200).send({ sucesso: "Consulta deletada com sucesso" });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Não foi possível deletar consulta, por favor tente novamente",
+            });
         }
-      );
+    },
 
-      if (!consultas) {
-        return res
-          .status(400)
-          .send({ error: "Profissional não encontrado(a)" });
-      }
+    async atualizar(req, res) {
+        const { id } = req.params;
 
-      res.status(200).send(consultas);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possivel listar consultas, por favor tente novamente",
-      });
-    }
-  },
+        const { tipoPerfil } = req;
 
-  async listarDia(req, res) {
-    const { idProfissional } = req.params;
+        // if (tipoPerfil !== "paciente") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
 
-    try {
-      const consultas = await Consulta.findAll(
-        {
-          where: { ProfissionalDaSaudeId: idProfissional },
-          order: [["horario", "ASC"]],
-          raw: true,
-          attributes: ["data", "horario", "id"],
-        },
-        {
-          include: [
-            {
-              association: "Paciente",
-              attributes: ["nome", "dataNascimento", "cpf"],
-            },
-            {
-              association: "Filial",
-              attributes: ["nomeFantasia", "razaoSocial"],
-            },
-            {
-              association: "Atendimento",
-              attributes: ["tipo"],
-            },
-            {
-              association: "ProfissionalDaSaude",
-              attributes: ["nome", "dataNascimento", "crm"],
-            },
-          ],
-        }
-      );
+        const {
+            valor,
+            desconto,
+            data,
+            horario,
+            PacienteId,
+            ProfissionalDaSaudeId,
+            FilialId,
+            ServicoId,
+            AtendimentoId,
+        } = req.body;
 
-      if (!consultas) {
-        return res
-          .status(400)
-          .send({ error: "Profissional não encontrado(a)" });
-      }
+        try {
+            const consulta = await Consulta.findByPk(id);
 
-      let arrayConsultas = new Array();
+            if (!consulta) {
+                return res.status(400).send({ error: "Consulta não encontrada" });
+            }
 
-      let dataAdicionada = "";
+            const paciente = await Paciente.findByPk(PacienteId);
 
-      consultas.forEach((consulta) => {
-        if (dataAdicionada !== consulta.data) {
-          dataAdicionada = consulta.data;
-          arrayConsultas.push({
-            data: consulta.data,
-            horario: consultas
-              .map((e) => {
-                if (e.data === consulta.data) {
-                  const arr = e.horario.split(":");
-                  return `${arr[0]}:${arr[1]}`;
+            if (!paciente) {
+                return res.status(400).send({ error: "Paciente não encontrado(a)" });
+            }
+
+            const profissional = await Profissional.findByPk(ProfissionalDaSaudeId);
+
+            if (!profissional) {
+                return res
+                    .status(400)
+                    .send({ error: "Profissional não encontrado(a)" });
+            }
+
+            const filial = await Filial.findByPk(FilialId);
+
+            if (!filial) {
+                return res.status(400).send({ error: "Filial não cadastrada" });
+            }
+
+            const servico = await Servico.findByPk(ServicoId);
+
+            if (!servico) {
+                return res.status(400).send({ error: "Serviço não cadastrado" });
+            }
+
+            const atendimento = await Atendimento.findByPk(AtendimentoId);
+
+            if (!atendimento) {
+                return res.status(400).send({ error: "Atendimento não cadastrado" });
+            }
+
+            await consulta.update(
+                {
+                    valor,
+                    desconto,
+                    data,
+                    horario,
+                    PacienteId,
+                    ProfissionalDaSaudeId,
+                    FilialId,
+                    ServicoId,
+                    AtendimentoId,
+                },
+                {
+                    where: { id: id },
                 }
-              })
-              .filter((e) => e !== undefined),
-          });
+            );
+
+            res.status(200).send({ sucesso: " Consulta editada com sucesso" });
+        } catch (error) {
+            return res.status(500).send({
+                error:
+                    "Não foi possivel editar essa consulta, por favor tente novamente",
+            });
         }
-      });
+    },
 
-      res.status(200).send(arrayConsultas);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possivel listar consultas, por favor tente novamente",
-      });
-    }
-  },
+    async listarId(req, res) {
+        const { id } = req.params;
 
-  async listarIdPacienteRealizadas(req, res) {
-    const { idPaciente, tipoPerfil } = req;
+        try {
+            const consulta = await Consulta.findByPk(id, {
+                include: [
+                    {
+                        association: "Paciente",
+                        attributes: ["nome", "dataNascimento", "cpf"],
+                    },
+                    {
+                        association: "Filial",
+                        attributes: ["nomeFantasia", "razaoSocial"],
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: ["tipo"],
+                    },
+                    {
+                        association: "ProfissionalDaSaude",
+                        attributes: ["nome", "dataNascimento", "crm"],
+                    },
+                ],
+            });
 
-    // if (tipoPerfil !== "paciente") {
-    //   return res
-    //     .status(401)
-    //     .send({ error: "Você não possui autorização para esta ação!!" });
-    // }
+            if (!consulta) {
+                return res.status(400).send({ error: "Cosnulta não encontrada" });
+            }
 
-    try {
-      const consultas = await Consulta.findAll({
-        where: { PacienteId: idPaciente, atendida: true },
-        order: [["data", "DESC"]],
-        include: [
-          {
-            association: "Filial",
-            attributes: ["nomeFantasia"],
-          },
-          {
-            association: "Servico",
-            attributes: ["nome"],
-          },
-          {
-            association: "Atendimento",
-            attributes: ["tipo"],
-          },
-          {
-            association: "ProfissionalDaSaude",
-            attributes: ["nome", "foto"],
-          },
-        ],
-        raw: true,
-      });
+            res.status(200).send(consulta);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error:
+                    "Não foi possivel listar esta consulta, por favor tente novamente",
+            });
+        }
+    },
 
-      if (!consultas) {
-        return res.status(400).send({ error: "Paciente não encontrado(a)" });
-      }
+    async listarIdMedico(req, res) {
+        const { idProfissional, tipoPerfil } = req;
 
-      const dados = consultas.map((consulta) => {
-        const arr = consulta.horario.split(":");
+        // if (tipoPerfil !== "profissionalDaSaude") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
 
-        return { ...consulta, horario: `${arr[0]}:${arr[1]}` };
-      });
+        try {
+            const consultas = await Consulta.findAll({
+                where: { ProfissionalDaSaudeId: idProfissional },
+                order: [["data", "DESC"]],
+                include: [
+                    {
+                        association: "Paciente",
+                        attributes: ["nome", "dataNascimento", "cpf"],
+                    },
+                    {
+                        association: "Filial",
+                        attributes: ["nomeFantasia", "razaoSocial"],
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: ["tipo"],
+                    },
+                ],
+            });
 
-      res.status(200).send(dados);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possivel listar consultas, por favor tente novamente",
-      });
-    }
-  },
-  async listarIdPacientePendentes(req, res) {
-    const { idPaciente, tipoPerfil } = req;
+            if (!consultas) {
+                return res
+                    .status(400)
+                    .send({ error: "Profissional não encontrado(a)" });
+            }
 
-    // if (tipoPerfil !== "paciente") {
-    //   return res
-    //     .status(401)
-    //     .send({ error: "Você não possui autorização para esta ação!!" });
-    // }
+            res.status(200).send(consultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Não foi possivel listar consultas, por favor tente novamente",
+            });
+        }
+    },
 
-    try {
-      const consultas = await Consulta.findAll({
-        where: { PacienteId: idPaciente, atendida: false },
-        order: [["data", "DESC"]],
-        include: [
-          {
-            association: "Filial",
-            attributes: ["nomeFantasia"],
-          },
-          {
-            association: "Servico",
-            attributes: ["nome"],
-          },
-          {
-            association: "Atendimento",
-            attributes: ["tipo"],
-          },
-          {
-            association: "ProfissionalDaSaude",
-            attributes: ["nome", "foto"],
-          },
-        ],
-        raw: true,
-      });
+    async listarIdMedicoData(req, res) {
+        const { idProfissional, tipoPerfil } = req;
 
-      if (!consultas) {
-        return res.status(400).send({ error: "Paciente não encontrado(a)" });
-      }
+        // if (tipoPerfil !== "profissionalDaSaude") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
 
-      const dados = consultas.map((consulta) => {
-        const arr = consulta.horario.split(":");
+        const { data } = req.query;
 
-        return { ...consulta, horario: `${arr[0]}:${arr[1]}` };
-      });
+        try {
+            const consultas = await Consulta.findAll(
+                {
+                    where: {
+                        [Op.and]: [
+                            { ProfissionalDaSaudeId: idProfissional },
+                            { data: data },
+                        ],
+                    },
+                    order: [["horario", "ASC"]],
+                },
+                {
+                    include: [
+                        {
+                            association: "Paciente",
+                            attributes: ["nome", "dataNascimento", "cpf"],
+                        },
+                        {
+                            association: "Filial",
+                            attributes: ["nomeFantasia", "razaoSocial"],
+                        },
+                        {
+                            association: "Atendimento",
+                            attributes: ["tipo"],
+                        },
+                        {
+                            association: "ProfissionalDaSaude",
+                            attributes: ["nome", "dataNascimento", "crm"],
+                        },
+                    ],
+                }
+            );
 
-      res.status(200).send(dados);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possivel listar consultas, por favor tente novamente",
-      });
-    }
-  },
+            if (!consultas) {
+                return res
+                    .status(400)
+                    .send({ error: "Profissional não encontrado(a)" });
+            }
 
-  async iniciarConsulta(req, res) {
-    const { idPaciente, idConsulta } = req.params;
+            res.status(200).send(consultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Não foi possivel listar consultas, por favor tente novamente",
+            });
+        }
+    },
 
-    const { idProfissional, tipoPerfil } = req;
+    async listarDia(req, res) {
+        const { idProfissional } = req.params;
 
-    // if (tipoPerfil !== "profissionalDaSaude") {
-    //   return res
-    //     .status(401)
-    //     .send({ error: "Você não possui autorização para esta ação!!" });
-    // }
+        try {
+            const consultas = await Consulta.findAll(
+                {
+                    where: { ProfissionalDaSaudeId: idProfissional },
+                    order: [["horario", "ASC"]],
+                    raw: true,
+                    attributes: ["data", "horario", "id"],
+                },
+                {
+                    include: [
+                        {
+                            association: "Paciente",
+                            attributes: ["nome", "dataNascimento", "cpf"],
+                        },
+                        {
+                            association: "Filial",
+                            attributes: ["nomeFantasia", "razaoSocial"],
+                        },
+                        {
+                            association: "Atendimento",
+                            attributes: ["tipo"],
+                        },
+                        {
+                            association: "ProfissionalDaSaude",
+                            attributes: ["nome", "dataNascimento", "crm"],
+                        },
+                    ],
+                }
+            );
 
-    try {
-      const consulta = await Consulta.findByPk(idConsulta);
+            if (!consultas) {
+                return res
+                    .status(400)
+                    .send({ error: "Profissional não encontrado(a)" });
+            }
 
-      if (!consulta) {
-        return res.status(400).send({ error: "Consulta não encontrada" });
-      }
+            let arrayConsultas = new Array();
 
-      const atendimento = await Atendimento.findByPk(consulta.AtendimentoId);
+            let dataAdicionada = "";
 
-      if (!atendimento) {
-        return res.status(400).send({ error: "Atendimento não cadastrado" });
-      }
+            consultas.forEach((consulta) => {
+                if (dataAdicionada !== consulta.data) {
+                    dataAdicionada = consulta.data;
+                    arrayConsultas.push({
+                        data: consulta.data,
+                        horario: consultas
+                            .map((e) => {
+                                if (e.data === consulta.data) {
+                                    const arr = e.horario.split(":");
+                                    return `${arr[0]}:${arr[1]}`;
+                                }
+                            })
+                            .filter((e) => e !== undefined),
+                    });
+                }
+            });
 
-      if (atendimento.tipo != "Remoto") {
-        return res
-          .status(400)
-          .send({ error: "Essa consulta não é remota !!!" });
-      }
+            res.status(200).send(arrayConsultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Não foi possivel listar consultas, por favor tente novamente",
+            });
+        }
+    },
 
-      const paciente = await Paciente.findByPk(idPaciente);
+    async listarIdPaciente(req, res) {
+        const { idPaciente, tipoPerfil } = req;
 
-      if (!paciente) {
-        return res.status(400).send({ error: "Paciente não encontrado(a)" });
-      }
-
-      const whatsapp = `https://api.whatsapp.com/send?phone=${paciente.celular}`;
-
-      res.status(200).send({ whatsapp });
-    } catch (error) {
-      return res.status(500).send({
-        error: "Não foi possivel iniciar a consulta, por favor tente novamente",
-      });
-    }
-  },
-  async consultaAtendida(req, res) {
-    const { tipoPerfil } = req;
-
-    if (tipoPerfil === "paciente") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
-
-    const { idConsulta } = req.params;
-
-    try {
-      if (req) {
-        const consulta = await Consulta.findByPk(idConsulta);
-
-        if (!consulta) {
-          return res.status(400).send({ error: "Consulta não cadastrada" });
+        if (tipoPerfil !== "paciente") {
+            return res
+                .status(401)
+                .send({ error: "Você não possui autorização para esta ação!!" });
         }
 
-        await Consulta.update(
-          {
-            atendida: true,
-          },
-          {
-            where: { id: idConsulta },
-          }
-        );
-        return res
-          .status(200)
-          .send({ sucesso: "Consulta marcada como atendida com sucesso" });
-      }
-    } catch (error) {
-      return res.status(500).send({
-        error:
-          "Não possivel marcar consulta como atendida, por favor tente novamente",
-      });
-    }
-  },
-  async listarIdMedicoPendente(req, res) {
-    const { idProfissional, tipoPerfil } = req;
+        try {
+            const consultas = await Consulta.findAll({
+                where: { PacienteId: idPaciente },
+                order: [["data", "DESC"]],
+                raw: true,
+                include: [
+                    {
+                        association: "Filial",
+                        attributes: ["nomeFantasia"],
+                    },
+                    {
+                        association: "Servico",
+                        attributes: ["nome", "imagem"],
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: ["tipo"],
+                    },
+                    {
+                        association: "ProfissionalDaSaude",
+                        attributes: ["nome", "foto"],
+                    },
+                ],
+            });
 
-    if (tipoPerfil !== "profissionalDaSaude") {
-      return res
-        .status(401)
-        .send({ error: "Você não possui autorização para esta ação!!" });
-    }
+            if (!consultas) {
+                return res.status(400).send({ error: "Paciente não encontrado(a)" });
+            }
 
-    try {
-      const consultas = await Consulta.findAll({
-        where: {
-          [Op.and]: [
-            { ProfissionalDaSaudeId: idProfissional },
-            { atendida: false },
-          ],
-        },
-        order: [["data", "DESC"]],
-        include: [
-          {
-            association: "Paciente",
-            attributes: ["nome", "dataNascimento", "cpf"],
-          },
-          {
-            association: "Filial",
-            attributes: ["nomeFantasia", "razaoSocial"],
-          },
-          {
-            association: "Atendimento",
-            attributes: ["tipo"],
-          },
-        ],
-      });
+            const dados = consultas.map((consulta) => {
+                const arr = consulta.horario.split(":");
 
-      if (!consultas) {
-        return res
-          .status(400)
-          .send({ error: "Profissional não encontrado(a)" });
-      }
+                return { ...consulta, horario: `${arr[0]}:${arr[1]}` };
 
-      res.status(200).send(consultas);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send({
-        error: "Não foi possivel listar consultas, por favor tente novamente",
-      });
-    }
-  },
+            });
+
+            const realizadas = dados.filter(consulta => {
+                if (consulta.atendida) {
+                    return consulta;
+                }
+            });
+
+            const pendentes = dados.filter(consulta => {
+                if (!consulta.atendida) {
+                    return consulta;
+                }
+            });
+
+            res.status(200).send({ realizadas, pendentes });
+
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Não foi possivel listar consultas, por favor tente novamente",
+            });
+        }
+    },
+
+    async iniciarConsulta(req, res) {
+        const { idPaciente, idConsulta } = req.params;
+
+        const { idProfissional, tipoPerfil } = req;
+
+        // if (tipoPerfil !== "profissionalDaSaude") {
+        //   return res
+        //     .status(401)
+        //     .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
+
+        try {
+            const consulta = await Consulta.findByPk(idConsulta);
+
+            if (!consulta) {
+                return res.status(400).send({ error: "Consulta não encontrada" });
+            }
+
+            const atendimento = await Atendimento.findByPk(consulta.AtendimentoId);
+
+            if (!atendimento) {
+                return res.status(400).send({ error: "Atendimento não cadastrado" });
+            }
+
+            if (atendimento.tipo != "Remoto") {
+                return res
+                    .status(400)
+                    .send({ error: "Essa consulta não é remota !!!" });
+            }
+
+            const paciente = await Paciente.findByPk(idPaciente);
+
+            if (!paciente) {
+                return res.status(400).send({ error: "Paciente não encontrado(a)" });
+            }
+
+            const whatsapp = `https://api.whatsapp.com/send?phone=${paciente.celular}`;
+
+            res.status(200).send({ whatsapp });
+        } catch (error) {
+            return res.status(500).send({
+                error: "Não foi possivel iniciar a consulta, por favor tente novamente",
+            });
+        }
+    },
+    async consultaAtendida(req, res) {
+        const { tipoPerfil } = req;
+
+        // if (tipoPerfil === "paciente") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
+
+        const { idConsulta } = req.params;
+
+        try {
+            if (req) {
+                const consulta = await Consulta.findByPk(idConsulta);
+
+                if (!consulta) {
+                    return res.status(400).send({ error: "Consulta não cadastrada" });
+                }
+
+                await Consulta.update(
+                    {
+                        atendida: true,
+                    },
+                    {
+                        where: { id: idConsulta },
+                    }
+                );
+                return res
+                    .status(200)
+                    .send({ sucesso: "Consulta marcada como atendida com sucesso" });
+            }
+        } catch (error) {
+            return res.status(500).send({
+                error:
+                    "Não possivel marcar consulta como atendida, por favor tente novamente",
+            });
+        }
+    },
+    async listarIdMedicoPendente(req, res) {
+        const { idProfissional, tipoPerfil } = req;
+
+        // if (tipoPerfil !== "profissionalDaSaude") {
+        //     return res
+        //         .status(401)
+        //         .send({ error: "Você não possui autorização para esta ação!!" });
+        // }
+
+        try {
+            const consultas = await Consulta.findAll({
+                where: {
+                    [Op.and]: [
+                        { ProfissionalDaSaudeId: idProfissional },
+                        { atendida: false },
+                    ],
+                },
+                order: [["data", "DESC"]],
+                include: [
+                    {
+                        association: "Paciente",
+                        attributes: ["nome", "dataNascimento", "cpf"],
+                    },
+                    {
+                        association: "Filial",
+                        attributes: ["nomeFantasia", "razaoSocial"],
+                    },
+                    {
+                        association: "Atendimento",
+                        attributes: ["tipo"],
+                    },
+                ],
+            });
+
+            if (!consultas) {
+                return res
+                    .status(400)
+                    .send({ error: "Profissional não encontrado(a)" });
+            }
+
+            res.status(200).send(consultas);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({
+                error: "Não foi possivel listar consultas, por favor tente novamente",
+            });
+        }
+    },
 };
