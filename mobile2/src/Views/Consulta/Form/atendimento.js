@@ -234,7 +234,7 @@ const Atendimento = ({ navigation, route }) => {
         ) : (
             <Plataformas setTitulo={setTituloLabel} novaConsulta={novaConsulta} navigation={navigation} />
           )}
-        <Passos cor1={true} cor2={true} cor3={true} />
+        <Passos cor1={true} cor2={true} />
       </ScrollView>
     </Container>
   );

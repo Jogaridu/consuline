@@ -16,6 +16,7 @@ import Pagamento from "../../Views/Consulta/Form/pagamento";
 import Sucesso from "../../Views/Consulta/Form/sucesso";
 import HomeNavigation from "./HomeNavigation";
 
+
 const Stack = createStackNavigator();
 
 const ConsultaNavigation = () => {
@@ -59,6 +60,11 @@ const ConsultaNavigation = () => {
       <Stack.Screen
         name="Sucesso"
         component={Sucesso}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeNavigation"
+        component={HomeNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

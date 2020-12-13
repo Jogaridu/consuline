@@ -13,7 +13,7 @@ import api from "../../../Services/api";
 const Sucesso = ({ navigation, route }) => {
 
   const navegarHome = () => {
-    navigation.navigate("Home");
+    navigation.navigate("HomeNavigation");
   }
 
   return (
