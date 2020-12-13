@@ -17,6 +17,9 @@ const rotasAvaliacao = require("./Private/avaliacao");
 const rotasNotificacao = require("./Private/notificacao");
 const rotasDadosHome = require("./Private/dadosHome");
 
+
+router.use(rotasAvaliacao);
+
 router.use(rotasPublicaProfissional);
 router.use(rotasPublicaSessao);
 router.use(rotasConsulta);
@@ -30,7 +33,6 @@ router.use(rotasAvaliacao);
 router.use(rotasPublicaSessao);
 
 router.use(rotasServicos);
-router.use(rotasAvaliacao);
 router.use(rotasNotificacao);
 
 
