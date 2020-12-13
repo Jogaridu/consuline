@@ -93,8 +93,8 @@ module.exports = {
             // });
 
             const token = jwt.sign(
-              { idPaciente: paciente.id, tipoPerfil: "paciente" },
-              auth.secret
+                { idPaciente: paciente.id, tipoPerfil: "paciente" },
+                auth.secret
             );
 
             return res.status(201).send({ paciente, token });
@@ -185,16 +185,11 @@ module.exports = {
     },
 
     async deletar(req, res) {
-        const { idPaciente, tipoPerfil } = req;
+        const { id } = req.params;
 
         try {
-            if (tipoPerfil !== "paciente") {
-                return res
-                    .status(401)
-                    .send({ error: "Você não possui autorização para esta ação!!" });
-            }
 
-            const paciente = await Paciente.findByPk(idPaciente);
+            const paciente = await Paciente.findByPk(id);
 
             if (!paciente) {
                 return res.status(404).send({ error: "Paciente não encontrado" });
@@ -222,6 +217,8 @@ module.exports = {
         const { idPaciente, tipoPerfil } = req;
 
         const dados = req.body;
+
+        console.log(idPaciente);
 
         try {
             if (tipoPerfil !== "paciente") {
@@ -260,6 +257,7 @@ module.exports = {
             }
 
             res.status(200).send({ sucesso: "Paciente atualizado com sucesso" });
+
         } catch (error) {
             console.error(error);
 

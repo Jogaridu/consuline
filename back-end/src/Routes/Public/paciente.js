@@ -22,7 +22,7 @@ routes.post(
 
 routes.post("/paciente/sessao", controller.autenticar);
 
-routes.use(autorizacaoMid,);
+routes.use(autorizacaoMid);
 
 routes.post("/paciente/:id/validacao-sms", autorizacaoMid, controller.verificarSms);
 
@@ -40,9 +40,9 @@ routes.get("/paciente/:id", controller.buscarPorId);
 
 routes.get("/paciente", controller.listar);
 
-routes.delete("/paciente", controller.deletar);
+routes.delete("/paciente/:id", controller.deletar);
 
-routes.put("/paciente", autorizacaoMid, Multer.single("foto"), controller.atualizar);
+routes.put("/paciente/:id", autorizacaoMid, controller.atualizar);
 
 routes.post(
   "/paciente/exame/:idPaciente",
