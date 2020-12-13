@@ -11,7 +11,7 @@ export const ContainerColor = styled.View`
 `;
 
 export const ContainerConteudoHome = styled.View`
-  flex: 30;
+  flex: 5;
   width: 100%;
   height: 100%;
   border-top-left-radius: 40px;

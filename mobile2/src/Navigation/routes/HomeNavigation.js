@@ -18,6 +18,7 @@ import Home from "../../Views/Home";
 import Perfil from "../../Views/Perfil";
 import Consulta from "../../Views/Consulta";
 import Geolocalizacao from "../../Views/Geolocalizacao";
+import Notificacoes from "../../Views/Notificacoes";
 
 import colors from "../../Styles/colors";
 
@@ -38,8 +39,10 @@ export default HomeNavigator = () => {
           } 
           else if (route.name === "Agendar") {
             iconName = focused ? "calendar-range" : "calendar-range-outline";
-          } else if (route.name === "Localizacao") {
+          } else if (route.name === "Localização") {
             iconName = focused ? "compass" : "compass-outline";
+          } else if (route.name === "Notificações") {
+            iconName = focused ? "bell" : "bell-outline";
           }
 
           return <Icon name={iconName} size={size} color={color} />;
@@ -52,8 +55,9 @@ export default HomeNavigator = () => {
       initialRouteName="Home"
     >
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Localização" component={Geolocalizacao} />
       <Tab.Screen name="Agendar" component={Consulta}/>
-      <Tab.Screen name="Localizacao" component={Geolocalizacao} />
+      <Tab.Screen name="Notificações" component={Notificacoes} options={{ tabBarBadge: 3 }} />
       <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
   );
