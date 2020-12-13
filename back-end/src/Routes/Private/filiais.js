@@ -10,7 +10,7 @@ routes.post("/filial", autorizacaoMid, controller.cadastrar);
 
 routes.get("/filial/:id", autorizacaoMid, controller.buscarPorId);
 
-routes.get("/filiais", autorizacaoMid, controller.listar);
+routes.get("/filiais", controller.listar);
 
 routes.delete("/filial/:id", autorizacaoMid, controller.deletar);
 
