@@ -14,26 +14,25 @@ const autorizacaoMid = require("../../middlewares/autorizacao");
 
 routes.post("/profissional/login", login.logar);
 
-routes.use(autorizacaoMid);
-
 routes.post(
   "/profissional",
+  autorizacaoMid,
   Multer.single("foto"),
   enviarArquivos,
   controller.cadastrar
 );
 
-routes.get("/profissional", controller.listar);
+routes.get("/profissional", autorizacaoMid, controller.listar);
 
-routes.get("/profissional/:id", controller.buscarId);
+routes.get("/profissional/:id", autorizacaoMid, controller.buscarId);
 
-routes.delete("/profissional/:id", controller.apagar);
+routes.delete("/profissional/:id", autorizacaoMid, controller.apagar);
 
-routes.get("/profissional/filial/:idFilial", controller.listarPorFilial);
+routes.get("/profissional/filial/:idFilial", autorizacaoMid, controller.listarPorFilial);
 
-routes.get("/profissional/filial/:idFilial/servico/:idServico", controller.listarPorFilialEServico);
+routes.get("/profissional/filial/:idFilial/servico/:idServico", autorizacaoMid, controller.listarPorFilialEServico);
 
-routes.put("/profissional/:id", Multer.single("foto"), controller.atualizar);
+routes.put("/profissional/:id", Multer.single("foto"), autorizacaoMid, controller.atualizar);
 
 routes.post("/profissional/verificar-nome", controller.verificarNome);
 routes.post("/profissional/verificar-crm", controller.verificarCrm);

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [1124/125303.336:ERROR:directory_reader_win.cc(43)] FindFirstFile: O sistema não pode encontrar o caminho especificado. (0x3)
 =======
 [0929/234245.361:ERROR:process_info.cc(329)] VirtualQueryEx: Acesso negado. (0x5)
@@ -720,3 +721,6 @@
 [1213/170356.063:ERROR:crash_report_database_win.cc(455)] unexpected header
 [1213/171858.331:ERROR:crash_report_database_win.cc(455)] unexpected header
 [1213/173358.367:ERROR:crash_report_database_win.cc(455)] unexpected header
+=======
+>>>>>>> 94e0cc8d23cb7a35f2a270309b41a26a8abbe1f5
+[1213/214758.891:ERROR:crash_report_database_win.cc(455)] unexpected header

@@ -39,7 +39,6 @@ function Servicos() {
             try {
 
                 const retorno = await api.get("/servicos");
-                console.log(retorno.data);
 
                 if (retorno.data) {
                     setServicos(retorno.data);

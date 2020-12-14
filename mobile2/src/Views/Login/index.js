@@ -104,9 +104,9 @@ const Login = ({ navigation }) => {
     try {
       const resApi = await api.post("/paciente/sessao", pacienteLogin);
       const dadosResposta = resApi.data;
-
+      
       await signin(dadosResposta);
-
+      
       return navigation.navigate("Home");
     } catch (error) {
       if (error.response) {
@@ -114,7 +114,7 @@ const Login = ({ navigation }) => {
           Alert.alert(
             "Você precisa inserir o código de verificação para logar!!!"
           );
-          return navigation.navigate("RegistrarCodigo", resApiFBPK.data.id);
+          return navigation.navigate("RegistrarCodigo", dadosResposta.paciente.pacienteId);
         } else {
           Alert.alert("Usuário ou Senha incorreto!!!");
         }

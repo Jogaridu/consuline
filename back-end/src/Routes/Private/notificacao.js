@@ -6,8 +6,7 @@ const autorizacaoMid = require("../../middlewares/autorizacaoDoPaciente");
 
 const controller = require("../../controllers/notificacao");
 
-routes.use(autorizacaoMid);
-
-routes.get("/notificacoes", controller.listarPorPaciente);
+routes.get("/notificacoes", autorizacaoMid, controller.listarPorPaciente);
+routes.get("/notificacoes/numero", autorizacaoMid, controller.numeroNotificacao);
 
 module.exports = routes;

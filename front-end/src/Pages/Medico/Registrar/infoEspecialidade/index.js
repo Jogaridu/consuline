@@ -31,10 +31,6 @@ function InfoEspecialidade() {
         }
     }
 
-    console.log("entrou");
-
-
-
     useEffect(() => {
         const pegarDados = async () => {
             try {

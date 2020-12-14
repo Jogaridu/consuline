@@ -240,7 +240,7 @@ const Perfil = ({ navigation }) => {
               <ContainerBtnLogout>
                 <BtnLogout
                   onPress={() => {
-                    signOut();
+                    // signOut();
                     navigation.replace("Login");
                   }}
                 >
