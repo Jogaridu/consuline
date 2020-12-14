@@ -2,7 +2,7 @@
 module.exports = {
   url:
     process.env.DATABASE_URL ||
-    "mysql://root:bcd127@localhost:3306/bdconsuline",
+    "mysql://root:bd137@localhost:3306/bdconsuline",
 
   config: {
     // dialect: "postgres",
