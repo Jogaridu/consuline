@@ -130,7 +130,8 @@
     position: absolute;
     border-radius: 50px;
     display: inline-block;
-    background-color: red;
+    background-image: url("../../../../Assets/close.png");
+    background-size: cover;
 
     left: 10px;
     bottom: 10px;
@@ -140,6 +141,7 @@
 }
 
 .chk input:checked + span {
-    background-color: greenyellow;
+    background-image: url("../../../../Assets/check.png");
+    background-size: cover;
 
 }
