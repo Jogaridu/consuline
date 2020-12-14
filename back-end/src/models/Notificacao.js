@@ -4,7 +4,7 @@ class Notificacao extends Model {
   static init(sequelize) {
     super.init(
       {
-        data: DataTypes.DATE,
+        data: DataTypes.DATEONLY,
         mensagem: DataTypes.STRING
       },
       {
