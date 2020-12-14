@@ -52,7 +52,7 @@ export const Notificacao = styled.View`
 
 export const ContainerImagem = styled.View`
   height: 80%;
-  flex: 1;
+  flex: 0.8;
   /* background-color: ${colors.fundo}; */
   align-items: center;
   justify-content: center;

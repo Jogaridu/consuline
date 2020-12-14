@@ -285,7 +285,7 @@ export const ContainerTextos = styled.View`
 
 export const ContainerImgSucesso = styled.View`
   width: 100%;
-  flex: 4;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -295,4 +295,11 @@ export const ImgSucesso = styled.Image`
   width: 60%;
   height: 0;
   padding-bottom: 60%;
+`;
+
+export const ContainerBotaoSucesso = styled.View`
+  flex: 0.4;
+  align-items: center;
+  /* background-color: orange; */
+  margin-top: -30px;
 `;

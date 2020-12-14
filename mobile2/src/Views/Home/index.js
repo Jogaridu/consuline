@@ -58,6 +58,7 @@ const Home = ({ navigation }) => {
   const [notificacoes, setNotificacoes] = useState([]);
 
   const pegarDados = async () => {
+    console.log("passou por aqui dnv")
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
@@ -69,7 +70,7 @@ const Home = ({ navigation }) => {
       setConsultasRealizadas(retorno.data.realizadas);
       setNome(paciente.nome);
       setLoading(false);
-
+      
       retorno = await api.get(`/notificacoes`);
 
       setNotificacoes(retorno.data);
@@ -225,7 +226,7 @@ const Home = ({ navigation }) => {
               name={!nomeIcone ? "notifications-none" : "notifications"}
               size={40}
               color={colors.principal}
-              onPress={() => setNomeIcone(!nomeIcone)}
+              onPress={() => console.log(consultasRealizadas)}
             />
             {nomeIcone && <NotificacoesContainer />}
           </ContainerNotificacao>
@@ -250,6 +251,7 @@ const Home = ({ navigation }) => {
                 </TabHeading>
               }
             >
+              
               <FlatList
                 data={consultasPendentes}
                 renderItem={renderItemPendentes}
@@ -267,6 +269,7 @@ const Home = ({ navigation }) => {
                 data={consultasRealizadas}
                 renderItem={renderItemRealizadas}
                 keyExtractor={(item) => item.id.toString()}
+                initialNumToRender={50}
               />
             </Tab>
           </Tabs>

@@ -251,7 +251,7 @@ const TabRealizadas = ({
         </ContainerModal>
       </Modal>
 
-      <CardConsulta style={{ elevation: 2, borderColor: "green" }}>
+      <CardConsulta style={{ elevation: 2 }}>
         <RectButton
           onPress={() => setVisualizarConsulta(true)}
           style={styless.btnCardConsulta}
