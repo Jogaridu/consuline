@@ -19,6 +19,8 @@ const rotasDadosHome = require("./Private/dadosHome");
 
 
 router.use(rotasAvaliacao);
+router.use(rotasFiliais);
+router.use(rotasServicos);
 router.use(rotasPublicaSessao);
 
 router.use(rotasPublicaProfissional);
@@ -28,11 +30,9 @@ router.use(rotasPublicaPaciente);
 
 router.use(rotasDadosHome);
 
-router.use(rotasFiliais);
 router.use(rotasAvaliacao);
 router.use(rotasPublicaSessao);
 
-router.use(rotasServicos);
 router.use(rotasNotificacao);
 
 

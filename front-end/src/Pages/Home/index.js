@@ -61,7 +61,9 @@ function Home() {
     const carregarFiliais = async () => {
       try {
         const retorno = await api.get("/filiais");
+        const filial = await api.get(`/filial/1`);
 
+        setServicosFilial(filial.data.Servicos);
         setFiliais(retorno.data);
 
       } catch (error) {
@@ -71,12 +73,12 @@ function Home() {
       }
     };
 
+
     tamanhoTela();
     carregarFiliais();
     scrollNav();
   }, []);
 
-  console.log(servicosFilial);
 
   const settings = {
     dots: true,
@@ -135,6 +137,7 @@ function Home() {
       console.log(error);
     }
   };
+
 
   return (
     <>
@@ -477,8 +480,7 @@ function Home() {
               {filiais != [] ? filiais.map(filial => {
                 return (
                   <div className="enderecos" key={filial.id}>
-                    <span> {filial.EnderecoFilial.rua}, {filial.EnderecoFilial.numero} </span>
-                    <img id="seta" src={seta} alt="seta" />
+                    <span> {filial.EnderecoFilial.rua}, {filial.EnderecoFilial.numero}</span>
                     <div id="informacao">
                       <h3>
                         Local: <br />

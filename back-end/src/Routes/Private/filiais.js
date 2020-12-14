@@ -8,7 +8,7 @@ const controller = require("../../controllers/filiais");
 
 routes.post("/filial", autorizacaoMid, controller.cadastrar);
 
-routes.get("/filial/:id", autorizacaoMid, controller.buscarPorId);
+routes.get("/filial/:id", controller.buscarPorId);
 
 routes.get("/filiais", controller.listar);
 
