@@ -14,12 +14,8 @@ routes.get("/medico/avaliacao/media", controller.mediaAvaliacaoMedico);
 
 routes.post("/medico/avaliacao", autorizacaoMidPaciente, controller.avaliar);
 
-routes.use(autorizacaoMidCentral);
+routes.delete("/medico/avaliacao/:id", autorizacaoMidCentral, controller.deletar);
 
-routes.delete("/medico/avaliacao/:id", controller.deletar);
-
-routes.use(autorizacaoMidProfissional);
-
-routes.get("/medico/avaliacao", controller.listarPorMedico);
+routes.get("/medico/avaliacao", autorizacaoMidProfissional, controller.listarPorMedico);
 
 module.exports = routes;

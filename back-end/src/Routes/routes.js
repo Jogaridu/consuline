@@ -19,10 +19,10 @@ const rotasDadosHome = require("./Private/dadosHome");
 
 
 router.use(rotasAvaliacao);
+router.use(rotasPublicaSessao);
 
 router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
-router.use(rotasPublicaSessao);
 router.use(rotasConsulta);
 router.use(rotaAtendimento);
 
