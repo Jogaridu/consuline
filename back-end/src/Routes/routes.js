@@ -17,7 +17,6 @@ const rotasAvaliacao = require("./Private/avaliacao");
 const rotasNotificacao = require("./Private/notificacao");
 const rotasDadosHome = require("./Private/dadosHome");
 
-
 router.use(rotasAvaliacao);
 router.use(rotasPublicaSessao);
 
