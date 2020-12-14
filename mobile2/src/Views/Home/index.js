@@ -39,9 +39,7 @@ import {
   TextoNotificacao,
   TituloNotificacao,
   ContainerTextosNot,
-  ContainerBotao,
-  ContainerModal,
-  ModalAvaliacao,
+  ContainerTituloConsultas,
 } from "./styles";
 
 import colors from "../../Styles/colors";
@@ -233,7 +231,11 @@ const Home = ({ navigation }) => {
           </ContainerNotificacao>
         </ContainerColor>
         <ContainerConteudoHome>
-          <TituloHome>Suas consultas</TituloHome>
+          <ContainerTituloConsultas>
+            <Icon name="add-circle" color={colors.principal} size={40} style={{ marginRight: 10}} />
+            <TituloHome>Suas consultas</TituloHome>
+          </ContainerTituloConsultas>
+
           <Tabs
             initialPage={0}
             tabBarBackgroundColor={colors.principal}
@@ -248,13 +250,6 @@ const Home = ({ navigation }) => {
                 </TabHeading>
               }
             >
-              {/* <ContainerBotao>
-                  <Botao2
-                    title="Marcar consulta"
-                    funcExec={() => navegarConsulta}
-                  />
-                </ContainerBotao> */}
-
               <FlatList
                 data={consultasPendentes}
                 renderItem={renderItemPendentes}

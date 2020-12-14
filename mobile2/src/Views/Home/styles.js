@@ -76,8 +76,7 @@ export const TextoInfrmCardCovid = styled.Text`
 
 export const TituloHome = styled.Text`
   width: 88%;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-weight: bold;
   font-size: 26px;
   color: ${colors.principal};
@@ -221,4 +220,13 @@ export const ModalAvaliacao = styled.View`
   border-radius: 20px;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const ContainerTituloConsultas = styled.View`
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  /* background-color: green; */
+  padding-left: 20px;
+  padding-top: 30px;
 `;
