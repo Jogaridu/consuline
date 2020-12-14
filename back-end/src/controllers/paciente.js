@@ -47,7 +47,6 @@ module.exports = {
             });
 
             if (pacienteCriado) {
-                console.log("entrou");
                 return res.status(400).send({
                     erro:
                         "Paciente já cadastrado. Dados que não se repetem: CPF, RG, Login, Email, Celular",
@@ -84,10 +83,10 @@ module.exports = {
                 codigoVerificacao,
             });
 
-            // await enviarSMS({
-            //   "numero_destino": `55${pacienteCriado.celular}`,
-            //   "mensagem": `Obrigado por se cadastrar na Consuline ${pacienteCriado.nome}! Seu código para confirmação de cadastro é: ${pacienteCriado.codigoVerificacao}`
-            // });
+            await enviarSMS({
+                "numero_destino": `55${paciente.celular}`,
+                "mensagem": `Obrigado por se cadastrar na Consuline ${paciente.nome}! Seu código para confirmação de cadastro é: ${paciente.codigoVerificacao}`
+            });
 
             const token = jwt.sign(
                 { idPaciente: paciente.id, tipoPerfil: "paciente" },
