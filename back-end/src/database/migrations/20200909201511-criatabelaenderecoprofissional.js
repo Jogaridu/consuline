@@ -22,31 +22,20 @@ module.exports = {
       },
       complemento: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       cep: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      CidadeId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        refences: {
-          model: "tblCidade",
-          key: "id",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+      estado: {
+        type: Sequelize.STRING,
+        allownull: false,
       },
-      EstadoId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        refences: {
-          model: "tblEstado",
-          key: "id",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+
+      cidade: {
+        type: Sequelize.STRING,
+        allownull: false,
       },
       createdAt: {
         type: Sequelize.DATE,

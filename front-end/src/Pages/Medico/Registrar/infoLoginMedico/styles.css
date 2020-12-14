@@ -1,0 +1,51 @@
+.conteiner-entrada-dados-login {
+    width: 95%;
+    height: 100%;
+    background-color: var(--container);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.titulo-card-cadastro {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+  
+.titulo-card-cadastro figure {
+    height: 200px;
+    width: 200px;
+    background-color: var(--secundaria);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+  
+.titulo-card-cadastro figure img {
+    height: 150px;
+    width: 150px;  
+}
+
+#login {grid-area: login;}
+#senha {grid-area: senha;}
+#confimar-senha {grid-area: confirmar;}
+
+.form-login {
+    height: 100%;
+    flex: 1;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    grid-template-areas: "login login"
+    "senha confirmar"
+    "botoes botoes";
+}                       

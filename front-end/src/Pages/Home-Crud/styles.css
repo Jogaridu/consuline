@@ -1,0 +1,185 @@
+.cabecalho-dashboard {
+    height: 200px;
+    width: 100%;
+    background-color: var(--principal);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.cabecalho-dashboard p,
+.cabecalho-dashboard span {
+    width: 400px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.3em;
+    color: rgb(255, 255, 255);
+    float: right;
+    padding-top: 20px;
+    font-style: normal;
+    margin-left: -35px;
+    /* background-color: lemonchiffon; */
+}
+
+.cabecalho-dashboard figure,
+.cabecalho-dashboard figure img {
+    width: 580px;
+    height: 238px;
+}
+
+.cabecalho-dashboard figure img {
+    margin-top: -20px;
+}
+
+.logo-central {
+    height: 78px;
+    width: 410px;
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+}
+
+.informacoes-dashboard {
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.card-informacoes {
+    height: 250px;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0px 3px 3px rgb(180, 180, 180);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 500ms ease all;
+}
+
+.card-informacoes:hover {
+    transform: scale(1.1);
+}
+
+.card-informacoes figure {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border: 2px solid;
+}
+
+.card-informacoes figure img {
+    height: 78px;
+    width: 78px;
+}
+
+.card-informacoes p {
+    height: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.card-informacoes span {
+    height: 30px;
+    font-size: 2.6em;
+    font-weight: 600;
+    line-height: 0px;
+    display: flex;
+    align-items: center;
+    color: var(--principal);
+}
+
+
+.medicos-dashboard {
+    height: 600px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.medicos-dashboard h2 {
+    width: 100%;
+    text-align: left;
+    color: #000;
+    font-weight: 700;
+    margin-bottom: 45px;
+}
+
+.pesquisa {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.pesquisa button {
+    margin-left: 30px;
+}
+
+.lista-card-medicos {
+    height: 400px;
+    width: 100%;
+    padding: 0 35px;
+}
+
+.card-medico {
+    height: 95px;
+    width: 100%;
+    background-color:#F6F6F6;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-medico figure {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.5;
+}
+
+.card-medico figure img {
+    height: 68px;
+    width: 68px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-top: 10px;
+}
+
+.card-medico div {
+    flex: 3;
+    color: var(--principal);
+    font-weight: 700;
+    font-size: 1.4em;
+}
+
+.card-medico .visualizar-perfil {
+    flex: 1;
+    font-size: 1.2em;
+    transition: 100ms ease all;
+}
+
+.card-medico .visualizar-perfil:hover {
+    border-bottom: 5px solid var(--principal);
+    cursor: pointer;
+}

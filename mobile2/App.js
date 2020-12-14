@@ -3,15 +3,22 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 
 import Login from "./src/Views/Login";
-
-import Telefone from "./src/Views/Registrar/Telefone";
-import InformacaoPessoal from "./src/Views/Registrar/InformacaoPessoal";
-import Codigo from "./src/Views/Registrar/Codigo";
-import LoginSenha from "./src/Views/Registrar/LoginSenha";
+import Home from "./src/Views/Home";
 import Foto from "./src/Views/Registrar/Foto";
+import Codigo from "./src/Views/Registrar/Codigo";
+import Valida from "./src/Views/Registrar/ValidarCamposExistentes";
+import ConsultaEditar from "./src/Views/Perfil/Editar/consultaEditar";
+
+import Agendamento from "./src/Views/Consulta/Form/agendamento";
+import Servico from "./src/Views/Consulta/Form/servicos";
+import Atendimento from "./src/Views/Consulta/Form/atendimento";
+import Profissional from "./src/Views/Consulta/Form/escolhaMedicos";
+import Pagamento from "./src/Views/Consulta/Form/pagamento";
+import Localizacao from "./src/Views/Geolocalizacao";
+import Consulta from "./src/Views/Consulta";
+// import Notificacoes from "./src/Views/Notificacoes"
+
 import Routes from "./src/Navigation/routes";
-// import Localizacao from "./src/Views/Registrar/Localizacao";
-import Sucesso from "./src/Views/Registrar/Sucesso";
 
 export default function App() {
   return (

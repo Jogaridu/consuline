@@ -29,26 +29,14 @@ module.exports = {
         allowNull: false,
       },
 
-      estadoId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "tblEstado",
-          key: "id"
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+      estado: {
+        type: Sequelize.STRING,
+        allownull: false,
       },
 
-      cidadeId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "tblCidade",
-          key: "id"
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+      cidade: {
+        type: Sequelize.STRING,
+        allownull: false,
       },
 
       createdAt: {

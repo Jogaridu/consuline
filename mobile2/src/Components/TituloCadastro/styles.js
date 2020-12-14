@@ -6,6 +6,7 @@ export const Titulo = styled.Text`
   /* font-family: Arial; */
   font-weight: bold;
   font-size: 30px;
-  
   text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `;

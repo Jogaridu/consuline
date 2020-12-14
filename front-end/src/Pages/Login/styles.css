@@ -1,0 +1,118 @@
+/**************************** CONTAINER PRINCIPAL ****************************/
+.container-principal-login{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#container-login-central{
+    width: 40vw;
+    height: 100vh;
+    background-color: var(--fundo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#container-imagem-login-central{
+    width: 60vw;
+    height: 100vh;
+    background-color: var(--fundo);
+    display: flex;
+    align-items: center;
+}
+
+#container-conteudo-login-central{
+    width: 80%;
+    height: 90%;
+    background-color: var(--container);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    border-radius: 40px 40px 40px 40px;
+    animation: animationDiv linear 0.5s;
+}
+
+@keyframes animationDiv {
+    from{
+        margin-top: -1000px;
+        opacity: 0;
+    }
+
+    to{
+        margin-top: 0px;
+        opacity: 1;
+    }
+}
+
+#titulo-login{
+    font-size: 1.8em;
+    color: var(--principal);
+    font-weight: bold;
+    font-style: normal;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/**************************** IMAGEM ****************************/
+
+#logo-login-central {
+    width: auto;
+    height: auto;
+    margin-top: -30px;
+}
+
+#logo-login-central img{
+    width: 170px;
+    height: 170px;
+}
+
+/**************************** BOTOES ****************************/
+.container-botoes {
+    width: 90%;
+    min-height: 60px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px auto;
+}
+
+/**************************** FORMULARIO ****************************/
+.box {
+    width: 100%;
+    height: auto;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container-botoes-login{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 80px;
+    padding-bottom: 10px;
+}
+
+#form-login{
+    width: 80%;
+}
+
+.input-login{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.input-field-login{
+    background-color: var(--container);
+}

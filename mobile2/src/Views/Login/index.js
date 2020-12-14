@@ -1,40 +1,98 @@
-import React, { useState } from "react";
-import { TextInput } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
+  Text,
+  FlatList,
+  Animated,
+  Image,
+  Keyboard,
+  YellowBox,
+  Alert,
+  AsyncStorage,
+} from "react-native";
+
 import { Botao1 } from "../../Components/Botao1";
-import Botao2 from "../../Components/Botao2";
+import Botao3 from "../../Components/Botao3";
 import { Input } from "./styles";
 import Container from "../../Components/Container";
+import Titulo from "../../Components/TituloCadastro";
 
-import { ImgLogoLogin } from "./styles";
+import {
+  ImgLogoLogin,
+  ContainerImgCadastro,
+  ContainerConteudo,
+} from "./styles";
 
 import api from "../../Services/api";
+import { signin } from "../../Services/security";
 
 const Login = ({ navigation }) => {
+  YellowBox.ignoreWarnings([
+    "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
+  ]);
+
   const [pacienteLogin, setPacienteLogin] = useState({
     login: "",
     senha: "",
   });
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
+  const [opacity] = useState(new Animated.Value(0));
+  const [img] = useState(new Animated.ValueXY({ x: 240, y: 240 }));
 
-  // const [registrar, setRegistrar] = useState({
-  //   nome: "",
-  //   dataNascimento: "",
-  //   rg: "",
-  //   cpf: "",
-  //   email: "",
-  //   endereco: {
-  //     cep: "",
-  //     bairro: "",
-  //     rua: "",
-  //     numero: "",
-  //     complemento: "",
-  //     cidade: "",
-  //     estado: "",
-  //   },
-  //   celular: "",
-  // });
+  useEffect(() => {
+    keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      keyboardDidShow
+    );
+    keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      keyboardDidHide
+    );
 
-  const navegarCadastro = () => {
-    navigation.navigate("RegistrarInformacaoPessoal");
+    Animated.parallel([
+      Animated.spring(offset.y, {
+        toValue: 0,
+        speed: 2,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  function keyboardDidShow() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 150,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 150,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  function keyboardDidHide() {
+    Animated.parallel([
+      Animated.timing(img.x, {
+        toValue: 240,
+        duration: 100,
+      }),
+      Animated.timing(img.y, {
+        toValue: 240,
+        duration: 100,
+      }),
+    ]).start();
+  }
+
+  const navegarTelaInicial = () => {
+    navigation.navigate("TelaInicial");
   };
 
   const handlerInputLogin = (string) =>
@@ -44,40 +102,74 @@ const Login = ({ navigation }) => {
 
   const autenticarPaciente = async () => {
     try {
-      const retorno = await api.post("/paciente/sessao", pacienteLogin);
-      console.log(retorno);
-      if (retorno) {
-        console.log(retorno.data);
-      }
+      const resApi = await api.post("/paciente/sessao", pacienteLogin);
+      const dadosResposta = resApi.data;
+      
+      await signin(dadosResposta);
+      
+      return navigation.navigate("Home");
     } catch (error) {
-      console.warn("Usuário ou senha estão errados...");
+      if (error.response) {
+        if (error.response.status === 401) {
+          Alert.alert(
+            "Você precisa inserir o código de verificação para logar!!!"
+          );
+          return navigation.navigate("RegistrarCodigo", dadosResposta.paciente.pacienteId);
+        } else {
+          Alert.alert("Usuário ou Senha incorreto!!!");
+        }
+      }
     }
   };
 
   return (
     <Container>
-      <ImgLogoLogin
-        style={{ marginBottom: 30 }}
-        source={require("../../Assets/logo.png")}
-      />
-      <Input
-        style={{ marginBottom: 15 }}
-        placeholder="Login"
-        maxLength={20}
-        placeholderTextColor="#403e66"
-        onChangeText={handlerInputLogin}
-      > 
-      </Input>
-      <Input
-        secureTextEntry={true}
-        style={{ marginBottom: 74 }}
-        placeholder="Senha"
-        maxLength={20}
-        placeholderTextColor="#403e66"
-        onChangeText={handlerInputSenha}
-      />
-      <Botao1 title="Enviar" bottom={16} />
-      <Botao2 title="Registrar-se" funcExec={navegarCadastro} />
+      <ContainerImgCadastro>
+        <Animated.Image
+          source={require("../../Assets/logo.png")}
+          style={{
+            width: img.x,
+            height: 0,
+            paddingBottom: img.y,
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        />
+      </ContainerImgCadastro>
+
+      <ContainerConteudo
+        style={[
+          {
+            opacity: opacity,
+            transform: [{ translateY: offset.y }],
+          },
+        ]}
+      >
+        <KeyboardAvoidingView behavior="height" enabled>
+          <ScrollView>
+            <Titulo title="Login" />
+
+            <Input
+              style={{ marginBottom: 15 }}
+              placeholder="Login"
+              maxLength={20}
+              placeholderTextColor="#403e66"
+              onChangeText={handlerInputLogin}
+            ></Input>
+            <Input
+              secureTextEntry={true}
+              style={{ marginBottom: 74 }}
+              placeholder="Senha"
+              maxLength={20}
+              placeholderTextColor="#403e66"
+              onChangeText={handlerInputSenha}
+            />
+
+            <Botao3 title="Entrar" funcExec={() => autenticarPaciente()} />
+            <Botao1 title="Não tenho cadastro" funcExec={navegarTelaInicial} />
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </ContainerConteudo>
     </Container>
   );
 };

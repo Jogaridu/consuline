@@ -8,10 +8,12 @@ const Botao2 = (props) => {
     <Botao
       style={{
         width: props.width || 288,
+        height: props.height || 55,
+        marginBottom: props.bottom
       }}
       onPressIn={props.funcExec}
     >
-      <TextoBotao> {props.title} </TextoBotao>
+      <TextoBotao style={{fontSize: props.fontSize || 22}}> {props.title} </TextoBotao>
     </Botao>
   );
 };
