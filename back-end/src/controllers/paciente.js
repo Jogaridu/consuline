@@ -46,9 +46,6 @@ module.exports = {
                 },
             });
 
-            //   console.log(pacienteCriado.dataValues);
-
-
             if (pacienteCriado) {
                 console.log("entrou");
                 return res.status(400).send({
