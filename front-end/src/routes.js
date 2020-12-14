@@ -19,7 +19,7 @@ import EditarFilialEndereco from "./Pages/Filial/Editar/Endereco";
 import EditarFilialServicos from "./Pages/Filial/Editar/Servicos";
 
 // Profissional (CENTRAL)
-import InformacoesMedico from "./Pages/Medico/Registrar/InfoPessoalMedico";
+import InformacoesMedico from "./Pages/Medico/Registrar/infoPessoalMedico";
 import LocalizaoMedico from "./Pages/Medico/Registrar/infoLocalizacaoMedico";
 import LoginMedico from "./Pages/Medico/Registrar/infoLoginMedico";
 import EspecialidadeMedico from "./Pages/Medico/Registrar/InfoEspecialidade";
