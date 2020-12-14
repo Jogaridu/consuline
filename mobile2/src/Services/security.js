@@ -36,10 +36,7 @@ export const signOut = async () => {
 export const isSignIn = async () => {
   const usuario = JSON.parse(await AsyncStorage.getItem(CHAVE_USUARIO));
 
-  console.log(usuario !== null);
-
   if (usuario) {
-    console.log("----", usuario);
     api.defaults.headers.common["Authorization"] = `Bearer ${usuario.token}`;
   }
 

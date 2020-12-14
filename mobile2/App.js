@@ -16,7 +16,7 @@ import Profissional from "./src/Views/Consulta/Form/escolhaMedicos";
 import Pagamento from "./src/Views/Consulta/Form/pagamento";
 import Localizacao from "./src/Views/Geolocalizacao";
 import Consulta from "./src/Views/Consulta";
-import Notificacoes from "./src/Views/Notificacoes"
+// import Notificacoes from "./src/Views/Notificacoes"
 
 import Routes from "./src/Navigation/routes";
 
