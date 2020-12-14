@@ -2,11 +2,11 @@ import React from 'react';
 
 import './styles.css';
 
-import teste from "../../../../Assets/c.jpg"
+import check from "../../../../Assets/check.png";
 import api from "../../../../Services/api";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Swal from "sweetalert2";
 import RemoverMask from '../../../../Fixtures/RemoverMask';
 import MsgErroGenerico from '../../../../Fixtures/MsgErroGenerico';
@@ -39,7 +39,6 @@ function Servicos() {
             try {
 
                 const retorno = await api.get("/servicos");
-                console.log(retorno.data);
 
                 if (retorno.data) {
                     setServicos(retorno.data);
@@ -107,7 +106,7 @@ function Servicos() {
 
     }
 
-    const CardServico = ({ id, nome, descricao }) => {
+    const CardServico = ({ id, nome, descricao, imagem }) => {
         return (
             <div className="card-servico" id={id}>
                 <label className="chk">
@@ -117,7 +116,7 @@ function Servicos() {
                 <input type="checkbox" className="ver-mais" />
                 <h3 className="card-titulo">{nome}</h3>
                 <figure className="card-imagem">
-                    <img src={teste} alt="Imagem do serviço" />
+                    <img src={imagem} alt="Imagem do serviço" />
                 </figure>
                 <div className="btn-descricao">+</div>
 
@@ -137,7 +136,8 @@ function Servicos() {
                 {!(servicos.length === 0) ? servicos.map(servico => (<CardServico
                     id={servico.id}
                     nome={servico.nome}
-                    descricao={servico.descricao} />)
+                    descricao={servico.descricao}
+                    imagem={servico.imagem} />)
                 ) : (
                         <div className="msg-sem-dados">
                             <Lottie options={defaultOptions} height={200} width={200} />

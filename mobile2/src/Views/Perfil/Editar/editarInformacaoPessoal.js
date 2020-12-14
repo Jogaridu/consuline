@@ -137,7 +137,6 @@ const EditarInformacaoPessoal = ({ navigation }) => {
 
   const editar = async () => {
     try {
-      return console.log(dados);
       const retorno = await api.put(`/paciente/${id}`, dados);
 
       if (retorno.status === 200) {

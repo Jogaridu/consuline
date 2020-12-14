@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
       },
       data: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: true,
       },
       mensagem: {

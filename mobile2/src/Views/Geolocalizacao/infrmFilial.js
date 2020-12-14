@@ -56,10 +56,10 @@ const InfrmFilial = () => {
           <ScrollView style={{ height: "100%" }}>
             <TitulosInfmr
               style={{
-                fontSize: 34,
+                fontSize: 30,
                 marginBottom: 40,
                 textAlign: "center",
-                fontWeight: "500",
+                fontWeight: "bold",
                 color: colors.principal,
               }}
             >

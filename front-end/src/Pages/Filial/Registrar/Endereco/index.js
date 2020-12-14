@@ -7,7 +7,6 @@ import "../../../../Styles/globalStyle.css";
 import map from "../../../../Assets/map.png";
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import ValidarInputVazia from '../../../../Fixtures/Inputs/ValidarInputVazia';
 import { useHistory, useLocation } from 'react-router-dom';
 import { validarEndereco } from '../ValidacaoInputSchema';
 import { useEffect } from 'react';
@@ -71,12 +70,9 @@ function Endereco() {
   const validar = (values) => {
     const arrInputs = Array.from(document.querySelectorAll("form input"));
 
-    const arrayInputsVazias = ValidarInputVazia(arrInputs);
+    history.push("/filial/servicos", { ...novaFilial, endereco: { ...values, ...endereco }, servicos: [] });
 
-    if (!arrayInputsVazias) {
-      history.push("/filial/servicos", { ...novaFilial, endereco: { ...values, ...endereco }, servicos: [] });
 
-    }
   }
 
   const limparCampos = () => {

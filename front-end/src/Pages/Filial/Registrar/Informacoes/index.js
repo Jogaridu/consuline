@@ -146,7 +146,6 @@ function Informacoes() {
 
                                     const retorno = await api.post(`/filial/verificar-nome-fantasia`, { nomeFantasia: value });
 
-                                    console.log(retorno.status);
                                     if (retorno.status === 200) {
                                         return "Nome fantasia já cadastrado"
                                     }

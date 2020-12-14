@@ -188,8 +188,6 @@ function Servicos() {
     const [loading, setLoading] = useState(true);
     const [mostrarHospitais, setmostrarHospitais] = useState(false);
 
-    console.log(servicos.length !== 0);
-
     const defaultOptions = {
         loop: true,
         autoplay: true,

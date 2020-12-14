@@ -39,9 +39,7 @@ import {
   TextoNotificacao,
   TituloNotificacao,
   ContainerTextosNot,
-  ContainerBotao,
-  ContainerModal,
-  ModalAvaliacao,
+  ContainerTituloConsultas,
 } from "./styles";
 
 import colors from "../../Styles/colors";
@@ -60,6 +58,7 @@ const Home = ({ navigation }) => {
   const [notificacoes, setNotificacoes] = useState([]);
 
   const pegarDados = async () => {
+    console.log("passou por aqui dnv")
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
@@ -71,7 +70,7 @@ const Home = ({ navigation }) => {
       setConsultasRealizadas(retorno.data.realizadas);
       setNome(paciente.nome);
       setLoading(false);
-
+      
       retorno = await api.get(`/notificacoes`);
 
       setNotificacoes(retorno.data);
@@ -227,13 +226,17 @@ const Home = ({ navigation }) => {
               name={!nomeIcone ? "notifications-none" : "notifications"}
               size={40}
               color={colors.principal}
-              onPress={() => setNomeIcone(!nomeIcone)}
+              onPress={() => console.log(consultasRealizadas)}
             />
             {nomeIcone && <NotificacoesContainer />}
           </ContainerNotificacao>
         </ContainerColor>
         <ContainerConteudoHome>
-          <TituloHome>Suas consultas</TituloHome>
+          <ContainerTituloConsultas>
+            <Icon name="add-circle" color={colors.principal} size={40} style={{ marginRight: 10}} />
+            <TituloHome>Suas consultas</TituloHome>
+          </ContainerTituloConsultas>
+
           <Tabs
             initialPage={0}
             tabBarBackgroundColor={colors.principal}
@@ -248,13 +251,7 @@ const Home = ({ navigation }) => {
                 </TabHeading>
               }
             >
-              {/* <ContainerBotao>
-                  <Botao2
-                    title="Marcar consulta"
-                    funcExec={() => navegarConsulta}
-                  />
-                </ContainerBotao> */}
-
+              
               <FlatList
                 data={consultasPendentes}
                 renderItem={renderItemPendentes}
@@ -272,6 +269,7 @@ const Home = ({ navigation }) => {
                 data={consultasRealizadas}
                 renderItem={renderItemRealizadas}
                 keyExtractor={(item) => item.id.toString()}
+                initialNumToRender={50}
               />
             </Tab>
           </Tabs>

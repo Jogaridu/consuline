@@ -30,25 +30,25 @@ function ListarFiliais() {
     };
 
     useEffect(() => {
+        const carregarFiliais = async () => {
+            try {
+                const retorno = await api.get("/filiais");
+
+                setFiliais(retorno.data);
+
+                setLoading(false);
+
+            } catch (error) {
+                console.log(error);
+
+                MsgErroGenerico();
+            }
+
+        }
+
         carregarFiliais();
 
     }, []);
-
-    const carregarFiliais = async () => {
-        try {
-            const retorno = await api.get("/filiais");
-
-            setFiliais(retorno.data);
-
-            setLoading(false);
-
-        } catch (error) {
-            console.log(error);
-
-            MsgErroGenerico();
-        }
-
-    }
 
     return (
         <div className="container-central">

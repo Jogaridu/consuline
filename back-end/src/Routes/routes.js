@@ -17,24 +17,26 @@ const rotasAvaliacao = require("./Private/avaliacao");
 const rotasNotificacao = require("./Private/notificacao");
 const rotasDadosHome = require("./Private/dadosHome");
 
+<<<<<<< HEAD
 router.use(rotasPublicaSessao);
+=======
+router.use(rotasAvaliacao);
+router.use(rotasFiliais);
+router.use(rotasServicos);
+router.use(rotasPublicaSessao);
+
+router.use(rotasPublicaPaciente);
+router.use(rotasPublicaProfissional);
+>>>>>>> 974ba8432fe2673f70bb94420af129954527b120
 router.use(rotasConsulta);
 router.use(rotaAtendimento);
 
 router.use(rotasDadosHome);
 
-router.use(rotasFiliais);
 router.use(rotasAvaliacao);
 
 
-
-router.use(rotasServicos);
-router.use(rotasAvaliacao);
 router.use(rotasNotificacao);
 
-router.use(rotasPublicaPaciente);
-router.use(rotasPublicaSessao);
-router.use(rotasPublicaPaciente);
-router.use(rotasPublicaProfissional);
 
 module.exports = router;
