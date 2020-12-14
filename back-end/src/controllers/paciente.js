@@ -46,7 +46,6 @@ module.exports = {
                 },
             });
 
-
             if (pacienteCriado) {
                 return res.status(400).send({
                     erro:
@@ -84,10 +83,10 @@ module.exports = {
                 codigoVerificacao,
             });
 
-            // await enviarSMS({
-            //   "numero_destino": `55${paciente.celular}`,
-            //   "mensagem": `Obrigado por se cadastrar na Consuline ${paciente.nome}! Seu código para confirmação de cadastro é: ${paciente.codigoVerificacao}`
-            // });
+            await enviarSMS({
+                "numero_destino": `55${paciente.celular}`,
+                "mensagem": `Obrigado por se cadastrar na Consuline ${paciente.nome}! Seu código para confirmação de cadastro é: ${paciente.codigoVerificacao}`
+            });
 
             const token = jwt.sign(
                 { idPaciente: paciente.id, tipoPerfil: "paciente" },
