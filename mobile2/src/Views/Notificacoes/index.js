@@ -123,7 +123,10 @@ const Notificacoes = () => {
             );
           })
         ) : (
-          <Text>Sem notificações</Text>
+          <Container style={{ elevation: 2, borderTopLeftRadius: 40 }}>
+            <Icon name="notifications" size={140} color={colors.corTituloSecundario} />
+            <Text style={{fontSize: 18, fontWeight: "500", color: colors.corTitulo, paddingTop: 15}}>Sem novas notificações</Text>
+          </Container>
         )}
       </ContainerNotificacoes>
     </Container>

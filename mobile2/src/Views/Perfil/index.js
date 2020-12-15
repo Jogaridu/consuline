@@ -8,6 +8,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Button,
+  StyleSheet
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconOc from "react-native-vector-icons/Octicons";
@@ -32,6 +33,7 @@ import {
 } from "./styles";
 
 import Container from "../../Components/Container";
+import { RectButton } from "react-native-gesture-handler";
 
 import colors from "../../Styles/colors";
 
@@ -132,7 +134,7 @@ const Perfil = ({ navigation }) => {
             </Text>
 
             <ContainerBotaoEditar>
-              <BtnEditar onPress={navegarConsultaEditar}>
+              <RectButton style={styles.botao} onPress={navegarConsultaEditar}>
                 <Icon name="account-edit" size={32} color={colors.container} />
                 <Text
                   style={{
@@ -143,7 +145,7 @@ const Perfil = ({ navigation }) => {
                 >
                 {" "}Editar Perfil
                 </Text>
-              </BtnEditar>
+              </RectButton>
             </ContainerBotaoEditar>
 
             <ContainerConteudoInformacoes>
@@ -264,5 +266,17 @@ const Perfil = ({ navigation }) => {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  botao: {
+    width: 152,
+    height: 45,
+    borderRadius: 30,
+    backgroundColor: colors.principal,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  }
+})
 
 export default Perfil;

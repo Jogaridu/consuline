@@ -34,11 +34,7 @@ import {
   ContainerTextoBoasVindas,
   ContainerNotificacao,
   TituloHome,
-  Notificacoes,
-  Notificacao,
-  TextoNotificacao,
-  TituloNotificacao,
-  ContainerTextosNot,
+  ContainerAviso,
   ContainerTituloConsultas,
 } from "./styles";
 
@@ -46,11 +42,12 @@ import colors from "../../Styles/colors";
 import styles from "../../Components/Container/styles";
 import TabRealizadas from "./tabRealizadas";
 import { Linking } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 
 const Home = ({ navigation }) => {
   const [nome, setNome] = useState("");
   const [loading, setLoading] = useState(true);
-  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 250 }));
+  const [offset] = useState(new Animated.ValueXY({ x: 0, y: 350 }));
   const [opacity] = useState(new Animated.Value(0));
   const [consultasPendentes, setConsultasPendentes] = useState();
   const [consultasRealizadas, setConsultasRealizadas] = useState();
@@ -58,22 +55,21 @@ const Home = ({ navigation }) => {
   const [notificacoes, setNotificacoes] = useState([]);
 
   const pegarDados = async () => {
-    console.log("passou por aqui dnv")
     const paciente = JSON.parse(
       await AsyncStorage.getItem("@Consuline:paciente")
     );
+
+    var nomePaciente = paciente.nome;
+    var primeiroNome = nomePaciente.split(" ");
+    var nomeModificado = primeiroNome[0];
 
     try {
       let retorno = await api.get(`/paciente/${paciente.id}/consultas`);
 
       setConsultasPendentes(retorno.data.pendentes);
       setConsultasRealizadas(retorno.data.realizadas);
-      setNome(paciente.nome);
+      setNome(nomeModificado);
       setLoading(false);
-      
-      retorno = await api.get(`/notificacoes`);
-
-      setNotificacoes(retorno.data);
     } catch (error) {
       console.log(error.response.data);
     }
@@ -83,8 +79,10 @@ const Home = ({ navigation }) => {
     //registrar no evento realoadUsuario
     listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
       await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
-
-      setNome(dados.nome);
+      var nomePaciente = dados.nome;
+      var primeiroNome = nomePaciente.split(" ");
+      var nomeModificado = primeiroNome[0];
+      setNome(nomeModificado);
     });
     listener = EventRegister.addEventListener("reloadHome", () => {
       pegarDados();
@@ -110,18 +108,20 @@ const Home = ({ navigation }) => {
     };
   }, []);
 
-  const renderItemPendentes = ({ item }) => (
-    <TabAgendadas
-      nomeMedico={item["ProfissionalDaSaude.nome"]}
-      fotoServico={item["Servico.imagem"]}
-      servico={item["Servico.nome"]}
-      horario={item.horario}
-      atendimento={item["Atendimento.tipo"]}
-      local={item["Filial.nomeFantasia"]}
-      valor={item.valor}
-      data={item.data}
-    />
-  );
+  const renderItemPendentes = ({ item }) => {
+    return (
+      <TabAgendadas
+        nomeMedico={item["ProfissionalDaSaude.nome"]}
+        fotoServico={item["Servico.imagem"]}
+        servico={item["Servico.nome"]}
+        horario={item.horario}
+        atendimento={item["Atendimento.tipo"]}
+        local={item["Filial.nomeFantasia"]}
+        valor={item.valor}
+        data={item.data}
+      />
+    );
+  };
 
   const renderItemRealizadas = ({ item }) => (
     <TabRealizadas
@@ -142,56 +142,6 @@ const Home = ({ navigation }) => {
 
   const navegarConsulta = () => {
     navigation.navigate("Agendar");
-  };
-
-  const NotificacoesContainer = () => {
-    const Rendernotificacao = (item) => (
-      <Notificacao
-        style={{ elevation: 2 }} /*onPress={() => Linking.openURL(whatsapp)}*/
-      >
-        <Image
-          source={require("../../Assets/iconeNot.png")}
-          style={{ width: 45, height: 45 }}
-        />
-        <ContainerTextosNot>
-          <TituloNotificacao>{item.mensagem}</TituloNotificacao>
-          <TextoNotificacao>
-            Pressione aqui para começar a{"\n"}sua consulta.
-          </TextoNotificacao>
-        </ContainerTextosNot>
-      </Notificacao>
-    );
-
-    return (
-      <Notificacoes>
-        {!(notificacoes.length === 0) ? (
-          <FlatList
-            data={notificacoes}
-            renderItem={Rendernotificacao}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        ) : (
-          <Text>Sem notificao</Text>
-        )}
-
-        {/* <Notificacao
-                    style={{ elevation: 2 }}
-                    onPress={() => setModalAvaliacao(true)}>
-                    <IconAntDesign
-                        name="star"
-                        size={42}
-                        color="#FFE600"
-                        style={{ paddingLeft: 3, paddingRight: 3 }}
-                    />
-                    <ContainerTextosNot>
-                        <TituloNotificacao>Avalie nosso atendimento!</TituloNotificacao>
-                        <TextoNotificacao>
-                            Pressione aqui para começar a{"\n"}sua consulta.
-                        </TextoNotificacao>
-                    </ContainerTextosNot>
-                </Notificacao> */}
-      </Notificacoes>
-    );
   };
 
   if (loading) {
@@ -218,23 +168,35 @@ const Home = ({ navigation }) => {
                 marginTop: -6,
               }}
             >
-              {nome}
+              {" " + nome}
             </Text>
           </ContainerTextoBoasVindas>
           <ContainerNotificacao>
-            <Icon
+            {/* <Icon
               name={!nomeIcone ? "notifications-none" : "notifications"}
               size={40}
               color={colors.principal}
               onPress={() => console.log(consultasRealizadas)}
             />
-            {nomeIcone && <NotificacoesContainer />}
+            {nomeIcone && <NotificacoesContainer />} */}
           </ContainerNotificacao>
         </ContainerColor>
-        <ContainerConteudoHome>
+        <ContainerConteudoHome
+          style={[
+            {
+              opacity: opacity,
+              transform: [{ translateY: offset.y }],
+            },
+          ]}
+        >
           <ContainerTituloConsultas>
-            <Icon name="add-circle" color={colors.principal} size={40} style={{ marginRight: 10}} />
-            <TituloHome>Suas consultas</TituloHome>
+            <Icon
+              name="add-circle"
+              color={colors.principal}
+              size={40}
+              style={{ marginRight: 10 }}
+            />
+            <TituloHome style={{marginTop: 1}}>Suas consultas</TituloHome>
           </ContainerTituloConsultas>
 
           <Tabs
@@ -251,12 +213,42 @@ const Home = ({ navigation }) => {
                 </TabHeading>
               }
             >
-              
-              <FlatList
-                data={consultasPendentes}
-                renderItem={renderItemPendentes}
-                keyExtractor={(item) => item.id.toString()}
-              />
+              {consultasPendentes.length === 0 ? (
+                <Container>
+                  <ContainerAviso>
+                    <Image
+                      source={require("../../Assets/semConsultas.jpg")}
+                      style={{ width: "90%", height: 180 }}
+                    />
+                    <Text
+                      style={{
+                        color: colors.corTituloSecundario,
+                        marginTop: 15,
+                        marginBottom: 15,
+                      }}
+                    >
+                      Você não tem nenhuma consulta agendada!
+                    </Text>
+                    <RectButton style={styless.botao} onPress={navegarConsulta}>
+                      <Text
+                        style={{
+                          color: colors.container,
+                          fontWeight: "bold",
+                          fontSize: 16,
+                        }}
+                      >
+                        Agende sua consulta agora
+                      </Text>
+                    </RectButton>
+                  </ContainerAviso>
+                </Container>
+              ) : (
+                <FlatList
+                  data={consultasPendentes}
+                  renderItem={renderItemPendentes}
+                  keyExtractor={(item) => item.id.toString()}
+                />
+              )}
             </Tab>
             <Tab
               heading={
@@ -265,12 +257,32 @@ const Home = ({ navigation }) => {
                 </TabHeading>
               }
             >
-              <FlatList
-                data={consultasRealizadas}
-                renderItem={renderItemRealizadas}
-                keyExtractor={(item) => item.id.toString()}
-                initialNumToRender={50}
-              />
+              {consultasRealizadas.length === 0 ? (
+                <Container>
+                  <ContainerAviso>
+                    <Image
+                      source={require("../../Assets/semConsultas.jpg")}
+                      style={{ width: "90%", height: 180 }}
+                    />
+                    <Text
+                      style={{
+                        color: colors.corTituloSecundario,
+                        marginTop: 15,
+                        marginBottom: 15,
+                      }}
+                    >
+                      Você não realizou nenhuma consulta!
+                    </Text>
+                  </ContainerAviso>
+                </Container>
+              ) : (
+                <FlatList
+                  data={consultasRealizadas}
+                  renderItem={renderItemRealizadas}
+                  keyExtractor={(item) => item.id.toString()}
+                  initialNumToRender={50}
+                />
+              )}
             </Tab>
           </Tabs>
         </ContainerConteudoHome>
@@ -278,5 +290,16 @@ const Home = ({ navigation }) => {
     );
   }
 };
+
+const styless = StyleSheet.create({
+  botao: {
+    width: "80%",
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: colors.principal,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default Home;

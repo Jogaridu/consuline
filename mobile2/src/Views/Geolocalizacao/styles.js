@@ -89,7 +89,7 @@ export const TextosInfrm = styled.Text`
 export const BotaoHospital = styled.TouchableOpacity`
     width: 80%;
     height: 45px; 
-    background-color: ${(props) => props.selecionado ? colors.principal : colors.fundo};
+    /* background-color: ${(props) => props.selecionado === props.id ? colors.principal : colors.fundo}; */
     border-radius: 25px;
     padding-left: 40px;
     justify-content: center;

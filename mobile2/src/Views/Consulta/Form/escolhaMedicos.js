@@ -114,7 +114,7 @@ const EscolhaMedicos = ({ navigation, route }) => {
         />
       )}
 
-      <Passos cor1={true} cor2={true} />
+      <Passos cor1={true} cor2={true} cor3={true} />
     </Container>
   );
 };
