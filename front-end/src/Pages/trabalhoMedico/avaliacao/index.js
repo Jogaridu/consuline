@@ -30,21 +30,19 @@ function Avaliacao () {
     const [avaliacao, setAvaliacao] = useState([]);
 
     useEffect(() => {
+        const carregarAvaliacao = async () => {
+       
+            try {
+                const retorno = await api.get('/medico/avaliacao');
+                setAvaliacao(retorno.data);
+            } catch (error) {
+                console.log(error.retorno);
+            }
+        }
         carregarAvaliacao();
     }, []);
 
-    const carregarAvaliacao = async () => {
-        // const { idProfissionalDaSaude } = getProfissional();
-
-        try {
-            const retorno = await api.get('/medico/avaliacao');
-            console.log(retorno.data);
-            setAvaliacao(retorno.data);
-            
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    
 
     return(
      <div className="container-avaliacao">

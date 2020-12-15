@@ -25,7 +25,7 @@ const CardConsulta = ({ consulta }) => {
                 {consulta.Paciente.nome}
             </div>
             <div className="data-previa-card">
-                {format(parseISO(consulta.data), 'dd/MM')} {consulta.horario.substr(0,consulta.horario.lastIndexOf(":"))}
+                {format(parseISO(consulta.data), 'dd/MM')}, {consulta.horario.substr(0,consulta.horario.lastIndexOf(":"))}
             </div>
             <Link style={{ textDecoration: 'none', color: 'black' }} to={`/consultas/abrir-consulta/${consulta.id}`}>
                 <div className="vermais-previa-card">
@@ -71,7 +71,7 @@ function HomeConsulta() {
         const { idProfissionalDaSaude } = getProfissional();
 
         try {
-            const retorno = await api.get(`/medico/${idProfissionalDaSaude}/consultas`);
+            const retorno = await api.get(`/medico/consultas`);
             // console.log(retorno.data);
             setConsulta(retorno.data);
 
@@ -150,18 +150,18 @@ function HomeConsulta() {
                 </div>
                 <div className="informacoes-agendamento-medico">
                     <div className="txtprevia-perfil-medico">
-                        Agendamento
+                        Agendadas
                     </div>
                     <div className="txtcontagemprevia-perfil-medico">
-                        50
+                        2
                     </div>
                 </div>
                 <div className="informacoes-totalconsulta-medico">
                     <div className="txtprevia-perfil-medico">
-                        Total consultas
+                        Atendidas
                     </div>
                     <div className="txtcontagemprevia-perfil-medico">
-                        150
+                        0
                     </div>
                 </div>
             </div>

@@ -22,6 +22,9 @@ router.use(rotasFiliais);
 router.use(rotasServicos);
 router.use(rotasPublicaSessao);
 
+
+
+
 router.use(rotasPublicaPaciente);
 router.use(rotasPublicaProfissional);
 router.use(rotasConsulta);
