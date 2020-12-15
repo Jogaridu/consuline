@@ -5,7 +5,7 @@ module.exports = {
 
   config: {
     dialect: "postgres",
-	"dialectOptions": {
+	dialectOptions: {
     "ssl": true
 	},
     logging: console.log,
