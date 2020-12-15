@@ -8,28 +8,29 @@ import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
 import { useParams } from 'react-router-dom';
 
-
+import BotaoPrincipal from "../../../Components/BotaoPrincipal";
+// import BotaoSecundario from "../../Components/BotaoSecundario";
 
 function AbrirConsulta () {
-    let { id } = useParams();
+        let { id } = useParams();
 
     const [consulta, setConsulta] = useState([]);
 
     useEffect(() =>{
-        carregarConsulta();
+        const carregarConsulta = async () => {
 
+            try {
+                const retorno = await api.get(`/consulta/${id}`);
+    
+                setConsulta(retorno.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        carregarConsulta();
     }, [])
 
-    const carregarConsulta = async () => {
-
-        try {
-            const retorno = await api.get(`/consulta/${id}`);
-            console.log(retorno.data);
-            setConsulta(retorno.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     var data_atual = new Date();
     var data_nascimento = new Date (consulta.Paciente?.dataNascimento);
@@ -92,12 +93,8 @@ function AbrirConsulta () {
                     </div>
                 </div>
             </div>
-            <div className="btn-realizar-consulta">
-                <div className="btn-est-realizar">
-                    <div className="txt-btn-realizar">
-                        Realizar Consulta
-                    </div>
-                </div>
+            <div className="btn-realizar-consulta">                
+                      <BotaoPrincipal titulo="Realiza consulta"  tipo="submit" loading={true} />             
             </div>
         </div>
     </div>        

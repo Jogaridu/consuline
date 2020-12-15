@@ -36,7 +36,7 @@
 
 .data-hora-consulta{
     grid-area: data-hora-consulta;
-    /* background-color: fuchsia; */
+    /* background-color: fuchsia;  */
 }
 
 .btn-realizar-consulta{
@@ -129,7 +129,8 @@
     width: 250px;
     height: 65px;
     /* background-color: green;  */
-    margin-left: 10px;
+    margin-left: 15px;
+    margin-top: -3px;
     display: grid;
     grid-template-columns: 20% auto;
     grid-template-rows: 50% 50%;
