@@ -12,7 +12,7 @@ import { TextInputMask as Input } from "react-native-masked-text";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { EventRegister } from 'react-native-event-listeners'
 
-import Botao from "../../../Components/Botao2";
+import Botao from "../../../Components/Botao3";
 import Container from "../../../Components/Container";
 
 import {
@@ -137,7 +137,6 @@ const EditarInformacaoPessoal = ({ navigation }) => {
 
   const editar = async () => {
     try {
-      return console.log(dados);
       const retorno = await api.put(`/paciente/${id}`, dados);
 
       if (retorno.status === 200) {

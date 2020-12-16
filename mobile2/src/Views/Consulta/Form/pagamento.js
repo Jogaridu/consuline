@@ -7,7 +7,7 @@ import Container from "../../../Components/Container";
 import colors from "../../../Styles/colors";
 import Passos from "../../../Components/Passos";
 import Input from "../../../Components/Input";
-import Botao from "../../../Components/Botao2";
+import Botao3 from "../../../Components/Botao3";
 
 import {
   TituloCadastro,
@@ -164,9 +164,9 @@ const Pagamento = ({ navigation, route }) => {
               />
 
               <ContainerBotaoCadastro>
-                <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+                <Passos cor1={true} cor2={true} cor3={true} cor4={true} cor5={true} />
 
-                <Botao title="Marcar consulta" funcExec={handleSubmit} />
+                <Botao3 title="Marcar consulta" funcExec={handleSubmit} />
               </ContainerBotaoCadastro>
             </>
           )}

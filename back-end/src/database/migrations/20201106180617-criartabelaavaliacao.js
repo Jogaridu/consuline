@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
-          model: "tblPaciente",
+          model: "tblpaciente",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -45,6 +45,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("tblnotificacao");
+    return queryInterface.dropTable("tblavaliacao");
   },
 };

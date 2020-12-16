@@ -69,15 +69,26 @@ const Filial = ({
 
   return (
     <BotaoHospital
-    selecionado={selecionado}
+      selecionado={selecionado}
+      id={id}
+      style={{
+        backgroundColor:
+          filialSelecionada.nome === nome ? colors.principal : colors.fundo,
+      }}
       onPress={() => {
         setSelecionado(true);
         setListaHospitais(!listaHospitais);
         apiMaps();
       }}
-      
     >
-      <TextoBotaoHospital>{nome}</TextoBotaoHospital>
+      <TextoBotaoHospital
+        style={{
+          color:
+            filialSelecionada.nome === nome ? colors.container : colors.principal,
+        }}
+      >
+        {nome}
+      </TextoBotaoHospital>
     </BotaoHospital>
   );
 };

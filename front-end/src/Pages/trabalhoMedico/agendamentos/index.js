@@ -22,20 +22,12 @@ const CardAgendado = ({ agendadas }) => {
     return ( 
         
         <div className="card-agendado">
-                <div className="color-status">
-
-                </div>
+              
                 <div className="status-agendamento">
                     <div className="sintomas">
                         {agendadas.sintomas}
                     </div>
-                    <div className="sintomas">
-                        {agendadas.sintomas}    
-                    </div>
-                   
-                    <div className="status-da-consulta">
-                        • Já atendido
-                    </div>
+                  
                 </div>
                 <div className="data-hora-agendamento">
                     <div className="data-hora">
@@ -81,22 +73,22 @@ function Agendadas () {
     const [agendadas, setAgendadas] = useState ([]);
 
     useEffect(() => {
+        const carrergarAgendadas = async () =>{
+            const { idProfissionalDaSaude } = getProfissional();
+            
+            try {
+                const retorno = await api.get(`/medico/consultas`);
+                console.log(retorno.data);
+                setAgendadas(retorno.data);
+    
+            } catch (error) {
+                console.log(error);
+            
+            }
+        }
+
         carrergarAgendadas();
     }, []);
-
-    const carrergarAgendadas = async () =>{
-        const { idProfissionalDaSaude } = getProfissional();
-        
-        try {
-            const retorno = await api.get(`/medico/${idProfissionalDaSaude}/consultas`);
-            console.log(retorno.data);
-            setAgendadas(retorno.data);
-
-        } catch (error) {
-            console.log(error);
-        
-        }
-    }
 
 
     return(
@@ -104,12 +96,6 @@ function Agendadas () {
         <div className="header-consultas">
             <div className="titulo-avaliacao">
                 Agendadas
-            </div>
-            <div className="ordenar">
-                Ordenar:
-                <div className="select">
-                    select
-                </div>
             </div>
         </div>
       

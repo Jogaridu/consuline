@@ -6,10 +6,10 @@
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     border-radius: 0px 30px 30px 0px;
     display: grid;
-    /* row-gap: 10px; */
-    grid-template-rows: 8vh 20vh 8vh 8vh 8vh 8vh;
+     /* row-gap: 10px;  */
+    grid-template-rows: 8vh 18vh 17vh 8vh 8vh 8vh;
     grid-template-areas: 
-    "h1-menu"
+    "h1-menu" 
     "foto-menu-consulta"
     "nome-menu-consulta"
     "elemento-home-menu"
@@ -40,14 +40,14 @@
 #nome-menu-consulta 
     {grid-area: nome-menu-consulta; 
     font-size: 30px;
+      width: auto;
+      height: 100px;
+    /* background-color: red; */
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: -50px;
+   align-items: center;
+    margin-left: 15px;
     color: var(--principal);
-    /* background-color: yellow; */
 }
 #elemento-home-menu 
     {grid-area: elemento-home-menu; 
@@ -174,3 +174,43 @@
   #elemento-avaliacao-menu:hover:before, #elemento-avaliacao-menu:focus:before, #elemento-avaliacao-menu:active:before {
     right: 0;
   }
+
+  
+.desenvolvedor1 {
+  width: 250px;
+  border-top: 2px solid var(--principal);
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  justify-self: center;
+  /* display: flex; */
+  
+   margin-top: 130px;
+}
+
+.desenvolvedor1 span {
+  height: 70px;
+  padding-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: 400ms ease all;
+}
+
+.desenvolvedor1:hover span {
+  background-color: var(--principal);
+  /* transition: 200ms ease all; */
+  animation: crescer 400ms forwards;
+  color: white;
+}
+
+@keyframes crescer {
+  from {
+      height: 0px;
+  }
+
+  to {
+      height: 60px;
+
+  }
+}

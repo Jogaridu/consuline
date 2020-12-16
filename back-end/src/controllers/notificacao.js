@@ -39,7 +39,6 @@ module.exports = {
             let notificacoes = await Notificacao.findAll({
                 raw: true,
                 where: { PacienteId: idPaciente },
-                attributes: ["id", "mensagem", "data"]
             });
 
             const retorno = [];
