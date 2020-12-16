@@ -5,6 +5,9 @@ module.exports = {
 
   config: {
     dialect: "postgres",
+    dialectOptions: {
+      ssl: true
+  },
     logging: console.log,
     define: {
       timestamp: true,
