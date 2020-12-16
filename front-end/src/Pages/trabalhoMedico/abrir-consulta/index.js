@@ -94,7 +94,7 @@ function AbrirConsulta () {
                 </div>
             </div>
             <div className="btn-realizar-consulta">     
-            <a href="http://wa.me/5511940211952">
+            <a href={`http://wa.me/${consulta.nome}`}>
                 <BotaoPrincipal titulo="Realiza consulta"  tipo="submit" loading={true} /> 
             </a>                 
             </div>
