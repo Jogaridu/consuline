@@ -153,7 +153,7 @@ function HomeConsulta() {
                         Agendadas
                     </div>
                     <div className="txtcontagemprevia-perfil-medico">
-                        2
+                        1
                     </div>
                 </div>
                 <div className="informacoes-totalconsulta-medico">

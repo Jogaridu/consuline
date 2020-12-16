@@ -6,7 +6,7 @@ import '../../../Styles/globalStyle.css'
 import medicoteste from '../../../Assets/medicoteste.png'
 import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import BotaoPrincipal from "../../../Components/BotaoPrincipal";
 // import BotaoSecundario from "../../Components/BotaoSecundario";
@@ -21,7 +21,7 @@ function AbrirConsulta () {
 
             try {
                 const retorno = await api.get(`/consulta/${id}`);
-    
+                console.log(retorno.data)
                 setConsulta(retorno.data);
             } catch (error) {
                 console.log(error);
@@ -93,8 +93,10 @@ function AbrirConsulta () {
                     </div>
                 </div>
             </div>
-            <div className="btn-realizar-consulta">                
-                      <BotaoPrincipal titulo="Realiza consulta"  tipo="submit" loading={true} />             
+            <div className="btn-realizar-consulta">     
+            <a href="http://wa.me/5511940211952">
+                <BotaoPrincipal titulo="Realiza consulta"  tipo="submit" loading={true} /> 
+            </a>                 
             </div>
         </div>
     </div>        
