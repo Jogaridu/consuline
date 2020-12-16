@@ -5,13 +5,13 @@ module.exports = {
 
     await queryInterface.bulkInsert('tbltelefoneprofissional', [
       {
-        numero: "11945662544",
+        numero: "11963688640",
         ProfissionalDaSaudeId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        numero: "11978999877",
+        numero: "11962797184",
         ProfissionalDaSaudeId: 2,
         createdAt: new Date(),
         updatedAt: new Date()

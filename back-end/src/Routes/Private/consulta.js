@@ -28,19 +28,17 @@ routes.put("/consulta/:id", controller.atualizar);
 
 // routes.get("/teste", controller.listarIdPaciente);
 
-// routes.use(autorizacaoMidProfissional);
-
-routes.get("/medico/consultas", controller.listarIdMedico);
+routes.get("/medico/consultas", autorizacaoMidProfissional, controller.listarIdMedico);
 
 routes.get("/paciente/:idPaciente/consultas", autorizacao, controller.listarIdPaciente);
 
-routes.get("/medico/consultas/dias", controller.listarDia);
+routes.get("/medico/consultas/dias", autorizacaoMidProfissional, controller.listarDia);
 
-routes.get("/medico/:idProfissional/consultas/dias", controller.listarDia);
+routes.get("/medico/:idProfissional/consultas/dias", autorizacaoMidProfissional, controller.listarDia);
 
-routes.get("/medico/consultas/proximas", controller.listarIdMedicoData);
+routes.get("/medico/consultas/proximas", autorizacaoMidProfissional, controller.listarIdMedicoData);
 
-routes.post(
+routes.get(
   "/paciente/:idPaciente/consulta/:idConsulta/iniciar",
   controller.iniciarConsulta
 );

@@ -8,7 +8,7 @@ module.exports = {
         FilialId: null,
         PacienteId: 1,
         ProfissionalDaSaudeId: 1,
-        ServicoId: 2,
+        ServicoId: 3,
         data: "2020-12-20",
         desconto: "R$0,00",
         horario: "02:17",
@@ -24,8 +24,8 @@ module.exports = {
         FilialId: null,
         PacienteId: 1,
         ProfissionalDaSaudeId: 1,
-        ServicoId: 2,
-        data: "2020-12-14",
+        ServicoId: 1,
+        data: "2020-12-15",
         desconto: "R$0,00",
         horario: "08:00",
         PagamentoId: 1,
@@ -35,22 +35,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        AtendimentoId: 2,
-        FilialId: null,
-        PacienteId: 1,
-        ProfissionalDaSaudeId: 1,
-        ServicoId: 2,
-        data: "2020-12-14",
-        desconto: "R$0,00",
-        horario: "07:40",
-        PagamentoId: 1,
-        sintomas: "Dor",
-        valor: "R$100,00",
-        atendida: true,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
+      
     ]);
   },
 

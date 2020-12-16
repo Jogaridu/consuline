@@ -153,7 +153,7 @@ const ContainerLista = (props) => {
                 />
             </ContainerInputBusca>
             {props.loading ? (
-                <Container style={{ backgroundColor: colors.fundo }}>
+                <Container style={{ backgroundColor: colors.container }}>
                     <ActivityIndicator size={40} color={colors.principal} />
                 </Container>
             ) : (

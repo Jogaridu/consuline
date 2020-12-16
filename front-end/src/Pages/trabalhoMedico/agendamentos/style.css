@@ -1,5 +1,5 @@
 .container-agendadas{
-    width: 1050px;
+    width: 70vw;
     height: 97%;
      /* background-color: red;  */
     display: flex;
@@ -31,15 +31,15 @@
                     /*********** Container Conteudo ***********/
 
 .consultas-agendadas{
-    width: 800px;
+    width: 60vw;
     height: auto;
     border-radius: 20px;
     margin-top: -80px;
-     background-color: red;   
+     /* background-color: red;    */
 }
                     /*********** Header Info ***********/
 .header-infos{
-    width: 800px;
+    width: 60vw;
     height: 30px;
     background-color: var(--secundaria);
     border-radius: 20px;
@@ -78,20 +78,16 @@
     margin-bottom: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-radius: 15px 15px 15px 15px;
 }
-.color-status{
-    width: 15px;
-    height: 150px;
-    background-color: #08B80F;
-    border-radius: 15px  0px 0px 15px;
-}
+
 .status-agendamento{
     width: 264px;
     height: 140px;
-     /* background-color: yellow;  */
+    /* background-color: yellow;   */
+    
     border-right: 1px solid var(--estbtn);
     display: flex;
     flex-direction: column;
@@ -102,8 +98,7 @@
 .data-hora-agendamento{
     width: 264px;
     height: 140px;
-     /* background-color: green;  */
-    border-right: 1px solid var(--estbtn);
+    /* background-color: green;  */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,28 +108,24 @@
 .paciente-agendamento{
     width: 264px;
     height: 140px;
-     /* background-color: fuchsia;  */
-     border-radius: 0px 20px 20px 0px ;
-     display: flex;
-    justify-content : center;
+    /* background-color: fuchsia;    */
+    border-left: 1px solid var(--estbtn);
+    border-radius: 0px 20px 20px 0px ;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .sintomas{
     width: auto;
     height: 30px;
-    /* background-color: red; */
+    /* background-color: red;  */
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-}
-.status-da-consulta{
-    width: auto;
-    height: 30px;
-    /* background-color: red; */
-    font-size: 15px;
-    font-weight: bold;
-    color: #08B80F;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .data-hora{
@@ -197,7 +188,8 @@
     height: 100px;
     margin-left: auto;
     margin-right: auto;
-     /* background-color: yellow;  */
+    /* background-color: yellow;  */
+    margin-top: 25px;
     display: grid;
     grid-template-columns: 35% auto;
     grid-template-rows: 50% 50%;

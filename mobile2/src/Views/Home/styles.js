@@ -10,7 +10,7 @@ export const ContainerColor = styled.View`
   flex-direction: row;
 `;
 
-export const ContainerConteudoHome = styled.View`
+export const ContainerConteudoHome = styled(Animated.View)`
   flex: 5;
   width: 100%;
   height: 100%;
@@ -229,4 +229,11 @@ export const ContainerTituloConsultas = styled.View`
   /* background-color: green; */
   padding-left: 20px;
   padding-top: 30px;
+`;
+
+export const ContainerAviso = styled.View`
+  width: 100%;
+  height: auto;
+  /* background-color: pink; */
+  align-items: center;
 `;

@@ -12,7 +12,7 @@ import { TextInputMask as Input } from "react-native-masked-text";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { EventRegister } from 'react-native-event-listeners'
 
-import Botao from "../../../Components/Botao2";
+import Botao from "../../../Components/Botao3";
 import Container from "../../../Components/Container";
 
 import {

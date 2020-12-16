@@ -164,7 +164,7 @@ const Pagamento = ({ navigation, route }) => {
               />
 
               <ContainerBotaoCadastro>
-                <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+                <Passos cor1={true} cor2={true} cor3={true} cor4={true} cor5={true} />
 
                 <Botao3 title="Marcar consulta" funcExec={handleSubmit} />
               </ContainerBotaoCadastro>

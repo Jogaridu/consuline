@@ -16,11 +16,11 @@ module.exports = {
         type:Sequelize.TEXT,
         allowNull:false
       },
-      consultaId: {
+      PacienteId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         refences: {
-          model: "tblconsulta",
+          model: "tblpaciente",
           key: "id",
         },
         onDelete: "CASCADE",

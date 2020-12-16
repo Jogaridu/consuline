@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Modal, Image, StyleSheet } from "react-native";
+import { View, Text, Modal, Image, StyleSheet, Button } from "react-native";
 
 import IconMaterialC from "react-native-vector-icons/MaterialCommunityIcons";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
@@ -43,7 +43,6 @@ const TabAgendadas = ({
 }) => {
   const [visualizarConsulta, setVisualizarConsulta] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
-
   useEffect(() => {
     var consultaData = data;
     var dataAlterada = consultaData.split("-");

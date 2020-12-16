@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "Consuline",
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,7 +17,9 @@
     "ios": {
       "supportsTablet": true
     },
-    "web": {
+    "android": {
+      "package": "com.senai.consuline",
+      "versionCode": 1
     }
   }
 }
