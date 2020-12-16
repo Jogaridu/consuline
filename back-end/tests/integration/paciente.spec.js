@@ -6,7 +6,7 @@ describe("PACIENTES", () => {
 
     afterAll(() => {
         connection.close();
-    })
+    });
 
 
     it("É possivel cadastrar um paciente", async () => {
