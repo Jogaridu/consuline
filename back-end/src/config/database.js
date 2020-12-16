@@ -1,13 +1,13 @@
 module.exports = {
   url:
     process.env.DATABASE_URL ||
-    "mysql://root:bd137@localhost:3306/bdconsuline",
+    "mysql://root:bcd127@localhost:3306/bdconsuline",
 
   config: {
     dialect: "postgres",
-    dialectOptions: {
-      ssl: true
-  },
+  //   dialectOptions: {
+  //     ssl: true
+  // },
     logging: console.log,
     define: {
       timestamp: true,
