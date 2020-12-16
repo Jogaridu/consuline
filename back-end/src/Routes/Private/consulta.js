@@ -38,7 +38,7 @@ routes.get("/medico/:idProfissional/consultas/dias", autorizacaoMidProfissional,
 
 routes.get("/medico/consultas/proximas", autorizacaoMidProfissional, controller.listarIdMedicoData);
 
-routes.post(
+routes.get(
   "/paciente/:idPaciente/consulta/:idConsulta/iniciar",
   controller.iniciarConsulta
 );
