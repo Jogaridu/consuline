@@ -8,6 +8,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert
 } from "react-native";
 
 import {
@@ -107,7 +108,7 @@ const LoginSenha = ({ navigation, route }) => {
     );
 
     if (arrayInputsVazias.length) {
-      console.warn("Existem campos vazios");
+      Alert.alert("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
@@ -132,7 +133,7 @@ const LoginSenha = ({ navigation, route }) => {
 
         navigation.navigate("RegistrarTelefone", novoPaciente);
       } else {
-        console.warn("Senhas diferentes");
+        Alert.alert("Senhas diferentes");
       }
     }
   };

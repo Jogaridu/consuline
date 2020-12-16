@@ -1,18 +1,14 @@
 import React from "react";
 import { View, Text } from "react-native";
-import LottieView from "lottie-react-native";
-
-import sucess from "../../../Assets/animationSucess.json";
-import teste from "../../../Assets/teste.json";
 
 // import Container from "../../../Components/Container";
 // import Botao from "../../../Components/Botao2";
 
 import { Container, ContainerTextos, ContainerImgSucesso, ContainerBotao, ImgSucesso, Botao, TextoBotao } from "./styles";
 
-const Sucesso = ({ navigation }) => {
+const Sucesso = ({ navigation, route }) => {
 
-  const navegarLogin = () => {
+  const navegarHome = () => {
     navigation.navigate("Login");
   }
 
@@ -31,7 +27,7 @@ const Sucesso = ({ navigation }) => {
       </ContainerTextos>
       <ContainerBotao>
         <Botao>
-          <TextoBotao> Iniciar </TextoBotao>
+          <TextoBotao onPress={navegarHome}> Iniciar </TextoBotao>
         </Botao>
       </ContainerBotao>
     </Container>

@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 
 class ProfissionalDaSaude extends Model {
   static init(sequelize) {
@@ -10,7 +10,8 @@ class ProfissionalDaSaude extends Model {
         login: DataTypes.STRING,
         senha: DataTypes.STRING,
         foto: DataTypes.STRING,
-        avaliacao: DataTypes.STRING,
+        email: DataTypes.STRING,
+        dataNascimento: DataTypes.DATEONLY,
       },
       {
         sequelize,
@@ -23,11 +24,18 @@ class ProfissionalDaSaude extends Model {
     this.belongsTo(models.EnderecoProfissionalDaSaude, {
       foreignKey: "EnderecoProfissionalDaSaudeId",
     });
-    this.hasMany(models.TelefoneProfissional);
-    
-    // this.belongsToMany(models.Servico, {
-    //   through: "tblProfissionalServico",
-    // });
+    this.hasMany(models.TelefoneProfissional, {
+      foreignKey: "ProfissionalDaSaudeId",
+    });
+    this.hasMany(models.Consulta, {
+      foreignKey: "ProfissionalDaSaudeId",
+    });
+    this.hasMany(models.Avaliacao, {
+      foreignKey: "ProfissionalDaSaudeId",
+    });
+    this.belongsTo(models.Filial);
+
+    this.belongsTo(models.Servico);
   }
 }
 

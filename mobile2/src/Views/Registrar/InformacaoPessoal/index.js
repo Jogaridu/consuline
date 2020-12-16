@@ -9,7 +9,8 @@ import {
   Animated,
   Image,
   Keyboard,
-  YellowBox
+  YellowBox,
+  Alert,
 } from "react-native";
 import { TextInputMask as Input } from "react-native-masked-text";
 
@@ -43,7 +44,9 @@ const InformacaoPessoal = ({ navigation, route }) => {
     email: "",
   });
 
-  YellowBox.ignoreWarnings(['Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`']);
+  YellowBox.ignoreWarnings([
+    "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
+  ]);
 
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
   const [opacity] = useState(new Animated.Value(0));
@@ -121,51 +124,63 @@ const InformacaoPessoal = ({ navigation, route }) => {
     var mes = arrayData[1];
     var dia = arrayData[0];
 
-    const dataNova = ano + "-" + mes + "-" + dia;
+    if (ano > 2020 || mes > 12 || dia > 32) {
+      Alert.alert("Data de nascimento inválida");
+      return false;
+    } else {
+      const dataNova = ano + "-" + mes + "-" + dia;
+      
+      var rg = novoPaciente.rg;
+      var cpf = novoPaciente.cpf;
 
-    var rg = novoPaciente.rg;
-    var cpf = novoPaciente.cpf;
+      const rgParse = rg.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
+      const cpfParse = cpf.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
 
-    const rgParse = rg.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
-    const cpfParse = cpf.replace(/([\u0300-\u036f]|[^0-9a-zA-Z])/g, "");
-
-    novoPaciente = {
-      ...novoPaciente,
-      dataNascimento: dataNova,
-      rg: rgParse,
-      cpf: cpfParse,
-    };
+      novoPaciente = {
+        ...novoPaciente,
+        dataNascimento: dataNova,
+        rg: rgParse,
+        cpf: cpfParse,
+      };
+      return true;
+    }
   };
 
   const navegarLocalizacao = () => {
-    tratamentoDados();
+    if (tratamentoDados() == true) {
+      const arrayInputsVazias = validarCamposVazios(novoPaciente);
 
-    const arrayInputsVazias = validarCamposVazios(novoPaciente);
+      if (arrayInputsVazias.length) {
+        Alert.alert("Existem campos vazios");
 
-    if (arrayInputsVazias.length) {
-      console.warn("Existem campos vazios");
+        const inputErroStyle = { style: { borderColor: "red" } };
 
-      const inputErroStyle = { style: { borderColor: "red" } };
+        arrayInputsVazias.find((campo) => campo === "dataNascimento")
+          ? inputData.current
+              .getElement()
+              .setNativeProps({ style: { borderColor: "red" } })
+          : "";
 
-      arrayInputsVazias.find((campo) => campo === "dataNascimento")
-        ? inputData.current
-            .getElement()
-            .setNativeProps({ style: { borderColor: "red" } })
-        : "";
+        arrayInputsVazias.find((campo) => campo === "rg")
+          ? inputRg.current.getElement().setNativeProps(inputErroStyle)
+          : "";
 
-      arrayInputsVazias.find((campo) => campo === "rg")
-        ? inputRg.current.getElement().setNativeProps(inputErroStyle)
-        : "";
+        arrayInputsVazias.find((campo) => campo === "cpf")
+          ? inputCpf.current.getElement().setNativeProps(inputErroStyle)
+          : "";
 
-      arrayInputsVazias.find((campo) => campo === "cpf")
-        ? inputCpf.current.getElement().setNativeProps(inputErroStyle)
-        : "";
-
-      arrayInputsVazias.find((campo) => campo === "email")
-        ? inputEmail.current.setNativeProps(inputErroStyle)
-        : "";
-    } else {
-      navigation.navigate("RegistrarLocalizacao", novoPaciente);
+        arrayInputsVazias.find((campo) => campo === "email")
+          ? inputEmail.current.setNativeProps(inputErroStyle)
+          : "";
+      } else if (novoPaciente.dataNascimento.length !== 10) {
+        Alert.alert("Data de nascimento inválida");
+      } else if (novoPaciente.rg.length !== 9) {
+        Alert.alert("RG inválido");
+      } else if (novoPaciente.cpf.length !== 11) {
+        Alert.alert("CPF inválido");
+      } else {
+        navigation.navigate("RegistrarLocalizacao", novoPaciente);
+      }
     }
   };
 
@@ -200,18 +215,16 @@ const InformacaoPessoal = ({ navigation, route }) => {
               <TextInput
                 style={[styles.input]}
                 value={novoPaciente.nome}
-                id="nome"
                 onChangeText={maskNome}
-                placeholder="Nome Completo"
+                placeholder="Nome e Sobrenome"
                 placeholderTextColor="#403e66"
                 ref={inputNome}
                 onBlur={() => validarInputCorreta(novoPaciente.nome, inputNome)}
               />
-              
+
               <TextInput
                 style={styles.input}
                 value={novoPaciente.email}
-                id="email"
                 onChangeText={(e) =>
                   setNovoPaciente({ ...novoPaciente, email: e })
                 }
@@ -230,7 +243,6 @@ const InformacaoPessoal = ({ navigation, route }) => {
                   format: "99-99-9999",
                 }}
                 value={novoPaciente.dataNascimento}
-                id="dataNasc"
                 onChangeText={(e) =>
                   setNovoPaciente({ ...novoPaciente, dataNascimento: e })
                 }
@@ -251,7 +263,6 @@ const InformacaoPessoal = ({ navigation, route }) => {
                   mask: "99.999.999-9",
                 }}
                 value={novoPaciente.rg}
-                id="rg"
                 keyboardType="numeric"
                 onChangeText={(e) =>
                   setNovoPaciente({ ...novoPaciente, rg: e })
@@ -265,7 +276,6 @@ const InformacaoPessoal = ({ navigation, route }) => {
                 style={styles.cpf}
                 type={"cpf"}
                 value={novoPaciente.cpf}
-                id="cpf"
                 onChangeText={(e) =>
                   setNovoPaciente({ ...novoPaciente, cpf: e })
                 }

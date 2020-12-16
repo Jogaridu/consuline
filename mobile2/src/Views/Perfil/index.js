@@ -1,6 +1,19 @@
-import React, { useState } from "react";
-import { View, Text, Image, ScrollView } from "react-native";
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  AsyncStorage,
+  StatusBar,
+  ActivityIndicator,
+  Button,
+  StyleSheet
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import IconOc from "react-native-vector-icons/Octicons";
+import { EventRegister } from "react-native-event-listeners";
+import { LinearGradient } from "expo-linear-gradient";
 
 import {
   ContainerColor,
@@ -14,113 +27,256 @@ import {
   TituloInformacoes,
   TextoInformacoes,
   TituloPerfil,
+  BtnLogout,
+  ContainerBtnLogout,
+  ContainerBotaoEditar,
 } from "./styles";
 
 import Container from "../../Components/Container";
+import { RectButton } from "react-native-gesture-handler";
 
 import colors from "../../Styles/colors";
 
-const Perfil = () => {
+import { signOut } from "../../Services/security";
 
-  return (
-    <Container>
-      <ContainerColor />
-      <ContainerPerfil>
-        <FotoPerfil />
+const Perfil = ({ navigation }) => {
+  const [dadosPaciente, setDadosPaciente] = useState();
+  const [loading, setLoading] = useState(true);
+  const [dataNascimento, setDataNascimento] = useState();
 
-        <BtnEditar>{/* <Ionicons size={32} color={"black"} /> */}</BtnEditar>
-        
-          <Text
+  useEffect(() => {
+    const pegarDados = async () => {
+      const paciente = JSON.parse(
+        await AsyncStorage.getItem("@Consuline:paciente")
+      );
+
+      var dataNasc = paciente.dataNascimento;
+      var dataNascBR = dataNasc.split("-");
+      var dataNova = dataNascBR[2] + "/" + dataNascBR[1] + "/" + dataNascBR[0];
+
+      setDadosPaciente(paciente);
+      setDataNascimento(dataNova);
+      setLoading(false);
+    };
+
+    //registrar no evento realoadUsuario
+    listener = EventRegister.addEventListener("reloadPerfil", async (dados) => {
+      await AsyncStorage.setItem("@Consuline:paciente", JSON.stringify(dados));
+
+      setDadosPaciente(dados);
+    });
+    pegarDados();
+
+    //remover o registro do listener
+    return () => {
+      EventRegister.removeEventListener();
+    };
+  }, []);
+
+  const navegarConsultaEditar = () => {
+    navigation.navigate("PerfilEditar");
+  };
+
+  if (loading) {
+    return (
+      <Container style={{ backgroundColor: colors.fundo }}>
+        <ActivityIndicator size={40} color={colors.principal} />
+      </Container>
+    );
+  } else {
+    return (
+      <Container style={{ backgroundColor: "#706DB3" }}>
+        <ContainerColor>
+          <LinearGradient
+            // Background Linear Gradient
+            colors={["#706DB3", "#403e66"]}
             style={{
-              color: colors.corTitulo,
-              fontSize: 32,
-              fontWeight: "bold",
-              textAlign: "center",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 0,
+              height: "100%",
             }}
-          >
-            {" "}
-            Nicolas Santos{" "}
-          </Text>
-          <Text
-            style={{
-              color: colors.corTituloSecundario,
-              fontSize: 20,
-              fontWeight: "800",
-              textAlign: "center",
-            }}
-          >
-            {" "}
-            Jandira, SP{" "}
-          </Text>
+          />
+        </ContainerColor>
+
+        <ContainerPerfil>
+          <FotoPerfil
+            source={
+              dadosPaciente.foto === null
+                ? require("../../Assets/semFoto.png")
+                : { uri: dadosPaciente.foto }
+            }
+          />
           <ScrollView>
-          <ContainerConteudoInformacoes>
-            <TituloPerfil>Informações</TituloPerfil>
+            <Text
+              style={{
+                color: colors.corTitulo,
+                fontSize: 30,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              {dadosPaciente.nome}{" "}
+            </Text>
+            <Text
+              style={{
+                color: colors.corTituloSecundario,
+                fontSize: 20,
+                fontWeight: "800",
+                textAlign: "center",
+              }}
+            >
+              {dadosPaciente.EnderecoPaciente.cidade +
+                ", " +
+                dadosPaciente.EnderecoPaciente.estado}
+            </Text>
 
-            <ContainerInformacoes
-            >
-              <ContainerImageInformacoes>
-                <Image
-                  source={require("../../Assets/sobre.png")}
-                  style={{ width: 42, height: 42, marginTop: 10 }}
-                />
-              </ContainerImageInformacoes>
-              <ContainerTextosInformacoes>
-                <TituloInformacoes> Sobre: </TituloInformacoes>
-                <TextoInformacoes> Nome: Nicolas Santos </TextoInformacoes>
-                <TextoInformacoes>
-                  {" "}
-                  Data de nascimento: 15/12/2001{" "}
-                </TextoInformacoes>
-                <TextoInformacoes> RG: 00000.00000 </TextoInformacoes>
-                <TextoInformacoes> CPF: 000.000.000-00 </TextoInformacoes>
-                <TextoInformacoes> Consultas Realizadas: 10 </TextoInformacoes>
-              </ContainerTextosInformacoes>
-            </ContainerInformacoes>
-            <ContainerInformacoes
-              style={{ height: 210}}
-            >
-              <ContainerImageInformacoes>
-                <Image
-                  source={require("../../Assets/iconeMaps.png")}
-                  style={{ width: 42, height: 42, marginTop: 10 }}
-                />
-              </ContainerImageInformacoes>
-              <ContainerTextosInformacoes>
-                <TituloInformacoes> Localização: </TituloInformacoes>
-                <TextoInformacoes> CEP: 00000-000 </TextoInformacoes>
-                <TextoInformacoes>
-                  {" "}
-                  Bairro: Mirante de Jandira{" "}
-                </TextoInformacoes>
-                <TextoInformacoes>
-                  {" "}
-                  Rua: Jardim das Oliveiras Da Costa{" "}
-                </TextoInformacoes>
-                <TextoInformacoes> N° 203 </TextoInformacoes>
-                <TextoInformacoes> Estado: SP </TextoInformacoes>
-                <TextoInformacoes> Cidade: Jandira </TextoInformacoes>
-              </ContainerTextosInformacoes>
-            </ContainerInformacoes>
-            <ContainerInformacoes
-              style={{ height: 120 }}
-            >
-              <ContainerImageInformacoes>
-                <Image
-                  source={require("../../Assets/iconeContato.png")}
-                  style={{ width: 42, height: 42, marginTop: 10 }}
-                />
-              </ContainerImageInformacoes>
-              <ContainerTextosInformacoes>
-                <TituloInformacoes> Contato: </TituloInformacoes>
-                <TextoInformacoes> Celular: (11) 91029-1923 </TextoInformacoes>
-                <TextoInformacoes> Email: teste@gmail.com </TextoInformacoes>
-              </ContainerTextosInformacoes>
-            </ContainerInformacoes>
-          </ContainerConteudoInformacoes>
-        </ScrollView>
-      </ContainerPerfil>
-    </Container>
-  );
+            <ContainerBotaoEditar>
+              <RectButton style={styles.botao} onPress={navegarConsultaEditar}>
+                <Icon name="account-edit" size={32} color={colors.container} />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    color: colors.container,
+                  }}
+                >
+                {" "}Editar Perfil
+                </Text>
+              </RectButton>
+            </ContainerBotaoEditar>
+
+            <ContainerConteudoInformacoes>
+              <TituloPerfil>Informações</TituloPerfil>
+
+              <ContainerInformacoes>
+                <ContainerImageInformacoes>
+                  <Image
+                    source={require("../../Assets/sobre.png")}
+                    style={{ width: 42, height: 42, marginTop: 10 }}
+                  />
+                </ContainerImageInformacoes>
+                <ContainerTextosInformacoes>
+                  <TituloInformacoes> Sobre: </TituloInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Nome: {dadosPaciente.nome}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Data de nascimento: {dataNascimento}
+                  </TextoInformacoes>
+                  <TextoInformacoes> RG: {dadosPaciente.rg} </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    CPF: {dadosPaciente.cpf}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Consultas Realizadas: 10{" "}
+                  </TextoInformacoes>
+                </ContainerTextosInformacoes>
+              </ContainerInformacoes>
+              <ContainerInformacoes style={{ height: 230 }}>
+                <ContainerImageInformacoes>
+                  <Image
+                    source={require("../../Assets/iconeMaps.png")}
+                    style={{ width: 42, height: 42, marginTop: 10 }}
+                  />
+                </ContainerImageInformacoes>
+                <ContainerTextosInformacoes>
+                  <TituloInformacoes> Localização: </TituloInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    CEP: {dadosPaciente.EnderecoPaciente.cep}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Bairro: {dadosPaciente.EnderecoPaciente.bairro}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Rua: {dadosPaciente.EnderecoPaciente.rua}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    N°: {dadosPaciente.EnderecoPaciente.numero}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Complemento: {
+                      dadosPaciente.EnderecoPaciente.complemento
+                    }{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Estado: {dadosPaciente.EnderecoPaciente.estado}{" "}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Cidade: {dadosPaciente.EnderecoPaciente.cidade}{" "}
+                  </TextoInformacoes>
+                </ContainerTextosInformacoes>
+              </ContainerInformacoes>
+              <ContainerInformacoes style={{ height: 120 }}>
+                <ContainerImageInformacoes>
+                  <Image
+                    source={require("../../Assets/iconeContato.png")}
+                    style={{ width: 42, height: 42, marginTop: 10 }}
+                  />
+                </ContainerImageInformacoes>
+                <ContainerTextosInformacoes>
+                  <TituloInformacoes> Contato: </TituloInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Celular: {dadosPaciente.celular}
+                  </TextoInformacoes>
+                  <TextoInformacoes>
+                    {" "}
+                    Email: {dadosPaciente.email}{" "}
+                  </TextoInformacoes>
+                </ContainerTextosInformacoes>
+              </ContainerInformacoes>
+              <ContainerBtnLogout>
+                <BtnLogout
+                  onPress={() => {
+                    // signOut();
+                    navigation.replace("Login");
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: "red",
+                      marginRight: 10,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Sair
+                  </Text>
+                  <IconOc name="sign-out" color="red" size={30} />
+                </BtnLogout>
+              </ContainerBtnLogout>
+            </ContainerConteudoInformacoes>
+          </ScrollView>
+        </ContainerPerfil>
+      </Container>
+    );
+  }
 };
+
+const styles = StyleSheet.create({
+  botao: {
+    width: 152,
+    height: 45,
+    borderRadius: 30,
+    backgroundColor: colors.principal,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  }
+})
 
 export default Perfil;

@@ -30,6 +30,7 @@ module.exports = {
       },
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       estadoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -51,6 +52,8 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
 =======
+=======
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
       estado: {
         type: Sequelize.STRING,
         allownull: false,
@@ -59,7 +62,10 @@ module.exports = {
       cidade: {
         type: Sequelize.STRING,
         allownull: false,
+<<<<<<< HEAD
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
       },
 
       createdAt: {

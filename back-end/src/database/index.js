@@ -13,10 +13,14 @@ const Cobertura = require("../models/Cobertura");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 <<<<<<< HEAD
+<<<<<<< HEAD
 const TelefoneProfissional = require("../models/TelefoneProfissional");
 =======
 const TelefoneProfissionalDaSaude = require("../models/TelefoneProfissional");
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+const TelefoneProfissionalDaSaude = require("../models/TelefoneProfissional");
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
 
 // Filial
 const Filial = require("../models/Filial");
@@ -30,8 +34,23 @@ const Servico = require("../models/Servico");
 const Central = require("../models/Central");
 const TelefoneCentral = require("../models/TelefoneCentral");
 
-const conexao = new Sequelize(dbConfig);
+// Atendimento
+const Atendimento = require("../models/Atendimento");
 
+//Consulta
+const Consulta = require("../models/Consulta");
+
+//Avaliação
+const Avaliacao = require("../models/Avaliacao");
+
+//Pagamento
+const Pagamento = require("../models/Pagamento");
+
+//Notificação
+const Notificacao = require("../models/Notificacao");
+
+const conexao = new Sequelize(dbConfig.url, dbConfig.config);
+ 
 // ----- INICIALIZAÇÃO -----
 
 //Paciente
@@ -44,10 +63,14 @@ Cobertura.init(conexao);
 ProfissionalDaSaude.init(conexao);
 EnderecoProfissionalDaSaude.init(conexao);
 <<<<<<< HEAD
+<<<<<<< HEAD
 TelefoneProfissional.init(conexao);
 =======
 TelefoneProfissionalDaSaude.init(conexao);
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+TelefoneProfissionalDaSaude.init(conexao);
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
 // Filial
 Filial.init(conexao);
 EnderecoFilial.init(conexao);
@@ -59,6 +82,21 @@ Servico.init(conexao);
 // Central
 Central.init(conexao);
 TelefoneCentral.init(conexao);
+
+//Atendimento
+Atendimento.init(conexao);
+
+//Consulta
+Consulta.init(conexao);
+
+//Avaliação
+Avaliacao.init(conexao);
+
+//Pagamento
+Pagamento.init(conexao);
+
+// Notificação
+Notificacao.init(conexao);
 
 // ----- ASSOCIAÇÕES -----
 
@@ -83,3 +121,18 @@ Servico.associate(conexao.models);
 // Central
 Central.associate(conexao.models);
 TelefoneCentral.associate(conexao.models);
+
+//Atendimento
+Atendimento.associate(conexao.models);
+
+//Consulta
+Consulta.associate(conexao.models);
+
+//Avaliação
+Avaliacao.associate(conexao.models);
+
+//Pagamento
+Pagamento.associate(conexao.models);
+
+// Notificação
+Notificacao.associate(conexao.models);

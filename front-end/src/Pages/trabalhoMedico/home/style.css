@@ -1,0 +1,366 @@
+h5{
+  font-weight: bold;
+}
+
+p{
+  margin-bottom: 3em;
+  /* font-style: italic; */
+}
+h1{
+  /* font-style: italic; */
+}
+#medicoteste1{
+  width: 60px;
+  height: 60px;
+}
+
+.container-consulta-home{
+  width: 70vw;
+  height: 97%;
+  display: grid;
+  /* background-color: red; */
+  row-gap: 20px; 
+  column-gap: 20px;
+  grid-template-rows: 200px 85px 140px 150px;
+  grid-template-columns: 35% 35% 26%;
+  grid-template-areas:  
+  "bem-vindo bem-vindo  informacoes-consultas"
+  "consultas-hoje consultas-hoje informacoes-consultas"
+  "consultas-hoje consultas-hoje apresentacao-avaliacao" 
+  "consultas-hoje consultas-hoje apresentacao-avaliacao";
+}
+                          /* *************** CARDS DO CONTAINER *************** */
+#bem-vindo {
+  grid-area: bem-vindo;
+  background-color: var(--principal);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  grid-template-areas: "img-supermedico subtext-bemvindo";  
+}
+#consultas-hoje{
+  grid-area: consultas-hoje;
+  background-color: var(--container);
+  border-radius: 20px;
+  gap: 10px;
+  grid-template-rows: 70px 300px 30px;
+  display: grid;
+  grid-template-areas: 
+  "titulo-card-consultashoje titulo-card-consultashoje titulo-card-consultashoje"
+  "card-previa-consulta card-previa-consulta card-previa-consulta"
+  "mais-consulta mais-consulta mais-consulta"
+  ;
+  
+}
+#informacoes-consultas{
+  grid-area: informacoes-consultas;
+  background-color: var(--container);
+  border-radius: 20px;
+  display: grid;
+  grid-template-rows: 59% 40%;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: 
+  "previa-perfil-medico previa-perfil-medico"
+  "informacoes-agendamento-medico informacoes-totalconsulta-medico";
+}
+#apresentacao-avaliacao{
+  grid-area: apresentacao-avaliacao; 
+  background-color: var(--container);
+  border-radius: 20px;
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 15% 68% 10%;
+  grid-template-areas: 
+  "titulo-card-avaliacoes"
+  "mini-card-avaliacao"
+  "vermais-card-avaliacoes";
+}
+                          /* *************** Elementos do card Bem-vindo *************** */
+.img-supermedico{
+  grid-area: img-supermedico;
+  /* background-color: red; */
+}
+.subtext-bemvindo{
+  grid-area: subtext-bemvindo;
+  color: white;
+} 
+ #supermedico{
+  width: 250px;
+  height: 225px;
+  margin-left: 15px;
+  margin-top: -25px;
+} 
+                          /* *************** Elementos do card Consultas Hoje *************** */
+.titulo-card-consultashoje{
+  grid-area: titulo-card-consultashoje;
+  color: rgba(0, 0, 0, 0.8);
+  margin-left: 10px;
+  margin-top: 10px;
+  /* background-color: red;  */
+}
+
+.card-previa-consulta{
+  grid-area: card-previa-consulta;
+  /* background-color: blue;  */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.mais-consulta{
+  grid-area: mais-consulta;
+  /* background-color: fuchsia; */
+  width: 180px;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--principal);
+  margin-top: -15px;
+  cursor: pointer;
+}
+
+.card-previa{
+  width: 230px;
+  height: 250px;
+  margin-left: 15px;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* align-items: center; */
+  /* border: 1px solid black; */
+}
+.foto-previa-card{
+  width: 100px;
+  height: 100px;
+  /* background-color: black; */
+  margin-bottom: 10px;
+}
+.nome-previa-card{
+  min-width: 100px;
+  width: auto;
+  height: 35px;
+  /* background-color: azure; */
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 20px;
+  color: var(--principal);
+}
+.data-previa-card{
+  min-width: 100px;
+  width: auto;
+  height: 30px;
+  /* background-color:cyan; */
+  font-size: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  color: #797974;
+}
+.vermais-previa-card{
+  width: 200px;
+  height: 50px;
+  border-radius: 20px;
+  border: 1px solid  #312f66;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #312f66; */
+}
+
+.txtvermais-previa-card{
+  width: 100px;
+  height: 30px;
+  /* color: var(--principal); */
+   /* background-color: red; */
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 8px;
+}
+@-webkit-keyframes vermais-previa-card {
+  50% {
+    background-color: rgba(32, 152, 209, 0.75);
+  }
+}
+@keyframes vermais-previa-card {
+  50% {
+    background-color: rgba(32, 152, 209, 0.75);
+  }
+}
+.vermais-previa-card {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+  cursor: pointer;
+  color: var(--principal);
+}
+.vermais-previa-card:hover, .vermais-previa-card:focus, .vermais-previa-card:active {
+  -webkit-animation-name: hvr-back-pulse;
+  animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  background-color: var(--principal);
+  background-color: var(--principal);
+  color: white;
+}
+                          /* *************** Elementos do card Informações Consultas *************** */
+.previa-perfil-medico{
+  grid-area: previa-perfil-medico;
+  width: 92%;
+   /* background-color: red;  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid  #d4d3cf;
+}
+.img-perfil-medico-previa{
+  width: 150px;
+  height: 60%;
+  /* background-color: black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nome-perfil-medico-previa{
+  min-width: 150px;
+  width: auto;
+  height: 15%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+.cidade-perfil-medico-previa{
+  width: 150px;
+  height: 15%;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #737373;
+}
+
+.informacoes-agendamento-medico{
+  grid-area: informacoes-agendamento-medico;
+  border-right: 1px solid  #d4d3cf;
+  height: 90%;
+  margin-top: 5px;
+  /* background-color: yellow; */
+  /* width: 120px; */
+
+}
+.informacoes-totalconsulta-medico{
+  grid-area: informacoes-totalconsulta-medico;
+  height: 90%;
+  margin-top: 7px;
+  /* background-color: blue; */
+  /* width: 120px; */
+}
+
+.txtprevia-perfil-medico{
+  width: 100%;
+  height: 30%;
+   /* background-color: black;  */
+  font-size: 20px;
+  text-align: center;
+  margin-top: 5px;
+  color: #737373;
+}
+.txtcontagemprevia-perfil-medico{
+  width: 100%;
+  height: 60%;
+  text-align: center;
+  font-size: 50px;
+  color: var(--principal);
+  /* background-color: red; */
+}
+
+          /* *************** Elementos do card Apresentacao Avaliacao *************** */
+
+.titulo-card-avaliacoes{
+  grid-area: titulo-card-avaliacoes;
+  /* background-color: green; */
+  width: 100px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.mini-card-avaliacao{
+  grid-area: mini-card-avaliacao;
+  /* background-color: red; */
+}
+.vermais-card-avaliacoes{
+  grid-area: vermais-card-avaliacoes;
+  /* background-color: blue; */
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--principal);
+  cursor: pointer;
+}
+
+.card-ratingbar{
+  width: 100%;
+  height: 30%;
+  /* background-color: white; */
+  border-bottom: 1px solid #d4d3cf;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: 
+  "img-cliente-avaliador nome-cliente-avaliador"
+  "img-cliente-avaliador ratingbar-cliente-avaliador";
+  margin-bottom: 5px;
+}
+
+.img-cliente-avaliador{
+  grid-area: img-cliente-avaliador;
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -15px;
+}
+.nome-cliente-avaliador{
+  grid-area: nome-cliente-avaliador;
+  /* background-color: blue; */
+  color: #737373;
+  text-align: center;
+  font-size: 20px;
+}
+.ratingbar-cliente-avaliador{
+  grid-area: ratingbar-cliente-avaliador;
+  margin-left: 8px;
+  /* background-color: fuchsia; */
+}
+
+.caixa-ajuste-medico{
+  width: 60px;
+  height: 60px;
+  /* background-color: black; */
+}
+

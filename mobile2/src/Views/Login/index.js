@@ -9,10 +9,12 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert,
+  AsyncStorage,
 } from "react-native";
 
 import { Botao1 } from "../../Components/Botao1";
-import Botao2 from "../../Components/Botao2";
+import Botao3 from "../../Components/Botao3";
 import { Input } from "./styles";
 import Container from "../../Components/Container";
 import Titulo from "../../Components/TituloCadastro";
@@ -24,12 +26,17 @@ import {
 } from "./styles";
 
 import api from "../../Services/api";
+import { signin } from "../../Services/security";
 
 const Login = ({ navigation }) => {
   YellowBox.ignoreWarnings([
     "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
   ]);
 
+  const [pacienteLogin, setPacienteLogin] = useState({
+    login: "",
+    senha: "",
+  });
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
   const [opacity] = useState(new Animated.Value(0));
   const [img] = useState(new Animated.ValueXY({ x: 240, y: 240 }));
@@ -84,11 +91,6 @@ const Login = ({ navigation }) => {
     ]).start();
   }
 
-  const [pacienteLogin, setPacienteLogin] = useState({
-    login: "",
-    senha: "",
-  });
-
   const navegarTelaInicial = () => {
     navigation.navigate("TelaInicial");
   };
@@ -100,27 +102,37 @@ const Login = ({ navigation }) => {
 
   const autenticarPaciente = async () => {
     try {
-      const retorno = await api.post("/paciente/sessao", pacienteLogin);
-
-      if (retorno) {
-        console.warn("Autenticado");
-      }
+      const resApi = await api.post("/paciente/sessao", pacienteLogin);
+      const dadosResposta = resApi.data;
+      
+      await signin(dadosResposta);
+      
+      return navigation.navigate("Home");
     } catch (error) {
-      console.warn("Usuário ou senha estão errados...");
+      if (error.response) {
+        if (error.response.status === 401) {
+          Alert.alert(
+            "Você precisa inserir o código de verificação para logar!!!"
+          );
+          return navigation.navigate("RegistrarCodigo", dadosResposta.paciente.pacienteId);
+        } else {
+          Alert.alert("Usuário ou Senha incorreto!!!");
+        }
+      }
     }
   };
 
   return (
     <Container>
       <ContainerImgCadastro>
-          <Animated.Image
+        <Animated.Image
           source={require("../../Assets/logo.png")}
           style={{
             width: img.x,
             height: 0,
             paddingBottom: img.y,
             marginLeft: "auto",
-            marginRight: "auto"
+            marginRight: "auto",
           }}
         />
       </ContainerImgCadastro>
@@ -153,7 +165,7 @@ const Login = ({ navigation }) => {
               onChangeText={handlerInputSenha}
             />
 
-            <Botao2 bottom={16} title="Entrar" funcExec={autenticarPaciente} />
+            <Botao3 title="Entrar" funcExec={() => autenticarPaciente()} />
             <Botao1 title="Não tenho cadastro" funcExec={navegarTelaInicial} />
           </ScrollView>
         </KeyboardAvoidingView>

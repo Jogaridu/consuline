@@ -2,14 +2,14 @@ import styled from "styled-components/native";
 import colors from "../../Styles/colors";
 
 export const ContainerColor = styled.View`
-  flex: 1;
+  flex: 1.1;
   width: 100%;
   background: ${colors.principal};
   padding-bottom: 20px;
 `;
 
 export const ContainerPerfil = styled.View`
-  flex: 3;
+  flex: 3.5;
   width: 100%;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
@@ -17,22 +17,30 @@ export const ContainerPerfil = styled.View`
   margin-top: -40px;
 `;
 
-export const FotoPerfil = styled.View`
+export const FotoPerfil = styled.Image`
   margin: 0 auto;
-  width: 150px;
-  height: 150px;
+  width: 135px;
+  height: 135px;
   background: ${colors.container};
   border-radius: 100px;
-  margin-top: -100px;
+  margin-top: -80px;
+`;
+
+export const ContainerBotaoEditar = styled.View`
+  width: 100%;
+  height: auto;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 export const BtnEditar = styled.TouchableOpacity`
-  width: 55px;
-  height: 35px;
-  background: ${colors.container};
-  left: 75%;
-  margin-top: -30px;
-  border-radius: 10px;
+  width: 152px;
+  height: 45px;
+  border-radius: 30px;
+  background-color: ${colors.principal};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerConteudoInformacoes = styled.View`
@@ -59,7 +67,6 @@ export const TituloPerfil = styled.Text`
   font-size: 22px;
   font-weight: bold;
   text-align: center;
-  margin-top: 8px;
   margin-bottom: 18px;
   border-bottom-end-radius: 1px;
   border-bottom-width: 2px;
@@ -117,11 +124,10 @@ export const ContainerEditar = styled.View`
 `;
 
 export const FecharEditar = styled.TouchableOpacity`
-  width: 30px;
-  height: 30px;
-  background: red;
+  width: 40px;
+  height: 40px;
   align-self: flex-end;
-  margin-top: 10px;
+  margin-bottom: 5px;
   margin-right: 20px;
   border-radius: 100px;
 `;
@@ -144,3 +150,21 @@ export const Input = styled.TextInput`
   margin-bottom: 15px;
 `;
 
+export const ContainerBtnLogout = styled.View`
+  width: 88%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: flex-start;
+  margin-bottom: 20px;
+`;
+
+export const BtnLogout = styled.TouchableOpacity`
+  width: 120px;
+  height: 50px;
+  background-color: ${colors.container};
+  border-radius: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;

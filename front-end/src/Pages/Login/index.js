@@ -1,93 +1,112 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import Lottie from "react-lottie";
 
 import "./styles.css";
 
 import "../../Styles/globalStyle.css";
 
-
 import logoprojeto2 from "../../Assets/logoprojeto2.png";
 import api from "../../Services/api";
 import { signin } from "../../Services/security";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import validarInputScheme from "./ValidacaoInputSchema";
+import BotaoPrincipal from "../../Components/BotaoPrincipal";
+import BotaoSecundario from "../../Components/BotaoSecundario";
+import animationLogin from "../../Assets/animationLogin.json";
 
-const Login = (props) => {
+const Login = () => {
 
   const history = useHistory();
 
-  const [adminLogin, setAdminLogin] = useState({
-    login: "",
-    senha: ""
-  });
-
-
-  const entrar = async (e) => {
-    e.preventDefault();
-
-    return history.push("/home");
+  const entrar = async (values) => {
 
     try {
-      const response = await api.post("/login", adminLogin);
+      const response = await api.post("/login", values);
 
-      if (response.status === 201){
+      if (response.status === 200) {
         signin(response.data);
-        
-        return history.push("/home");
-      }
-    } catch (error) {
-      if (error.response) {
-      return window.alert(error.response.data.error);
+        if (response.data.login === "admin") {
+          return history.push("/home-central");
+
+        } else {
+          return history.push("/consultas/home");
+
+        }
+
       }
 
-      window.alert("Algo deu errado, tente novamente.");
+    } catch (error) {
+
+      if (error.response) {
+        return console.log(error);
+      }
+
+      alert("Algo deu errado, tente novamente.");
+
     }
-    
+
   };
 
-  const handlerInput = (e) => {
-    setAdminLogin({...adminLogin, [e.target.id]: e.target.value});
-
-    console.log(adminLogin);
-  }
-  
-
-
-
-
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationLogin,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   return (
     <>
-      <body>
-        <div className="container">
-          <div className="container-principal">
-            <div className="container-imagem">
-              <img id="imgLogoLogin" src={logoprojeto2} alt="logo projeto" />
+      <div className="container-principal-login">
+        <div id="container-login-central">
+          <div id="container-conteudo-login-central">
+            <div id="logo-login-central">
+              <img src={logoprojeto2} alt="logo projeto" />
+              <h1 id="titulo-login"> Login </h1>
             </div>
-            <div className="box">
+            <div className="form box">
+              <Formik
+                initialValues={{ login: "", senha: "" }}
+                onSubmit={entrar}
+                validationSchema={validarInputScheme}
+              >
+                <Form id="form-login">
+                  <div className="form-grupo-input input-login">
+                    <Field type="text" name="login" placeholder="Login" />
+                    <ErrorMessage
+                      className="mensagem-erro"
+                      component="span"
+                      name="login"
+                    />
+                  </div>
 
-              <form>
-                <div>
-                  <input type="text" value={adminLogin.login} id="login" onChange={handlerInput} name="" required=""></input>
-                  <label>Login</label>
-                </div>
+                  <div className="form-grupo-input input-login">
+                    <Field type="password" name="senha" placeholder="Senha" />
+                    <ErrorMessage
+                      className="mensagem-erro"
+                      component="span"
+                      name="senha"
+                    />
+                  </div>
 
-                <div>
-                  <input type="password" value={adminLogin.senha} id="senha" onChange={handlerInput} name="" required=""></input>
-                  <label>Senha</label>
-                </div>
-
-                <div className="conteiner-botoes">
-                <Link to="/"><button className="botao" type="button"> Voltar</button></Link>
-                  <button className="botao" type="button"> 
-                    Iniciar sessão
-                  </button>
-                </div>
-              </form>
-
+                  <div id="container-botoes-login">
+                    <Link to="/">
+                      <BotaoSecundario titulo="Voltar" />
+                    </Link>
+                    <BotaoPrincipal titulo="Iniciar sessão" tipo="submit" />
+                  </div>
+                </Form>
+              </Formik>
             </div>
           </div>
+
         </div>
-      </body>
+        <div id="container-imagem-login-central">
+          <Lottie options={defaultOptions} height={600} width={800} style={{ pointerEvents: "none" }} />
+        </div>
+      </div>
     </>
   );
 };

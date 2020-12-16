@@ -9,6 +9,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert
 } from "react-native";
 
 import { TextInputMask as Input } from "react-native-masked-text";
@@ -16,7 +17,7 @@ import { TextInputMask as Input } from "react-native-masked-text";
 import Container from "../../../Components/Container";
 import Titulo from "../../../Components/TituloCadastro";
 import TextInput from "../../../Components/Input";
-import Botao from "../../../Components/Botao2";
+import Botao from "../../../Components/Botao3";
 import Passos from "../../../Components/Passos";
 
 import { validarInputMaskCorreta } from "../../../Fixtures/validarInputCorreta";
@@ -112,23 +113,29 @@ const Telefone = ({ navigation, route }) => {
     novoPaciente = { ...novoPaciente, celular: celularParse };
 
     if (celular === "") {
-      console.warn("Existem campos vazios");
+      Alert.alert("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
       inputNumero.current.getElement().setNativeProps(inputErroStyle);
     } else {
+
       novoPaciente = { ...novoPaciente, celular: celularParse };
+
       try {
-        console.log({ ...novoPaciente });
-        const retorno = await api.post("/paciente", { ...novoPaciente });
+        const retorno = await api.post("/paciente", novoPaciente);
 
         if (retorno.status === 201) {
-          navigation.navigate("RegistrarCodigo", retorno.data.id);
+          console.log(retorno.data.token);
+          navigation.navigate("RegistrarCodigo", {
+            id: retorno.data.paciente.id,
+            token: retorno.data.token,
+          });
+
         }
       } catch (error) {
         if (error.response) {
-          return console.log(error);
+          return console.log(error.response.data);
         }
 
         console.log(error);
@@ -139,7 +146,7 @@ const Telefone = ({ navigation, route }) => {
   return (
     <Container>
       <ContainerImgTelefone>
-      <Animated.Image
+        <Animated.Image
           source={require("../../../Assets/vetorCelular.jpg")}
           style={{
             width: img.x,

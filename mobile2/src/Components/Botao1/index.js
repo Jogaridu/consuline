@@ -1,15 +1,23 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import { Botao, TextoBotao } from './styles';
+import { TextoBotao, Botao } from "./styles";
+
+// import { RectButton } from "react-native-gesture-handler";
+
+import colors from "../../Styles/colors";
+import { RectButton, TouchableOpacity } from "react-native-gesture-handler";
 
 const Botao1 = (props) => {
   return (
     <Botao
-      style={{ marginBottom: props.bottom || 0 }}
-      onPressIn={props.funcExec}>
-
-      <TextoBotao> {props.title} </TextoBotao>
+      style={{ width: props.width || 288, height: props.height || 55 }}
+      onPress={props.funcExec}
+    >
+      <TextoBotao style={{ fontSize: props.fontSize || 22 }}>
+        {" "}
+        {props.title}{" "}
+      </TextoBotao>
     </Botao>
   );
 };

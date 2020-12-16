@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, AsyncStorage } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 
 import Container from "../../../Components/Container";
 
@@ -21,26 +22,49 @@ import EditarInformacaoPessoal from "./editarInformacaoPessoal";
 import EditarLocalizacao from "./editarLocalizacao";
 import EditarLogin from "./editarLogin";
 
-const ConsultarOpcao = (props) => {
-  if (props.tela === "informacaoPessoal") {
-    return <EditarInformacaoPessoal telaEditar={props.edita} />;
-  } else if (props.tela === "localizacao") {
-    return <EditarLocalizacao telaEditar={props.edita} />;
-  } else if (props.tela === "login") {
-    return <EditarLogin telaEditar={props.edita} />;
-  }
-};
+const ConsultaEditar = ({ navigation }) => {
+  const [dados, setDados] = useState({
+    nome: "",
+    cidade: "",
+    estado: "",
+  });
 
-const ConsultaEditar = () => {
+  const pegarDados = async () => {
+    const paciente = JSON.parse(
+      await AsyncStorage.getItem("@Consuline:paciente")
+    );
+    setDados({
+      ...dados,
+      cidade: paciente.EnderecoPaciente.cidade,
+      estado: paciente.EnderecoPaciente.estado,
+      nome: paciente.nome,
+      foto: paciente.foto,
+    });
+  };
+
+  useEffect(() => {
+    pegarDados();
+  }, []);
   const [telasEditar, setTelasEditar] = useState("editar");
 
   return (
     <Container>
-      <ContainerColor />
+      <ContainerColor style={{ marginTop: -25 }} >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={['#706DB3', '#403e66']}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
+      </ContainerColor>
       <ContainerPerfil>
-        <FotoPerfil />
+        <FotoPerfil source={dados.foto === null ? require("../../../Assets/semFoto.png") : {uri: dados.foto}}/>
 
-        <BtnEditar>{/* <Ionicons size={32} color={"black"} /> */}</BtnEditar>
         <ScrollView>
           <Text
             style={{
@@ -50,8 +74,7 @@ const ConsultaEditar = () => {
               textAlign: "center",
             }}
           >
-            {" "}
-            Nicolas Santos{" "}
+            {dados.nome}
           </Text>
           <Text
             style={{
@@ -61,16 +84,14 @@ const ConsultaEditar = () => {
               textAlign: "center",
             }}
           >
-            {" "}
-            Jandira, SP{" "}
+            {dados.cidade + ", " + dados.estado}
           </Text>
 
-          {telasEditar === "editar" ? (
             <ContainerConteudoInformacoes>
               <TituloPerfil>Editar</TituloPerfil>
 
               <BotaoConsultaEditar
-                onPress={() => setTelasEditar("informacaoPessoal")}
+                onPress={() => navigation.navigate("EditarInformacaoPessoal")}
               >
                 <Image
                   source={require("../../../Assets/user.png")}
@@ -84,7 +105,7 @@ const ConsultaEditar = () => {
                 </TituloInformacoes>
               </BotaoConsultaEditar>
               <BotaoConsultaEditar
-                onPress={() => setTelasEditar("localizacao")}
+                onPress={() => navigation.navigate("EditarLocalizacao")}
               >
                 <Image
                   source={require("../../../Assets/localizacao.png")}
@@ -97,7 +118,7 @@ const ConsultaEditar = () => {
                   Localização{" "}
                 </TituloInformacoes>
               </BotaoConsultaEditar>
-              <BotaoConsultaEditar onPress={() => setTelasEditar("login")}>
+              <BotaoConsultaEditar onPress={() => navigation.navigate("EditarLogin")}>
                 <Image
                   source={require("../../../Assets/cadeado.jpg")}
                   style={{ width: 55, height: 62 }}
@@ -110,9 +131,6 @@ const ConsultaEditar = () => {
                 </TituloInformacoes>
               </BotaoConsultaEditar>
             </ContainerConteudoInformacoes>
-          ) : (
-            <ConsultarOpcao tela={telasEditar} edita={setTelasEditar} />
-          )}
         </ScrollView>
       </ContainerPerfil>
     </Container>

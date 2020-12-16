@@ -1,21 +1,15 @@
-import React from "react";
-import { View } from "react-native";
+import React from 'react';
 
-import { TextInput } from "./styles";
+import styled from "styled-components/native";
+import colors from "../../Styles/colors";
 
-const Input = (props) => {
-  return (
-    <TextInput
-      style={{
-        marginBottom: props.marginBottom || 15,
-        width: props.width || 288,
-        marginLeft: props.marginLeft || 0,
-      }}
-      placeholder={props.plch}
-      placeholderTextColor="#403e66"
-      onChangeText={props.handler}
-    />
-  );
-};
+export default Input = styled.TextInput`
+  width: 288px;
+  height: 45px;
+  border: 1px solid ${colors.principal};
+  padding: 10px;
+  border-radius: 5px;
+  background: ${colors.container};
+  margin: 0 auto;
+`;
 
-export default Input;

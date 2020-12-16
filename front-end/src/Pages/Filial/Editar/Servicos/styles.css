@@ -1,0 +1,53 @@
+.container-editar-servicos {
+    width: 100%;
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.editar-servicos {
+    height: 60vh;
+    width: 25vw;
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px rgb(218, 218, 218);
+}
+
+.editar-servicos h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.lista-servicos {
+    height: 86%;
+    width: 99%;
+    overflow: auto;
+    padding-top: 20px;
+}
+
+.lista-servicos li {
+    height: 70px;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.lista-servicos li span {
+    width: 150px;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-align: left;
+}
+
+.img-servico,
+.img-servico img{
+    height: 66px;
+    width: 66px;
+    border-radius: 50%;
+}

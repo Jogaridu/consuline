@@ -9,6 +9,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert,
 } from "react-native";
 
 import encontrarCep from "../../../Services/viaCep";
@@ -36,11 +37,14 @@ import Botao from "../../../Components/Botao2";
 import Passos from "../../../Components/Passos";
 
 import colors from "../../../Styles/colors";
+import api from "../../../Services/api";
 
 const Localizacao = ({ navigation, route }) => {
   const { height, width } = Dimensions.get("window");
 
-  YellowBox.ignoreWarnings(['Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`']);
+  YellowBox.ignoreWarnings([
+    "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
+  ]);
 
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 150 }));
   const [opacity] = useState(new Animated.Value(0));
@@ -140,14 +144,21 @@ const Localizacao = ({ navigation, route }) => {
     var cep2 = arrayCep[1];
     var cepNovo = cep1 + cep2;
 
-    setEndereco({ ...endereco, cep: cepNovo });
+    setEndereco({
+      ...endereco,
+      cep: cepNovo,
+      bairro: "",
+      cidade: "",
+      estado: "",
+      rua: "",
+    });
   };
 
   const navegarLoginSenha = () => {
     const arrayInputsVazias = validarCamposVazios(endereco, "complemento");
 
     if (arrayInputsVazias.length) {
-      console.warn("Existem campos vazios");
+      Alert.alert("Existem campos vazios");
 
       const inputErroStyle = { style: { borderColor: "red" } };
 
@@ -221,8 +232,14 @@ const Localizacao = ({ navigation, route }) => {
                 placeholderTextColor="#403e66"
                 onChangeText={handlerInput}
                 onBlur={async () => {
-                  preencherFormulario(await encontrarCep(endereco.cep));
-                  validarInputMaskCorreta(novoPaciente.cep, inputCep);
+                    const apiCep = await encontrarCep(endereco.cep);
+
+                    if( apiCep.erro === true ) {
+                      Alert.alert("Cep não encontrado. Digite novamente")
+                    } else {
+                      preencherFormulario(apiCep);
+                      validarInputMaskCorreta(novoPaciente.cep, inputCep);
+                    }
                 }}
                 ref={inputCep}
                 keyboardType="numeric"
@@ -249,6 +266,29 @@ const Localizacao = ({ navigation, route }) => {
                 editable={false}
                 selectTextOnFocus={false}
               />
+              <Input
+                style={{ marginLeft: 8, backgroundColor: colors.fundo }}
+                value={endereco.estado}
+                placeholder="Estado"
+                placeholderTextColor="#403e66"
+                ref={inputEstado}
+                editable={false}
+                selectTextOnFocus={false}
+              />
+              <Input
+                style={{
+                  width: 140,
+                  marginLeft: 8,
+                  backgroundColor: colors.fundo,
+                }}
+                value={endereco.cidade}
+                placeholder="Cidade"
+                placeholderTextColor="#403e66"
+                ref={inputCidade}
+                editable={false}
+                selectTextOnFocus={false}
+              />
+
               <TextInputMask
                 style={styles.numero}
                 value={endereco.numero}
@@ -276,28 +316,6 @@ const Localizacao = ({ navigation, route }) => {
                     inputComplemento
                   )
                 }
-              />
-              <Input
-                style={{
-                  width: 140,
-                  marginLeft: 8,
-                  backgroundColor: colors.fundo,
-                }}
-                value={endereco.cidade}
-                placeholder="Cidade"
-                placeholderTextColor="#403e66"
-                ref={inputCidade}
-                editable={false}
-                selectTextOnFocus={false}
-              />
-              <Input
-                style={{ marginLeft: 8, backgroundColor: colors.fundo }}
-                value={endereco.estado}
-                placeholder="Estado"
-                placeholderTextColor="#403e66"
-                ref={inputEstado}
-                editable={false}
-                selectTextOnFocus={false}
               />
             </ContainerFormulario>
             <Passos cor1={true} cor2={true} />

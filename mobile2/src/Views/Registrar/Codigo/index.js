@@ -8,6 +8,7 @@ import {
   Image,
   Keyboard,
   YellowBox,
+  Alert
 } from "react-native";
 
 import Container from "../../../Components/Container";
@@ -89,7 +90,8 @@ const Codigo = ({ navigation, route }) => {
     ]).start();
   }
 
-  // const pacienteId = route.params;
+  const pacienteId = route.params.id;
+  const token = route.params.token;
 
   const { height, width } = Dimensions.get("window");
 
@@ -122,34 +124,39 @@ const Codigo = ({ navigation, route }) => {
     setCodigoLength(tamanho);
   };
 
-  // const verificarCodigo = async () => {
-  //   try {
-  //     const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, {
-  //       codigo,
-  //     });
+  const verificarCodigo = async () => {
+    try {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-  //     if (retorno) {
-  //       return true;
-  //     }
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.warn("Deu ruim");
-  //     }
-  //   }
-  // };
+      const retorno = await api.post(`/paciente/${pacienteId}/validacao-sms`, {
+        codigo,
+      });
+
+      if (retorno) {
+        return true;
+      }
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      }
+    }
+  };
 
   const navegarFoto = async () => {
     if ((await verificarCodigo()) == true) {
-      navigation.navigate("RegistrarFoto");
+      navigation.navigate("RegistrarFoto", {
+        id: pacienteId,
+        token
+      });
     } else {
-      console.warn("Código inválido");
+      Alert.alert("Código inválido");
     }
   };
 
   return (
     <Container>
       <ContainerImgCodigo>
-      <Animated.Image
+        <Animated.Image
           source={require("../../../Assets/codigoVerificado.png")}
           style={{
             width: img.x,
@@ -207,10 +214,10 @@ const Codigo = ({ navigation, route }) => {
                 }}
               >
                 Não recebi o código no número{" "}
-                <Text style={{ color: "#0095C5" }}>(11)96368-8640</Text>
+                <Text style={{ color: "#0095C5" }}>(11)96368-86410</Text>
               </Text>
             </ContainerFormularioCodigo>
-            <Passos cor1={true} cor2={true} cor3={true} cor4={true} />
+            <Passos cor1={true} cor2={true} cor3={true} cor4={true} cor5={true} />
             <ContainerBotao>
               <Botao
                 title="Verificar"

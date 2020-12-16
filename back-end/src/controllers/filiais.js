@@ -3,10 +3,13 @@ const EnderecoFilial = require("../models/EnderecoFilial");
 const TelefoneFilial = require("../models/TelefoneFilial");
 const Servico = require("../models/Servico");
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Cidade = require("../models/Cidade");
 const Estado = require("../models/Estado");
 =======
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
 const enderecoFilial = require("./enderecoFilial");
 
 module.exports = {
@@ -15,19 +18,26 @@ module.exports = {
 
         const { servicos, endereco, telefones, ...dados } = req.body;
 
-        // celebrate
+        const { idCentral, tipoPerfil } = req;
+
+        // if (tipoPerfil !== "admin") {
+        //     return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        // }
+
         if (endereco && telefones && dados && servicos) {
             try {
 
                 let filialCriado = await Filial.findOne({
                     where: {
-                        nome: dados.nome
+                        cnpj: dados.cnpj,
+                        ie: dados.ie,
+                        nomeFantasia: dados.nomeFantasia
 
                     }
                 });
 
                 if (filialCriado) {
-                    return res.status(400).send("Essa filial já está cadastrado");
+                    return res.status(400).send({ erro: "Essa filial já está cadastrado" });
 
                 }
 
@@ -42,7 +52,8 @@ module.exports = {
                 return res.status(201).send(filialCriado);
 
             } catch (error) {
-                return res.status(404).send({ erro: "Falha na criação do serviço" });
+                console.log(error);
+                return res.status(404).send({ erro: "Falha na criação da filial" });
 
             }
         }
@@ -66,6 +77,7 @@ module.exports = {
                     {
                         model: EnderecoFilial,
 <<<<<<< HEAD
+<<<<<<< HEAD
                         include: [
                             {
                                 model: Cidade,
@@ -79,9 +91,11 @@ module.exports = {
                         ],
 =======
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
                         attributes: [
                             "id", "rua", "bairro", "numero",
-                            "complemento", "cep"
+                            "complemento", "cep", "cidade", "estado"
                         ]
 
                     },
@@ -90,8 +104,6 @@ module.exports = {
                         attributes: ["id", "numero"]
                     }
                 ],
-
-                attributes: ["id", "nome", "horarioFuncionamento"]
 
             });
 
@@ -118,6 +130,7 @@ module.exports = {
                     {
                         model: EnderecoFilial,
 <<<<<<< HEAD
+<<<<<<< HEAD
                         include: [
                             {
                                 model: Cidade,
@@ -131,9 +144,10 @@ module.exports = {
                         ],
 =======
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
                         attributes: [
-                            "id", "rua", "bairro", "numero",
-                            "complemento", "cep"
+                            "id", "rua", "estado", "cidade", "cep", "numero"
                         ]
 
                     },
@@ -143,7 +157,7 @@ module.exports = {
                     }
                 ],
 
-                attributes: ["id", "nome", "horarioFuncionamento"]
+                attributes: ["id", "nomeFantasia"],
             });
 
             return res.status(200).send(filialTodos);
@@ -155,6 +169,12 @@ module.exports = {
     },
 
     async deletar(req, res) {
+
+        const { idCentral, tipoPerfil } = req;
+
+        if (tipoPerfil !== "admin") {
+            return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        }
 
         const { id } = req.params;
 
@@ -178,6 +198,12 @@ module.exports = {
 
     async atualizar(req, res) {
 
+        const { idCentral, tipoPerfil } = req;
+
+        // if (tipoPerfil !== "admin") {
+        //     return res.status(401).send({ error: "Você não possui autorização para esta ação!!" })
+        // }
+
         const { id } = req.params;
 
         try {
@@ -187,27 +213,28 @@ module.exports = {
 
                 const { servicos, endereco, telefones, ...dados } = req.body;
 
-                const enderecoAtualizado = await enderecoFilial.atualizar(endereco, endereco.id);
-
-                if (enderecoAtualizado[0] === 1) {
-
-                    const telefonesBanco = await filialBuscado.getTelefoneFilials();
-
-                    // Apagando todos os telefones
-                    telefonesBanco.forEach(telefone => telefone.destroy());
-
-                    // Cadastrando todos os telefones
-                    telefones.forEach(numero => filialBuscado.createTelefoneFilial({ numero: numero }));
-
-                    filialBuscado.update(dados);
-
-                    filialBuscado.setServicos(servicos);
-
-                    res.status(200).send("Filial atualizada");
+                if (endereco) {
+                    await enderecoFilial.atualizar(endereco, endereco.id);
 
                 }
 
-                res.status(200).send("Endereco inválido, ajuste o ID");
+                if (telefones) {
+
+                    const telefonesBanco = await filialBuscado.getTelefoneFilials();
+
+                    telefonesBanco.forEach(telefone => telefone.destroy());
+
+                    telefones.forEach(numero => filialBuscado.createTelefoneFilial({ numero: numero }));
+                }
+
+                if (servicos) {
+                    filialBuscado.setServicos(servicos);
+
+                }
+
+                filialBuscado.update(dados);
+
+                return res.status(200).send("Filial atualizada");
 
             }
 
@@ -216,7 +243,84 @@ module.exports = {
 
 
         } catch (error) {
+            console.log(error);
             res.status(404).send({ erro: "Filial não encontrada" });
+        }
+    },
+
+    async verificarCnpj(req, res) {
+
+        const { cnpj } = req.body;
+
+        try {
+
+            const filialBuscado = await Filial.findOne({
+                where: {
+                    cnpj
+                },
+                attributes: ["cnpj"]
+            });
+
+            if (filialBuscado) {
+                res.status(200).send("Filial cadastrada");
+
+            } else {
+                res.status(204).send();
+
+            }
+
+        } catch (error) {
+            res.status(404).send({ erro: "Paciente não encontrado ou CNPJ não informado" })
+        }
+    },
+
+    async verificarIe(req, res) {
+        const { ie } = req.body;
+
+        try {
+
+            const filialBuscado = await Filial.findOne({
+                where: {
+                    ie
+                },
+                attributes: ["ie"]
+            });
+
+            if (filialBuscado) {
+                res.status(200).send("Filial cadastrada");
+
+            } else {
+                res.status(204).send();
+
+            }
+
+        } catch (error) {
+            res.status(404).send({ erro: "Paciente não encontrado ou IE não informado" })
+        }
+    },
+
+    async verificarNomeFantasia(req, res) {
+        const { nomeFantasia } = req.body;
+
+        try {
+
+            const filialBuscado = await Filial.findOne({
+                where: {
+                    nomeFantasia
+                },
+                attributes: ["nomeFantasia"]
+            });
+
+            if (filialBuscado) {
+                res.status(200).send("Filial cadastrada");
+
+            } else {
+                res.status(204).send();
+
+            }
+
+        } catch (error) {
+            res.status(404).send({ erro: "Paciente não encontrado ou NOME FANTASIA não informado" })
         }
     }
 }
