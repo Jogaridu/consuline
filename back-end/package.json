@@ -1,6 +1,7 @@
 {
   "name": "consuline-back-end",
   "version": "1.0.0",
+  "engines" : { "node" : ">=0.12"},
   "description": "Projeto Final TCC",
   "main": "index.js",
   "scripts": {
