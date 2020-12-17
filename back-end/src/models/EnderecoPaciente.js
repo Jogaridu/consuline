@@ -21,6 +21,9 @@ class EnderecoPaciente extends Model {
 
   static associate(models) {
 <<<<<<< HEAD
+    this.hasOne(models.Paciente);
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
     this.belongsTo(models.Cidade, { foreignKey: "idCidade" });
     this.belongsTo(models.Estado, { foreignKey: "idEstado" });
@@ -31,6 +34,7 @@ class EnderecoPaciente extends Model {
 =======
     this.hasOne(models.Paciente);
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
   }
 }
 

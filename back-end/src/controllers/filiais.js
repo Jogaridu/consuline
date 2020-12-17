@@ -3,6 +3,8 @@ const EnderecoFilial = require("../models/EnderecoFilial");
 const TelefoneFilial = require("../models/TelefoneFilial");
 const Servico = require("../models/Servico");
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Cidade = require("../models/Cidade");
 const Estado = require("../models/Estado");
@@ -10,6 +12,7 @@ const Estado = require("../models/Estado");
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
 =======
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 const enderecoFilial = require("./enderecoFilial");
 
 module.exports = {
@@ -77,6 +80,8 @@ module.exports = {
                     {
                         model: EnderecoFilial,
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
                         include: [
                             {
@@ -93,6 +98,7 @@ module.exports = {
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
 =======
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
                         attributes: [
                             "id", "rua", "bairro", "numero",
                             "complemento", "cep", "cidade", "estado"
@@ -130,6 +136,8 @@ module.exports = {
                     {
                         model: EnderecoFilial,
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
                         include: [
                             {
@@ -146,6 +154,7 @@ module.exports = {
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
 =======
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
                         attributes: [
                             "id", "rua", "estado", "cidade", "cep", "numero"
                         ]

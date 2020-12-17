@@ -1,9 +1,12 @@
 const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 const TelefoneProfissional = require("../models/TelefoneProfissional");
 
 module.exports = {
@@ -122,6 +125,8 @@ module.exports = {
       return 400;
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 const TelefoneProfissionalDaSaude = require("../models/TelefoneProfissional");
 
 module.exports = {
@@ -155,6 +160,7 @@ module.exports = {
 >>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
 =======
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
     }
   },
 };

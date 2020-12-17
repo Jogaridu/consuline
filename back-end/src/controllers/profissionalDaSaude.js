@@ -2,6 +2,11 @@ const { Op } = require("sequelize");
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
 <<<<<<< HEAD
+const telefoneProfissionalController = require("./telefoneProfissionalDaSaude");
+const Filial = require("../models/Filial");
+const Servico = require("../models/Servico");
+=======
+<<<<<<< HEAD
 const enderecoProfissionalDaSaudeController = require("./enderecoProfissionalDaSaude");
 const telefoneProfissionalController = require("./TelefoneProfissionalDaSaude");
 =======
@@ -9,6 +14,7 @@ const telefoneProfissionalController = require("./telefoneProfissionalDaSaude");
 const Filial = require("../models/Filial");
 const Servico = require("../models/Servico");
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../config/auth.json");
@@ -16,6 +22,8 @@ const TelefoneProfissional = require("../models/TelefoneProfissional");
 const { mediaAvaliacaoMedico } = require("./avaliacao");
 
 module.exports = {
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
   async cadastrar(req, res) {
     const {
@@ -297,6 +305,7 @@ module.exports = {
     res.status(200).send({ profissional });
   },
 =======
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
     async cadastrar(req, res) {
         const { idCentral, tipoPerfil } = req;
 
@@ -750,5 +759,8 @@ module.exports = {
                 .send({ erro: "Profissional não encontrado ou CPF não informado" });
         }
     },
+<<<<<<< HEAD
+=======
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 };

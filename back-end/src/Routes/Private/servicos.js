@@ -5,6 +5,12 @@ const routes = express.Router();
 const controllerServico = require("../../controllers/servicos");
 
 <<<<<<< HEAD
+const Multer = require("../../fixtures/manipulacaoForm");
+const enviarArquivos = require("../../services/firebase");
+
+const autorizacaoMid = require("../../middlewares/autorizacao");
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 routes.post("/servicos", controllerServico.cadastrar);
 =======
@@ -19,6 +25,7 @@ const enviarArquivos = require("../../services/firebase");
 =======
 const autorizacaoMid = require("../../middlewares/autorizacao");
 >>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 
 routes.post("/servico",
     autorizacaoMid,
