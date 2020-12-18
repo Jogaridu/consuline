@@ -1,12 +1,20 @@
 module.exports = {
   url:
     process.env.DATABASE_URL ||
-    "mysql://root:bd137@localhost:3306/bdconsuline",
-
-    //"postgres://lwcpkhvgmfysyc:9cf71c6356db552342496bd7cb3abf4c5016a09b682476ea0fc20c3c5881474d@ec2-3-218-123-191.compute-1.amazonaws.com:5432/d131i294ftrbv3",
+<<<<<<< HEAD
+    "mysql://root:bcd127@localhost:3306/bdconsuline",
 
   config: {
     dialect: "postgres",
+  //   dialectOptions: {
+  //     ssl: true
+  // },
+=======
+    "postgres://postgres:bcd127@localhost:5432/bdconsuline",
+
+  config: {
+    dialect: "postgres",
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
     logging: console.log,
     define: {
       timestamp: true,

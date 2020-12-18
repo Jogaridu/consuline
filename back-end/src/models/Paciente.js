@@ -24,6 +24,20 @@ class Paciente extends Model {
   }
 
   static associate(models) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    this.belongsTo(models.EnderecoPaciente, {
+      foreignKey: "EnderecoPacienteId",
+    });
+    this.belongsTo(models.PlanoDeSaude, { foreignKey: "PlanoDeSaudeId" });
+=======
+    this.belongsTo(models.EnderecoPaciente);
+    this.belongsTo(models.PlanoDeSaude);
+>>>>>>> c4cf7c49dfe3af7538d5e38a9fcc10f292694ca1
+=======
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
     this.belongsTo(models.EnderecoPaciente);
     this.belongsTo(models.PlanoDeSaude);
     this.hasMany(models.Consulta, {
@@ -38,6 +52,10 @@ class Paciente extends Model {
       foreignKey: "PacienteId"
     })
 
+<<<<<<< HEAD
+=======
+>>>>>>> 94ae0017559ec3111deb5af277847d1f9422693b
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
   }
 }
 

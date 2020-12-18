@@ -12,8 +12,17 @@ const Cobertura = require("../models/Cobertura");
 // Profissional da saúde
 const ProfissionalDaSaude = require("../models/ProfissionalDaSaude");
 const EnderecoProfissionalDaSaude = require("../models/EnderecoProfissionalDaSaude");
+<<<<<<< HEAD
 const TelefoneProfissionalDaSaude = require("../models/TelefoneProfissional");
 
+=======
+
+const TelefoneProfissional = require("../models/TelefoneProfissional");
+
+const TelefoneProfissionalDaSaude = require("../models/TelefoneProfissional");
+
+
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 // Filial
 const Filial = require("../models/Filial");
 const EnderecoFilial = require("../models/EnderecoFilial");
@@ -41,8 +50,13 @@ const Pagamento = require("../models/Pagamento");
 //Notificação
 const Notificacao = require("../models/Notificacao");
 
+<<<<<<< HEAD
 const conexao = new Sequelize(dbConfig.url, dbConfig.config);
  
+=======
+const conexao = new Sequelize(dbConfig.url, dbConfig.config);
+
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 // ----- INICIALIZAÇÃO -----
 
 //Paciente
@@ -54,7 +68,16 @@ Cobertura.init(conexao);
 // Profissional da saúde
 ProfissionalDaSaude.init(conexao);
 EnderecoProfissionalDaSaude.init(conexao);
+<<<<<<< HEAD
 TelefoneProfissionalDaSaude.init(conexao);
+=======
+
+TelefoneProfissional.init(conexao);
+
+TelefoneProfissionalDaSaude.init(conexao);
+
+
+>>>>>>> afc168bcd886ec11bf0b5938289e559842930d20
 // Filial
 Filial.init(conexao);
 EnderecoFilial.init(conexao);
