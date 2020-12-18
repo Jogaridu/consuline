@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import './style.css';
 import '../../../Styles/globalStyle.css'
 import medicoteste from '../../../Assets/medicoteste.png'
+import jorge from '../../../Assets/jorge.jpeg'
+
 
 import Rating from '@material-ui/lab/Rating';
 import api from '../../../Services/api';
@@ -14,7 +16,7 @@ const CardAvaliacao = ({avaliacao}) => {
             <div className="data-avaliacao">
                 04/09
             </div>
-            <img id="medicoteste-1" src={medicoteste} alt="Imagem de teste"/>
+            <img id="fotocard" src={avaliacao.Paciente.foto} alt="Imagem de teste"/>
             <div className="nome-paciente-avaliacao">
                 {avaliacao.Paciente.nome}
             </div>

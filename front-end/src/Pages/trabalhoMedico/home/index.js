@@ -11,6 +11,9 @@ import '../../../Styles/globalStyle.css'
 
 import supermedico from '../../../Assets/supermedico.png'
 import medicoteste from '../../../Assets/medicoteste.png'
+import jorge from '../../../Assets/jorge.jpeg'
+import pessoa from '../../../Assets/pessoa.jpg'
+
 
 import api from '../../../Services/api'
 import { getProfissional } from "../../../Services/security"
@@ -19,7 +22,7 @@ const CardConsulta = ({ consulta }) => {
     return (
         <div className="card-previa">
             <div className="foto-previa-card">
-                <img id="medicoteste" src={medicoteste} alt="Logoteste" />
+                <img id="fotocard" src={consulta.Paciente.foto} alt="Logoteste" />
             </div>
             <div className="nome-previa-card">
                 {consulta.Paciente.nome}
@@ -44,7 +47,7 @@ const ResumoAvaliacao = ({avaliacao}) => {
         <div className="card-ratingbar">
             <div className="img-cliente-avaliador">
                 <div className="caixa-ajuste-medico">
-                    <img id="medicoteste1" src={medicoteste} alt="" />
+                    <img id="medicoteste1" src={avaliacao.Paciente.foto} alt="" />
                 </div>
             </div>
             <div className="nome-cliente-avaliador">
@@ -129,8 +132,9 @@ function HomeConsulta() {
                     <h1>Consultas para hoje:</h1>
                 </div>
                 <div className="card-previa-consulta">
-                    {consulta.map((consulta) => (
-                        <CardConsulta consulta={consulta} />))}
+                    {consulta.map((consulta, i) => {
+                        if(i >= 3) return 
+                        return <CardConsulta consulta={consulta} />})}
                 </div>
                 <div className="mais-consulta">
                     Mais Consultas +
@@ -139,7 +143,7 @@ function HomeConsulta() {
             <div id="informacoes-consultas">
                 <div className="previa-perfil-medico">
                     <div className="img-perfil-medico-previa">
-                        <img id="medicoteste" src={medicoteste} alt="Logoteste" />
+                        <img id="fotocard" src={medicoSessao.imagem} alt="Logoteste" />
                     </div>
                     <div className="nome-perfil-medico-previa">
                         {medicoSessao.nome}
@@ -153,7 +157,7 @@ function HomeConsulta() {
                         Agendadas
                     </div>
                     <div className="txtcontagemprevia-perfil-medico">
-                        1
+                        3
                     </div>
                 </div>
                 <div className="informacoes-totalconsulta-medico">

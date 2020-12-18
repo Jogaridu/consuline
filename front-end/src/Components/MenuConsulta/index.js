@@ -20,7 +20,7 @@ function MenuConsulta(){
                 ConsuLine
             </div>
             <div id="foto-menu-consulta">
-                <img id="medicoteste" src={medicoteste} alt="Imagem de teste" />
+                <img id="fotocard" src={medicoSessao.imagem} alt="Imagem de teste" />
             </div>
             <div id="nome-menu-consulta">
                 {medicoSessao.nome}

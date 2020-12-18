@@ -5,6 +5,7 @@ import '../../../Styles/globalStyle.css'
 import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
 import medicoteste from '../../../Assets/medicoteste.png'
+import pessoa from '../../../Assets/pessoa.jpg'
 
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -52,7 +53,7 @@ const CardAgendado = ({ agendadas }) => {
                 <div className="paciente-agendamento">
                     <div className="dados-paciente-agendado">
                         <div className="img-paciente-agendado">
-                        <img id="imgpaciente-teste-agendado" src={medicoteste} alt="Logoteste" /> 
+                        <img id="imgpaciente-teste-agendado" src={agendadas.Paciente.foto} alt="Logoteste" /> 
 
                         </div>
                         <div className="nome-paciente-agendado">
@@ -111,8 +112,10 @@ function Agendadas () {
                     Paciente
                 </div>
             </div>
-            {agendadas.map((agendadas) => (
-                <CardAgendado agendadas={agendadas} />))}
+
+                 {agendadas.map((agendadas, i) => {
+                        if(i >= 3) return 
+                        return <CardAgendado agendadas={agendadas} />})}
         </div>
      </div>
     );

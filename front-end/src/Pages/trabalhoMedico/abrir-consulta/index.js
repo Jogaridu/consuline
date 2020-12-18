@@ -4,6 +4,7 @@ import api from '../../../Services/api';
 import './style.css';
 import '../../../Styles/globalStyle.css'
 import medicoteste from '../../../Assets/medicoteste.png'
+import nicolas from '../../../Assets/nicolas.jpeg'
 import relogio from '../../../Assets/relogio.png'
 import calendario from '../../../Assets/calendario.png'
 import { Link, useParams } from 'react-router-dom';
@@ -22,6 +23,13 @@ function AbrirConsulta () {
             try {
                 const retorno = await api.get(`/consulta/${id}`);
                 console.log(retorno.data)
+
+                // try {
+                //     const retornoAtendida = await api.post(`/consulta/${id}/atendida`);
+                // } catch (error) {
+                //     console.log(error.data.response);
+                // }
+                
                 setConsulta(retorno.data);
             } catch (error) {
                 console.log(error);
@@ -46,7 +54,7 @@ function AbrirConsulta () {
         <div className="card-consulta-aberta">
             <div className="dadospaciente">
                 <div className="imagem-paciente-consulta">
-                    <img id="imgpaciente-teste" src={medicoteste} alt="Logoteste" /> 
+                    <img id="imgpaciente-teste" src={consulta.Paciente?.foto} alt="Logoteste" /> 
                 </div>
                 <div className="nome-endereco-paciente-consulta">
                     <div className="nome-paciente-consulta">
@@ -94,7 +102,7 @@ function AbrirConsulta () {
                 </div>
             </div>
             <div className="btn-realizar-consulta">     
-            <a href={`http://wa.me/${consulta.Paciente?.celular}`}>
+            <a href={`http://wa.me/${consulta.Paciente?.celular}`} target="_blank">
                 <BotaoPrincipal titulo="Realiza consulta"  tipo="submit" loading={true} /> 
             </a>                 
             </div>
